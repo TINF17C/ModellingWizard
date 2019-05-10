@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{10E1A26F-1F33-478A-84A3-BF59710893C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aml.Editor.Plugin</RootNamespace>
+    <AssemblyName>ModellingWizard</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\Plugins\ModellingWizard\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\Plugins\ModellingWizard\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AML.Editor.PluginContracts, Version=2.1.0.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Editor.Plugin.Contract.2.1.0\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AML.Engine, Version=1.1.1.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.1.1\lib\net47\AML.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="AML.Engine.Services, Version=1.1.1.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.1.1\lib\net47\AML.Engine.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Gsd2Aml.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Gsd2Aml.Lib.0.9.0-beta\lib\net47\Gsd2Aml.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StartGUI.Designer.cs">
+      <DependentUpon>StartGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MWDevice.cs" />
+    <Compile Include="MWInterface.cs" />
+    <Compile Include="ModellingWizard.xaml.cs">
+      <DependentUpon>ModellingWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateInterface.Designer.cs">
+      <DependentUpon>CreateInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDevice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateDevice.Designer.cs">
+      <DependentUpon>CreateDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MWController.cs" />
+    <Compile Include="MWData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ModellingWizard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AMLPlugin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StartGUI.resx">
+      <DependentUpon>StartGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateInterface.resx">
+      <DependentUpon>CreateInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDevice.resx">
+      <DependentUpon>CreateDevice.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gsd2aml.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
