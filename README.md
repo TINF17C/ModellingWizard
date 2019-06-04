@@ -10,6 +10,11 @@ This project was developed as a student project at the [Cooperative State Univer
 * Joukhadar, Abdulkarim
 * Wandel, Simon
 
+## Missing Labels and Text
+Due to a bug in the window manager of the AMLEditor if you are using the theme "Metro Light" the text and icon will not be visible on startup.
+To fix this, simply select another theme using "View" > "Change Theme".
+(See also this [issue](https://github.com/TINF17C/ModellingWizard/issues/9))
+
 # AML Devices Format
 The Plugin creates Devices with the following DeviceIdentification InternalElement:
 ```xml
