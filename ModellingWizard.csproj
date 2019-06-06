@@ -44,7 +44,7 @@
       <HintPath>packages\Aml.Engine.1.1.1\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
     <Reference Include="Gsd2Aml.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Gsd2Aml.Lib.0.9.0-beta\lib\net47\Gsd2Aml.Lib.dll</HintPath>
+      <HintPath>packages\Gsd2Aml.Lib.1.0.0\lib\net47\Gsd2Aml.Lib.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore">
       <Private>True</Private>
