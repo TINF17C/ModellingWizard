@@ -137,9 +137,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="AMLPlugin.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="StartGUI.resx">
       <DependentUpon>StartGUI.cs</DependentUpon>
     </EmbeddedResource>
