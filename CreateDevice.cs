@@ -56,7 +56,7 @@ namespace Aml.Editor.Plugin
             // Check if there was an input in this field, if so: try to convert it to integer
             if (!String.IsNullOrWhiteSpace(txtVendorId.Text))
             {
-                try { device.vendorID = Convert.ToInt32(txtVendorId.Text); } catch (Exception) { MessageBox.Show("Vendor ID is in an invalid format (Expected only numbers)! Ignoring!"); }
+                try { device.vendorID = Convert.ToInt32(txtVendorId.Text); } catch (Exception) { MessageBox.Show("Warning: Vendor ID must be number.\n please correct input"); }
             }
             // Check if there was an input in this field, if so: try to convert it to integer
             if (!String.IsNullOrWhiteSpace(txtDeviceId.Text))

@@ -499,7 +499,7 @@ namespace Aml.Editor.Plugin
             }
             else
             {
-                return "Sucessfully created device!\nFilepath " + amlFilePath;
+                return "Device description file created!\nFilepath " + amlFilePath;
             }
         }
 
