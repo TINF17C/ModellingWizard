@@ -253,5 +253,59 @@ namespace Aml.Editor.Plugin
             devicePicturePath = openDevicePictureDialog.FileName;
         }
 
+        private void CreateDevice_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MachineVisionAndOpticalDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStripButton1_Click(object sender, EventArgs e)
+        {
+            mWController.ChangeGui(MWController.MWGUIType.Start);
+        }
+
+        private void MenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectTab(tabPage2);
+        }
+
+        private void SensorInterfaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void MechanicalDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ToolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            tabControl2.SelectTab(tabPage1);
+        }
+
+        private void MechanicalDataToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            tabControl2.SelectTab(tabPage2);
+        }
+
+        private void ElectricalDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectTab(tabPage3);
+        }
     }
 }
