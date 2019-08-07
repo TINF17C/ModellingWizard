@@ -1,11 +1,18 @@
-﻿using System;
+﻿using Aml.Editor.Plugin.Properties;
+using System;
 using System.Windows.Forms;
+using System.Data;
+using System.Text;
+using System.Drawing;
+using System.Collections.Generic;
+
 
 namespace Aml.Editor.Plugin
 {
     public partial class CreateDevice
         : UserControl
     {
+       
         // Controller class to pass the data to
         MWController mWController;
 
@@ -273,10 +280,7 @@ namespace Aml.Editor.Plugin
 
         }
 
-        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            tabControl2.SelectTab(tabPage2);
-        }
+       
 
         private void SensorInterfaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -298,14 +302,373 @@ namespace Aml.Editor.Plugin
             tabControl2.SelectTab(tabPage1);
         }
 
-        private void MechanicalDataToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            tabControl2.SelectTab(tabPage2);
-        }
+        
 
         private void ElectricalDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            tabControl2.SelectTab(tabPage4);
+        }
+
+        private void VScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+           
+        }
+
+        private void MaterialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             tabControl2.SelectTab(tabPage3);
         }
+   
+        private void BackBtn_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CreateDeviceBtn_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            menuStrip1.Select();
+        }
+
+        private void TxtDeviceName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStrip4_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void ToolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void TabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            if (panel5.Size == panel5.MaximumSize)
+            {
+                panel5.Size = panel5.MinimumSize;
+                button6.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel5.Size = panel5.MaximumSize;
+                button6.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            if (panel7.Size == panel7.MaximumSize)
+            {
+                panel7.Size = panel7.MinimumSize;
+                button7.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel7.Size = panel7.MaximumSize;
+                button7.Image = Resources.icons8_collapse_arrow_24;
+            }
+
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+            if (panel8.Size == panel8.MaximumSize)
+            {
+                panel8.Size = panel8.MinimumSize;
+                button8.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel8.Size = panel8.MaximumSize;
+                button8.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void TextBox19_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TableLayoutPanel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (panel10.Size == panel10.MaximumSize)
+            {
+                panel10.Size = panel10.MinimumSize;
+                button1.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel10.Size = panel10.MaximumSize;
+                button1.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void Button10_Click(object sender, EventArgs e)
+        {
+            if (panel14.Size == panel14.MaximumSize)
+            {
+                panel14.Size = panel14.MinimumSize;
+                button10.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel14.Size = panel14.MaximumSize;
+                button10.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            if (panel24.Size == panel24.MaximumSize)
+            {
+                panel24.Size = panel24.MinimumSize;
+                button2.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel24.Size = panel24.MaximumSize;
+                button2.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void TextBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        
+
+        private void SaveToolStripButton_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.OpenFile();
+        }
+
+        private void Panel28_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button3_Click_1(object sender, EventArgs e)
+        {
+            if (panel27.Size == panel27.MaximumSize)
+            {
+                panel27.Size = panel27.MinimumSize;
+                button3.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel27.Size = panel27.MaximumSize;
+                button3.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void Button32_Click(object sender, EventArgs e)
+        {
+            if (panel28.Size == panel28.MaximumSize)
+            {
+                panel28.Size = panel28.MinimumSize;
+                button32.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel28.Size = panel28.MaximumSize;
+                button32.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        private void Button33_Click(object sender, EventArgs e)
+        {
+            if (panel29.Size == panel29.MaximumSize)
+            {
+                panel29.Size = panel29.MinimumSize;
+                button33.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panel29.Size = panel29.MaximumSize;
+                button33.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+
+        
+       
+      
+
+        private void AddSemanticSystems_Click(object sender, EventArgs e)
+        {
+
+            if(semanticSystemCmbx.Text == "eClass")
+            {
+
+               /* Datatables productDetails = new Datatables();
+                DataTable createProductDetailsdatatable = productDetails.ThreeParametersdatatable();
+
+
+                CommercialDataDictionary productDetailsDictionary = new CommercialDataDictionary();
+                Dictionary<int, Parameters> productDetailsDictionaryParameters = productDetailsDictionary.ProductDetails();
+
+                productDetails.CreateParameter(productDetailsDictionaryParameters, createProductDetailsdatatable, dataGridViewPD);
+
+                semanticSystemdrpdwn.DropDownItems.Add(semanticSystemCmbx.Text);*/
+                    
+                    Datatables a = new Datatables();
+                    DataTable b = a.ThreeParametersdatatable();
+                
+
+                    DictionaryeClass n = new DictionaryeClass();
+                    Dictionary<int, Parameters> IDP = n.eClassIdentificationdataParameters();
+
+                    a.CreateParameter(IDP,b,dataGridViewIDT);
+
+                    
+                   /* DataTable ProductDetailsdatatable = new DataTable();
+                    ProductDetailsdatatable.Columns.Add("ReferenceID");
+                    ProductDetailsdatatable.Columns.Add("Attribute");
+                    ProductDetailsdatatable.Columns.Add("Value");
+                   CommercialDataDictionary p = new CommercialDataDictionary();
+                    Dictionary<int, Parameters> PDP = p.ProductDetails();
+
+                    // Foreach loop for looping every parameters in the Dictionary
+                    foreach (KeyValuePair<int, Parameters> eClassKeyValuePair in PDP)
+                    {
+                        Parameters par = eClassKeyValuePair.Value;
+
+                        DataRow row = ProductDetailsdatatable.NewRow();
+
+                        row["ReferenceID"] = par.RefSemanticPrefix;
+                        row["Attribute"] = par.Parameter;
+                        row["Value"] = "";
+                        ProductDetailsdatatable.Rows.Add(row);
+
+                    }
+                    // For each loop creating the rows in the data table 
+                    foreach (DataRow IDT in ProductDetailsdatatable.Rows)
+                    {
+                        int num = dataGridViewPD.Rows.Add();
+                        dataGridViewPD.Rows[num].Cells[0].Value = IDT["ReferenceID"].ToString();
+                        dataGridViewPD.Rows[num].Cells[1].Value = IDT["Attribute"].ToString();
+                        dataGridViewPD.Rows[num].Cells[2].Value = IDT["Value"].ToString();
+                    }*/
+
+                               
+
+            }
+            if (semanticSystemCmbx.Text == "IRDI")
+            {
+                semanticSystemdrpdwn.DropDownItems.Add(semanticSystemCmbx.Text);
+                Datatables a = new Datatables();
+                DataTable b = a.ThreeParametersdatatable();
+
+                DictionaryIRDI n = new DictionaryIRDI();
+                Dictionary<int, Parameters> IDP = n.IRDIIdentificationdata();
+
+                // Foreach loop for looping every parameters in the Dictionary
+                foreach (KeyValuePair<int, Parameters> eClassKeyValuePair in IDP)
+                {
+                    Parameters par = eClassKeyValuePair.Value;
+
+                    DataRow row = b.NewRow();
+
+                    row["ReferenceID"] = par.RefSemanticPrefix;
+                    row["Attribute"] = par.Parameter;
+                    row["Value"] = "";
+                    b.Rows.Add(row);
+
+
+
+                }
+                // For each loop creating the rows in the data table 
+                foreach (DataRow IDT in b.Rows)
+                {
+                    int num = dataGridViewIDT.Rows.Add();
+                    dataGridViewIDT.Rows[num].Cells[0].Value = IDT["ReferenceID"].ToString();
+                    dataGridViewIDT.Rows[num].Cells[1].Value = IDT["Attribute"].ToString();
+                    dataGridViewIDT.Rows[num].Cells[2].Value = IDT["Value"].ToString();
+
+                }
+            }
+        }
+
+        private void ToolStripButton3_Click(object sender, EventArgs e)
+        {
+            semanticSystemCmbx.Text = "";
+            classificationSystemTextBox.Text = "";
+            versionTextBox.Text = "";
+            dataGridViewIDT.Rows.Clear();
+            dataGridViewPD.Rows.Clear();
+            dataGridViewElectricalConnection.Rows.Clear();
+        }
+
+        private void Panel32_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ToolStripButton6_Click(object sender, EventArgs e)
+        {
+            dataGridViewIDT.Rows.Clear(); 
+        }
+
+        private void SemanticSystemCmbx_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+   
+
+
+
 }
+
+

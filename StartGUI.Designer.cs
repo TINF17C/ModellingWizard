@@ -38,24 +38,26 @@
             this.importGSDFileBtn = new System.Windows.Forms.Button();
             this.editFileBtn = new System.Windows.Forms.Button();
             this.openEditDialog = new System.Windows.Forms.OpenFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(172, 0);
+            this.label1.Location = new System.Drawing.Point(30, 38);
             this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 50, 0, 0);
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(240, 70);
+            this.label1.Size = new System.Drawing.Size(240, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Modelling Wizard for Devices";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // createDeviceBtn
             // 
             this.createDeviceBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.createDeviceBtn.Location = new System.Drawing.Point(200, 137);
+            this.createDeviceBtn.Location = new System.Drawing.Point(73, 111);
             this.createDeviceBtn.Name = "createDeviceBtn";
             this.createDeviceBtn.Size = new System.Drawing.Size(151, 23);
             this.createDeviceBtn.TabIndex = 1;
@@ -71,7 +73,7 @@
             // createInterfaceBtn
             // 
             this.createInterfaceBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.createInterfaceBtn.Location = new System.Drawing.Point(200, 178);
+            this.createInterfaceBtn.Location = new System.Drawing.Point(73, 152);
             this.createInterfaceBtn.Name = "createInterfaceBtn";
             this.createInterfaceBtn.Size = new System.Drawing.Size(151, 23);
             this.createInterfaceBtn.TabIndex = 2;
@@ -82,7 +84,7 @@
             // importIODDFileBtn
             // 
             this.importIODDFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.importIODDFileBtn.Location = new System.Drawing.Point(200, 266);
+            this.importIODDFileBtn.Location = new System.Drawing.Point(73, 240);
             this.importIODDFileBtn.Name = "importIODDFileBtn";
             this.importIODDFileBtn.Size = new System.Drawing.Size(151, 23);
             this.importIODDFileBtn.TabIndex = 3;
@@ -97,7 +99,7 @@
             this.devicesComboBox.FormattingEnabled = true;
             this.devicesComboBox.Items.AddRange(new object[] {
             "<No created Device>"});
-            this.devicesComboBox.Location = new System.Drawing.Point(200, 398);
+            this.devicesComboBox.Location = new System.Drawing.Point(73, 372);
             this.devicesComboBox.Name = "devicesComboBox";
             this.devicesComboBox.Size = new System.Drawing.Size(151, 21);
             this.devicesComboBox.TabIndex = 5;
@@ -106,7 +108,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 379);
+            this.label2.Location = new System.Drawing.Point(70, 353);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(153, 13);
@@ -116,7 +118,7 @@
             // importGSDFileBtn
             // 
             this.importGSDFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.importGSDFileBtn.Location = new System.Drawing.Point(200, 295);
+            this.importGSDFileBtn.Location = new System.Drawing.Point(73, 269);
             this.importGSDFileBtn.Name = "importGSDFileBtn";
             this.importGSDFileBtn.Size = new System.Drawing.Size(151, 23);
             this.importGSDFileBtn.TabIndex = 4;
@@ -127,7 +129,7 @@
             // editFileBtn
             // 
             this.editFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.editFileBtn.Location = new System.Drawing.Point(199, 442);
+            this.editFileBtn.Location = new System.Drawing.Point(72, 416);
             this.editFileBtn.Name = "editFileBtn";
             this.editFileBtn.Size = new System.Drawing.Size(151, 23);
             this.editFileBtn.TabIndex = 7;
@@ -141,24 +143,34 @@
             this.openEditDialog.Filter = "AMLX File (*.amlx)|*.amlx";
             this.openEditDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openEditDialog_FileOk);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.createDeviceBtn);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.editFileBtn);
+            this.panel1.Controls.Add(this.createInterfaceBtn);
+            this.panel1.Controls.Add(this.importGSDFileBtn);
+            this.panel1.Controls.Add(this.importIODDFileBtn);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.devicesComboBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(300, 554);
+            this.panel1.TabIndex = 8;
+            // 
             // StartGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.editFileBtn);
-            this.Controls.Add(this.importGSDFileBtn);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.devicesComboBox);
-            this.Controls.Add(this.importIODDFileBtn);
-            this.Controls.Add(this.createInterfaceBtn);
-            this.Controls.Add(this.createDeviceBtn);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StartGUI";
-            this.Size = new System.Drawing.Size(556, 554);
+            this.Size = new System.Drawing.Size(304, 554);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -173,5 +185,6 @@
         private System.Windows.Forms.Button importGSDFileBtn;
         private System.Windows.Forms.Button editFileBtn;
         private System.Windows.Forms.OpenFileDialog openEditDialog;
+        private System.Windows.Forms.Panel panel1;
     }
 }

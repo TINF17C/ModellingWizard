@@ -99,6 +99,8 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Datatables.cs" />
+    <Compile Include="Dictionary.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,6 +164,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="gsd2aml.xml" />
+    <None Include="Resources\icons8-abo-kündigen-16.png" />
+    <None Include="Resources\icons8-dienstleistungen-26 %281%29.png" />
+    <None Include="Resources\icons8-liste-hinzufügen-26.png" />
+    <None Include="Resources\icons8-eingekreist-links-2-32.png" />
+    <None Include="Resources\icons8-dateiuntermodul-16.png" />
+    <None Include="Resources\icons8-datei-hinzufügen-161.png" />
+    <None Include="Resources\icons8-stornieren-16.png" />
+    <None Include="Resources\icons8-dateiuntermodul-16 %281%29.png" />
+    <None Include="Resources\icons8-datei-hinzufügen-16.png" />
+    <None Include="Resources\icons8-collapse-arrow-24.png" />
+    <None Include="Resources\icons8-expand-arrow-24.png" />
+    <None Include="Resources\icons8-expand-arrow-30.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,6 +12,7 @@ namespace Aml.Editor.Plugin
         private CreateDevice createDeviceForm;
         private CreateInterface createInterfaceForm;
         private StartGUI startGUI;
+        
 
         // the interface class to the AML Editor
         private ModellingWizard modellingWizard;
@@ -75,6 +76,7 @@ namespace Aml.Editor.Plugin
 
             return startGUI;
         }
+        
 
 
         // OnClickFunktion für CreateDevice
@@ -217,13 +219,15 @@ namespace Aml.Editor.Plugin
                 case MWGUIType.Start:
                     modellingWizard.changeGUI(GetStartGUI());
                     break;
+                
+
             }
         }
 
         /// <summary>
         /// Enum to represent the GUI
         /// </summary>
-        public enum MWGUIType { CreateDevice, CreateInterface, Start }
+        public enum MWGUIType { CreateDevice, CreateInterface, Start, StartGUI02 }
 
         /// <summary>
         /// Call the Converter with the given file
