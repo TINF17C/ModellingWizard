@@ -15,6 +15,7 @@ namespace Aml.Editor.Plugin
        
         // Controller class to pass the data to
         MWController mWController;
+        AnimationClass AMC = new AnimationClass();
 
         // flag if we are creating a new device or editing one
         bool isEditing = false;
@@ -376,48 +377,7 @@ namespace Aml.Editor.Plugin
 
         }
 
-        private void Button6_Click(object sender, EventArgs e)
-        {
-            if (panel5.Size == panel5.MaximumSize)
-            {
-                panel5.Size = panel5.MinimumSize;
-                button6.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel5.Size = panel5.MaximumSize;
-                button6.Image = Resources.icons8_collapse_arrow_24;
-            }
-        }
-
-        private void Button7_Click(object sender, EventArgs e)
-        {
-            if (panel7.Size == panel7.MaximumSize)
-            {
-                panel7.Size = panel7.MinimumSize;
-                button7.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel7.Size = panel7.MaximumSize;
-                button7.Image = Resources.icons8_collapse_arrow_24;
-            }
-
-        }
-
-        private void Button8_Click(object sender, EventArgs e)
-        {
-            if (panel8.Size == panel8.MaximumSize)
-            {
-                panel8.Size = panel8.MinimumSize;
-                button8.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel8.Size = panel8.MaximumSize;
-                button8.Image = Resources.icons8_collapse_arrow_24;
-            }
-        }
+        
 
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
@@ -436,45 +396,17 @@ namespace Aml.Editor.Plugin
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (panel10.Size == panel10.MaximumSize)
-            {
-                panel10.Size = panel10.MinimumSize;
-                button1.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel10.Size = panel10.MaximumSize;
-                button1.Image = Resources.icons8_collapse_arrow_24;
-            }
+           AMC.WindowSizeChanger(panel10,button1);
+          
         }
 
         private void Button10_Click(object sender, EventArgs e)
         {
-            if (panel14.Size == panel14.MaximumSize)
-            {
-                panel14.Size = panel14.MinimumSize;
-                button10.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel14.Size = panel14.MaximumSize;
-                button10.Image = Resources.icons8_collapse_arrow_24;
-            }
+            AMC.WindowSizeChanger(panel14,button10);
+            
         }
 
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            if (panel24.Size == panel24.MaximumSize)
-            {
-                panel24.Size = panel24.MinimumSize;
-                button2.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel24.Size = panel24.MaximumSize;
-                button2.Image = Resources.icons8_collapse_arrow_24;
-            }
-        }
+       
 
         private void TextBox4_TextChanged(object sender, EventArgs e)
         {
@@ -501,44 +433,19 @@ namespace Aml.Editor.Plugin
 
         private void Button3_Click_1(object sender, EventArgs e)
         {
-            if (panel27.Size == panel27.MaximumSize)
-            {
-                panel27.Size = panel27.MinimumSize;
-                button3.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel27.Size = panel27.MaximumSize;
-                button3.Image = Resources.icons8_collapse_arrow_24;
-            }
+            AMC.WindowSizeChanger(panel27,button3);
         }
 
         private void Button32_Click(object sender, EventArgs e)
         {
-            if (panel28.Size == panel28.MaximumSize)
-            {
-                panel28.Size = panel28.MinimumSize;
-                button32.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel28.Size = panel28.MaximumSize;
-                button32.Image = Resources.icons8_collapse_arrow_24;
-            }
+            AMC.WindowSizeChanger(panel28, button32);
+           
         }
 
         private void Button33_Click(object sender, EventArgs e)
         {
-            if (panel29.Size == panel29.MaximumSize)
-            {
-                panel29.Size = panel29.MinimumSize;
-                button33.Image = Resources.icons8_expand_arrow_24;
-            }
-            else
-            {
-                panel29.Size = panel29.MaximumSize;
-                button33.Image = Resources.icons8_collapse_arrow_24;
-            }
+            AMC.WindowSizeChanger(panel29, button33);
+           
         }
 
         
@@ -548,96 +455,70 @@ namespace Aml.Editor.Plugin
         private void AddSemanticSystems_Click(object sender, EventArgs e)
         {
 
-            if(semanticSystemCmbx.Text == "eClass")
+            if (semanticSystemCmbx.SelectedItem != null)
             {
+                // Call "Datatables Class"  from the "Dictionary File/Class" and store in "datatables"
+                Datatables datatables = new Datatables();
+                // Call "ThreeParametersdatatable" method from "Dictionary Class" and store in "datatablesheader" Seperately for PD,POD,PPD,MD
+                DataTable datatableheadersPD = datatables.Parametersdatatable();
+                DataTable datatableheadersPPD = datatables.Parametersdatatable();
+                DataTable datatableheadersPOD = datatables.Parametersdatatable();
+                DataTable datatableheadersMD = datatables.Parametersdatatable();
 
-               /* Datatables productDetails = new Datatables();
-                DataTable createProductDetailsdatatable = productDetails.ThreeParametersdatatable();
+                // Call ""Commercialdatadictionary Class" From "Dictioanry File/Class" and store in "CDD"
+                CommercialDataDictionary CDD = new CommercialDataDictionary();
+                // Call "Product Details" method from "CommercialDataDictionary" and store in "PD"
+                Dictionary<int, Parameters> PD = CDD.ProductDetails();
+
+                // Call "Product Price Details" method from "CommercialDataDictionary" and store in "PPD"
+                Dictionary<int, Parameters> PPD = CDD.ProductPriceDetails();
 
 
-                CommercialDataDictionary productDetailsDictionary = new CommercialDataDictionary();
-                Dictionary<int, Parameters> productDetailsDictionaryParameters = productDetailsDictionary.ProductDetails();
+                // Call "Product Order Details" method from "CommercialDataDictionary" and store in "POD"
+                Dictionary<int, Parameters> POD = CDD.ProductOrderDetails();
 
-                productDetails.CreateParameter(productDetailsDictionaryParameters, createProductDetailsdatatable, dataGridViewPD);
 
-                semanticSystemdrpdwn.DropDownItems.Add(semanticSystemCmbx.Text);*/
+                // Call "Manufacturer Details" method from "CommercialDataDictionary" and store in "MD"
+                Dictionary<int, Parameters> MD = CDD.ManufacturerDetails();
+
+                //
+                datatables.CreateDataTableWith3Columns(PD, datatableheadersPD, dataGridViewPD);
+
+                datatables.CreateDataTableWith3Columns(PPD, datatableheadersPPD, dataGridViewPPD);
+                datatables.CreateDataTableWith3Columns(POD, datatableheadersPOD, dataGridViewPOD);
+                datatables.CreateDataTableWith3Columns(MD, datatableheadersMD, dataGridViewMD);
+                treeViewCH.Nodes.Add("Generic Data");
+
+
+
+                if (semanticSystemCmbx.Text == "eClass")
+                {
+                    treeViewCH.Nodes.Add("Interfaces");
                     
-                    Datatables a = new Datatables();
-                    DataTable b = a.ThreeParametersdatatable();
-                
 
-                    DictionaryeClass n = new DictionaryeClass();
-                    Dictionary<int, Parameters> IDP = n.eClassIdentificationdataParameters();
+                    DataTable datatableheadereClassID = datatables.Parametersdatatable();
 
-                    a.CreateParameter(IDP,b,dataGridViewIDT);
+                    DictionaryeClass DEC = new DictionaryeClass();
+                    Dictionary<int, Parameters> eClassID = DEC.eClassIdentificationdataParameters();
 
-                    
-                   /* DataTable ProductDetailsdatatable = new DataTable();
-                    ProductDetailsdatatable.Columns.Add("ReferenceID");
-                    ProductDetailsdatatable.Columns.Add("Attribute");
-                    ProductDetailsdatatable.Columns.Add("Value");
-                   CommercialDataDictionary p = new CommercialDataDictionary();
-                    Dictionary<int, Parameters> PDP = p.ProductDetails();
+                    datatables.CreateDataTableWith3Columns(eClassID, datatableheadereClassID, dataGridViewIDT);
+                }
+                if (semanticSystemCmbx.SelectedText  == "IRDI")
+                {
+                    DataTable datatableheaderIRDIID = datatables.Parametersdatatable();
 
-                    // Foreach loop for looping every parameters in the Dictionary
-                    foreach (KeyValuePair<int, Parameters> eClassKeyValuePair in PDP)
-                    {
-                        Parameters par = eClassKeyValuePair.Value;
+                    DictionaryIRDI DIRDI = new DictionaryIRDI();
+                    Dictionary<int, Parameters> IRDIID = DIRDI.IRDIIdentificationdata();
 
-                        DataRow row = ProductDetailsdatatable.NewRow();
-
-                        row["ReferenceID"] = par.RefSemanticPrefix;
-                        row["Attribute"] = par.Parameter;
-                        row["Value"] = "";
-                        ProductDetailsdatatable.Rows.Add(row);
-
-                    }
-                    // For each loop creating the rows in the data table 
-                    foreach (DataRow IDT in ProductDetailsdatatable.Rows)
-                    {
-                        int num = dataGridViewPD.Rows.Add();
-                        dataGridViewPD.Rows[num].Cells[0].Value = IDT["ReferenceID"].ToString();
-                        dataGridViewPD.Rows[num].Cells[1].Value = IDT["Attribute"].ToString();
-                        dataGridViewPD.Rows[num].Cells[2].Value = IDT["Value"].ToString();
-                    }*/
-
-                               
+                    datatables.CreateDataTableWith3Columns(IRDIID, datatableheaderIRDIID,dataGridViewIDT);
+                }
 
             }
-            if (semanticSystemCmbx.Text == "IRDI")
-            {
-                semanticSystemdrpdwn.DropDownItems.Add(semanticSystemCmbx.Text);
-                Datatables a = new Datatables();
-                DataTable b = a.ThreeParametersdatatable();
-
-                DictionaryIRDI n = new DictionaryIRDI();
-                Dictionary<int, Parameters> IDP = n.IRDIIdentificationdata();
-
-                // Foreach loop for looping every parameters in the Dictionary
-                foreach (KeyValuePair<int, Parameters> eClassKeyValuePair in IDP)
-                {
-                    Parameters par = eClassKeyValuePair.Value;
-
-                    DataRow row = b.NewRow();
-
-                    row["ReferenceID"] = par.RefSemanticPrefix;
-                    row["Attribute"] = par.Parameter;
-                    row["Value"] = "";
-                    b.Rows.Add(row);
 
 
-
-                }
-                // For each loop creating the rows in the data table 
-                foreach (DataRow IDT in b.Rows)
-                {
-                    int num = dataGridViewIDT.Rows.Add();
-                    dataGridViewIDT.Rows[num].Cells[0].Value = IDT["ReferenceID"].ToString();
-                    dataGridViewIDT.Rows[num].Cells[1].Value = IDT["Attribute"].ToString();
-                    dataGridViewIDT.Rows[num].Cells[2].Value = IDT["Value"].ToString();
-
-                }
-            }
+           
+           
+            
         }
 
         private void ToolStripButton3_Click(object sender, EventArgs e)
@@ -647,7 +528,11 @@ namespace Aml.Editor.Plugin
             versionTextBox.Text = "";
             dataGridViewIDT.Rows.Clear();
             dataGridViewPD.Rows.Clear();
+            dataGridViewPOD.Rows.Clear();
+            dataGridViewPPD.Rows.Clear();
+            dataGridViewMD.Rows.Clear();
             dataGridViewElectricalConnection.Rows.Clear();
+
         }
 
         private void Panel32_Paint(object sender, PaintEventArgs e)
@@ -663,6 +548,156 @@ namespace Aml.Editor.Plugin
         private void SemanticSystemCmbx_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TreeViewCH_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+                   
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            AMC.WindowSizeChanger(panel4, button2);
+        }
+
+        private void ToolStripButton3_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void AddConnector_Click(object sender, EventArgs e)
+        {
+                Datatables datatables = new Datatables();
+
+                DataTable datatableheadersIRDIED = datatables.Parametersdatatable();
+
+                DictionaryIRDI DIRDI = new DictionaryIRDI();
+
+                Dictionary<int, Parameters> IRDIED = DIRDI.IRDIElectricalData();
+
+                datatables.CreateDataTableWith4Columns(IRDIED, datatableheadersIRDIED, dataGridViewIRDIElectricalData);
+
+            
+                        
+        }
+
+        private void ToolStripButton3_Click_2(object sender, EventArgs e)
+        {
+
+
+                
+            if (pinNumberTxtBx.Text != null)
+            {
+              
+                int c = 0;
+                string a = pinNumberTxtBx.Text;
+                int b = Convert.ToInt32(a);
+                for (int i = 0; i < b; i++)
+                {
+                    dataGridViewPinInfo.Rows.Add();
+                    dataGridViewPinInfo.Rows[c + i].Cells[0].Value = (1 + i).ToString();
+                }
+            }
+
+           
+            if(pinNumberTxtBx.Text == null)
+            {
+                MessageBox.Show("Enter valid Number", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        private void ToolStripButton3_Click_3(object sender, EventArgs e)
+        {
+            dataGridViewPinInfo.Rows.Clear();
+        }
+
+        private void ToolStripButton15_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIElectricalData.Rows.Clear();
+        }
+        
+        
+        private void ToolStripButton16_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            // IRDIEIDI = IRDI Electrical Interfacce Dimensional Information
+            DataTable datatableheadersIRDIEIDI = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+
+            if (connectorStyleCmbx.Text == "Fixed Connectors")
+            {
+               
+                if (mountingCmbx.Text == "Square flange mounting")
+                {
+                    
+                    Dictionary<int, Parameters> IRDIEIDI = DIRDI.IRDIMountingSquareFlangeData();
+
+                    datatables.CreateDataTableWith4Columns(IRDIEIDI, datatableheadersIRDIEIDI, dataGridViewIRDIMountingData);
+                }
+                if (mountingCmbx.Text == "Single hole mounting")
+                {
+                    Dictionary<int, Parameters> IRDIEIDI = DIRDI.IRDIMountingSingleHoleData();
+
+                    datatables.CreateDataTableWith4Columns(IRDIEIDI, datatableheadersIRDIEIDI, dataGridViewIRDIMountingData);
+                }
+            }
+            if (connectorStyleCmbx.Text == "Free Connectors")
+            {
+                connectorVersion.Enabled = true;
+                connectorVersionCmbx.Enabled = true;
+
+                if(mountingCmbx.Text == "Locking nut")
+                {
+                    if (connectorVersionCmbx.Text == "Right Angled")
+                    {
+
+                    }
+                    if (connectorVersionCmbx.Text == "Straight")
+                    {
+
+                    }
+
+                }
+                
+
+            }
+        }
+
+        private void ToolStripButton17_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIMountingData.Rows.Clear();
+        }
+
+        private void ToolStripButton18_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDIEIDI2 = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+
+            if (connectorTypeCmbx.Text == "Male")
+            {
+                Dictionary<int, Parameters> IRDIEIDI2 = DIRDI.IRDIMaleConnectorDimensionData();
+
+                datatables.CreateDataTableWith6Columns(IRDIEIDI2, datatableheadersIRDIEIDI2, dataGridViewIRDIConnectorDimensions);
+
+            }
+            if (connectorTypeCmbx.Text == "Female")
+            {
+                Dictionary<int, Parameters> IRDIEIDI2 = DIRDI.IRDIFemaleConnectorDimensionData();
+
+                datatables.CreateDataTableWith6Columns(IRDIEIDI2, datatableheadersIRDIEIDI2, dataGridViewIRDIConnectorDimensions);
+
+            }
+
+        }
+
+        private void ToolStripButton19_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIConnectorDimensions.Rows.Clear();
         }
     }
    

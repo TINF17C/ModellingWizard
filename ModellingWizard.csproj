@@ -99,6 +99,7 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnimationClass.cs" />
     <Compile Include="Datatables.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -164,6 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="gsd2aml.xml" />
+    <None Include="Resources\icons8-plus-mathe-30.png" />
+    <None Include="Resources\icons8-datenbank-hinzufügen-30.png" />
+    <None Include="Resources\icons8-löschen-26.png" />
+    <None Include="Resources\icons8-plus-2-24.png" />
     <None Include="Resources\icons8-abo-kündigen-16.png" />
     <None Include="Resources\icons8-dienstleistungen-26 %281%29.png" />
     <None Include="Resources\icons8-liste-hinzufügen-26.png" />
