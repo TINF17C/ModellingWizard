@@ -531,6 +531,21 @@ namespace Aml.Editor.Plugin
 
             return IRDIMiscelliniousDataParameters;
         }
+        public Dictionary<int, Parameters> IRDICableDimensionData()
+        {
+            Parameters IRDIFemaleConnectorDimensioneData1 = new Parameters() { ID = 001, Parameter = "BA", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
+            Parameters IRDIFemaleConnectorDimensioneData2 = new Parameters() { ID = 002, Parameter = "BB", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
+            Parameters IRDIFemaleConnectorDimensioneData3 = new Parameters() { ID = 003, Parameter = "BC", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
+            Parameters IRDIFemaleConnectorDimensioneData4 = new Parameters() { ID = 004, Parameter = "BD", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
+
+            Dictionary<int, Parameters> IRDIFemaleConnectorDimensioneDataParameters = new Dictionary<int, Parameters>();
+            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData1.ID, IRDIFemaleConnectorDimensioneData1);
+            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData2.ID, IRDIFemaleConnectorDimensioneData2);
+            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData3.ID, IRDIFemaleConnectorDimensioneData3);
+            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData4.ID, IRDIFemaleConnectorDimensioneData4);
+
+            return IRDIFemaleConnectorDimensioneDataParameters;
+        }
     }
 
 
