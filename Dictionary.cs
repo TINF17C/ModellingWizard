@@ -205,16 +205,54 @@ namespace Aml.Editor.Plugin
 
             return IRDIMechanicalDataParameters;
         }
-        public Dictionary<int, Parameters> IRDIMaterialData()
+        public Dictionary<int, Parameters> IRDITemperatureData()
         {
-            Parameters IRDIMaterialData1 = new Parameters() { ID = 001, Parameter = "Housing or Body material", RefSemanticPrefix = "0112/2///62683#ACE260" };
-            Parameters IRDIMaterialData2 = new Parameters() { ID = 002, Parameter = "Sensing face material", RefSemanticPrefix = "0112/2///62683#ACE261" };
-            Parameters IRDIMaterialData3 = new Parameters() { ID = 003, Parameter = "Surface Protection", RefSemanticPrefix = "" };
+            Parameters IRDITemperatureData1 = new Parameters() { ID = 001, Parameter = "stress temperature min (T_stress(min))", RefSemanticPrefix = "0112/2///61360_4#AAF276#002",Value = "",Unit = "°C" };
+            Parameters IRDITemperatureData2 = new Parameters() { ID = 002, Parameter = "stress temperature max (T_stress(max))", RefSemanticPrefix = "0112/2///61360_4#AAF277#002", Value = "", Unit = "°C" };
+            Parameters IRDITemperatureData3 = new Parameters() { ID = 003, Parameter = "stress ambient temperature (T_stesss(amb))", RefSemanticPrefix = "0112/2///61360_4#AAF278#002", Value = "", Unit = "°C" };
+            Parameters IRDITemperatureData4 = new Parameters() { ID = 004, Parameter = "upper category temperature (T_ucat)", RefSemanticPrefix = "0112/2///61360_4#AAH007#002", Value = "", Unit = "°C" };
+            Parameters IRDITemperatureData5= new Parameters() { ID = 006, Parameter = "lower category temperature (T_lcat)", RefSemanticPrefix = "0112/2///61360_4#AAH008#002", Value = "", Unit = "°C" };
+            Parameters IRDITemperatureData6= new Parameters() { ID = 007, Parameter = "temperature (@T)", RefSemanticPrefix = "0112/2///61360_4#AAE685#001", Value = "", Unit = "°C" };
+            Parameters IRDITemperatureData7 = new Parameters() { ID = 008, Parameter = "storage temperature (T_stg)", RefSemanticPrefix = "0112/2///61360_4#AAE841#002", Value = "", Unit = "°C" };
+
+            Dictionary<int, Parameters> IRDITemperatureDataParameters = new Dictionary<int, Parameters>();
+            IRDITemperatureDataParameters.Add(IRDITemperatureData1.ID, IRDITemperatureData1);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData2.ID, IRDITemperatureData2);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData3.ID, IRDITemperatureData3);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData4.ID, IRDITemperatureData4);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData5.ID, IRDITemperatureData5);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData6.ID, IRDITemperatureData6);
+            IRDITemperatureDataParameters.Add(IRDITemperatureData7.ID, IRDITemperatureData7);
+
+            return IRDITemperatureDataParameters;
+        }
+            public Dictionary<int, Parameters> IRDIMaterialData()
+        {
+            Parameters IRDIMaterialData1 = new Parameters() { ID = 001, Parameter = "Housing or Body material", RefSemanticPrefix = "0112/2///61360_4#AAE351#006", Value = "" };
+            Parameters IRDIMaterialData2 = new Parameters() { ID = 002, Parameter = "Sensing face material", RefSemanticPrefix = "0112/2///62683#ACE261", Value = "" };
+            Parameters IRDIMaterialData3 = new Parameters() { ID = 003, Parameter = "Surface Protection", RefSemanticPrefix = "", Value = "" };
+            Parameters IRDIMaterialData4 = new Parameters() { ID = 004, Parameter = "Contact body material", RefSemanticPrefix = "0112/2///61360_4#AAE355#001", Value = "" };
+            Parameters IRDIMaterialData5 = new Parameters() { ID = 005, Parameter = "terminal material", RefSemanticPrefix = "0112/2///61360_4#AAE634#001", Value = "" };
+            Parameters IRDIMaterialData6 = new Parameters() { ID = 006, Parameter = "contact spring material", RefSemanticPrefix = "0112/2///61360_4#AAF125#001", Value = "" };
+            Parameters IRDIMaterialData7 = new Parameters() { ID = 007, Parameter = "insulating material group", RefSemanticPrefix = "0112/2///61360_4#AAH025#002", Value = "" };
+            Parameters IRDIMaterialData8 = new Parameters() { ID = 008, Parameter = "body insulation material", RefSemanticPrefix = "0112/2///61360_4#AAH056#002", Value = "" };
+            Parameters IRDIMaterialData9 = new Parameters() { ID = 009, Parameter = "contact finish", RefSemanticPrefix = "0112/2///61360_4#AAE350#001", Value = "" };
+            Parameters IRDIMaterialData10 = new Parameters() { ID = 010, Parameter = "housing finish", RefSemanticPrefix = "0112/2///61360_4#AAH005#002", Value = "" };
+            Parameters IRDIMaterialData11 = new Parameters() { ID = 011, Parameter = "terminal finish", RefSemanticPrefix = "0112/2///61360_4#AAH028#002", Value = "" };
 
             Dictionary<int, Parameters> IRDIMaterialDataParameters = new Dictionary<int, Parameters>();
             IRDIMaterialDataParameters.Add(IRDIMaterialData1.ID, IRDIMaterialData1);
             IRDIMaterialDataParameters.Add(IRDIMaterialData2.ID, IRDIMaterialData2);
             IRDIMaterialDataParameters.Add(IRDIMaterialData3.ID, IRDIMaterialData3);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData4.ID, IRDIMaterialData4);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData5.ID, IRDIMaterialData5);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData6.ID, IRDIMaterialData6);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData7.ID, IRDIMaterialData7);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData8.ID, IRDIMaterialData8);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData9.ID, IRDIMaterialData9);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData10.ID, IRDIMaterialData10);
+            IRDIMaterialDataParameters.Add(IRDIMaterialData11.ID, IRDIMaterialData11);
+
 
             return IRDIMaterialDataParameters;
         }
@@ -229,7 +267,8 @@ namespace Aml.Editor.Plugin
             Parameters IRDIElectricalData7 = new Parameters() { ID = 007, Parameter = "Rated Current (I_rat)", RefSemanticPrefix = "0112/2///61360_4#AAH066#002", Unit = "A" };
             Parameters IRDIElectricalData8 = new Parameters() { ID = 008, Parameter = "Connector rated Voltage (V_r)", RefSemanticPrefix = "0112/2///61360_4#AAJ042#002", Unit = "V" };
             Parameters IRDIElectricalData9 = new Parameters() { ID = 009, Parameter = "Connector rated Current (I_r)", RefSemanticPrefix = "0112/2///61360_4#AAJ043#002", Unit = "A" };
-            Parameters IRDIElectricalData10 = new Parameters() { ID = 0010, Parameter = "Contact current max (I_cont)", RefSemanticPrefix = "0112/2///61360_4#AAE358#001", Unit = "A" };
+            Parameters IRDIElectricalData10 = new Parameters() { ID = 010, Parameter = "Contact current max (I_cont)", RefSemanticPrefix = "0112/2///61360_4#AAE358#001", Unit = "A" };
+            Parameters IRDIElectricalData11 = new Parameters() { ID = 011, Parameter = "power dissipation (P_dis)", RefSemanticPrefix = "0112/2///61360_4#AAE257#003", Unit = "W" };
 
             Dictionary<int, Parameters> IRDIElectricalDataParameters = new Dictionary<int, Parameters>();
             IRDIElectricalDataParameters.Add(IRDIElectricalData1.ID, IRDIElectricalData1);
@@ -240,7 +279,9 @@ namespace Aml.Editor.Plugin
             IRDIElectricalDataParameters.Add(IRDIElectricalData6.ID, IRDIElectricalData6);
             IRDIElectricalDataParameters.Add(IRDIElectricalData7.ID, IRDIElectricalData7);
             IRDIElectricalDataParameters.Add(IRDIElectricalData8.ID, IRDIElectricalData8);
+            IRDIElectricalDataParameters.Add(IRDIElectricalData9.ID, IRDIElectricalData9);
             IRDIElectricalDataParameters.Add(IRDIElectricalData10.ID, IRDIElectricalData10);
+            IRDIElectricalDataParameters.Add(IRDIElectricalData11.ID, IRDIElectricalData11);
 
 
             return IRDIElectricalDataParameters;
@@ -248,13 +289,29 @@ namespace Aml.Editor.Plugin
         }
         public Dictionary<int, Parameters> IRDIMountingSquareFlangeData()
         {
-            Parameters IRDIMountingSquareFlangeData1 = new Parameters() { ID = 001, Parameter = "Square flange Length", RefSemanticPrefix = "", Unit = "mm", Value = "20" };
-            Parameters IRDIMountingSquareFlangeData2 = new Parameters() { ID = 002, Parameter = "Flange hole Diameter", RefSemanticPrefix = "", Unit = "mm", Value = "3.2" };
-            Parameters IRDIMountingSquareFlangeData3 = new Parameters() { ID = 003, Parameter = "Flange holes length", RefSemanticPrefix = "", Unit = "mm", Value = "14" };
-            Parameters IRDIMountingSquareFlangeData4 = new Parameters() { ID = 004, Parameter = "Flange Thickness", RefSemanticPrefix = "", Unit = "mm", Value = "4" };
-            Parameters IRDIMountingSquareFlangeData5 = new Parameters() { ID = 005, Parameter = "Connector Length", RefSemanticPrefix = "", Unit = "mm", Value = "28" };
-            Parameters IRDIMountingSquareFlangeData6 = new Parameters() { ID = 006, Parameter = "Connector Diameter", RefSemanticPrefix = "", Unit = "mm", Value = "" };
-            Parameters IRDIMountingSquareFlangeData7 = new Parameters() { ID = 007, Parameter = "Connector Thread Pitch", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData1 = new Parameters() { ID = 001, Parameter = "Flange Length (I_flange)", RefSemanticPrefix = "0112/2///61360_4#AAF317#001", Unit = "mm", Value = "20" };
+            Parameters IRDIMountingSquareFlangeData2 = new Parameters() { ID = 002, Parameter = "Flange breadth (b_flange)", RefSemanticPrefix = "0112/2///61360_4#AAF318#001", Unit = "mm", Value = "20" };
+            Parameters IRDIMountingSquareFlangeData3 = new Parameters() { ID = 003, Parameter = "Flange height (h_flg)", RefSemanticPrefix = "0112/2///61360_4#AAF317#001", Unit = "mm", Value = "20" };
+            Parameters IRDIMountingSquareFlangeData4 = new Parameters() { ID = 004, Parameter = "Flange hole Diameter", RefSemanticPrefix = "0112/2///61360_4#AAF319#001", Unit = "mm", Value = "3.2" };
+            Parameters IRDIMountingSquareFlangeData5 = new Parameters() { ID = 005, Parameter = "Flange holes distance", RefSemanticPrefix = "", Unit = "mm", Value = "14" };
+            Parameters IRDIMountingSquareFlangeData6 = new Parameters() { ID = 006, Parameter = "Flange Thickness", RefSemanticPrefix = "", Unit = "mm", Value = "4" };
+            Parameters IRDIMountingSquareFlangeData7 = new Parameters() { ID = 007, Parameter = "Terminal Length (I_term)", RefSemanticPrefix = "0112/2///61360_4#AAE072#001", Unit = "mm", Value = "28" };
+            Parameters IRDIMountingSquareFlangeData8 = new Parameters() { ID = 008, Parameter = "Outside Diameter (d_out)", RefSemanticPrefix = "0112/2///61360_4#AAE022#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData9 = new Parameters() { ID = 009, Parameter = "Terminal Diameter (d_term)", RefSemanticPrefix = "0112/2///61360_4#AAE022#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData10 = new Parameters() { ID = 010, Parameter = "terminal Pitch (p_term)", RefSemanticPrefix = "0112/2///61360_4#AAE024#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData11 = new Parameters() { ID = 011, Parameter = "lacquered length (l_lacq)", RefSemanticPrefix = "0112/2///61360_4#AAE633#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+          /*  Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData12 = new Parameters() { ID = 0012, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };*/
 
             Dictionary<int, Parameters> IRDIMountingSquareFlangeDataParameters = new Dictionary<int, Parameters>();
             IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData1.ID, IRDIMountingSquareFlangeData1);
@@ -264,17 +321,25 @@ namespace Aml.Editor.Plugin
             IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData5.ID, IRDIMountingSquareFlangeData5);
             IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData6.ID, IRDIMountingSquareFlangeData6);
             IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData7.ID, IRDIMountingSquareFlangeData7);
+            IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData8.ID, IRDIMountingSquareFlangeData8);
+            IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData9.ID, IRDIMountingSquareFlangeData9);
+            IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData10.ID, IRDIMountingSquareFlangeData10);
+            IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData11.ID, IRDIMountingSquareFlangeData11);
+            IRDIMountingSquareFlangeDataParameters.Add(IRDIMountingSquareFlangeData12.ID, IRDIMountingSquareFlangeData12);
 
             return IRDIMountingSquareFlangeDataParameters;
         }
         public Dictionary<int, Parameters> IRDIMountingSingleHoleData()
         {
             Parameters IRDIMountingSingleHoleData1 = new Parameters() { ID = 001, Parameter = "Single Hole Diameter", RefSemanticPrefix = "", Unit = "mm", Value = "20" };
-            Parameters IRDIMountingSingleHoleData2 = new Parameters() { ID = 002, Parameter = "Single Hole Pitch", RefSemanticPrefix = "", Unit = "mm", Value = "3.2" };
+            Parameters IRDIMountingSingleHoleData2 = new Parameters() { ID = 002, Parameter = "Hole Pitch (p_hole)", RefSemanticPrefix = "0112/2///61360_4#AAF316#001", Unit = "mm", Value = "3.2" };
             Parameters IRDIMountingSingleHoleData3 = new Parameters() { ID = 003, Parameter = "Length of Wire ends", RefSemanticPrefix = "", Unit = "mm", Value = "14" };
-            Parameters IRDIMountingSquareFlangeData5 = new Parameters() { ID = 004, Parameter = "Connector Length", RefSemanticPrefix = "", Unit = "mm", Value = "28" };
-            Parameters IRDIMountingSquareFlangeData6 = new Parameters() { ID = 005, Parameter = "Connector Diameter", RefSemanticPrefix = "", Unit = "mm", Value = "" };
-            Parameters IRDIMountingSquareFlangeData7 = new Parameters() { ID = 006, Parameter = "Connector Thread Pitch", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData5 = new Parameters() { ID = 004, Parameter = "Terminal Length (I_term)", RefSemanticPrefix = "0112/2///61360_4#AAE072#001", Unit = "mm", Value = "28" };
+            Parameters IRDIMountingSquareFlangeData6 = new Parameters() { ID = 005, Parameter = "Outside Diameter (d_out)", RefSemanticPrefix = "0112/2///61360_4#AAE022#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData7 = new Parameters() { ID = 006, Parameter = "Terminal Diameter (d_term)", RefSemanticPrefix = "0112/2///61360_4#AAE022#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData8 = new Parameters() { ID = 008, Parameter = "terminal Pitch (p_term)", RefSemanticPrefix = "0112/2///61360_4#AAE024#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData9 = new Parameters() { ID = 009, Parameter = "lacquered length (l_lacq)", RefSemanticPrefix = "0112/2///61360_4#AAE633#001", Unit = "mm", Value = "" };
+            Parameters IRDIMountingSquareFlangeData10 = new Parameters() { ID = 0010, Parameter = "Pitch Circle Diameter (d_p)", RefSemanticPrefix = "0112/2///61360_4#AAF337#001", Unit = "mm", Value = "" };
 
             Dictionary<int, Parameters> IRDIMountingSingleHoleDataParameters = new Dictionary<int, Parameters>();
             IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSingleHoleData1.ID, IRDIMountingSingleHoleData1);
@@ -283,7 +348,9 @@ namespace Aml.Editor.Plugin
             IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData5.ID, IRDIMountingSquareFlangeData5);
             IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData6.ID, IRDIMountingSquareFlangeData6);
             IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData7.ID, IRDIMountingSquareFlangeData7);
-
+            IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData8.ID, IRDIMountingSquareFlangeData8);
+            IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData9.ID, IRDIMountingSquareFlangeData9);
+            IRDIMountingSingleHoleDataParameters.Add(IRDIMountingSquareFlangeData10.ID, IRDIMountingSquareFlangeData10);
 
             return IRDIMountingSingleHoleDataParameters;
         }
@@ -361,6 +428,108 @@ namespace Aml.Editor.Plugin
             IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData4.ID, IRDIFemaleConnectorDimensioneData4);
 
             return IRDIFemaleConnectorDimensioneDataParameters;
+        }
+        public Dictionary<int, Parameters> IRDIConnectorOrientationData()
+        {
+            Parameters IRDIConnectorOrientationData1 = new Parameters() { ID = 001, Parameter = "Pitch (X-axis) (p_x)", RefSemanticPrefix = "0112/2///61360_4#AAF321#001", Unit = "m", Value ="" };
+            Parameters IRDIConnectorOrientationData2 = new Parameters() { ID = 002, Parameter = "Pitch (Y-axis) (p_y)", RefSemanticPrefix = "0112/2///61360_4#AAF322#001", Unit = "m", Value = "" };
+            Parameters IRDIConnectorOrientationData3 = new Parameters() { ID = 003, Parameter = "Offset (y-axis) (s_y)", RefSemanticPrefix = "0112/2///61360_4#AAF340#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData4 = new Parameters() { ID = 004, Parameter = "Offset (x-axis) (s_x)", RefSemanticPrefix = "0112/2///61360_4#AAF341#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData5 = new Parameters() { ID = 005, Parameter = "Number of pitches (x-axis) (N_p(x))", RefSemanticPrefix = "0112/2///61360_4#AAF374#001", Unit = "", Value = "" };
+            Parameters IRDIConnectorOrientationData6 = new Parameters() { ID = 006, Parameter = "Number of pitches (y-axis) (N_p(y))", RefSemanticPrefix = "0112/2///61360_4#AAF375#001", Unit = "", Value = "" };
+            Parameters IRDIConnectorOrientationData7= new Parameters() { ID = 007, Parameter = "x-coordinate of the reference point (x-coor ref pt)", RefSemanticPrefix = "0112/2///61360_4#AAF393#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData8 = new Parameters() { ID = 008, Parameter = "y-coordinate of the reference point (y-coor ref pt)", RefSemanticPrefix = "0112/2///61360_4#AAF394#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData9= new Parameters() { ID = 009, Parameter = "z-coordinate of the reference point (z-coor ref pt)", RefSemanticPrefix = "0112/2///61360_4#AAF395#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData10= new Parameters() { ID = 010, Parameter = "Angle axis to x-axis (α_x)", RefSemanticPrefix = "0112/2///61360_4#AAF411#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData11 = new Parameters() { ID = 011, Parameter = "Angle axis to y-axis (α_y)", RefSemanticPrefix = "0112/2///61360_4#AAF412#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData12 = new Parameters() { ID = 012, Parameter = "Angle axis to z-axis (α_z)", RefSemanticPrefix = "0112/2///61360_4#AAF413#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData13 = new Parameters() { ID = 013, Parameter = "y-coordinate of centre (y-c_sphere)", RefSemanticPrefix = "0112/2///61360_4#AAF419#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData14 = new Parameters() { ID = 014, Parameter = "z-coordinate of centre (z-c_sphere)", RefSemanticPrefix = "0112/2///61360_4#AAF420#001", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData15 = new Parameters() { ID = 015, Parameter = "Contact pitch (x-axis) (l_xpitch)", RefSemanticPrefix = "0112/2///61360_4#AAH045#002", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData16 = new Parameters() { ID = 016, Parameter = "Contact pitch (y-axis) (l_ypitch)", RefSemanticPrefix = "0112/2///61360_4#AAH046#002", Unit = "mm", Value = "" };
+            Parameters IRDIConnectorOrientationData17 = new Parameters() { ID = 0117, Parameter = "z-axis displacement of centre of gravity (C_grav(z-axis))", RefSemanticPrefix = "0112/2///61360_4#AAF472#001", Unit = "mm", Value = "" };
+
+
+            Dictionary<int, Parameters> IRDIConnectorOrientationDataParameters = new Dictionary<int, Parameters>();
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData1.ID, IRDIConnectorOrientationData1);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData2.ID, IRDIConnectorOrientationData2);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData3.ID, IRDIConnectorOrientationData3);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData4.ID, IRDIConnectorOrientationData4);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData5.ID, IRDIConnectorOrientationData5);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData6.ID, IRDIConnectorOrientationData6);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData7.ID, IRDIConnectorOrientationData7);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData8.ID, IRDIConnectorOrientationData8);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData9.ID, IRDIConnectorOrientationData9);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData10.ID, IRDIConnectorOrientationData10);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData11.ID, IRDIConnectorOrientationData11);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData12.ID, IRDIConnectorOrientationData12);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData13.ID, IRDIConnectorOrientationData13);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData14.ID, IRDIConnectorOrientationData14);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData15.ID, IRDIConnectorOrientationData15);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData16.ID, IRDIConnectorOrientationData16);
+            IRDIConnectorOrientationDataParameters.Add(IRDIConnectorOrientationData17.ID, IRDIConnectorOrientationData17);
+
+            return IRDIConnectorOrientationDataParameters;
+        }
+        public Dictionary<int, Parameters> IRDIMiscelliniousData()
+        {
+            Parameters IRDIMiscelliniousData1 = new Parameters() { ID = 001, Parameter = "engaging force (F_eng)", RefSemanticPrefix = "0112/2///61360_4#AAF045#001", Unit = "F", Value = "" };
+            Parameters IRDIMiscelliniousData2 = new Parameters() { ID = 002, Parameter = "separating force (F_sep)", RefSemanticPrefix = "0112/2///61360_4#AAF046#001", Unit = "F", Value = "" };
+            Parameters IRDIMiscelliniousData3 = new Parameters() { ID = 003, Parameter = "contact force (F_contact)", RefSemanticPrefix = "0112/2///61360_4#AAH018#002", Unit = "F", Value = "" };
+            Parameters IRDIMiscelliniousData4 = new Parameters() { ID = 004, Parameter = "mechanical endurance (N_endu)", RefSemanticPrefix = "0112/2///61360_4#AAE361#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData5 = new Parameters() { ID = 005, Parameter = "creepage distance (d_crpg)", RefSemanticPrefix = "0112/2///61360_4#AAE159#001", Unit = "mm", Value = "" };
+            Parameters IRDIMiscelliniousData6 = new Parameters() { ID = 006, Parameter = "polarisation ", RefSemanticPrefix = "0112/2///61360_4#AAE354#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData7 = new Parameters() { ID = 007, Parameter = "quality approval authority", RefSemanticPrefix = "0112/2///61360_4#AAE687#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData8 = new Parameters() { ID = 008, Parameter = "locking device", RefSemanticPrefix = "0112/2///61360_4#AAF051#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData9 = new Parameters() { ID = 009, Parameter = "integrated component", RefSemanticPrefix = "0112/2///61360_4#AAF124#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData10 = new Parameters() { ID = 010, Parameter = "UL flammability", RefSemanticPrefix = "0112/2///61360_4#AAF126#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData11 = new Parameters() { ID = 011, Parameter = "IEC flammability", RefSemanticPrefix = "0112/2///61360_4#AAF127#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData12 = new Parameters() { ID = 012, Parameter = "fireproofness", RefSemanticPrefix = "0112/2///61360_4#AAH038#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData13 = new Parameters() { ID = 013, Parameter = "package colour", RefSemanticPrefix = "0112/2///61360_4#AAF128#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData14 = new Parameters() { ID = 014, Parameter = "socket type", RefSemanticPrefix = "0112/2///61360_4#AAF148#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData15 = new Parameters() { ID = 015, Parameter = "terminal connection type", RefSemanticPrefix = "0112/2///61360_4#AAF435#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData16 = new Parameters() { ID = 016, Parameter = "simultaneity factor", RefSemanticPrefix = "0112/2///61360_4#AAF436#001", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData17 = new Parameters() { ID = 017, Parameter = "packaging quality", RefSemanticPrefix = "0112/2///61360_4#AAH001#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData18 = new Parameters() { ID = 018, Parameter = "fixing method", RefSemanticPrefix = "0112/2///61360_4#AAH003#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData19 = new Parameters() { ID = 019, Parameter = "mounting means", RefSemanticPrefix = "0112/2///61360_4#AAH004#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData20 = new Parameters() { ID = 020, Parameter = "protective earth", RefSemanticPrefix = "0112/2///61360_4#AAH006#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData21 = new Parameters() { ID = 021, Parameter = "pollution degree", RefSemanticPrefix = "0112/2///61360_4#AAH023#002", Unit = "", Value = "" };
+            Parameters IRDIMiscelliniousData22 = new Parameters() { ID = 022, Parameter = "acceleration strength (a_acc)", RefSemanticPrefix = "0112/2///61360_4#AAH029#002", Unit = "m/s2", Value = "" };
+            Parameters IRDIMiscelliniousData23 = new Parameters() { ID = 023, Parameter = "shock resistance (a_shock)", RefSemanticPrefix = "0112/2///61360_4#AAH030#002", Unit = "m/s2", Value = "" };
+            Parameters IRDIMiscelliniousData24 = new Parameters() { ID = 024, Parameter = "bump resistance (a_bump)", RefSemanticPrefix = "0112/2///61360_4#AAH031#002", Unit = "m/s2", Value = "" };
+            Parameters IRDIMiscelliniousData25 = new Parameters() { ID = 025, Parameter = "housing colour", RefSemanticPrefix = "0112/2///61360_4#AAH065#002", Unit = "", Value = "" };
+
+
+            Dictionary<int, Parameters> IRDIMiscelliniousDataParameters = new Dictionary<int, Parameters>();
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData1.ID, IRDIMiscelliniousData1);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData2.ID, IRDIMiscelliniousData2);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData3.ID, IRDIMiscelliniousData3);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData4.ID, IRDIMiscelliniousData4);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData5.ID, IRDIMiscelliniousData5);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData6.ID, IRDIMiscelliniousData6);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData7.ID, IRDIMiscelliniousData7);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData8.ID, IRDIMiscelliniousData8);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData9.ID, IRDIMiscelliniousData9);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData10.ID, IRDIMiscelliniousData10);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData11.ID, IRDIMiscelliniousData11);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData12.ID, IRDIMiscelliniousData12);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData13.ID, IRDIMiscelliniousData13);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData14.ID, IRDIMiscelliniousData14);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData15.ID, IRDIMiscelliniousData15);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData16.ID, IRDIMiscelliniousData16);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData17.ID, IRDIMiscelliniousData17);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData18.ID, IRDIMiscelliniousData18);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData19.ID, IRDIMiscelliniousData19);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData20.ID, IRDIMiscelliniousData20);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData21.ID, IRDIMiscelliniousData21);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData22.ID, IRDIMiscelliniousData22);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData23.ID, IRDIMiscelliniousData23);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData24.ID, IRDIMiscelliniousData24);
+            IRDIMiscelliniousDataParameters.Add(IRDIMiscelliniousData25.ID, IRDIMiscelliniousData25);
+
+
+
+            return IRDIMiscelliniousDataParameters;
         }
     }
 

@@ -562,6 +562,17 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton3_Click_1(object sender, EventArgs e)
         {
+            if (interfacesNumberTxtbx.Text != null)
+            {
+                string a = interfacesNumberTxtbx.Text;
+                int b = Convert.ToInt32(a);
+
+                for (int i = 0; i<b;  i++)
+                {
+                    
+                    interfacecollection.DropDownItems.Add("Connector");
+                }
+            }
             
         }
 
@@ -589,13 +600,13 @@ namespace Aml.Editor.Plugin
             if (pinNumberTxtBx.Text != null)
             {
               
-                int c = 0;
-                string a = pinNumberTxtBx.Text;
-                int b = Convert.ToInt32(a);
-                for (int i = 0; i < b; i++)
+                int countofpins = 0;
+                string enteredvalue  = pinNumberTxtBx.Text;
+                int convertedtonumber = Convert.ToInt32(enteredvalue);
+                for (int i = 0; i < convertedtonumber; i++)
                 {
                     dataGridViewPinInfo.Rows.Add();
-                    dataGridViewPinInfo.Rows[c + i].Cells[0].Value = (1 + i).ToString();
+                    dataGridViewPinInfo.Rows[countofpins + i].Cells[0].Value = (1 + i).ToString();
                 }
             }
 
@@ -699,11 +710,107 @@ namespace Aml.Editor.Plugin
         {
             dataGridViewIRDIConnectorDimensions.Rows.Clear();
         }
+
+        private void ToolStripButton24_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDIOD = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+            Dictionary<int, Parameters> IRDIOD = DIRDI.IRDIConnectorOrientationData();
+
+            datatables.CreateDataTableWith4Columns(IRDIOD, datatableheadersIRDIOD, dataGridViewIRDIOrientationData);
+
+        }
+
+        private void ToolStripButton25_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIOrientationData.Rows.Clear();
+        }
+
+        private void ToolStripButton26_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDITD = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+            Dictionary<int, Parameters> IRDITD = DIRDI.IRDITemperatureData();
+
+            datatables.CreateDataTableWith4Columns(IRDITD, datatableheadersIRDITD, dataGridViewIRDIConnectorTempData);
+        }
+
+        private void ToolStripButton27_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIConnectorTempData.Rows.Clear();
+        }
+
+        private void ToolStripButton28_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDIMD = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+            Dictionary<int, Parameters> IRDIMD = DIRDI.IRDIMaterialData();
+
+            datatables.CreateDataTableWith3Columns(IRDIMD, datatableheadersIRDIMD, dataGridViewIRDIConnectorMaterialData);
+        }
+
+        private void ToolStripButton29_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIConnectorMaterialData.Rows.Clear();
+        }
+
+        private void ToolStripButton20_Click(object sender, EventArgs e)
+        {
+            if (cableLeadsNumberTxtbx.Text != null)
+            {
+                int countofleads = 0;
+                string entredvalue = cableLeadsNumberTxtbx.Text;
+                int convertednumber = Convert.ToInt32(entredvalue);
+
+                for (int i =0; i< convertednumber;i++)
+                {
+                    dataGridViewIRDICableLeads.Rows.Add();
+                    dataGridViewIRDICableLeads.Rows[countofleads + i].Cells[1].Value = (i + 1).ToString();
+                }
+            }
+        }
+
+        private void ToolStripButton21_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDICableLeads.Rows.Clear();
+        }
+
+        private void ToolStripButton30_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDIMiscD = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+            Dictionary<int, Parameters> IRDIMiscD = DIRDI.IRDIMiscelliniousData();
+
+            datatables.CreateDataTableWith4Columns(IRDIMiscD, datatableheadersIRDIMiscD, dataGridViewIRDIConnectorMiscData);
+        }
+
+        private void ToolStripButton31_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDIConnectorMiscData.Rows.Clear();
+        }
+
+        private void ConnectorStyleCmbx_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+}
    
 
 
 
-}
+
 
 

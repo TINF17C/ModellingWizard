@@ -132,6 +132,7 @@ namespace Aml.Editor.Plugin
                 DataGridViewName.Rows[num].Cells[1].Value = IDT["Attribute"].ToString();
                 DataGridViewName.Rows[num].Cells[2].Value = IDT["Value"].ToString();
                 DataGridViewName.Rows[num].Cells[3].Value = IDT["Unit"].ToString();
+                
                 break;
             }
 
