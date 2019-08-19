@@ -53,11 +53,11 @@ namespace Aml.Editor.Plugin
 
             interfaceObject.pinList = new List<MWPin>();
 
-            try { interfaceObject.numberOfInterface = Convert.ToInt32(txtInterfaceNumber.Text); } catch (Exception ex) { MessageBox.Show("Vendor ID is in an invalid format (Expected only numbers)!"); return; }
+            try { interfaceObject.numberOfInterface = Convert.ToInt32(txtInterfaceNumber.Text); } catch (Exception ) { MessageBox.Show("Vendor ID is in an invalid format (Expected only numbers)!"); return; }
             interfaceObject.interfaceDescription = txtInterfaceDescription.Text;
             interfaceObject.connectorType = cmbConnectorType.Text;
             if (!String.IsNullOrWhiteSpace(txtPinCount.Text))
-                try { interfaceObject.amountPins = Convert.ToInt32(txtPinCount.Text); } catch (Exception ex) { MessageBox.Show("Pin Count is in an invalid format (Expected only numbers)! Ignoring!"); }
+                try { interfaceObject.amountPins = Convert.ToInt32(txtPinCount.Text); } catch (Exception ) { MessageBox.Show("Pin Count is in an invalid format (Expected only numbers)! Ignoring!"); }
 
             // getting the values of the DataGridView and inserting it into the pinList of the object (Interface)
             int i = (interfaceObject.amountPins - 1);

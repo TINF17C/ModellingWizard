@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aml.Editor.Plugin.Properties;
+using System.IO;
+using System.Drawing;
 
 namespace Aml.Editor.Plugin
 {
@@ -13,11 +15,14 @@ namespace Aml.Editor.Plugin
         public Panel PanelNumber { get; set; }
         public Button ButtonNumber { get; set; }
 
+        public TextBox TextboxName { get; set; }
+        public PictureBox PictureboxNumber { get; set; }
+
         public AnimationClass()
         {
 
         }
-        // Method for window size maximum nd minimum
+        // Method for window size maximum and minimum
         public  void WindowSizeChanger(Panel panelNumber,Button buttonNumber)
         {
             PanelNumber = panelNumber;
@@ -31,6 +36,33 @@ namespace Aml.Editor.Plugin
             {
                 panelNumber.Size = panelNumber.MaximumSize;
                 buttonNumber.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
+        public void OpenFileDialog(TextBox textboxName)
+        {
+            TextboxName = textboxName;
+            
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Document Files(*.pdf; *.doc;)|*.pdf; *.doc;";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                textboxName.Text = open.FileName;
+                
+            }
+        }
+
+
+        // Open Dialog Box related method that takes parmeters of textbox name and the picture box number.
+        public void OpenFileDialog(TextBox textboxName,PictureBox pictureBoxNumber)
+        {
+            TextboxName = textboxName;
+            PictureboxNumber = pictureBoxNumber;
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png;)|*.jpg; *.jpeg; *.gif; *.bmp; *.png;";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                textboxName.Text = open.FileName;
+                pictureBoxNumber.Image = new Bitmap(open.FileName);
             }
         }
 

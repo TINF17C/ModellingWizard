@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Collections.Generic;
 
 
+
 namespace Aml.Editor.Plugin
 {
     public partial class CreateDevice
@@ -330,10 +331,7 @@ namespace Aml.Editor.Plugin
 
         }
 
-        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            menuStrip1.Select();
-        }
+        
 
         private void TxtDeviceName_TextChanged(object sender, EventArgs e)
         {
@@ -448,9 +446,9 @@ namespace Aml.Editor.Plugin
            
         }
 
-        
-       
-      
+
+
+
 
         private void AddSemanticSystems_Click(object sender, EventArgs e)
         {
@@ -487,10 +485,13 @@ namespace Aml.Editor.Plugin
                 datatables.CreateDataTableWith3Columns(PPD, datatableheadersPPD, dataGridViewPPD);
                 datatables.CreateDataTableWith3Columns(POD, datatableheadersPOD, dataGridViewPOD);
                 datatables.CreateDataTableWith3Columns(MD, datatableheadersMD, dataGridViewMD);
+                
+
                 treeViewCH.Nodes.Add("Generic Data");
+                treeViewCH.Nodes.Add("Interfaces");
+                treeViewCH.Nodes.Add("Field Attachables");
 
-
-
+               
                 if (semanticSystemCmbx.Text == "eClass")
                 {
                     treeViewCH.Nodes.Add("Interfaces");
@@ -503,7 +504,7 @@ namespace Aml.Editor.Plugin
 
                     datatables.CreateDataTableWith3Columns(eClassID, datatableheadereClassID, dataGridViewIDT);
                 }
-                if (semanticSystemCmbx.SelectedText  == "IRDI")
+                if (semanticSystemCmbx.SelectedText  == "IEC-CDD")
                 {
                     DataTable datatableheaderIRDIID = datatables.Parametersdatatable();
 
@@ -532,6 +533,8 @@ namespace Aml.Editor.Plugin
             dataGridViewPPD.Rows.Clear();
             dataGridViewMD.Rows.Clear();
             dataGridViewElectricalConnection.Rows.Clear();
+            treeViewCH.Nodes.Clear();
+            treeView2.Nodes.Clear();
 
         }
 
@@ -552,7 +555,28 @@ namespace Aml.Editor.Plugin
 
         private void TreeViewCH_AfterSelect(object sender, TreeViewEventArgs e)
         {
-                   
+            if (treeViewCH.SelectedNode.Text == "Generic Data")
+            {
+                treeView2.Nodes.Clear();
+                treeView2.Nodes.Add("Identification Data");
+                treeView2.Nodes.Add("General Technical Data");
+                treeView2.Nodes.Add("Commercial Data");
+                treeView2.EndUpdate();
+            }
+            if (treeViewCH.SelectedNode.Text == "Interfaces")
+            {
+                treeView2.Nodes.Clear();
+                treeView2.Nodes.Add("Electrical Interface");
+                treeView2.Nodes.Add("Sensor Interface");
+                treeView2.EndUpdate();
+            }
+            if (treeViewCH.SelectedNode.Text == "Field Attachables")
+            {
+                treeView2.Nodes.Clear();
+                treeView2.Nodes.Add("Add Logo");
+                treeView2.Nodes.Add("Add Documents");
+                treeView2.EndUpdate();
+            }
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -594,27 +618,30 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton3_Click_2(object sender, EventArgs e)
         {
-
-
-                
-            if (pinNumberTxtBx.Text != null)
+            try
             {
-              
-                int countofpins = 0;
-                string enteredvalue  = pinNumberTxtBx.Text;
-                int convertedtonumber = Convert.ToInt32(enteredvalue);
-                for (int i = 0; i < convertedtonumber; i++)
+
+
+                if (pinNumberTxtBx.Text != null)
                 {
-                    dataGridViewPinInfo.Rows.Add();
-                    dataGridViewPinInfo.Rows[countofpins + i].Cells[0].Value = (1 + i).ToString();
+
+                    int countofpins = 0;
+                    string enteredvalue = pinNumberTxtBx.Text;
+                    int convertedtonumber = Convert.ToInt32(enteredvalue);
+                    for (int i = 0; i < convertedtonumber; i++)
+                    {
+                        dataGridViewPinInfo.Rows.Add();
+                        dataGridViewPinInfo.Rows[countofpins + i].Cells[0].Value = (1 + i).ToString();
+                    }
                 }
             }
 
-           
-            if(pinNumberTxtBx.Text == null)
+            catch (Exception)
             {
-                MessageBox.Show("Enter valid Number", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                    MessageBox.Show("Enter number of pins", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                
             }
         }
 
@@ -765,17 +792,24 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton20_Click(object sender, EventArgs e)
         {
-            if (cableLeadsNumberTxtbx.Text != null)
+            try
             {
-                int countofleads = 0;
-                string entredvalue = cableLeadsNumberTxtbx.Text;
-                int convertednumber = Convert.ToInt32(entredvalue);
-
-                for (int i =0; i< convertednumber;i++)
+                if (cableLeadsNumberTxtbx.Text != null)
                 {
-                    dataGridViewIRDICableLeads.Rows.Add();
-                    dataGridViewIRDICableLeads.Rows[countofleads + i].Cells[1].Value = (i + 1).ToString();
+                    int countofleads = 0;
+                    string entredvalue = cableLeadsNumberTxtbx.Text;
+                    int convertednumber = Convert.ToInt32(entredvalue);
+
+                    for (int i = 0; i < convertednumber; i++)
+                    {
+                        dataGridViewIRDICableLeads.Rows.Add();
+                        dataGridViewIRDICableLeads.Rows[countofleads + i].Cells[1].Value = (i + 1).ToString();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Enter number of Leads in a cable", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -804,6 +838,133 @@ namespace Aml.Editor.Plugin
         private void ConnectorStyleCmbx_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ToolStripButton22_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersIRDIDMI = datatables.Parametersdatatable();
+
+            DictionaryIRDI DIRDI = new DictionaryIRDI();
+            Dictionary<int, Parameters> IRDIDMI = DIRDI.IRDICableDimensionData();
+
+            datatables.CreateDataTableWith4Columns(IRDIDMI, datatableheadersIRDIDMI, dataGridViewIRDICableDMI);
+
+        }
+
+        private void ToolStripButton23_Click(object sender, EventArgs e)
+        {
+            dataGridViewIRDICableDMI.Rows.Clear();
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            AMC.WindowSizeChanger(panel41,sensorInterfaceButton);
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            AMC.OpenFileDialog(addVendorLogoTxtbx, pictureBox1);
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            AMC.OpenFileDialog(addDeviceIconTxtbx, pictureBox2);
+        }
+
+        private void Button6_Click_1(object sender, EventArgs e)
+        {
+            AMC.OpenFileDialog(addDevicePictureTxtbx,pictureBox3);
+        }
+
+        private void Button9_Click(object sender, EventArgs e)
+        {
+            AMC.OpenFileDialog(DofcTxtbx);
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+
+            AMC.OpenFileDialog(shortGuideTxtbx);
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            AMC.OpenFileDialog(bomTxtbx);
+        }
+
+        private void ToolStripButton40_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersSensorInterfaceOrientation = datatables.Parametersdatatable();
+
+            DictionarySensorInterface DictSensorInterface = new DictionarySensorInterface();
+            Dictionary<int, Parameters> SensorInterfaceOrientation = DictSensorInterface.SensorInterfaceOrientationData();
+
+            datatables.CreateDataTableWith4Columns(SensorInterfaceOrientation, datatableheadersSensorInterfaceOrientation, dataGridViewSensorInterfaceOrienatation);
+        }
+
+        private void ToolStripButton41_Click(object sender, EventArgs e)
+        {
+            dataGridViewSensorInterfaceOrienatation.Rows.Clear();
+        }
+
+        private void ToolStripButton42_Click(object sender, EventArgs e)
+        {
+            Datatables datatables = new Datatables();
+            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
+            DataTable datatableheadersSensorMaterialOrientation = datatables.Parametersdatatable();
+
+            DictionarySensorInterface DictSensorInterface = new DictionarySensorInterface();
+            Dictionary<int, Parameters> SensorMaterialOrientation = DictSensorInterface.SensorInterfaceOrientationData();
+
+            datatables.CreateDataTableWith4Columns(SensorMaterialOrientation, datatableheadersSensorMaterialOrientation, dataGridViewSensingMaterialOrientation);
+        }
+
+        private void ToolStripButton43_Click(object sender, EventArgs e)
+        {
+            dataGridViewSensingMaterialOrientation.Rows.Clear();
+        }
+
+        private void TreeView2_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (treeView2.SelectedNode.Text == "Identification Data")
+            {
+                tabControl2.SelectTab("tabPage2");
+                panel27.Size = panel27.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "General Technical Data")
+            {
+                tabControl2.SelectTab("tabPage2");
+                panel28.Size = panel28.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "Commercial Data")
+            {
+                tabControl2.SelectTab("tabPage2");
+                panel29.Size = panel29.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "Electrical Interface")
+            {
+                tabControl2.SelectTab("tabPage5");
+                panel4.Size = panel4.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "Sensor Interface")
+            {
+                tabControl2.SelectTab("tabPage5");
+                panel41.Size = panel41.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "Add Logo")
+            {
+                tabControl2.SelectTab("tabPage6");
+                panel10.Size = panel10.MaximumSize;
+            }
+            if (treeView2.SelectedNode.Text == "Add Documents")
+            {
+                tabControl2.SelectTab("tabPage6");
+                panel14.Size = panel14.MaximumSize;
+            }
         }
     }
 }

@@ -157,6 +157,7 @@ namespace Aml.Editor.Plugin
 
 
     }
+    // here "IRDI" is "IEC-CDD" 
     public class DictionaryIRDI
     {
         public Dictionary<int, Parameters> IRDIIdentificationdata()
@@ -533,18 +534,42 @@ namespace Aml.Editor.Plugin
         }
         public Dictionary<int, Parameters> IRDICableDimensionData()
         {
-            Parameters IRDIFemaleConnectorDimensioneData1 = new Parameters() { ID = 001, Parameter = "BA", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
-            Parameters IRDIFemaleConnectorDimensioneData2 = new Parameters() { ID = 002, Parameter = "BB", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
-            Parameters IRDIFemaleConnectorDimensioneData3 = new Parameters() { ID = 003, Parameter = "BC", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
-            Parameters IRDIFemaleConnectorDimensioneData4 = new Parameters() { ID = 004, Parameter = "BD", RefSemanticPrefix = "", Unit = "mm", Min = "", Nom = "", Max = "" };
+            Parameters IRDICableDimensionData1 = new Parameters() { ID = 001, Parameter = "BA", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters IRDICableDimensionData2 = new Parameters() { ID = 002, Parameter = "BB", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters IRDICableDimensionData3 = new Parameters() { ID = 003, Parameter = "BC", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters IRDICableDimensionData4 = new Parameters() { ID = 004, Parameter = "BD", RefSemanticPrefix = "", Unit = "mm", Value = "" };
 
-            Dictionary<int, Parameters> IRDIFemaleConnectorDimensioneDataParameters = new Dictionary<int, Parameters>();
-            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData1.ID, IRDIFemaleConnectorDimensioneData1);
-            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData2.ID, IRDIFemaleConnectorDimensioneData2);
-            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData3.ID, IRDIFemaleConnectorDimensioneData3);
-            IRDIFemaleConnectorDimensioneDataParameters.Add(IRDIFemaleConnectorDimensioneData4.ID, IRDIFemaleConnectorDimensioneData4);
+            Dictionary<int, Parameters> IRDICableDimensionDataParameters = new Dictionary<int, Parameters>();
+            IRDICableDimensionDataParameters.Add(IRDICableDimensionData1.ID, IRDICableDimensionData1);
+            IRDICableDimensionDataParameters.Add(IRDICableDimensionData2.ID, IRDICableDimensionData2);
+            IRDICableDimensionDataParameters.Add(IRDICableDimensionData3.ID, IRDICableDimensionData3);
+            IRDICableDimensionDataParameters.Add(IRDICableDimensionData4.ID, IRDICableDimensionData4);
 
-            return IRDIFemaleConnectorDimensioneDataParameters;
+            return IRDICableDimensionDataParameters;
+        }
+    }
+    public class DictionarySensorInterface
+    {
+        // Orientation of the Sensor Interface and material observed by the sensor is not designated in any Standardisations so this dictionay of Sensor is created based on
+        // Virtual commissioning tool parameters.
+        public Dictionary<int, Parameters> SensorInterfaceOrientationData()
+        {
+            Parameters SensorInterfaceOrientationData1 = new Parameters() { ID = 001, Parameter = "Translation along (X-axis)", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters SensorInterfaceOrientationData2 = new Parameters() { ID = 002, Parameter = "Translation along (Y-axis)", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters SensorInterfaceOrientationData3 = new Parameters() { ID = 003, Parameter = "Translation along (Z-axis)", RefSemanticPrefix = "", Unit = "mm", Value = "" };
+            Parameters SensorInterfaceOrientationData4 = new Parameters() { ID = 004, Parameter = "Rotation along (X-axis)", RefSemanticPrefix = "", Unit = "degrees", Value = "" };
+            Parameters SensorInterfaceOrientationData5 = new Parameters() { ID = 005, Parameter = "Rotation along (Y-axis)", RefSemanticPrefix = "", Unit = "degrees", Value = "" };
+            Parameters SensorInterfaceOrientationData6 = new Parameters() { ID = 006, Parameter = "Rotation along (Z-axis)", RefSemanticPrefix = "", Unit = "degrees", Value = "" };
+
+            Dictionary<int, Parameters> SensorInterfaceOrientationDataParameters = new Dictionary<int, Parameters>();
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData1.ID, SensorInterfaceOrientationData1);
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData2.ID, SensorInterfaceOrientationData2);
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData3.ID, SensorInterfaceOrientationData3);
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData4.ID, SensorInterfaceOrientationData4);
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData5.ID, SensorInterfaceOrientationData5);
+            SensorInterfaceOrientationDataParameters.Add(SensorInterfaceOrientationData6.ID, SensorInterfaceOrientationData6);
+
+            return SensorInterfaceOrientationDataParameters;
         }
     }
 
