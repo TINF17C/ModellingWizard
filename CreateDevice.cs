@@ -881,6 +881,7 @@ namespace Aml.Editor.Plugin
         private void Button9_Click(object sender, EventArgs e)
         {
             AMC.OpenFileDialog(DofcTxtbx);
+            
         }
 
         private void Button8_Click(object sender, EventArgs e)
