@@ -880,19 +880,19 @@ namespace Aml.Editor.Plugin
 
         private void Button9_Click(object sender, EventArgs e)
         {
-            AMC.OpenFileDialog(DofcTxtbx);
+            AMC.OpenFileDialog(dofcTxtbx, docPdfBtn);
             
         }
 
         private void Button8_Click(object sender, EventArgs e)
         {
 
-            AMC.OpenFileDialog(shortGuideTxtbx);
+            AMC.OpenFileDialog(shortGuideTxtbx, shortGuidePdfBtn);
         }
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            AMC.OpenFileDialog(bomTxtbx);
+            AMC.OpenFileDialog(bomTxtbx, billOfMaterialsPdfBtn);
         }
 
         private void ToolStripButton40_Click(object sender, EventArgs e)
@@ -966,6 +966,27 @@ namespace Aml.Editor.Plugin
                 tabControl2.SelectTab("tabPage6");
                 panel14.Size = panel14.MaximumSize;
             }
+        }
+
+        private void CancelDocPdfBtn_Click(object sender, EventArgs e)
+        {
+            docPdfBtn.Text = "";
+            docPdfBtn.Visible = false;
+            dofcTxtbx.Text = "";
+        }
+
+        private void ShortGuideCancelBtn_Click(object sender, EventArgs e)
+        {
+            shortGuidePdfBtn.Text = "";
+            shortGuidePdfBtn.Visible = false;
+            shortGuideTxtbx.Text = "";
+        }
+
+        private void BomCancelBtn_Click(object sender, EventArgs e)
+        {
+            billOfMaterialsPdfBtn.Text = "";
+            billOfMaterialsPdfBtn.Visible = false;
+            bomTxtbx.Text = "";
         }
     }
 }

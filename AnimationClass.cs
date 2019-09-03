@@ -17,6 +17,7 @@ namespace Aml.Editor.Plugin
 
         public TextBox TextboxName { get; set; }
         public PictureBox PictureboxNumber { get; set; }
+        public Button PdfDisplayBtn { get; set; }
 
         public AnimationClass()
         {
@@ -38,17 +39,25 @@ namespace Aml.Editor.Plugin
                 buttonNumber.Image = Resources.icons8_collapse_arrow_24;
             }
         }
-        public void OpenFileDialog(TextBox textboxName)
+        public void OpenFileDialog(TextBox textboxName, Button pdfDisplayBtn)
         {
             TextboxName = textboxName;
-            
+            PdfDisplayBtn = pdfDisplayBtn;
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Document Files(*.pdf; *.doc;)|*.pdf; *.doc;";
             if (open.ShowDialog() == DialogResult.OK)
             {
                 textboxName.Text = open.FileName;
-                
+                pdfDisplayBtn.Visible = true;
+                pdfDisplayBtn.Text = Path.GetFileName(open.FileName);
+                pdfDisplayBtn.Click += PdfButton_Click;
             }
+        }
+        public void PdfButton_Click(object sender, EventArgs e)
+        {
+            PdfViewer pdfViewer = new PdfViewer();
+            pdfViewer.Show();
+
         }
 
 

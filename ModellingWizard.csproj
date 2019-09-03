@@ -123,6 +123,12 @@
     <Compile Include="pdf viewer.Designer.cs">
       <DependentUpon>pdf viewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="PdfViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -168,6 +174,9 @@
   <ItemGroup>
     <EmbeddedResource Include="pdf viewer.resx">
       <DependentUpon>pdf viewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
