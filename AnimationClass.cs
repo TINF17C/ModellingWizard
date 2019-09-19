@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Aml.Editor.Plugin.Properties;
 using System.IO;
 using System.Drawing;
+using System.Web;
+using System.Net;
 
 namespace Aml.Editor.Plugin
 {
@@ -14,10 +16,10 @@ namespace Aml.Editor.Plugin
     {
         public Panel PanelNumber { get; set; }
         public Button ButtonNumber { get; set; }
-
+        public WebBrowser Webbrowser { get; set; }
         public TextBox TextboxName { get; set; }
         public PictureBox PictureboxNumber { get; set; }
-        public Button PdfDisplayBtn { get; set; }
+        public Button DisplayBtn { get; set; }
 
         public AnimationClass()
         {
@@ -42,7 +44,8 @@ namespace Aml.Editor.Plugin
         public void OpenFileDialog(TextBox textboxName, Button pdfDisplayBtn)
         {
             TextboxName = textboxName;
-            PdfDisplayBtn = pdfDisplayBtn;
+            DisplayBtn = pdfDisplayBtn;
+            WebBrowser webbrowser = new WebBrowser();
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Document Files(*.pdf; *.doc;)|*.pdf; *.doc;";
             if (open.ShowDialog() == DialogResult.OK)
@@ -50,15 +53,10 @@ namespace Aml.Editor.Plugin
                 textboxName.Text = open.FileName;
                 pdfDisplayBtn.Visible = true;
                 pdfDisplayBtn.Text = Path.GetFileName(open.FileName);
-                pdfDisplayBtn.Click += PdfButton_Click;
+                
             }
         }
-        public void PdfButton_Click(object sender, EventArgs e)
-        {
-            PdfViewer pdfViewer = new PdfViewer();
-            pdfViewer.Show();
-
-        }
+       
 
 
         // Open Dialog Box related method that takes parmeters of textbox name and the picture box number.
@@ -72,6 +70,21 @@ namespace Aml.Editor.Plugin
             {
                 textboxName.Text = open.FileName;
                 pictureBoxNumber.Image = new Bitmap(open.FileName);
+            }
+        }
+        public void OpenFileDialog(TextBox textboxName, PictureBox pictureBoxNumber, Button displayButton)
+        {
+            TextboxName = textboxName;
+            PictureboxNumber = pictureBoxNumber;
+            DisplayBtn = displayButton;
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png;)|*.jpg; *.jpeg; *.gif; *.bmp; *.png;";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                textboxName.Text = open.FileName;
+                pictureBoxNumber.Image = new Bitmap(open.FileName);
+                displayButton.Visible = true;
+                displayButton.Text = Path.GetFileName(open.FileName);
             }
         }
 

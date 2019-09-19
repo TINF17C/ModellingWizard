@@ -12,6 +12,7 @@ namespace Aml.Editor.Plugin
         private CreateDevice createDeviceForm;
         private CreateInterface createInterfaceForm;
         private StartGUI startGUI;
+        private DeviceDescription deviceDescriptionForm;
         
 
         // the interface class to the AML Editor
@@ -48,7 +49,17 @@ namespace Aml.Editor.Plugin
 
             return createDeviceForm;
         }
-
+        /// <summary>
+        /// creáte the new DeviceDescription GUI or return the previously created GUI
+        /// </summary>
+        public DeviceDescription GetDeviceDescriptionForm()
+        {
+            if (deviceDescriptionForm == null)
+            {
+                deviceDescriptionForm = new DeviceDescription(this);
+            }
+            return deviceDescriptionForm;
+        }
         /// <summary>
         /// Create the new CreateInterface GUI or return the previously created GUI
         /// </summary>
@@ -171,6 +182,7 @@ namespace Aml.Editor.Plugin
                     GetCreateInterfaceForm().prefill((MWInterface)mWObject);
                     ChangeGui(MWGUIType.CreateInterface);
                 }
+                
             }
         }
 
@@ -219,7 +231,9 @@ namespace Aml.Editor.Plugin
                 case MWGUIType.Start:
                     modellingWizard.changeGUI(GetStartGUI());
                     break;
-                
+                case MWGUIType.DeviceDescription:
+                    modellingWizard.changeGUI(GetDeviceDescriptionForm());
+                    break;
 
             }
         }
@@ -227,7 +241,7 @@ namespace Aml.Editor.Plugin
         /// <summary>
         /// Enum to represent the GUI
         /// </summary>
-        public enum MWGUIType { CreateDevice, CreateInterface, Start, StartGUI02 }
+        public enum MWGUIType { CreateDevice, CreateInterface, Start, DeviceDescription }
 
         /// <summary>
         /// Call the Converter with the given file

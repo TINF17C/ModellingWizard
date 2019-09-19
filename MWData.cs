@@ -254,7 +254,7 @@ namespace Aml.Editor.Plugin
                         device.deviceName = attribute.Value;
                         break;
                     case "DeviceFamily":
-                        device.deviceFamily = attribute.Value;
+                        device.productRange = attribute.Value;
                         break;
                     case "ProductName":
                         device.productName = attribute.Value;
@@ -315,13 +315,49 @@ namespace Aml.Editor.Plugin
             CAEXDocument document = null;
             AutomationMLContainer amlx = null;
 
+            Uri decOfConfPart = null;
+            Uri shortGuidePart = null;
+            Uri billOfMaterialsPart = null;
+
             // Init final .amlx Filepath
+            //first of all create a folder on "Vendor Name"
+            string vendorCompanyName = device.vendorName;
+            string vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
+            
+            if (!Directory.Exists(vendorCompanyNameFilePath))
+            {
+                Directory.CreateDirectory(vendorCompanyNameFilePath);
+            }
+
+            // Cretae a folder inside "Vendor Name"  file defining "Product Range"
+           
+            string deviceFamilyNamePath = System.IO.Path.Combine(vendorCompanyNameFilePath, device.productRange);
+            System.IO.Directory.CreateDirectory(deviceFamilyNamePath);
+
+            // Create a folder inside the "Product Range" file defining "Product Group"
+           
+            string productGroupNamePath = System.IO.Path.Combine(deviceFamilyNamePath, device.productGroup);
+            System.IO.Directory.CreateDirectory(productGroupNamePath);
+
+            // Create a folder inside the "Product Group" file defining "Product Families"
+           
+            string productFamilyNamePath = System.IO.Path.Combine(productGroupNamePath, device.productFamily);
+            System.IO.Directory.CreateDirectory(productFamilyNamePath);
+
+            // Create a folder inside the "Product Families" file for individual products
+            string productNamePath = System.IO.Path.Combine(productFamilyNamePath, device.deviceName);
+            System.IO.Directory.CreateDirectory(productNamePath);
+
+
             string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + fileName + ".amlx";
+           //string amlFilePath = /*Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\"*/newPath + fileName + ".amlx";
+           string amlFilePath = System.IO.Path.Combine(productNamePath, fileName + ".amlx");
             FileInfo file = new FileInfo(amlFilePath);
 
+           
             // Create directory if it's not existing
             file.Directory.Create();
+
 
             // Init CAEX Document
             if (isEdit)
@@ -363,6 +399,27 @@ namespace Aml.Editor.Plugin
             if (!isEdit)
             {
                 systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
+
+                AttributeType identificationDataAtt = null;
+                if (systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData") == null)
+                {
+                    identificationDataAtt = systemUnitClass.Attribute.Append("IdentificationData");
+                }
+                else
+                {
+                    identificationDataAtt = systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData");
+                    identificationDataAtt.Attribute.Remove();
+                }
+
+                // assign the values for the pinlist
+                foreach (DataGridParameters pin in device.dataGridParametersLists)
+                {
+                    identificationDataAtt.Attribute.Append(pin.Attributes.ToString()).Value = pin.Attributes;
+                    identificationDataAtt.Attribute.Append(pin.Attributes.ToString()).RefAttributeType = pin.RefSemantic;
+                    
+                    
+
+                }
             }
             else
             {
@@ -433,6 +490,48 @@ namespace Aml.Editor.Plugin
                 }
             }
 
+            // Convert document paths to relativ package paths (if they are given)
+            // Convert decleration of Confiormity path
+            if (device.decOfConfDocument != null && !device.decOfConfDocument.Equals(""))
+            {
+                try
+                {
+                    // Create File Paths
+                   decOfConfPart = createDocumentRef(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
+
+                }
+                catch (Exception)
+                {
+                    // No vendor Logo
+                }
+            }
+
+            // Convert short Guide
+            if (device.shortGuideDocument != null && !device.shortGuideDocument.Equals(""))
+            {
+                try
+                {
+                   shortGuidePart = createDocumentRef(device.shortGuideDocument, "ShortGuide", "ExternalDataReference", systemUnitClass);
+                }
+                catch (Exception)
+                {
+                    // No Device Icon
+                }
+            }
+
+            // Convert bill of materials
+            if (device.billOfMaterialsDocument != null && !device.billOfMaterialsDocument.Equals(""))
+            {
+                try
+                {
+                    billOfMaterialsPart = createDocumentRef(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataReference", systemUnitClass);
+                }
+                catch (Exception)
+                {
+                    // No device Picture
+                }
+            }
+
 
 
             // Create the internalElement DeviceIdentification
@@ -478,16 +577,44 @@ namespace Aml.Editor.Plugin
                 if (manuPart != null)
                 {
                     amlx.AddAnyContent(root, device.vendorLogo, manuPart);
+                    copyFiles(device.vendorLogo, productNamePath);
+                 
+                    
                 }
 
                 if (deviceIconPart != null)
                 {
                     amlx.AddAnyContent(root, device.deviceIcon, deviceIconPart);
+                    copyFiles(device.deviceIcon, productNamePath);
+                   
                 }
 
                 if (devicePicPart != null)
                 {
                     amlx.AddAnyContent(root, device.devicePicture, devicePicPart);
+                    copyFiles(device.devicePicture, productNamePath);
+                 
+                }
+            }
+            if (!isEdit)
+            {
+                // copy the documents from disk into the package
+                if (decOfConfPart != null)
+                {
+                    amlx.AddAnyContent(root, device.decOfConfDocument, decOfConfPart);
+                    copyFiles(device.decOfConfDocument, productNamePath);
+                }
+
+                if (shortGuidePart != null)
+                {
+                    amlx.AddAnyContent(root, device.shortGuideDocument, shortGuidePart);
+                    copyFiles(device.shortGuideDocument, productNamePath);
+                }
+
+                if (billOfMaterialsPart != null)
+                {
+                    amlx.AddAnyContent(root, device.billOfMaterialsDocument, billOfMaterialsPart);
+                    copyFiles(device.billOfMaterialsDocument, productNamePath);
                 }
             }
 
@@ -560,6 +687,62 @@ namespace Aml.Editor.Plugin
             return picturePart;
         }
         /// <summary>
+        /// Creates the Structur to reference a document and set the correct value <paramref name="doc"/>.
+        /// If the structur is already there, it will only update the value.
+        /// </summary>
+        /// <param name="doc">the absolut path to the document</param>
+        /// <param name="doctype">Documenttype like 'Short Guide' or 'Bill of Materials'</param>
+        /// <param name="externalname">The name of the externalElement</param>
+        /// <param name="systemUnitClass">the systemUnitClass to insert the structure into</param>
+        /// <returns></returns>
+        public Uri createDocumentRef(string doc, string doctype, string externalname, SystemUnitClassType systemUnitClass)
+        {
+            // create the package paths
+            FileInfo documentInfo = new FileInfo(doc);
+            Uri documentPath = new Uri(documentInfo.Name, UriKind.Relative);
+            Uri documentPart = PackUriHelper.CreatePartUri(documentPath);
+
+            // Create the InternalElement which refers to the document
+            InternalElementType documentIE = null;
+            foreach (var internalElement in systemUnitClass.InternalElement)
+            {
+                if (internalElement.Name.Equals(doctype))
+                {
+                    documentIE = internalElement;
+                    break;
+                }
+            }
+            if (documentIE == null)
+                documentIE = systemUnitClass.InternalElement.Append(doctype);
+
+            // create the externalelement
+            ExternalInterfaceType documentEI = null;
+            foreach (var externalinterface in documentIE.ExternalInterface)
+            {
+                if (externalinterface.Name.Equals(externalname))
+                {
+                    documentEI = externalinterface;
+                    break;
+                }
+            }
+            if (documentEI == null)
+                documentEI = documentIE.ExternalInterface.Append(externalname);
+
+            documentEI.RefBaseClassPath = AutomationMLInterfaceClassLib.ExternalDataConnector;
+
+            // create the refURI Attribute with the value of the path
+
+            AttributeType pictureAtt = null;
+            if (documentEI.Attribute.GetCAEXAttribute("refURI") == null)
+            {
+                pictureAtt = documentEI.Attribute.Append("refURI");
+            }
+            pictureAtt.AttributeDataType = "xs:anyURI";
+            pictureAtt.Value = documentPart.ToString();
+
+            return documentPart;
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="ie"></param>
@@ -617,7 +800,7 @@ namespace Aml.Editor.Plugin
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorName"), device.vendorName);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceId"), device.deviceID);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceName"), device.deviceName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceFamiliy"), device.deviceFamily);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceFamiliy"), device.productRange);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("OrderNumber"), device.orderNumber);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductName"), device.productName);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductText"), device.productText);
@@ -979,6 +1162,12 @@ namespace Aml.Editor.Plugin
         public class MWObject
         {
             // Just as an interface
+        }
+        public void copyFiles(string sourceFilePath, string destinationFilePath )
+        {
+            string sourFile = Path.GetFileName(sourceFilePath);
+            string destFile = Path.Combine(destinationFilePath, sourFile);
+            File.Copy(sourceFilePath, destFile, true);
         }
     }
 }

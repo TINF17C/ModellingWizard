@@ -1,10 +1,8 @@
-﻿using Aml.Editor.Plugin.Properties;
-using System;
-using System.Windows.Forms;
-using System.Data;
-using System.Text;
-using System.Drawing;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
+
 
 
 
@@ -17,6 +15,7 @@ namespace Aml.Editor.Plugin
         // Controller class to pass the data to
         MWController mWController;
         AnimationClass AMC = new AnimationClass();
+        
 
         // flag if we are creating a new device or editing one
         bool isEditing = false;
@@ -75,7 +74,7 @@ namespace Aml.Editor.Plugin
             device.vendorName = txtVendorName.Text;
             device.vendorHomepage = txtVendorHomepage.Text;
             device.deviceName = txtDeviceName.Text;
-            device.deviceFamily = txtDeviceFamily.Text;
+            device.productGroup = txtDeviceFamily.Text;
             device.productName = txtProductName.Text;
             device.orderNumber = txtOrderNumber.Text;
             device.productText = productTxtBox.Text;
@@ -165,7 +164,7 @@ namespace Aml.Editor.Plugin
             txtDeviceId.Text = device.deviceID.ToString();
             txtDeviceName.Text = device.deviceName;
 
-            txtDeviceFamily.Text = device.deviceFamily;
+            txtDeviceFamily.Text = device.productGroup;
             txtProductName.Text = device.productName;
             txtOrderNumber.Text = device.orderNumber;
             productTxtBox.Text = device.productText;
@@ -987,6 +986,75 @@ namespace Aml.Editor.Plugin
             billOfMaterialsPdfBtn.Text = "";
             billOfMaterialsPdfBtn.Visible = false;
             bomTxtbx.Text = "";
+        }
+
+        private void DocPdfBtn_Click(object sender, EventArgs e)
+        {
+            PdfViewer pdf = new PdfViewer();
+            pdf.ShowDialog();
+            pdf.Viewpdf(dofcTxtbx.Text);
+        }
+
+        private void GeneraterAML_Click(object sender, EventArgs e)
+        {
+            //MWDevice device2 = new MWDevice();
+            // Create a new Device
+            var device = new MWDevice();
+
+            // Read all the input fields and write them to the device data
+            if (deviceTypeListBox.SelectedItem != null)
+            {
+                device.deviceType = deviceTypeListBox.SelectedItem.ToString();
+            }
+            else
+            {
+                device.deviceType = "";
+            }
+
+            // Check if there was an input in this field, if so: try to convert it to integer
+            if (!String.IsNullOrWhiteSpace(txtVendorId.Text))
+            {
+                try { device.vendorID = Convert.ToInt32(txtVendorId.Text); } catch (Exception) { MessageBox.Show("Warning: Vendor ID must be number.\n please correct input"); }
+            }
+            // Check if there was an input in this field, if so: try to convert it to integer
+            if (!String.IsNullOrWhiteSpace(txtDeviceId.Text))
+            {
+                try { device.deviceID = Convert.ToInt32(txtDeviceId.Text); } catch (Exception) { MessageBox.Show("Device ID is in an invalid format (Expected only numbers)! Ignoring!"); }
+            }
+            device.vendorName = txtVendorName.Text;
+            device.vendorHomepage = txtVendorHomepage.Text;
+            device.deviceName = txtDeviceName.Text;
+            device.productGroup = txtDeviceFamily.Text;
+            device.productName = txtProductName.Text;
+            device.orderNumber = txtOrderNumber.Text;
+            device.productText = productTxtBox.Text;
+            device.harwareRelease = hwRelTxt.Text;
+            device.softwareRelease = swRelTxt.Text;
+
+
+            device.ipProtection = txtIpProduction.Text;
+            if (!String.IsNullOrWhiteSpace(txtMaxTemp.Text))
+            {
+                try { device.minTemperature = Convert.ToDouble(txtMinTemp.Text); } catch (Exception) { device.minTemperature = Double.NaN; MessageBox.Show("Min Temperature is in an invalid format (Expected only numbers)! Ignoring!"); }
+            }
+            if (!String.IsNullOrWhiteSpace(txtMaxTemp.Text))
+            {
+                try { device.maxTemperature = Convert.ToDouble(txtMaxTemp.Text); } catch (Exception) { device.maxTemperature = Double.NaN; MessageBox.Show("Max Temperature is in an invalid format (Expected only numbers)! Ignoring!"); }
+            }
+
+            device.deviceIcon = deviceIconPath;
+            device.devicePicture = devicePicturePath;
+            device.vendorLogo = vendorPicturePath;
+
+            // Pass the device to the controller
+            string result = mWController.CreateDeviceOnClick(device, isEditing);
+            clear();
+            // Display the result
+            if (result != null)
+            {
+                // Display error Dialog
+                MessageBox.Show(result);
+            }
         }
     }
 }

@@ -109,5 +109,10 @@ namespace Aml.Editor.Plugin
         {
            
         }
+
+        private void DeviceDescriptionBtn_Click(object sender, EventArgs e)
+        {
+            mWController.ChangeGui(MWController.MWGUIType.DeviceDescription);
+        }
     }
 }

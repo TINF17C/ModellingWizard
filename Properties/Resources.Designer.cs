@@ -219,5 +219,25 @@ namespace Aml.Editor.Plugin.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_winkel_links_30 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-winkel-links-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_winkel_rechts_30 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-winkel-rechts-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

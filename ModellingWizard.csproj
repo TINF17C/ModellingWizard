@@ -48,6 +48,13 @@
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AML.Editor.PluginContracts, Version=2.1.0.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
       <HintPath>packages\Aml.Editor.Plugin.Contract.2.1.0\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
@@ -116,15 +123,15 @@
     </Compile>
     <Compile Include="AnimationClass.cs" />
     <Compile Include="Datatables.cs" />
+    <Compile Include="DeviceDescription.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DeviceDescription.Designer.cs">
+      <DependentUpon>DeviceDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dictionary.cs" />
-    <Compile Include="pdf viewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="pdf viewer.Designer.cs">
-      <DependentUpon>pdf viewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="PdfViewer.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="PdfViewer.Designer.cs">
       <DependentUpon>PdfViewer.cs</DependentUpon>
@@ -172,8 +179,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="pdf viewer.resx">
-      <DependentUpon>pdf viewer.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceDescription.resx">
+      <DependentUpon>DeviceDescription.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
@@ -198,6 +205,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="gsd2aml.xml" />
+    <None Include="Resources\icons8-winkel-links-30.png" />
+    <None Include="Resources\icons8-winkel-rechts-30.png" />
     <None Include="Resources\icons8-plus-mathe-30.png" />
     <None Include="Resources\icons8-datenbank-hinzufügen-30.png" />
     <None Include="Resources\icons8-löschen-26.png" />
