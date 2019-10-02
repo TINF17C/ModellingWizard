@@ -20,6 +20,10 @@ namespace Aml.Editor.Plugin
         public TextBox TextboxName { get; set; }
         public PictureBox PictureboxNumber { get; set; }
         public Button DisplayBtn { get; set; }
+        public DataGridView dataGridView { get; set; }
+        public string words { get; set; }
+       // public TreeNode Node { get; set; }
+
 
         public AnimationClass()
         {
@@ -41,6 +45,21 @@ namespace Aml.Editor.Plugin
                 buttonNumber.Image = Resources.icons8_collapse_arrow_24;
             }
         }
+        public void WindowSizeChanger(Panel panelNumber)
+        {
+            PanelNumber = panelNumber;
+           // Node = node;
+            if (panelNumber.Size == panelNumber.MaximumSize)
+            {
+                panelNumber.Size = panelNumber.MinimumSize;
+                //Node.Image = Resources.icons8_expand_arrow_24;
+            }
+            else
+            {
+                panelNumber.Size = panelNumber.MaximumSize;
+                //Node.Image = Resources.icons8_collapse_arrow_24;
+            }
+        }
         public void OpenFileDialog(TextBox textboxName, Button pdfDisplayBtn)
         {
             TextboxName = textboxName;
@@ -56,7 +75,17 @@ namespace Aml.Editor.Plugin
                 
             }
         }
-       
+       // method for opening IEC-CDD urls 
+       public void SemanticSystemOpener(string btnText)
+        {
+            
+            string mainUrl = "https://cdd.iec.ch/CDD/IEC62683/iec62683.nsf/PropertiesAllVersions/0112-2---62683%23";
+            string lastUrl = "?OpenDocument";
+            string midUrl = btnText.Substring(15);
+            string finalUrl = mainUrl +midUrl+ lastUrl;
+           
+            System.Diagnostics.Process.Start(finalUrl);
+        }
 
 
         // Open Dialog Box related method that takes parmeters of textbox name and the picture box number.
@@ -87,7 +116,34 @@ namespace Aml.Editor.Plugin
                 displayButton.Text = Path.GetFileName(open.FileName);
             }
         }
+        // this method dispaly all hidden buttons with the Refsemantic Id in them.
+        public void DispalySemanticBtn(Button refSemanticBtn, DataGridView dataGrids,string word)
+        {
+            words = word;
+            DisplayBtn = refSemanticBtn;
+            dataGridView = dataGrids;
 
+            DisplayBtn.Visible = true;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                foreach (DataGridViewRow attribute in dataGridView.Rows)
+                {
+                    if (attribute.Cells[1].Value.ToString().Equals(words))
+                    {
+                        DisplayBtn.Text = attribute.Cells[0].Value.ToString();
+                        break;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
+        }
+        //  this method is responsible to load all the datagrid parameters from the user in to the MWDevice class in to respective lists 
+        
     }
     
 }

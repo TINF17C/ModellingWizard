@@ -930,42 +930,55 @@ namespace Aml.Editor.Plugin
 
         private void TreeView2_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            
             if (treeView2.SelectedNode.Text == "Identification Data")
             {
-                tabControl2.SelectTab("tabPage2");
-                panel27.Size = panel27.MaximumSize;
+               
+                    tabControl2.SelectTab("tabPage2");
+                    AMC.WindowSizeChanger(panel27);
+                    
+                
+                //panel27.Size = panel27.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "General Technical Data")
             {
                 tabControl2.SelectTab("tabPage2");
-                panel28.Size = panel28.MaximumSize;
+                AMC.WindowSizeChanger(panel28);
+                // panel28.Size = panel28.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "Commercial Data")
             {
                 tabControl2.SelectTab("tabPage2");
-                panel29.Size = panel29.MaximumSize;
+                AMC.WindowSizeChanger(panel29);
+               // panel29.Size = panel29.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "Electrical Interface")
             {
                 tabControl2.SelectTab("tabPage5");
-                panel4.Size = panel4.MaximumSize;
+                AMC.WindowSizeChanger(panel4);
+               // panel4.Size = panel4.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "Sensor Interface")
             {
                 tabControl2.SelectTab("tabPage5");
-                panel41.Size = panel41.MaximumSize;
+                AMC.WindowSizeChanger(panel41);
+               // panel41.Size = panel41.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "Add Logo")
             {
                 tabControl2.SelectTab("tabPage6");
-                panel10.Size = panel10.MaximumSize;
+                AMC.WindowSizeChanger(panel10);
+               // panel10.Size = panel10.MaximumSize;
             }
             if (treeView2.SelectedNode.Text == "Add Documents")
             {
                 tabControl2.SelectTab("tabPage6");
-                panel14.Size = panel14.MaximumSize;
+                AMC.WindowSizeChanger(panel14);
+                //panel14.Size = panel14.MaximumSize;
             }
+            treeView2.SelectedNode = null;
         }
+       
 
         private void CancelDocPdfBtn_Click(object sender, EventArgs e)
         {

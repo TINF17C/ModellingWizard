@@ -9,10 +9,11 @@ using System.Reflection;
 
 namespace Aml.Editor.Plugin
 {
-    public class MWData
+    public class MWData : DeviceDescription
     {
         // holds the controller to report created devices to
         private readonly MWController mWController;
+        
 
         /// <summary>
         /// Create the MWData Object
@@ -401,6 +402,14 @@ namespace Aml.Editor.Plugin
                 systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
 
                 AttributeType identificationDataAtt = null;
+                AttributeType commercialDataAtt = null;
+                AttributeType productDetailsDataAtt = null;
+                AttributeType productOrderDetailsDataAtt = null;
+                AttributeType productPriceDetailsDataAtt = null;
+                AttributeType manufacturerDetailsDataAtt = null;
+               // RefSemanticType sem = null;
+                
+
                 if (systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData") == null)
                 {
                     identificationDataAtt = systemUnitClass.Attribute.Append("IdentificationData");
@@ -410,16 +419,57 @@ namespace Aml.Editor.Plugin
                     identificationDataAtt = systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData");
                     identificationDataAtt.Attribute.Remove();
                 }
-
-                // assign the values for the pinlist
-                foreach (DataGridParameters pin in device.dataGridParametersLists)
+              
+                foreach (DataGridParameters parameter in device.dataGridParametersLists)
                 {
-                    identificationDataAtt.Attribute.Append(pin.Attributes.ToString()).Value = pin.Attributes;
-                    identificationDataAtt.Attribute.Append(pin.Attributes.ToString()).RefAttributeType = pin.RefSemantic;
-                    
-                    
+                   var eachAttribute =  identificationDataAtt.Attribute.Append(parameter.Attributes.ToString());
+                    eachAttribute.Value = parameter.Values.ToString();
+                    var refSemanticOfEachAttribute = eachAttribute.RefSemantic.Append();
+                    refSemanticOfEachAttribute.Node.Add(parameter.RefSemantics.ToString());
+                }
+                
+
+                if (systemUnitClass.Attribute.GetCAEXAttribute("CommercialData") == null)
+                {
+                    commercialDataAtt = systemUnitClass.Attribute.Append("CommercialData");
+                    productDetailsDataAtt =  commercialDataAtt.Attribute.Append("ProductDetails");
+                    productOrderDetailsDataAtt = commercialDataAtt.Attribute.Append("ProductOrderDetails");
+                    productPriceDetailsDataAtt = commercialDataAtt.Attribute.Append("ProductPriceDetails");
+                    manufacturerDetailsDataAtt = commercialDataAtt.Attribute.Append("ManufacturerDetails");
+                }
+                else
+                {
+                    identificationDataAtt = systemUnitClass.Attribute.GetCAEXAttribute("CommercialData");
+                    identificationDataAtt.Attribute.Remove();
+                }
+
+                foreach (DataGridProductDetailsParameters PDparameter in device.dataGridProductDetailsParametersLists)
+                {
+                    productDetailsDataAtt.Attribute.Append(PDparameter.PDAttributes.ToString()).Value = PDparameter.PDvalues;
+                    // identificationDataAtt.AttributeTypeReference.Attribute.Append(parameter.RefSemantics.ToString());
 
                 }
+
+                foreach (DataGridProductOrderDetailsParameters PODparameter in device.dataGridProductOrderDetailsParametersLists)
+                {
+                    productOrderDetailsDataAtt.Attribute.Append(PODparameter.PODAttributes.ToString()).Value = PODparameter.PODvalues;
+                   
+
+                }
+                foreach (DataGridProductPriceDetailsParameters PPDparameter in device.dataGridProductPriceDetailsParametersLists)
+                {
+                    productPriceDetailsDataAtt.Attribute.Append(PPDparameter.PPDAttributes.ToString()).Value = PPDparameter.PPDvalues;
+
+
+                }
+                foreach (DataGridManufacturerDetailsParameters MDparameter in device.dataGridManufacturerDetailsParametersLists)
+                {
+                    manufacturerDetailsDataAtt.Attribute.Append(MDparameter.MDAttributes.ToString()).Value = MDparameter.MDvalues;
+
+
+                }
+
+
             }
             else
             {
@@ -452,34 +502,54 @@ namespace Aml.Editor.Plugin
             // Convert vendorLogo path
             if (device.vendorLogo != null && !device.vendorLogo.Equals(""))
             {
-                try
+                if (vendorLogoDisplayBtn.Visible == false)
                 {
-                    // Create File Paths
-                    manuPart = createPictureRef(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
+                    interneturl(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
+                }
+                else
+                {
+                    try
+                    {
+                        // Create File Paths
+                        manuPart = createPictureRef(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
 
+                    }
+                    catch (Exception)
+                    {
+                        // No vendor Logo
+                    }
                 }
-                catch (Exception)
-                {
-                    // No vendor Logo
-                }
+               
             }
 
             // Convert deviceIcon
             if (device.deviceIcon != null && !device.deviceIcon.Equals(""))
             {
-                try
+                if (deviceIconDisplayBtn.Visible == false)
                 {
-                    deviceIconPart = createPictureRef(device.deviceIcon, "ComponentIcon", "ExternalDataReference", systemUnitClass);
+                    interneturl(device.deviceIcon, "ComponentIcon", "ExternalDataConnector", systemUnitClass);
                 }
-                catch (Exception)
+                else
                 {
-                    // No Device Icon
+                    try
+                    {
+                        deviceIconPart = createPictureRef(device.deviceIcon, "ComponentIcon", "ExternalDataReference", systemUnitClass);
+                    }
+                    catch (Exception)
+                    {
+                        // No Device Icon
+                    }
                 }
+                
             }
 
             // Convert devicePicture
             if (device.devicePicture != null && !device.devicePicture.Equals(""))
             {
+                if (devicePictureDisplayBtn.Visible == false)
+                {
+                    interneturl(device.devicePicture, "ComponentPicture", "ExternalDataConnector", systemUnitClass);
+                }
                 try
                 {
                     devicePicPart = createPictureRef(device.devicePicture, "ComponentPicture", "ExternalDataReference", systemUnitClass);
@@ -494,46 +564,68 @@ namespace Aml.Editor.Plugin
             // Convert decleration of Confiormity path
             if (device.decOfConfDocument != null && !device.decOfConfDocument.Equals(""))
             {
-                try
+                if (decOfConfDisplayBtn.Visible == false)
                 {
-                    // Create File Paths
-                   decOfConfPart = createDocumentRef(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
+                    interneturl(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
+                }
+                else
+                {
+                    try
+                    {
+                        // Create File Paths
+                        decOfConfPart = createDocumentRef(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
 
+                    }
+                    catch (Exception)
+                    {
+                        // No vendor Logo
+                    }
                 }
-                catch (Exception)
-                {
-                    // No vendor Logo
-                }
+               
             }
 
             // Convert short Guide
             if (device.shortGuideDocument != null && !device.shortGuideDocument.Equals(""))
             {
-                try
+                if (shortGuideDisplayBtn.Visible == false)
                 {
-                   shortGuidePart = createDocumentRef(device.shortGuideDocument, "ShortGuide", "ExternalDataReference", systemUnitClass);
+                    interneturl(device.shortGuideDocument, "ShortGuide", "ExternalDataConnector", systemUnitClass);
                 }
-                catch (Exception)
+                else
                 {
-                    // No Device Icon
+                    try
+                    {
+                        shortGuidePart = createDocumentRef(device.shortGuideDocument, "ShortGuide", "ExternalDataReference", systemUnitClass);
+                    }
+                    catch (Exception)
+                    {
+                        // No Device Icon
+                    }
                 }
+               
             }
 
             // Convert bill of materials
             if (device.billOfMaterialsDocument != null && !device.billOfMaterialsDocument.Equals(""))
             {
-                try
+                if (billofMaterialsDisplayBtn.Visible == false)
                 {
-                    billOfMaterialsPart = createDocumentRef(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataReference", systemUnitClass);
+                    interneturl(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataConnector", systemUnitClass);
                 }
-                catch (Exception)
+                else
                 {
-                    // No device Picture
+                    try
+                    {
+                        billOfMaterialsPart = createDocumentRef(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataReference", systemUnitClass);
+                    }
+                    catch (Exception)
+                    {
+                        // No device Picture
+                    }
                 }
+               
             }
-
-
-
+           
             // Create the internalElement DeviceIdentification
             InternalElementType ie = null;
             foreach (var internalelement in systemUnitClass.InternalElement)
@@ -543,6 +635,7 @@ namespace Aml.Editor.Plugin
                     ie = internalelement;
                     break;
                 }
+               
             }
             if (ie == null)
                 ie = systemUnitClass.InternalElement.Append("DeviceIdentification");
@@ -552,6 +645,70 @@ namespace Aml.Editor.Plugin
 
             // Set the correct values for the Attributes
             setCAEXattribute(ie, device);
+            // Create the internalElement DeviceIdentification
+
+            if (device.vendorName != null)
+            {
+                InternalElementType electricalInterface = null;
+                foreach (var internalElement in systemUnitClass.InternalElement)
+                {
+                    if (internalElement.Name.Equals("ElectricalInterfaces"))
+                    {
+                        electricalInterface = internalElement;
+                        break;
+                    }
+                }
+                if (electricalInterface == null)
+                    electricalInterface = systemUnitClass.InternalElement.Append("ElectricalInterfaces");
+
+                
+                for (int i = 0; i < device.ElectricalInterfaceInstances.Count; i++)
+                {
+                    List<ElectricalParameters> electricalInterfacenames = device.ElectricalInterfaceInstances[i];
+                    InternalElementType electricalconnector = null;
+                    InternalElementType electricalconnectorCode = null;
+                    
+                    InternalElementType electricalconnectorType = null;
+
+
+                    foreach (var variable in electricalInterfacenames)
+                    {
+                        electricalconnector = electricalInterface.InternalElement.Append(variable.Connector.ToString());
+
+                        var attributeofepconnector = electricalconnector.Attribute;
+                        
+                        foreach (var parametersofElectricalDataDataGridView in variable.listofElectricalDataDataGridViewParameters)
+                        {
+                           var eachAttribute =  attributeofepconnector.Append(parametersofElectricalDataDataGridView.Attributes.ToString());
+                            eachAttribute.Unit = parametersofElectricalDataDataGridView.Units.ToString();
+                            eachAttribute.Value = parametersofElectricalDataDataGridView.Values.ToString();
+                            var refsemanticsOfEachAttribute = eachAttribute.RefSemantic.Append();
+                            refsemanticsOfEachAttribute.Node.Add(parametersofElectricalDataDataGridView.ReferenceID.ToString());
+                           
+                        }
+
+
+                        if (electricalconnectorCode == null)
+                        {
+                            electricalconnectorCode = electricalconnector.InternalElement.Append(variable.Connector.Substring(0,3)+variable.ConnectorCode.ToString()+variable.Pins+"Pins");
+
+                            for (int k = 0; k < Convert.ToInt32(variable.Pins); k++)
+                            {
+                               var a =  electricalconnectorCode.ExternalInterface.Append(Convert.ToString(k+1));
+                                
+                                
+                            }
+                            if (electricalconnectorType == null)
+                            {
+                                electricalconnectorType = electricalconnectorCode.InternalElement.Append(variable.ConnectorType.ToString());
+                                
+                            }
+                        }
+                     
+                    }
+                }
+ 
+            }
 
             // create the PackageUri for the root aml file
             Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
@@ -618,6 +775,9 @@ namespace Aml.Editor.Plugin
                 }
             }
 
+
+
+
             amlx.Save();
             amlx.Close();
             if (isEdit)
@@ -628,6 +788,57 @@ namespace Aml.Editor.Plugin
             {
                 return "Device description file created!\nFilepath " + amlFilePath;
             }
+        }
+      
+        /// <summary>
+        /// Takes the url of the picture and setup in the value attribute of the corresponding internal element <paramref name="pic"/>.
+        /// </summary>
+        /// <param name="url">the absolut path to the picture or document in the internet</param>
+        /// <param name="urltype">Picturetyp like 'DevicePicture' or 'DeviceIcon' and document type like "Short guide" or "Bill of materials" etc</param>
+        /// <param name="externalname">The name of the externalElement</param>
+        /// <param name="systemUnitClass">the systemUnitClass to insert the structure into</param>
+        /// <returns></returns>
+        public void interneturl(string url, string urltype, string externalname, SystemUnitClassType systemUnitClass)
+        {
+
+            // Create the InternalElement which refers to the picture
+            InternalElementType urlIE = null;
+            foreach (var internalElement in systemUnitClass.InternalElement)
+            {
+                if (internalElement.Name.Equals(urltype))
+                {
+                    urlIE = internalElement;
+                    break;
+                }
+            }
+            if (urlIE == null)
+                urlIE = systemUnitClass.InternalElement.Append(urltype);
+
+            // create the externalelement
+            ExternalInterfaceType urlEI = null;
+            foreach (var externalinterface in urlIE.ExternalInterface)
+            {
+                if (externalinterface.Name.Equals(externalname))
+                {
+                    urlEI = externalinterface;
+                    break;
+                }
+            }
+            if (urlEI == null)
+                urlEI = urlIE.ExternalInterface.Append(externalname);
+
+            urlEI.RefBaseClassPath = AutomationMLInterfaceClassLib.ExternalDataConnector;
+
+            // create the refURI Attribute with the value of the path
+
+            AttributeType urlAtt = null;
+            if (urlEI.Attribute.GetCAEXAttribute("refURI") == null)
+            {
+                urlAtt = urlEI.Attribute.Append("refURI");
+            }
+            urlAtt.AttributeDataType = "xs:anyURI";
+            urlAtt.Value = url.ToString();
+            
         }
 
         /// <summary>
@@ -683,9 +894,11 @@ namespace Aml.Editor.Plugin
             }
             pictureAtt.AttributeDataType = "xs:anyURI";
             pictureAtt.Value = picturePart.ToString();
+            
 
             return picturePart;
         }
+
         /// <summary>
         /// Creates the Structur to reference a document and set the correct value <paramref name="doc"/>.
         /// If the structur is already there, it will only update the value.

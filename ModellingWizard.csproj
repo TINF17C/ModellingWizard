@@ -130,6 +130,7 @@
       <DependentUpon>DeviceDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Dictionary.cs" />
+    <Compile Include="MWElectricalInterface.cs" />
     <Compile Include="PdfViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,7 +166,9 @@
       <DependentUpon>CreateDevice.cs</DependentUpon>
     </Compile>
     <Compile Include="MWController.cs" />
-    <Compile Include="MWData.cs" />
+    <Compile Include="MWData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
