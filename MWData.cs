@@ -311,6 +311,7 @@ namespace Aml.Editor.Plugin
         public string CreateDevice(MWDevice device, bool isEdit)
         {
             Uri manuPart = null;
+           
             Uri deviceIconPart = null;
             Uri devicePicPart = null;
             CAEXDocument document = null;
@@ -390,6 +391,7 @@ namespace Aml.Editor.Plugin
 
             }
 
+           
 
             // Init the default Libs
             AutomationMLBaseRoleClassLibType.RoleClassLib(document);
@@ -401,15 +403,28 @@ namespace Aml.Editor.Plugin
             {
                 systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
 
+               /* AttributeType semanticSystemDataAtt = null;*/
                 AttributeType identificationDataAtt = null;
                 AttributeType commercialDataAtt = null;
                 AttributeType productDetailsDataAtt = null;
                 AttributeType productOrderDetailsDataAtt = null;
                 AttributeType productPriceDetailsDataAtt = null;
                 AttributeType manufacturerDetailsDataAtt = null;
-               // RefSemanticType sem = null;
-                
+                // RefSemanticType sem = null;
 
+                if (systemUnitClass.Attribute.GetCAEXAttribute("SemanticSystem") == null)
+                {
+                   var semanticSystemDataAtt = systemUnitClass.Attribute.Append("SemanticSystemInformation");
+
+                    var semanticsystemAtt = semanticSystemDataAtt.Attribute.Append("SemanticSystem");
+                    semanticsystemAtt.Value = device.semanticsystem;
+
+                    var classificationSystemAtt = semanticSystemDataAtt.Attribute.Append("ClassificationSystem");
+                    classificationSystemAtt.Value = device.semanticSystemClassificationSystem;
+
+                    var semanticSystemVersionAtt = semanticSystemDataAtt.Attribute.Append("Version");
+                    semanticSystemVersionAtt.Value = device.semanticSystemVersion;
+                }
                 if (systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData") == null)
                 {
                     identificationDataAtt = systemUnitClass.Attribute.Append("IdentificationData");
@@ -459,16 +474,31 @@ namespace Aml.Editor.Plugin
                 foreach (DataGridProductPriceDetailsParameters PPDparameter in device.dataGridProductPriceDetailsParametersLists)
                 {
                     productPriceDetailsDataAtt.Attribute.Append(PPDparameter.PPDAttributes.ToString()).Value = PPDparameter.PPDvalues;
-
-
                 }
                 foreach (DataGridManufacturerDetailsParameters MDparameter in device.dataGridManufacturerDetailsParametersLists)
                 {
                     manufacturerDetailsDataAtt.Attribute.Append(MDparameter.MDAttributes.ToString()).Value = MDparameter.MDvalues;
-
-
                 }
+                device.listWithURIConvertedToString = new List<AttachablesDataGridViewParameters>();
+                foreach (AttachablesDataGridViewParameters eachparameter in device.dataGridAttachablesParametrsList)
+                {
+                    if (eachparameter.FileLocation.Contains("https://"))
+                    {
+                        interneturl(eachparameter.FileLocation, eachparameter.AutomationMlRole.ToString(), "ExternalDataConnector", systemUnitClass);
+                    }
+                    else
+                    {
+                        Uri eachUri = null;
+                        eachUri = createPictureRef(eachparameter.FileLocation, eachparameter.AutomationMlRole.ToString(), "ExternalDataConnector", systemUnitClass);
+                        AttachablesDataGridViewParameters par = new AttachablesDataGridViewParameters();
+                        par.AutomationMlRole = eachUri.ToString();
+                        par.FileLocation = eachparameter.FileLocation;
+                        par.FileLocation = eachparameter.FileLocation;
 
+                        device.listWithURIConvertedToString.Add(par);
+                    }
+                   
+                }
 
             }
             else
@@ -500,131 +530,22 @@ namespace Aml.Editor.Plugin
 
             // Convert picture paths to relativ package paths (if they are given)
             // Convert vendorLogo path
-            if (device.vendorLogo != null && !device.vendorLogo.Equals(""))
-            {
-                if (vendorLogoDisplayBtn.Visible == false)
-                {
-                    interneturl(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
-                }
-                else
-                {
-                    try
-                    {
-                        // Create File Paths
-                        manuPart = createPictureRef(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
-
-                    }
-                    catch (Exception)
-                    {
-                        // No vendor Logo
-                    }
-                }
-               
-            }
+           
 
             // Convert deviceIcon
-            if (device.deviceIcon != null && !device.deviceIcon.Equals(""))
-            {
-                if (deviceIconDisplayBtn.Visible == false)
-                {
-                    interneturl(device.deviceIcon, "ComponentIcon", "ExternalDataConnector", systemUnitClass);
-                }
-                else
-                {
-                    try
-                    {
-                        deviceIconPart = createPictureRef(device.deviceIcon, "ComponentIcon", "ExternalDataReference", systemUnitClass);
-                    }
-                    catch (Exception)
-                    {
-                        // No Device Icon
-                    }
-                }
-                
-            }
-
+           
             // Convert devicePicture
-            if (device.devicePicture != null && !device.devicePicture.Equals(""))
-            {
-                if (devicePictureDisplayBtn.Visible == false)
-                {
-                    interneturl(device.devicePicture, "ComponentPicture", "ExternalDataConnector", systemUnitClass);
-                }
-                try
-                {
-                    devicePicPart = createPictureRef(device.devicePicture, "ComponentPicture", "ExternalDataReference", systemUnitClass);
-                }
-                catch (Exception)
-                {
-                    // No device Picture
-                }
-            }
+           
 
             // Convert document paths to relativ package paths (if they are given)
             // Convert decleration of Confiormity path
-            if (device.decOfConfDocument != null && !device.decOfConfDocument.Equals(""))
-            {
-                if (decOfConfDisplayBtn.Visible == false)
-                {
-                    interneturl(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
-                }
-                else
-                {
-                    try
-                    {
-                        // Create File Paths
-                        decOfConfPart = createDocumentRef(device.decOfConfDocument, "DeclerationOfConformity", "ExternalDataConnector", systemUnitClass);
-
-                    }
-                    catch (Exception)
-                    {
-                        // No vendor Logo
-                    }
-                }
-               
-            }
+           
 
             // Convert short Guide
-            if (device.shortGuideDocument != null && !device.shortGuideDocument.Equals(""))
-            {
-                if (shortGuideDisplayBtn.Visible == false)
-                {
-                    interneturl(device.shortGuideDocument, "ShortGuide", "ExternalDataConnector", systemUnitClass);
-                }
-                else
-                {
-                    try
-                    {
-                        shortGuidePart = createDocumentRef(device.shortGuideDocument, "ShortGuide", "ExternalDataReference", systemUnitClass);
-                    }
-                    catch (Exception)
-                    {
-                        // No Device Icon
-                    }
-                }
-               
-            }
+           
 
             // Convert bill of materials
-            if (device.billOfMaterialsDocument != null && !device.billOfMaterialsDocument.Equals(""))
-            {
-                if (billofMaterialsDisplayBtn.Visible == false)
-                {
-                    interneturl(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataConnector", systemUnitClass);
-                }
-                else
-                {
-                    try
-                    {
-                        billOfMaterialsPart = createDocumentRef(device.billOfMaterialsDocument, "BillOfMaterials", "ExternalDataReference", systemUnitClass);
-                    }
-                    catch (Exception)
-                    {
-                        // No device Picture
-                    }
-                }
-               
-            }
+           
            
             // Create the internalElement DeviceIdentification
             InternalElementType ie = null;
@@ -645,7 +566,8 @@ namespace Aml.Editor.Plugin
 
             // Set the correct values for the Attributes
             setCAEXattribute(ie, device);
-            // Create the internalElement DeviceIdentification
+
+            // Create the internalElement Electrical Interfaces
 
             if (device.vendorName != null)
             {
@@ -690,14 +612,24 @@ namespace Aml.Editor.Plugin
 
                         if (electricalconnectorCode == null)
                         {
-                            electricalconnectorCode = electricalconnector.InternalElement.Append(variable.Connector.Substring(0,3)+variable.ConnectorCode.ToString()+variable.Pins+"Pins");
+                            electricalconnectorCode = electricalconnector.InternalElement.Append(variable.Connector.ToString()+variable.ConnectorCode.ToString()+variable.Pins+"Pins");
 
-                            for (int k = 0; k < Convert.ToInt32(variable.Pins); k++)
+                           
+                            foreach (var item in variable.listOfPinInfoDataGridViewParameters)
                             {
-                               var a =  electricalconnectorCode.ExternalInterface.Append(Convert.ToString(k+1));
-                                
+                                if (item.PinNumber != null)
+                                {
+                                    var eachpin = electricalconnectorCode.ExternalInterface.Append(item.PinNumber);
+                                    var attributeofeachpin = eachpin.Attribute.Append(item.Attributes.ToString());
+                                    attributeofeachpin.Unit = item.Units;
+                                    attributeofeachpin.Value = item.Values;
+                                    var refSemanticOfEachAttribute = attributeofeachpin.RefSemantic.Append();
+                                    refSemanticOfEachAttribute.Node.Add(item.ReferenceID.ToString());
+
+                                }
                                 
                             }
+                            
                             if (electricalconnectorType == null)
                             {
                                 electricalconnectorType = electricalconnectorCode.InternalElement.Append(variable.ConnectorType.ToString());
@@ -709,7 +641,6 @@ namespace Aml.Editor.Plugin
                 }
  
             }
-
             // create the PackageUri for the root aml file
             Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
 
@@ -752,7 +683,28 @@ namespace Aml.Editor.Plugin
                     copyFiles(device.devicePicture, productNamePath);
                  
                 }
+               
+                
             }
+            if (!isEdit)
+            {
+
+                foreach (AttachablesDataGridViewParameters listWithUri in device.listWithURIConvertedToString)
+                {
+                    
+                    if (listWithUri.AutomationMlRole != null)
+                    {
+                        Uri newuri = null;
+                        newuri = new Uri(listWithUri.AutomationMlRole,UriKind.Relative);
+                        amlx.AddAnyContent(root, listWithUri.FileLocation.ToString(), newuri);
+                        copyFiles(listWithUri.FileLocation.ToString(), productNamePath);
+                    }
+
+                }
+            }
+          
+            
+          
             if (!isEdit)
             {
                 // copy the documents from disk into the package

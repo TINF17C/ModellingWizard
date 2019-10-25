@@ -9,7 +9,9 @@ namespace Aml.Editor.Plugin
     // this class initialize the parameters exclusively for the "Device Identofication", "DataGridViews in "Generic Data Tab" AND "Field Attachables Tab""
     public class MWDevice: MWData.MWObject
     {
-        
+        public string  semanticsystem { get; set; }
+        public string semanticSystemVersion { get; set; }
+        public string semanticSystemClassificationSystem { get; set; }
         public string deviceType { get; set; }
         public int? vendorID { get; set; }
         public string vendorName { get; set; }
@@ -46,9 +48,11 @@ namespace Aml.Editor.Plugin
         public List<ElectricalParameters> ElectricalInterfaces { get; set; }
         public List<List<ElectricalParameters>> ElectricalInterfaceInstances { get; set; }
 
+        //List of property for parameters in Attachables Data Grid View
+        public List<AttachablesDataGridViewParameters> dataGridAttachablesParametrsList { get; set; }
+        public List<AttachablesDataGridViewParameters> listWithURIConvertedToString { get; set; }
 
-        
-        // Properties for Inetrface data
+
 
     }
     // This class helps to carry parameters in "identification data table to AutomationML"
@@ -177,6 +181,7 @@ namespace Aml.Editor.Plugin
         public string Pins { get; set; }
 
         public List<ElectricalParametersInElectricalDataDataGridView> listofElectricalDataDataGridViewParameters { get; set; }
+        public List<PinParametersInPinInfoDataGridView> listOfPinInfoDataGridViewParameters { get; set; }
         //public string ReferenceID { get; set; }
         //public string Attributes { get; set; }
         //public string Values { get; set; }
@@ -239,7 +244,67 @@ namespace Aml.Editor.Plugin
         {
             return "ElectricalParametersInElectricalDataDataGridView("+ ReferenceID + "=" + Attributes + "=" + Values + "=" + Units + ")";
         }
+
         
+    }
+
+    public class PinParametersInPinInfoDataGridView
+    {
+        public string PinNumber { get; set; }
+        public string ReferenceID { get; set; }
+        public string Attributes { get; set; }
+        public string Values { get; set; }
+        public string Units { get; set; }
+
+        public PinParametersInPinInfoDataGridView()
+        {
+
+        }
+        public PinParametersInPinInfoDataGridView(string pinNumber,string referenceID, string attribute, string values, string units)
+        {
+            this.PinNumber = pinNumber;
+            this.ReferenceID = referenceID;
+            this.Attributes = attribute;
+            this.Values = values;
+            this.Units = units;
+
+        }
+        public override string ToString()
+        {
+            return "PinParametersInPinInfoDataGridView(" +PinNumber+"="+ ReferenceID + "=" + Attributes + "=" + Values + "=" + Units + ")";
+        }
+
+
+    }
+
+
+
+    // this class is responsible to load every parameter in "attachablesInfoDataGridView" into a list.
+    public class AttachablesDataGridViewParameters
+    {
+
+        public string AutomationMlRole { get; set; }
+        public string FileLocation { get; set; }
+        public string FileName { get; set; }
+        
+
+        public AttachablesDataGridViewParameters()
+        {
+
+        }
+        public AttachablesDataGridViewParameters(string automationMlRole, string fileLocation, string fileName)
+        {
+            this.AutomationMlRole = automationMlRole;
+            this.FileLocation = fileLocation;
+            this.FileName = fileName;
+            
+
+        }
+        public override string ToString()
+        {
+            return "AttachablesDataGridViewParameters(" + AutomationMlRole + "=" + FileLocation + "=" + FileName + ")";
+        }
+
 
     }
 

@@ -1003,9 +1003,9 @@ namespace Aml.Editor.Plugin
 
         private void DocPdfBtn_Click(object sender, EventArgs e)
         {
-            PdfViewer pdf = new PdfViewer();
+           /* PdfViewer pdf = new PdfViewer();
             pdf.ShowDialog();
-            pdf.Viewpdf(dofcTxtbx.Text);
+            pdf.Viewpdf(dofcTxtbx.Text);*/
         }
 
         private void GeneraterAML_Click(object sender, EventArgs e)

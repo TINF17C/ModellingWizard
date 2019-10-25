@@ -60,13 +60,27 @@ namespace Aml.Editor.Plugin
                 //Node.Image = Resources.icons8_collapse_arrow_24;
             }
         }
+        public string OpenFileDialog(TextBox textboxName)
+        {
+            TextboxName = textboxName;
+            
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Document Files(*.pdf; *.doc;*.jpg; *.jpeg; *.gif; *.bmp; *.png;)|*.pdf; *.doc;*.jpg; *.jpeg; *.gif; *.bmp; *.png;";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                textboxName.Text = open.FileName;
+                
+            }
+            string nameOfFile = Path.GetFileName(open.FileName);
+            return nameOfFile;
+        }
         public void OpenFileDialog(TextBox textboxName, Button pdfDisplayBtn)
         {
             TextboxName = textboxName;
             DisplayBtn = pdfDisplayBtn;
             WebBrowser webbrowser = new WebBrowser();
             OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Document Files(*.pdf; *.doc;)|*.pdf; *.doc;";
+            open.Filter = "Files(*.pdf; *.doc;)|*.pdf; *.doc;";
             if (open.ShowDialog() == DialogResult.OK)
             {
                 textboxName.Text = open.FileName;

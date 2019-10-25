@@ -86,6 +86,7 @@
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms">
       <Private>True</Private>
     </Reference>
@@ -122,6 +123,7 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AnimationClass.cs" />
+    <Compile Include="ClassOfListsFromReferencefile.cs" />
     <Compile Include="Datatables.cs" />
     <Compile Include="DeviceDescription.cs">
       <SubType>UserControl</SubType>
@@ -130,13 +132,6 @@
       <DependentUpon>DeviceDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Dictionary.cs" />
-    <Compile Include="MWElectricalInterface.cs" />
-    <Compile Include="PdfViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PdfViewer.Designer.cs">
-      <DependentUpon>PdfViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,9 +179,6 @@
   <ItemGroup>
     <EmbeddedResource Include="DeviceDescription.resx">
       <DependentUpon>DeviceDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PdfViewer.resx">
-      <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
