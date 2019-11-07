@@ -19,7 +19,7 @@ namespace Aml.Editor.Plugin
     public partial class DeviceDescription : UserControl
     {
         private MWController mWController;
-
+        
 
 
         bool isEditing = false;
@@ -1037,6 +1037,7 @@ namespace Aml.Editor.Plugin
         Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofInterfaceClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
         Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
         Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofExternalInterfaceattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+
         private void selectAMLFileBtn_Click(object sender, EventArgs e)
         {
             dictionaryofInterfaceClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
@@ -1046,9 +1047,11 @@ namespace Aml.Editor.Plugin
             treeViewAttributeClassLib.Nodes.Clear();
             treeViewRoleClassLib.Nodes.Clear();
             treeViewInterfaceClassLib.Nodes.Clear();
+
             CAEXDocument document = null;
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "AML Files(*.aml; *.amlx;*.xml )|*.aml; *.amlx;*.xml;";
+
             if (open.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1083,6 +1086,8 @@ namespace Aml.Editor.Plugin
                         document = CAEXDocument.LoadFromFile(file);
                     }
 
+
+
                     foreach (var classLibType in document.CAEXFile.RoleClassLib)
                      {
 
@@ -1095,8 +1100,9 @@ namespace Aml.Editor.Plugin
                             {
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
-                                   TreeNode externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(),2);
                                     CheckForAttributes(externalinterface);
+                                    TreeNode externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(),2);
+                                    
                                     PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
                                 
@@ -1111,8 +1117,9 @@ namespace Aml.Editor.Plugin
                         TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(),0);
                         foreach (var classType in classLibType.InterfaceClass) 
                         {
-                            TreeNode interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(),1);
                             CheckForAttributes(classType);
+                            TreeNode interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(),1);
+                            
 
                             if (classType.ExternalInterface.Exists)
                             {
@@ -1127,14 +1134,17 @@ namespace Aml.Editor.Plugin
                         }       
                     }
                 }
+
+
                 catch (Exception)
                 {
 
-                    throw;
+                    MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                 }
 
             }
         }
+
         public void PrintNodesRecursiveInRoleClassLib(TreeNode oParentNode, RoleFamilyType classType)
         {
           
@@ -1159,13 +1169,14 @@ namespace Aml.Editor.Plugin
             
             foreach (var item in classType.InterfaceClass)
             {
-              TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(),1);
                 CheckForAttributes(item);
+                TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(),1);
+                
                 if (item.ExternalInterface.Exists)
                 {
                     foreach (var externalinterfaces in item.ExternalInterface)
                     {
-                       // CheckForAttributes(externalinterfaces);
+                        CheckForAttributes(externalinterfaces);
                         TreeNode externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(),2);
                         PrintExternalInterfaceNodes(externalinterafcenode, externalinterfaces);
                     } 
@@ -1179,8 +1190,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var item in classType.ExternalInterface)
                 {
-                    TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2) ;
                     CheckForAttributes(item);
+                    TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2) ;
+                    
                     PrintExternalInterfaceNodes(newnode, item);
                 }
             }
@@ -1194,14 +1206,17 @@ namespace Aml.Editor.Plugin
         
         public void CheckForAttributes (InterfaceFamilyType classType)
         {
-          
+            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
             if (classType.Attribute.Exists)
             {
                 foreach (var attribute in classType.Attribute)
                 {
                     CheckForNestedAttributeinsideAttribute(classType ,attribute);
+                    StoreEachAttributeValuesInList(attributelist,  classType, attribute);
                 }
-            } 
+               
+            }
+            
         }
         public void CheckForNestedAttributeinsideAttribute(InterfaceFamilyType classType,AttributeType attributeType)
         {
@@ -1217,25 +1232,53 @@ namespace Aml.Editor.Plugin
 
             }
         }
-         public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> listname, AttributeType AttributeInAttribute, InterfaceFamilyType classType, AttributeType attributeType)
+         public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, InterfaceFamilyType classType, AttributeType attributeType)
          {
-              listname = new List<ClassOfListsFromReferencefile>();
+            list = new List<ClassOfListsFromReferencefile>();
              ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
 
-             attributeparameters.Name = attributeType.Name;
-             attributeparameters.Value = attributeType.Value;
-             attributeparameters.Default = attributeType.DefaultValue;
-             attributeparameters.Unit = attributeType.Unit;
+            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
+            // methods of name "StoreEachAttributeValuesInList" with four parameters.
+            attributeparameters.Name = AttributeInAttribute.Name;
+             attributeparameters.Value = AttributeInAttribute.Value;
+             attributeparameters.Default = AttributeInAttribute.DefaultValue;
+             attributeparameters.Unit = AttributeInAttribute.Unit;
             // attributeparameters.Semantic = attributeType.RefSemantic;
-             attributeparameters.Description = attributeType.Description;
-             attributeparameters.CopyRight = attributeType.Copyright;
-             attributeparameters.Reference = attributeType.AttributePath;
+             attributeparameters.Description = AttributeInAttribute.Description;
+             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+             attributeparameters.Reference = AttributeInAttribute.AttributePath;
 
-             listname.Add(attributeparameters);
-            dictionaryofInterfaceClassattributes.Add(classType.Name.ToString()+attributeType.Name.ToString()+ AttributeInAttribute.Name.ToString(), listname) ;
+            list.Add(attributeparameters);
+            dictionaryofInterfaceClassattributes.Add(classType.Name.ToString()+attributeType.Name.ToString()+ AttributeInAttribute.Name.ToString(), list) ;
             // Limitation, attributes with identical names in one class type cannot be added.
 
          }
+        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, InterfaceFamilyType classType, AttributeType attributeType)
+        {
+            list = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = attributeType.Name;
+            attributeparameters.Value = attributeType.Value;
+            attributeparameters.Default = attributeType.DefaultValue;
+            attributeparameters.Unit = attributeType.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = attributeType.Description;
+            attributeparameters.CopyRight = attributeType.Copyright;
+            attributeparameters.Reference = attributeType.AttributePath;
+
+            list.Add(attributeparameters);
+            dictionaryofInterfaceClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() , list);
+            // Limitation, attributes with identical names in one class type cannot be added.
+
+        }
+
+
+
+
+
+
+
 
         /// Atrributes checker is used to retrive each attributes and store them in a dictionary with classname+parentattributename+attributename as a key for the individual 
         //list of parameters in an attribute.
@@ -1243,11 +1286,13 @@ namespace Aml.Editor.Plugin
         public void CheckForAttributes(RoleFamilyType classType)
         {
 
+            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
             if (classType.Attribute.Exists)
             {
                 foreach (var attribute in classType.Attribute)
                 {
                     CheckForNestedAttributeinsideAttribute(classType, attribute);
+                    StoreEachAttributeValuesInList(attributelist,  classType, attribute);
                 }
             }
         }
@@ -1265,36 +1310,57 @@ namespace Aml.Editor.Plugin
 
             }
         }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> listname, AttributeType AttributeInAttribute, RoleFamilyType classType, AttributeType attributeType)
+        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, RoleFamilyType classType, AttributeType attributeType)
         {
-            listname = new List<ClassOfListsFromReferencefile>();
+            list = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = AttributeInAttribute.Name;
+            attributeparameters.Value = AttributeInAttribute.Value;
+            attributeparameters.Default = AttributeInAttribute.DefaultValue;
+            attributeparameters.Unit = AttributeInAttribute.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = AttributeInAttribute.Description;
+            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+
+            list.Add(attributeparameters);
+            dictionaryofRoleClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
+            // Limitation, attributes with identical names in one class type cannot be added.
+
+        }
+        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, RoleFamilyType classType, AttributeType attributeType)
+        {
+            list = new List<ClassOfListsFromReferencefile>();
             ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
 
             attributeparameters.Name = attributeType.Name;
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            //attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.Reference = attributeType.AttributePath;
 
-            listname.Add(attributeparameters);
-            dictionaryofRoleClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), listname);
+            list.Add(attributeparameters);
+            dictionaryofRoleClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString(), list);
             // Limitation, attributes with identical names in one class type cannot be added.
 
         }
+
         /// Atrributes checker is used to retrive each attributes and store them in a dictionary with classname+parentattributename+attributename as a key for the individual 
         //list of parameters in an attribute.
         // below classes are responsible to check for attributes in ExternalInterfaces and their individual attributes.
         public void CheckForAttributes(ExternalInterfaceType classType)
         {
-
+            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
             if (classType.Attribute.Exists)
             {
                 foreach (var attribute in classType.Attribute)
                 {
                     CheckForNestedAttributeinsideAttribute(classType, attribute);
+                    StoreEachAttributeValuesInList(attributelist, classType, attribute);
                 }
             }
         }
@@ -1312,9 +1378,28 @@ namespace Aml.Editor.Plugin
 
             }
         }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> listname, AttributeType AttributeInAttribute, ExternalInterfaceType classType, AttributeType attributeType)
+        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, ExternalInterfaceType classType, AttributeType attributeType)
         {
-            listname = new List<ClassOfListsFromReferencefile>();
+            list = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = AttributeInAttribute.Name;
+            attributeparameters.Value = AttributeInAttribute.Value;
+            attributeparameters.Default = AttributeInAttribute.DefaultValue;
+            attributeparameters.Unit = AttributeInAttribute.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = AttributeInAttribute.Description;
+            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+
+            list.Add(attributeparameters);
+            dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString()+ classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
+            // Limitation, attributes with identical names in one class type cannot be added.
+
+        }
+        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, ExternalInterfaceType classType, AttributeType attributeType)
+        {
+            list = new List<ClassOfListsFromReferencefile>();
             ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
 
             attributeparameters.Name = attributeType.Name;
@@ -1326,32 +1411,34 @@ namespace Aml.Editor.Plugin
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.Reference = attributeType.AttributePath;
 
-            listname.Add(attributeparameters);
-            dictionaryofExternalInterfaceattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), listname);
+            list.Add(attributeparameters);
+            dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString()+ classType.Name.ToString() + attributeType.Name.ToString(), list);
             // Limitation, attributes with identical names in one class type cannot be added.
 
         }
+
         /// <summary>
-        /// Drag and drop events of "AutomationML Role Treeview" and "AutomationML role treeview" in Interfaces
+        /// Drag and drop events of "AutomationML Interface Treeview" and "AutomationML Interface treeview" in Interfaces
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// 
-        private void tree_MouseDown(object sender, MouseEventArgs e)
-        {
-           
-            TreeView tree = (TreeView)sender;
+        /* private void tree_MouseDown(object sender, MouseEventArgs e)
+         {
 
-            TreeNode node = tree.GetNodeAt(e.X, e.Y);
-            tree.SelectedNode = node;
-           
+             TreeView tree = (TreeView)sender;
 
-            if (node != null)
-            {
-                tree.DoDragDrop(node, DragDropEffects.Copy);
-            }
-        }
-        private void tree_DragOver(object sender, DragEventArgs e)
+
+             TreeNode node = tree.GetNodeAt(e.X, e.Y);
+             tree.SelectedNode = node;
+
+
+             if (node != null)
+             {
+                 tree.DoDragDrop(node, DragDropEffects.Copy);
+             }
+         }*/
+        /*private void tree_DragOver(object sender, DragEventArgs e)
         {
             TreeView tree = (TreeView)sender;
 
@@ -1387,57 +1474,69 @@ namespace Aml.Editor.Plugin
              nodeTarget.Nodes.Add((TreeNode)nodeSource.Clone());
              nodeTarget.Expand();
 
-        }
-       
+        }*/
+
 
         private void treeViewRoleClassLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
-          /*  this.treeViewRoleClassLib.DragDrop += new System.Windows.Forms.DragEventHandler(this.tree_DragDrop);
-            this.treeViewRoleClassLib.DragOver += new System.Windows.Forms.DragEventHandler(this.tree_DragOver);
-            this.treeViewRoleClassLib.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tree_MouseDown);*/
+            try
+            {
+                TreeNode targetNode = treeViewRoleClassLib.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception){}
         }
-
-
-
-
 
         private void treeViewInterfaceClassLib_MouseDown(object sender, MouseEventArgs e)
         {
               
-                this.treeViewInterfaceClassLib.MouseDown += new MouseEventHandler(this.tree_MouseDown);
+            //this.treeViewInterfaceClassLib.MouseDown += new MouseEventHandler(this.tree_MouseDown);
               
         }
 
         private void treeViewInterfaceClassLib_DragOver(object sender, DragEventArgs e)
         {
-            this.treeViewInterfaceClassLib.DragOver += new DragEventHandler(this.tree_DragOver);
+           // this.treeViewInterfaceClassLib.DragOver += new DragEventHandler(this.tree_DragOver);
         }
 
         private void treeViewInterfaceClassLib_DragDrop(object sender, DragEventArgs e)
         {
-            this.treeViewInterfaceClassLib.DragDrop += new DragEventHandler(this.tree_DragDrop);
+           // this.treeViewInterfaceClassLib.DragDrop += new DragEventHandler(this.tree_DragDrop);
         }
 
 
-
-
-
-       
-
-       
-
         private void buttonElectricalInterface_Click(object sender, EventArgs e)
         {
-            AMC.WindowSizeChanger(panelElectricalInterface);
+            AMC.WindowSizeChanger(panelElectricalInterface,buttonElectricalInterface) ;
         }
 
         private void DeleteInterfaceBtn_Click(object sender, EventArgs e)
         {
-            if (treeViewImportedInterfaceHierarchy.SelectedNode.Text != "AML")
-            {
-                treeViewImportedInterfaceHierarchy.Nodes.Remove(treeViewImportedInterfaceHierarchy.SelectedNode);
-            }
+            // this button is on the AML imported Interface Hierarchy tree view.
            
+            TreeNode sourceNode = treeViewInterfaceClassLib.SelectedNode;
+            if (treeViewImportedInterfaceHierarchy.SelectedNode.Text != "AML" )
+            {
+                try
+                {
+                   if (treeViewImportedInterfaceHierarchy.SelectedNode.Text == sourceNode.Text)
+                   {
+                    treeViewImportedInterfaceHierarchy.Nodes.Remove(treeViewImportedInterfaceHierarchy.SelectedNode);
+                    treeViewImportedInterfaceHierarchy.ImageList = imageList2;
+                    TreeNode newNode = new TreeNode("AML");
+                    treeViewImportedInterfaceHierarchy.Nodes.Add(newNode);
+
+                   }
+                    if (treeViewImportedInterfaceHierarchy.SelectedNode.Text != sourceNode.Text)
+                    {
+                        MessageBox.Show("Library Hierarchy cannot be deleted. Select Parent node to delete whole Hierarchy and import new hierachy", "Child nodes cannot be deleted", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
+                }
+                    catch (Exception){}
+                //treeViewImportedInterfaceHierarchy.Nodes.Remove(treeViewImportedInterfaceHierarchy.SelectedNode);
+
+            }
+            
         }
 
         private void treeViewImportedInterfaceHierarchy_MouseClick(object sender, MouseEventArgs e)
@@ -1445,24 +1544,324 @@ namespace Aml.Editor.Plugin
 
         }
 
-
-
-
-
-
         private void treeViewImportedInterfaceHierarchy_MouseDown(object sender, MouseEventArgs e)
         {
-            this.treeViewImportedInterfaceHierarchy.MouseDown += new MouseEventHandler(this.tree_MouseDown);
+           // this.treeViewImportedInterfaceHierarchy.MouseDown += new MouseEventHandler(this.tree_MouseDown);
+
         }
 
         private void treeViewImportedInterfaceHierarchy_DragOver(object sender, DragEventArgs e)
         {
-            this.treeViewImportedInterfaceHierarchy.DragOver += new DragEventHandler(this.tree_DragOver);
+           // this.treeViewImportedInterfaceHierarchy.DragOver += new DragEventHandler(this.tree_DragOver);
         }
 
         private void treeViewImportedInterfaceHierarchy_DragDrop(object sender, DragEventArgs e)
         {
-            this.treeViewImportedInterfaceHierarchy.DragDrop += new DragEventHandler(this.tree_DragDrop);
+           // this.treeViewImportedInterfaceHierarchy.DragDrop += new DragEventHandler(this.tree_DragDrop);
+        }
+       
+
+        private void treeViewInterfaceClassLib_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeViewInterfaceClassLib.SelectedNode = e.Node;
+                e.Node.ContextMenuStrip = contextMenuStripforInterfaceClassLib;
+            }
+        }
+
+        private void asInterfaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+            try
+            {
+                TreeNode sourceNode = treeViewInterfaceClassLib.SelectedNode;
+                TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
+
+                TreeNode targetNode2 = treeViewCurrentHierarchy.SelectedNode;
+
+                foreach (TreeNode n in sourceNode.Nodes)
+                {
+                    targetNode.Nodes.Add((TreeNode)n.Clone());
+
+                    targetNode2.Nodes.Add((TreeNode)n.Clone());
+                }
+                targetNode.Text = sourceNode.Text;
+                targetNode.ImageIndex = sourceNode.ImageIndex;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+
+                targetNode2.Text = sourceNode.Text;
+                targetNode2.ImageIndex = sourceNode.ImageIndex;
+                targetNode2.SelectedImageIndex = targetNode2.ImageIndex;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Select Parent from AML Imported Interface Hierarchy Tree View in the Interfaces Tab","Select Parent Node to add Inetrface",MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
+            }
+        }
+
+        private void treeViewImportedInterfaceHierarchy_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception){}
+        }
+        
+        private void treeViewImportedInterfaceHierarchy_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            var AutomationMLDataTables = new AutomationMLDataTables();
+          
+            try
+            {
+                //treeViewAttributeHierarchy.Nodes.Clear();
+                dataGridViewElectricalAttributes.Rows.Clear();
+               
+                TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
+               
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (targetNode.ImageIndex == 1)
+                    {
+                        interfaceClassTextBox.Text = targetNode.Text;
+                        externalInterfaceTxtBox.Text = null;
+                        foreach (KeyValuePair<string, List<ClassOfListsFromReferencefile>> pair in dictionaryofInterfaceClassattributes)
+                        {
+                            if (pair.Key.Contains(targetNode.Text))
+                            {
+                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
+                                
+                                DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
+                                AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes,pair) ;
+                            }
+
+                        }
+                    }
+                    if (targetNode.ImageIndex == 2)
+                    {
+                       
+                        externalInterfaceTxtBox.Text = targetNode.Text;
+                        if (targetNode.Parent.ImageIndex == 2)
+                        {
+                            SearchForRightParentNode(targetNode, interfaceClassTextBox);
+                        }
+                        else
+                        {
+                            interfaceClassTextBox.Text = targetNode.Parent.Text;
+                        }
+                        foreach (KeyValuePair<string, List<ClassOfListsFromReferencefile>> pair in dictionaryofExternalInterfaceattributes)
+                        {
+                            if (pair.Key.Contains(targetNode.Parent.Text +targetNode.Text))
+                            {
+                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
+
+                                DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
+                                AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes, pair);
+                                
+                            }
+
+                        }
+                    }
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
+        }
+        public void SearchForRightParentNode(TreeNode treeNode, ToolStripTextBox textBox)
+        {
+            TreeNode targetNode = treeNode.Parent;
+            if (targetNode.ImageIndex == 2)
+            {
+                SearchForRightParentNode(targetNode,textBox);
+            }
+            if (targetNode.ImageIndex == 1)
+            {
+                textBox.Text = targetNode.Text;
+            }
+        }
+
+        private void deleteAttributeHierarchyBtn_Click(object sender, EventArgs e)
+        {
+            // this button is on the current hierarchy tree view.
+            
+            TreeNode sourceNode = treeViewInterfaceClassLib.SelectedNode;
+            if (treeViewCurrentHierarchy.SelectedNode.Text != "AML")
+            {
+                try
+                {
+                    if (treeViewCurrentHierarchy.SelectedNode.Text == sourceNode.Text)
+                    {
+                        treeViewCurrentHierarchy.Nodes.Remove(treeViewCurrentHierarchy.SelectedNode);
+                        treeViewCurrentHierarchy.ImageList = imageList2;
+                        TreeNode newNode = new TreeNode("AML");
+                        treeViewCurrentHierarchy.Nodes.Add(newNode);
+
+                    }
+                    if (treeViewCurrentHierarchy.SelectedNode.Text != sourceNode.Text)
+                    {
+                        MessageBox.Show("Library Hierarchy cannot be deleted. Select Parent node to delete whole Hierarchy and import new hierachy","Child nodes cannot be deleted", MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception) { }
+                //treeViewImportedInterfaceHierarchy.Nodes.Remove(treeViewImportedInterfaceHierarchy.SelectedNode);
+
+            }
+        }
+
+        private void treeViewImportedInterfaceHierarchy_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            try
+            {
+                TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+               
+            }
+            catch (Exception){}
+            
+        }
+
+        private void treeViewInterfaceClassLib_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            try
+            {
+                TreeNode targetNode = treeViewInterfaceClassLib.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception) {}
+        }
+
+        private void treeViewCurrentHierarchy_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                TreeNode targetNode = treeViewCurrentHierarchy.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception) { }
+        }
+        Dictionary<string, List<ElectricalInterfaceParameters>>  dictofElectricalInterfaceParametrs = new Dictionary<string, List<ElectricalInterfaceParameters>>();
+        private void saveDataFromElectricalInterfaceDataGridView_Click(object sender, EventArgs e)
+        {
+            List<ElectricalInterfaceParameters> listofElectricalInterfaceParameters = new List<ElectricalInterfaceParameters>();
+            if (dataGridViewElectricalAttributes != null)
+            {
+
+                int i = 0;
+                int j = dataGridViewElectricalAttributes.Rows.Count;
+                if (i <= 0)
+                {
+                    while (i < j)
+                    {
+                        ElectricalInterfaceParameters parametersFromElectricalInterfaceDataGridView = new ElectricalInterfaceParameters();
+                        try
+                        {
+                            parametersFromElectricalInterfaceDataGridView.AttributeName = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[0].Value);
+                            parametersFromElectricalInterfaceDataGridView.Values = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[1].Value);
+                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[2].Value);
+                            parametersFromElectricalInterfaceDataGridView.Units = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[3].Value);
+                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[4].Value);
+                            parametersFromElectricalInterfaceDataGridView.Semantic = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[5].Value);
+                            parametersFromElectricalInterfaceDataGridView.Reference = Convert.ToString(dataGridViewElectricalAttributes.Rows[i].Cells[6].Value);
+                           
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+
+                        listofElectricalInterfaceParameters.Add(parametersFromElectricalInterfaceDataGridView);
+                        i++;
+
+                    }
+                }
+
+               
+            }
+            if (dictofElectricalInterfaceParametrs.ContainsKey(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString())))
+            {
+                dictofElectricalInterfaceParametrs.Remove(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString()));
+            }
+            dictofElectricalInterfaceParametrs.Add(interfaceClassTextBox.Text.ToString()+ externalInterfaceTxtBox.Text.ToString(), listofElectricalInterfaceParameters);
+            dataGridViewElectricalAttributes.Rows.Clear();
+        }
+
+        private void treeViewCurrentHierarchy_MouseClick(object sender, MouseEventArgs e)
+        {
+            /*try
+            {
+                TreeNode targetNode = treeViewCurrentHierarchy.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception) { }*/
+            var AutomationMLDataTables = new AutomationMLDataTables();
+
+            try
+            {
+                //treeViewAttributeHierarchy.Nodes.Clear();
+                dataGridViewElectricalAttributes.Rows.Clear();
+
+                TreeNode targetNode = treeViewCurrentHierarchy.SelectedNode;
+
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (targetNode.ImageIndex == 1)
+                    {
+                        interfaceClassTextBox.Text = targetNode.Text;
+                        externalInterfaceTxtBox.Text = null;
+                        foreach (KeyValuePair<string, List<ElectricalInterfaceParameters>> pair in dictofElectricalInterfaceParametrs)
+                        {
+                            if (dictofElectricalInterfaceParametrs.ContainsKey(targetNode.Text))
+                            {
+                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
+
+                                DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
+                                AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes, pair);
+                            }
+
+                        }
+                    }
+                    if (targetNode.ImageIndex == 2)
+                    {
+
+                        externalInterfaceTxtBox.Text = targetNode.Text;
+                        if (targetNode.Parent.ImageIndex == 2)
+                        {
+                            SearchForRightParentNode(targetNode, interfaceClassTextBox);
+                        }
+                        else
+                        {
+                            interfaceClassTextBox.Text = targetNode.Parent.Text;
+                        }
+                        foreach (KeyValuePair<string, List<ElectricalInterfaceParameters>> pair in dictofElectricalInterfaceParametrs)
+                        {
+                            if (dictofElectricalInterfaceParametrs.ContainsKey(targetNode.Parent.Text + targetNode.Text))
+                            {
+                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
+
+                               DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
+                               AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes, pair);
+
+                            }
+
+                        }
+                    }
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
         }
     }
 }

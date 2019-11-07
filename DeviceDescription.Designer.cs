@@ -31,14 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeviceDescription));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("AML");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("AML");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -263,31 +261,34 @@
             this.Inter = new System.Windows.Forms.TabPage();
             this.panelElectricalInterface = new System.Windows.Forms.Panel();
             this.panel31 = new System.Windows.Forms.Panel();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InterfaceCountDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip22 = new System.Windows.Forms.ToolStrip();
             this.panel30 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewElectricalAttributes = new System.Windows.Forms.DataGridView();
+            this.AttributeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Valu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Default = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Semantic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Reference = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip23 = new System.Windows.Forms.ToolStrip();
             this.buttonElectricalInterface = new System.Windows.Forms.Button();
             this.panel23 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel26 = new System.Windows.Forms.Panel();
+            this.treeViewImportedInterfaceHierarchy = new System.Windows.Forms.TreeView();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip20 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel15 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
             this.DeleteInterfaceBtn = new System.Windows.Forms.ToolStripButton();
             this.panel27 = new System.Windows.Forms.Panel();
-            this.treeViewAttributeHierarchy = new System.Windows.Forms.TreeView();
+            this.treeViewCurrentHierarchy = new System.Windows.Forms.TreeView();
             this.toolStrip21 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel16 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator45 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteCurrentHierarchyBtn = new System.Windows.Forms.ToolStripButton();
             this.treeViewPanel = new System.Windows.Forms.Panel();
             this.treeViewAttributeTypeLibPanel = new System.Windows.Forms.Panel();
             this.treeViewAttributeClassLib = new System.Windows.Forms.TreeView();
@@ -299,7 +300,6 @@
             this.toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             this.treeViewInterfaceClassLibPanel = new System.Windows.Forms.Panel();
             this.treeViewInterfaceClassLib = new System.Windows.Forms.TreeView();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip9 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
@@ -351,7 +351,22 @@
             this.toolStripTextBox5 = new System.Windows.Forms.ToolStripTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.imageListRCL = new System.Windows.Forms.ImageList(this.components);
-            this.treeViewImportedInterfaceHierarchy = new System.Windows.Forms.TreeView();
+            this.contextMenuStripforInterfaceClassLib = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asInterfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDataFromElectricalInterfaceDataGridView = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel17 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
+            this.interfaceClassTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel18 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
+            this.externalInterfaceTxtBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator49 = new System.Windows.Forms.ToolStripSeparator();
+            this.InterfaceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InterfaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -421,9 +436,11 @@
             this.Inter.SuspendLayout();
             this.panelElectricalInterface.SuspendLayout();
             this.panel31.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InterfaceCountDataGridView)).BeginInit();
+            this.toolStrip22.SuspendLayout();
             this.panel30.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewElectricalAttributes)).BeginInit();
+            this.toolStrip23.SuspendLayout();
             this.panel23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -447,6 +464,7 @@
             this.panel7.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip12.SuspendLayout();
+            this.contextMenuStripforInterfaceClassLib.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -456,10 +474,7 @@
             this.newToolStripButton,
             this.openToolStripButton,
             this.saveToolStripButton,
-            this.printToolStripButton,
             this.toolStripSeparator,
-            this.cutToolStripButton,
-            this.copyToolStripButton,
             this.pasteToolStripButton,
             this.toolStripSeparator1,
             this.helpToolStripButton});
@@ -496,37 +511,10 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(29, 24);
             this.saveToolStripButton.Text = "&Save";
             // 
-            // printToolStripButton
-            // 
-            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
-            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(29, 24);
-            this.printToolStripButton.Text = "&Print";
-            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
-            // 
-            // cutToolStripButton
-            // 
-            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
-            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(29, 24);
-            this.cutToolStripButton.Text = "C&ut";
-            // 
-            // copyToolStripButton
-            // 
-            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
-            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(29, 24);
-            this.copyToolStripButton.Text = "&Copy";
             // 
             // pasteToolStripButton
             // 
@@ -2846,127 +2834,134 @@
             // 
             // panel31
             // 
-            this.panel31.Controls.Add(this.dataGridView2);
+            this.panel31.Controls.Add(this.InterfaceCountDataGridView);
             this.panel31.Controls.Add(this.toolStrip22);
             this.panel31.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel31.Location = new System.Drawing.Point(0, 205);
+            this.panel31.Location = new System.Drawing.Point(0, 209);
             this.panel31.Name = "panel31";
-            this.panel31.Size = new System.Drawing.Size(790, 178);
+            this.panel31.Size = new System.Drawing.Size(790, 212);
             this.panel31.TabIndex = 2;
             // 
-            // dataGridView2
+            // InterfaceCountDataGridView
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn21,
-            this.dataGridViewTextBoxColumn22,
-            this.dataGridViewTextBoxColumn23,
-            this.dataGridViewTextBoxColumn24});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 25);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(790, 153);
-            this.dataGridView2.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn21
-            // 
-            this.dataGridViewTextBoxColumn21.HeaderText = "Reference ID";
-            this.dataGridViewTextBoxColumn21.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
-            this.dataGridViewTextBoxColumn21.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn22
-            // 
-            this.dataGridViewTextBoxColumn22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn22.HeaderText = "Attributes";
-            this.dataGridViewTextBoxColumn22.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
-            // 
-            // dataGridViewTextBoxColumn23
-            // 
-            this.dataGridViewTextBoxColumn23.HeaderText = "Values";
-            this.dataGridViewTextBoxColumn23.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
-            this.dataGridViewTextBoxColumn23.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn24
-            // 
-            this.dataGridViewTextBoxColumn24.HeaderText = "Units";
-            this.dataGridViewTextBoxColumn24.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
-            this.dataGridViewTextBoxColumn24.Width = 125;
+            this.InterfaceCountDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.InterfaceCountDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.InterfaceNumber,
+            this.InterfaceName});
+            this.InterfaceCountDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InterfaceCountDataGridView.Location = new System.Drawing.Point(0, 27);
+            this.InterfaceCountDataGridView.Name = "InterfaceCountDataGridView";
+            this.InterfaceCountDataGridView.RowHeadersWidth = 51;
+            this.InterfaceCountDataGridView.RowTemplate.Height = 24;
+            this.InterfaceCountDataGridView.Size = new System.Drawing.Size(790, 185);
+            this.InterfaceCountDataGridView.TabIndex = 5;
             // 
             // toolStrip22
             // 
             this.toolStrip22.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip22.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripButton3});
             this.toolStrip22.Location = new System.Drawing.Point(0, 0);
             this.toolStrip22.Name = "toolStrip22";
-            this.toolStrip22.Size = new System.Drawing.Size(790, 25);
+            this.toolStrip22.Size = new System.Drawing.Size(790, 27);
             this.toolStrip22.TabIndex = 0;
             this.toolStrip22.Text = "toolStrip22";
             // 
             // panel30
             // 
-            this.panel30.Controls.Add(this.dataGridView1);
+            this.panel30.Controls.Add(this.dataGridViewElectricalAttributes);
             this.panel30.Controls.Add(this.toolStrip23);
             this.panel30.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel30.Location = new System.Drawing.Point(0, 23);
             this.panel30.Name = "panel30";
-            this.panel30.Size = new System.Drawing.Size(790, 182);
+            this.panel30.Size = new System.Drawing.Size(790, 186);
             this.panel30.TabIndex = 1;
             // 
-            // dataGridView1
+            // dataGridViewElectricalAttributes
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn17,
-            this.dataGridViewTextBoxColumn18,
-            this.dataGridViewTextBoxColumn19,
-            this.dataGridViewTextBoxColumn20});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(790, 157);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridViewElectricalAttributes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewElectricalAttributes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AttributeName,
+            this.Valu,
+            this.Default,
+            this.Unit,
+            this.DataType,
+            this.Semantic,
+            this.Reference});
+            this.dataGridViewElectricalAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewElectricalAttributes.Location = new System.Drawing.Point(0, 27);
+            this.dataGridViewElectricalAttributes.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridViewElectricalAttributes.Name = "dataGridViewElectricalAttributes";
+            this.dataGridViewElectricalAttributes.RowHeadersWidth = 51;
+            this.dataGridViewElectricalAttributes.Size = new System.Drawing.Size(790, 159);
+            this.dataGridViewElectricalAttributes.TabIndex = 5;
             // 
-            // dataGridViewTextBoxColumn17
+            // AttributeName
             // 
-            this.dataGridViewTextBoxColumn17.HeaderText = "Reference ID";
-            this.dataGridViewTextBoxColumn17.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            this.dataGridViewTextBoxColumn17.Width = 125;
+            this.AttributeName.HeaderText = "AttributeName";
+            this.AttributeName.MinimumWidth = 6;
+            this.AttributeName.Name = "AttributeName";
+            this.AttributeName.Width = 125;
             // 
-            // dataGridViewTextBoxColumn18
+            // Valu
             // 
-            this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn18.HeaderText = "Attributes";
-            this.dataGridViewTextBoxColumn18.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.Valu.HeaderText = "Values";
+            this.Valu.MinimumWidth = 6;
+            this.Valu.Name = "Valu";
+            this.Valu.Width = 125;
             // 
-            // dataGridViewTextBoxColumn19
+            // Default
             // 
-            this.dataGridViewTextBoxColumn19.HeaderText = "Values";
-            this.dataGridViewTextBoxColumn19.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            this.dataGridViewTextBoxColumn19.Width = 125;
+            this.Default.HeaderText = "Default";
+            this.Default.MinimumWidth = 6;
+            this.Default.Name = "Default";
+            this.Default.Width = 125;
             // 
-            // dataGridViewTextBoxColumn20
+            // Unit
             // 
-            this.dataGridViewTextBoxColumn20.HeaderText = "Units";
-            this.dataGridViewTextBoxColumn20.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
-            this.dataGridViewTextBoxColumn20.Width = 125;
+            this.Unit.HeaderText = "Units";
+            this.Unit.MinimumWidth = 6;
+            this.Unit.Name = "Unit";
+            this.Unit.Width = 125;
+            // 
+            // DataType
+            // 
+            this.DataType.HeaderText = "DataType";
+            this.DataType.MinimumWidth = 6;
+            this.DataType.Name = "DataType";
+            this.DataType.Width = 125;
+            // 
+            // Semantic
+            // 
+            this.Semantic.HeaderText = "Semantic";
+            this.Semantic.MinimumWidth = 6;
+            this.Semantic.Name = "Semantic";
+            this.Semantic.Width = 125;
+            // 
+            // Reference
+            // 
+            this.Reference.HeaderText = "Reference";
+            this.Reference.MinimumWidth = 6;
+            this.Reference.Name = "Reference";
+            this.Reference.Width = 125;
             // 
             // toolStrip23
             // 
             this.toolStrip23.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip23.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveDataFromElectricalInterfaceDataGridView,
+            this.toolStripLabel17,
+            this.toolStripSeparator46,
+            this.interfaceClassTextBox,
+            this.toolStripSeparator47,
+            this.toolStripLabel18,
+            this.toolStripSeparator48,
+            this.externalInterfaceTxtBox,
+            this.toolStripSeparator49});
             this.toolStrip23.Location = new System.Drawing.Point(0, 0);
             this.toolStrip23.Name = "toolStrip23";
-            this.toolStrip23.Size = new System.Drawing.Size(790, 25);
+            this.toolStrip23.Size = new System.Drawing.Size(790, 27);
             this.toolStrip23.TabIndex = 0;
             this.toolStrip23.Text = "toolStrip23";
             // 
@@ -3020,6 +3015,36 @@
             this.panel26.Size = new System.Drawing.Size(406, 203);
             this.panel26.TabIndex = 2;
             // 
+            // treeViewImportedInterfaceHierarchy
+            // 
+            this.treeViewImportedInterfaceHierarchy.AllowDrop = true;
+            this.treeViewImportedInterfaceHierarchy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewImportedInterfaceHierarchy.ImageIndex = 0;
+            this.treeViewImportedInterfaceHierarchy.ImageList = this.imageList2;
+            this.treeViewImportedInterfaceHierarchy.Location = new System.Drawing.Point(0, 0);
+            this.treeViewImportedInterfaceHierarchy.Name = "treeViewImportedInterfaceHierarchy";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "AML";
+            this.treeViewImportedInterfaceHierarchy.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.treeViewImportedInterfaceHierarchy.SelectedImageIndex = 1;
+            this.treeViewImportedInterfaceHierarchy.Size = new System.Drawing.Size(406, 203);
+            this.treeViewImportedInterfaceHierarchy.TabIndex = 1;
+            this.treeViewImportedInterfaceHierarchy.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewImportedInterfaceHierarchy_AfterSelect);
+            this.treeViewImportedInterfaceHierarchy.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewImportedInterfaceHierarchy_NodeMouseClick);
+            this.treeViewImportedInterfaceHierarchy.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeViewImportedInterfaceHierarchy_DragDrop);
+            this.treeViewImportedInterfaceHierarchy.DragOver += new System.Windows.Forms.DragEventHandler(this.treeViewImportedInterfaceHierarchy_DragOver);
+            this.treeViewImportedInterfaceHierarchy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeViewImportedInterfaceHierarchy_MouseClick_1);
+            this.treeViewImportedInterfaceHierarchy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewImportedInterfaceHierarchy_MouseDown);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "ICL.JPG");
+            this.imageList2.Images.SetKeyName(1, "IC.JPG");
+            this.imageList2.Images.SetKeyName(2, "Interface.JPG");
+            // 
             // toolStrip20
             // 
             this.toolStrip20.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -3036,8 +3061,8 @@
             // toolStripLabel15
             // 
             this.toolStripLabel15.Name = "toolStripLabel15";
-            this.toolStripLabel15.Size = new System.Drawing.Size(237, 24);
-            this.toolStripLabel15.Text = "AutomationML Interface Hierarchy";
+            this.toolStripLabel15.Size = new System.Drawing.Size(234, 24);
+            this.toolStripLabel15.Text = "AML Imported Interface Hierarchy";
             // 
             // toolStripSeparator44
             // 
@@ -3057,37 +3082,64 @@
             // 
             // panel27
             // 
-            this.panel27.Controls.Add(this.treeViewAttributeHierarchy);
+            this.panel27.Controls.Add(this.treeViewCurrentHierarchy);
             this.panel27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel27.Location = new System.Drawing.Point(0, 25);
+            this.panel27.Location = new System.Drawing.Point(0, 27);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(380, 205);
+            this.panel27.Size = new System.Drawing.Size(380, 203);
             this.panel27.TabIndex = 2;
             // 
-            // treeViewAttributeHierarchy
+            // treeViewCurrentHierarchy
             // 
-            this.treeViewAttributeHierarchy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewAttributeHierarchy.Location = new System.Drawing.Point(0, 0);
-            this.treeViewAttributeHierarchy.Name = "treeViewAttributeHierarchy";
-            this.treeViewAttributeHierarchy.Size = new System.Drawing.Size(380, 205);
-            this.treeViewAttributeHierarchy.TabIndex = 0;
+            this.treeViewCurrentHierarchy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCurrentHierarchy.ImageIndex = 0;
+            this.treeViewCurrentHierarchy.ImageList = this.imageList2;
+            this.treeViewCurrentHierarchy.Location = new System.Drawing.Point(0, 0);
+            this.treeViewCurrentHierarchy.Name = "treeViewCurrentHierarchy";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "AML";
+            this.treeViewCurrentHierarchy.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.treeViewCurrentHierarchy.SelectedImageIndex = 1;
+            this.treeViewCurrentHierarchy.Size = new System.Drawing.Size(380, 203);
+            this.treeViewCurrentHierarchy.TabIndex = 0;
+            this.treeViewCurrentHierarchy.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewCurrentHierarchy_NodeMouseClick);
+            this.treeViewCurrentHierarchy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeViewCurrentHierarchy_MouseClick);
             // 
             // toolStrip21
             // 
             this.toolStrip21.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip21.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel16});
+            this.toolStripLabel16,
+            this.toolStripSeparator45,
+            this.deleteCurrentHierarchyBtn});
             this.toolStrip21.Location = new System.Drawing.Point(0, 0);
             this.toolStrip21.Name = "toolStrip21";
-            this.toolStrip21.Size = new System.Drawing.Size(380, 25);
+            this.toolStrip21.Size = new System.Drawing.Size(380, 27);
             this.toolStrip21.TabIndex = 1;
             this.toolStrip21.Text = "toolStrip21";
             // 
             // toolStripLabel16
             // 
             this.toolStripLabel16.Name = "toolStripLabel16";
-            this.toolStripLabel16.Size = new System.Drawing.Size(135, 22);
-            this.toolStripLabel16.Text = "Attribute Hierarchy";
+            this.toolStripLabel16.Size = new System.Drawing.Size(124, 24);
+            this.toolStripLabel16.Text = "Current Hierarchy";
+            // 
+            // toolStripSeparator45
+            // 
+            this.toolStripSeparator45.Name = "toolStripSeparator45";
+            this.toolStripSeparator45.Size = new System.Drawing.Size(6, 27);
+            // 
+            // deleteCurrentHierarchyBtn
+            // 
+            this.deleteCurrentHierarchyBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.deleteCurrentHierarchyBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.deleteCurrentHierarchyBtn.Image = ((System.Drawing.Image)(resources.GetObject("deleteCurrentHierarchyBtn.Image")));
+            this.deleteCurrentHierarchyBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteCurrentHierarchyBtn.Name = "deleteCurrentHierarchyBtn";
+            this.deleteCurrentHierarchyBtn.Size = new System.Drawing.Size(57, 24);
+            this.deleteCurrentHierarchyBtn.Text = "Delete";
+            this.deleteCurrentHierarchyBtn.Click += new System.EventHandler(this.deleteAttributeHierarchyBtn_Click);
             // 
             // treeViewPanel
             // 
@@ -3184,17 +3236,11 @@
             this.treeViewInterfaceClassLib.SelectedImageKey = "ICL.JPG";
             this.treeViewInterfaceClassLib.Size = new System.Drawing.Size(249, 211);
             this.treeViewInterfaceClassLib.TabIndex = 10;
+            this.treeViewInterfaceClassLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewInterfaceClassLib_AfterSelect);
+            this.treeViewInterfaceClassLib.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewInterfaceClassLib_NodeMouseClick);
             this.treeViewInterfaceClassLib.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeViewInterfaceClassLib_DragDrop);
             this.treeViewInterfaceClassLib.DragOver += new System.Windows.Forms.DragEventHandler(this.treeViewInterfaceClassLib_DragOver);
             this.treeViewInterfaceClassLib.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewInterfaceClassLib_MouseDown);
-            // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "ICL.JPG");
-            this.imageList2.Images.SetKeyName(1, "IC.JPG");
-            this.imageList2.Images.SetKeyName(2, "Interface.JPG");
             // 
             // toolStrip9
             // 
@@ -3543,8 +3589,8 @@
             // 
             this.imageList3.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList3.ImageStream")));
             this.imageList3.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList3.Images.SetKeyName(0, "Interface.JPG");
-            this.imageList3.Images.SetKeyName(1, "IC.JPG");
+            this.imageList3.Images.SetKeyName(0, "IC.JPG");
+            this.imageList3.Images.SetKeyName(1, "Interface.JPG");
             // 
             // toolStrip11
             // 
@@ -3598,21 +3644,117 @@
             this.imageListRCL.TransparentColor = System.Drawing.Color.Transparent;
             this.imageListRCL.Images.SetKeyName(0, "RCL.JPG");
             // 
-            // treeViewImportedInterfaceHierarchy
+            // contextMenuStripforInterfaceClassLib
             // 
-            this.treeViewImportedInterfaceHierarchy.AllowDrop = true;
-            this.treeViewImportedInterfaceHierarchy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewImportedInterfaceHierarchy.Location = new System.Drawing.Point(0, 0);
-            this.treeViewImportedInterfaceHierarchy.Name = "treeViewImportedInterfaceHierarchy";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "AML";
-            this.treeViewImportedInterfaceHierarchy.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeViewImportedInterfaceHierarchy.Size = new System.Drawing.Size(406, 203);
-            this.treeViewImportedInterfaceHierarchy.TabIndex = 1;
-            this.treeViewImportedInterfaceHierarchy.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeViewImportedInterfaceHierarchy_DragDrop);
-            this.treeViewImportedInterfaceHierarchy.DragOver += new System.Windows.Forms.DragEventHandler(this.treeViewImportedInterfaceHierarchy_DragOver);
-            this.treeViewImportedInterfaceHierarchy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewImportedInterfaceHierarchy_MouseDown);
+            this.contextMenuStripforInterfaceClassLib.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStripforInterfaceClassLib.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem});
+            this.contextMenuStripforInterfaceClassLib.Name = "contextMenuStripforInterfaceClassLib";
+            this.contextMenuStripforInterfaceClassLib.Size = new System.Drawing.Size(107, 28);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.asInterfaceToolStripMenuItem});
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(106, 24);
+            this.addToolStripMenuItem.Text = "Add";
+            // 
+            // asInterfaceToolStripMenuItem
+            // 
+            this.asInterfaceToolStripMenuItem.Name = "asInterfaceToolStripMenuItem";
+            this.asInterfaceToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.asInterfaceToolStripMenuItem.Text = "As Interface";
+            this.asInterfaceToolStripMenuItem.Click += new System.EventHandler(this.asInterfaceToolStripMenuItem_Click);
+            // 
+            // saveDataFromElectricalInterfaceDataGridView
+            // 
+            this.saveDataFromElectricalInterfaceDataGridView.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.saveDataFromElectricalInterfaceDataGridView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.saveDataFromElectricalInterfaceDataGridView.Image = ((System.Drawing.Image)(resources.GetObject("saveDataFromElectricalInterfaceDataGridView.Image")));
+            this.saveDataFromElectricalInterfaceDataGridView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveDataFromElectricalInterfaceDataGridView.Name = "saveDataFromElectricalInterfaceDataGridView";
+            this.saveDataFromElectricalInterfaceDataGridView.Size = new System.Drawing.Size(44, 24);
+            this.saveDataFromElectricalInterfaceDataGridView.Text = "Save";
+            this.saveDataFromElectricalInterfaceDataGridView.Click += new System.EventHandler(this.saveDataFromElectricalInterfaceDataGridView_Click);
+            // 
+            // toolStripLabel17
+            // 
+            this.toolStripLabel17.Name = "toolStripLabel17";
+            this.toolStripLabel17.Size = new System.Drawing.Size(104, 24);
+            this.toolStripLabel17.Text = "Interface Class";
+            // 
+            // toolStripSeparator46
+            // 
+            this.toolStripSeparator46.Name = "toolStripSeparator46";
+            this.toolStripSeparator46.Size = new System.Drawing.Size(6, 27);
+            // 
+            // interfaceClassTextBox
+            // 
+            this.interfaceClassTextBox.Enabled = false;
+            this.interfaceClassTextBox.Name = "interfaceClassTextBox";
+            this.interfaceClassTextBox.Size = new System.Drawing.Size(100, 27);
+            // 
+            // toolStripSeparator47
+            // 
+            this.toolStripSeparator47.Name = "toolStripSeparator47";
+            this.toolStripSeparator47.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel18
+            // 
+            this.toolStripLabel18.Name = "toolStripLabel18";
+            this.toolStripLabel18.Size = new System.Drawing.Size(124, 24);
+            this.toolStripLabel18.Text = "External Interface";
+            // 
+            // toolStripSeparator48
+            // 
+            this.toolStripSeparator48.Name = "toolStripSeparator48";
+            this.toolStripSeparator48.Size = new System.Drawing.Size(6, 27);
+            // 
+            // externalInterfaceTxtBox
+            // 
+            this.externalInterfaceTxtBox.Enabled = false;
+            this.externalInterfaceTxtBox.Name = "externalInterfaceTxtBox";
+            this.externalInterfaceTxtBox.Size = new System.Drawing.Size(100, 27);
+            // 
+            // toolStripSeparator49
+            // 
+            this.toolStripSeparator49.Name = "toolStripSeparator49";
+            this.toolStripSeparator49.Size = new System.Drawing.Size(6, 27);
+            // 
+            // InterfaceNumber
+            // 
+            this.InterfaceNumber.HeaderText = "Interface Number";
+            this.InterfaceNumber.MinimumWidth = 6;
+            this.InterfaceNumber.Name = "InterfaceNumber";
+            this.InterfaceNumber.Width = 200;
+            // 
+            // InterfaceName
+            // 
+            this.InterfaceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.InterfaceName.HeaderText = "InterfaceName";
+            this.InterfaceName.MinimumWidth = 6;
+            this.InterfaceName.Name = "InterfaceName";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(57, 24);
+            this.toolStripButton1.Text = "Delete";
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(66, 24);
+            this.toolStripButton3.Text = "Save All";
             // 
             // DeviceDescription
             // 
@@ -3734,10 +3876,14 @@
             this.panelElectricalInterface.ResumeLayout(false);
             this.panel31.ResumeLayout(false);
             this.panel31.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InterfaceCountDataGridView)).EndInit();
+            this.toolStrip22.ResumeLayout(false);
+            this.toolStrip22.PerformLayout();
             this.panel30.ResumeLayout(false);
             this.panel30.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewElectricalAttributes)).EndInit();
+            this.toolStrip23.ResumeLayout(false);
+            this.toolStrip23.PerformLayout();
             this.panel23.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
@@ -3776,6 +3922,7 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip12.ResumeLayout(false);
             this.toolStrip12.PerformLayout();
+            this.contextMenuStripforInterfaceClassLib.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3787,10 +3934,7 @@
         private System.Windows.Forms.ToolStripButton newToolStripButton;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripButton printToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton cutToolStripButton;
-        private System.Windows.Forms.ToolStripButton copyToolStripButton;
         private System.Windows.Forms.ToolStripButton pasteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
@@ -4082,7 +4226,7 @@
         private System.Windows.Forms.ImageList imageList3;
         private System.Windows.Forms.ToolStrip toolStrip21;
         private System.Windows.Forms.ToolStripLabel toolStripLabel16;
-        private System.Windows.Forms.TreeView treeViewAttributeHierarchy;
+        private System.Windows.Forms.TreeView treeViewCurrentHierarchy;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
         private System.Windows.Forms.Panel panel26;
         private System.Windows.Forms.Panel panel27;
@@ -4092,17 +4236,34 @@
         private System.Windows.Forms.Panel panel30;
         private System.Windows.Forms.ToolStrip toolStrip23;
         private System.Windows.Forms.Button buttonElectricalInterface;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.ToolStripButton DeleteInterfaceBtn;
         private System.Windows.Forms.TreeView treeViewImportedInterfaceHierarchy;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripforInterfaceClassLib;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asInterfaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
+        private System.Windows.Forms.ToolStripButton deleteCurrentHierarchyBtn;
+        private System.Windows.Forms.DataGridView InterfaceCountDataGridView;
+        private System.Windows.Forms.DataGridView dataGridViewElectricalAttributes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttributeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Valu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Default;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Semantic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Reference;
+        private System.Windows.Forms.ToolStripButton saveDataFromElectricalInterfaceDataGridView;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel17;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator46;
+        private System.Windows.Forms.ToolStripTextBox interfaceClassTextBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator47;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel18;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator48;
+        private System.Windows.Forms.ToolStripTextBox externalInterfaceTxtBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator49;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceName;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
     }
 }

@@ -123,6 +123,7 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AnimationClass.cs" />
+    <Compile Include="AutomationMLDataTables.cs" />
     <Compile Include="ClassOfListsFromReferencefile.cs" />
     <Compile Include="Datatables.cs" />
     <Compile Include="DeviceDescription.cs">
