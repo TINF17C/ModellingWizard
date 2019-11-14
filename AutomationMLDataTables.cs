@@ -101,12 +101,13 @@ namespace Aml.Editor.Plugin
         public void CreateDataTableWithColumns(DataTable dataRowName, DataGridView dataGridViewName, KeyValuePair<string, List<ElectricalInterfaceParameters>> pair)
         {
             KeyValuePair<string, List<ElectricalInterfaceParameters>> Pair = pair;
-            DataTable DataRowName = dataRowName;
+            DataTable DataRowName = new DataTable();
+            DataRowName = dataRowName;
             DataGridView DataGridViewName = dataGridViewName;
 
             foreach (var item in Pair.Value)
             {
-
+                
                 DataRow row = DataRowName.NewRow();
                
 
@@ -120,14 +121,17 @@ namespace Aml.Editor.Plugin
                 row["Description"] = item.Description;
                 DataRowName.Rows.Add(row);
 
-                break;
+
+               
+
+               /* break;*/
                
 
 
             }
-            // For each loop creating the rows in the data table 
             foreach (DataRow IDT in DataRowName.Rows)
             {
+
                 int num = DataGridViewName.Rows.Add();
                 DataGridViewName.Rows[num].Cells[0].Value = IDT["AttributeName"].ToString();
                 DataGridViewName.Rows[num].Cells[1].Value = IDT["Value"].ToString();
@@ -139,6 +143,8 @@ namespace Aml.Editor.Plugin
                 // DataGridViewName.Rows[num].Cells[7].Value = IDT["Description"].ToString();
 
             }
+            // For each loop creating the rows in the data table 
+
         }
 
     }

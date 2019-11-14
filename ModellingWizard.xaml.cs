@@ -345,7 +345,7 @@ namespace Aml.Editor.Plugin
             this.IsActive = true;
             
             // create the new PlugInUI and add it to the forms host
-            mWController.ChangeGui(MWController.MWGUIType.Start);
+            mWController.ChangeGui(MWController.MWGUIType.DeviceDescription);
 
             PluginActivated?.Invoke(this, EventArgs.Empty);
         }

@@ -75,7 +75,7 @@ namespace Aml.Editor.Plugin
             device.vendorHomepage = txtVendorHomepage.Text;
             device.deviceName = txtDeviceName.Text;
             device.productGroup = txtDeviceFamily.Text;
-            device.productName = txtProductName.Text;
+           // device.productName = txtProductName.Text;
             device.orderNumber = txtOrderNumber.Text;
             device.productText = productTxtBox.Text;
             device.harwareRelease = hwRelTxt.Text;
@@ -165,7 +165,7 @@ namespace Aml.Editor.Plugin
             txtDeviceName.Text = device.deviceName;
 
             txtDeviceFamily.Text = device.productGroup;
-            txtProductName.Text = device.productName;
+            //txtProductName.Text = device.productName;
             txtOrderNumber.Text = device.orderNumber;
             productTxtBox.Text = device.productText;
             txtIpProduction.Text = device.ipProtection;
@@ -1038,7 +1038,7 @@ namespace Aml.Editor.Plugin
             device.vendorHomepage = txtVendorHomepage.Text;
             device.deviceName = txtDeviceName.Text;
             device.productGroup = txtDeviceFamily.Text;
-            device.productName = txtProductName.Text;
+            //device.productName = txtProductName.Text;
             device.orderNumber = txtOrderNumber.Text;
             device.productText = productTxtBox.Text;
             device.harwareRelease = hwRelTxt.Text;

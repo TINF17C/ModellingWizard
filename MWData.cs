@@ -13,7 +13,7 @@ namespace Aml.Editor.Plugin
     {
         // holds the controller to report created devices to
         private readonly MWController mWController;
-        
+       
 
         /// <summary>
         /// Create the MWData Object
@@ -254,11 +254,11 @@ namespace Aml.Editor.Plugin
                     case "DeviceName":
                         device.deviceName = attribute.Value;
                         break;
-                    case "DeviceFamily":
+                    case "ProductRange":
                         device.productRange = attribute.Value;
                         break;
                     case "ProductName":
-                        device.productName = attribute.Value;
+                        device.productNumber = attribute.Value;
                         break;
                     case "OrderNumber":
                         device.orderNumber = attribute.Value;
@@ -310,16 +310,9 @@ namespace Aml.Editor.Plugin
         /// <returns></returns>
         public string CreateDevice(MWDevice device, bool isEdit)
         {
-            Uri manuPart = null;
            
-            Uri deviceIconPart = null;
-            Uri devicePicPart = null;
             CAEXDocument document = null;
             AutomationMLContainer amlx = null;
-
-            Uri decOfConfPart = null;
-            Uri shortGuidePart = null;
-            Uri billOfMaterialsPart = null;
 
             // Init final .amlx Filepath
             //first of all create a folder on "Vendor Name"
@@ -332,7 +325,7 @@ namespace Aml.Editor.Plugin
             }
 
             // Cretae a folder inside "Vendor Name"  file defining "Product Range"
-           
+
             string deviceFamilyNamePath = System.IO.Path.Combine(vendorCompanyNameFilePath, device.productRange);
             System.IO.Directory.CreateDirectory(deviceFamilyNamePath);
 
@@ -350,13 +343,29 @@ namespace Aml.Editor.Plugin
             string productNamePath = System.IO.Path.Combine(productFamilyNamePath, device.deviceName);
             System.IO.Directory.CreateDirectory(productNamePath);
 
-
-            string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-           //string amlFilePath = /*Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\"*/newPath + fileName + ".amlx";
-           string amlFilePath = System.IO.Path.Combine(productNamePath, fileName + ".amlx");
-            FileInfo file = new FileInfo(amlFilePath);
-
            
+           
+            string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+          
+            string amlFilePath = System.IO.Path.Combine(productNamePath, fileName + ".amlx");
+
+            
+            FileInfo file = new FileInfo(amlFilePath);
+           
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                    
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             // Create directory if it's not existing
             file.Directory.Create();
 
@@ -387,7 +396,8 @@ namespace Aml.Editor.Plugin
             {
                 // create a new CAEX document
                 document = CAEXDocument.New_CAEXDocument();
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
+                
+                 amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
 
             }
 
@@ -399,101 +409,26 @@ namespace Aml.Editor.Plugin
 
             SystemUnitFamilyType systemUnitClass = null;
             // Create the SystemUnitClass for our device
-            if (!isEdit)
+           if (!isEdit)
             {
                 systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
 
-               /* AttributeType semanticSystemDataAtt = null;*/
-                AttributeType identificationDataAtt = null;
-                AttributeType commercialDataAtt = null;
-                AttributeType productDetailsDataAtt = null;
-                AttributeType productOrderDetailsDataAtt = null;
-                AttributeType productPriceDetailsDataAtt = null;
-                AttributeType manufacturerDetailsDataAtt = null;
-                // RefSemanticType sem = null;
 
-                if (systemUnitClass.Attribute.GetCAEXAttribute("SemanticSystem") == null)
-                {
-                   var semanticSystemDataAtt = systemUnitClass.Attribute.Append("SemanticSystemInformation");
-
-                    var semanticsystemAtt = semanticSystemDataAtt.Attribute.Append("SemanticSystem");
-                    semanticsystemAtt.Value = device.semanticsystem;
-
-                    var classificationSystemAtt = semanticSystemDataAtt.Attribute.Append("ClassificationSystem");
-                    classificationSystemAtt.Value = device.semanticSystemClassificationSystem;
-
-                    var semanticSystemVersionAtt = semanticSystemDataAtt.Attribute.Append("Version");
-                    semanticSystemVersionAtt.Value = device.semanticSystemVersion;
-                }
-                if (systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData") == null)
-                {
-                    identificationDataAtt = systemUnitClass.Attribute.Append("IdentificationData");
-                }
-                else
-                {
-                    identificationDataAtt = systemUnitClass.Attribute.GetCAEXAttribute("IdentificationData");
-                    identificationDataAtt.Attribute.Remove();
-                }
-              
-                foreach (DataGridParameters parameter in device.dataGridParametersLists)
-                {
-                   var eachAttribute =  identificationDataAtt.Attribute.Append(parameter.Attributes.ToString());
-                    eachAttribute.Value = parameter.Values.ToString();
-                    var refSemanticOfEachAttribute = eachAttribute.RefSemantic.Append();
-                    refSemanticOfEachAttribute.Node.Add(parameter.RefSemantics.ToString());
-                }
-                
-
-                if (systemUnitClass.Attribute.GetCAEXAttribute("CommercialData") == null)
-                {
-                    commercialDataAtt = systemUnitClass.Attribute.Append("CommercialData");
-                    productDetailsDataAtt =  commercialDataAtt.Attribute.Append("ProductDetails");
-                    productOrderDetailsDataAtt = commercialDataAtt.Attribute.Append("ProductOrderDetails");
-                    productPriceDetailsDataAtt = commercialDataAtt.Attribute.Append("ProductPriceDetails");
-                    manufacturerDetailsDataAtt = commercialDataAtt.Attribute.Append("ManufacturerDetails");
-                }
-                else
-                {
-                    identificationDataAtt = systemUnitClass.Attribute.GetCAEXAttribute("CommercialData");
-                    identificationDataAtt.Attribute.Remove();
-                }
-
-                foreach (DataGridProductDetailsParameters PDparameter in device.dataGridProductDetailsParametersLists)
-                {
-                    productDetailsDataAtt.Attribute.Append(PDparameter.PDAttributes.ToString()).Value = PDparameter.PDvalues;
-                    // identificationDataAtt.AttributeTypeReference.Attribute.Append(parameter.RefSemantics.ToString());
-
-                }
-
-                foreach (DataGridProductOrderDetailsParameters PODparameter in device.dataGridProductOrderDetailsParametersLists)
-                {
-                    productOrderDetailsDataAtt.Attribute.Append(PODparameter.PODAttributes.ToString()).Value = PODparameter.PODvalues;
-                   
-
-                }
-                foreach (DataGridProductPriceDetailsParameters PPDparameter in device.dataGridProductPriceDetailsParametersLists)
-                {
-                    productPriceDetailsDataAtt.Attribute.Append(PPDparameter.PPDAttributes.ToString()).Value = PPDparameter.PPDvalues;
-                }
-                foreach (DataGridManufacturerDetailsParameters MDparameter in device.dataGridManufacturerDetailsParametersLists)
-                {
-                    manufacturerDetailsDataAtt.Attribute.Append(MDparameter.MDAttributes.ToString()).Value = MDparameter.MDvalues;
-                }
                 device.listWithURIConvertedToString = new List<AttachablesDataGridViewParameters>();
                 foreach (AttachablesDataGridViewParameters eachparameter in device.dataGridAttachablesParametrsList)
                 {
-                    if (eachparameter.FileLocation.Contains("https://"))
+                    if (eachparameter.FilePath.Contains("https://") || eachparameter.FilePath.Contains("http://") || eachparameter.FilePath.Contains("www") || eachparameter.FilePath.Contains("WWW"))
                     {
-                        interneturl(eachparameter.FileLocation, eachparameter.AutomationMlRole.ToString(), "ExternalDataConnector", systemUnitClass);
+                        interneturl(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
                     }
                     else
                     {
                         Uri eachUri = null;
-                        eachUri = createPictureRef(eachparameter.FileLocation, eachparameter.AutomationMlRole.ToString(), "ExternalDataConnector", systemUnitClass);
+                        eachUri = createPictureRef(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
                         AttachablesDataGridViewParameters par = new AttachablesDataGridViewParameters();
-                        par.AutomationMlRole = eachUri.ToString();
-                        par.FileLocation = eachparameter.FileLocation;
-                        par.FileLocation = eachparameter.FileLocation;
+                        par.ElementName = eachUri.ToString();
+                        par.FilePath = eachparameter.FilePath;
+                        //par.FilePath = eachparameter.FilePath;
 
                         device.listWithURIConvertedToString.Add(par);
                     }
@@ -501,7 +436,7 @@ namespace Aml.Editor.Plugin
                 }
 
             }
-            else
+           else
             {
                 // check if our format is given in the amlx file if not: create it
                 bool foundSysClassLib = false;
@@ -528,26 +463,7 @@ namespace Aml.Editor.Plugin
                     systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
             }
 
-            // Convert picture paths to relativ package paths (if they are given)
-            // Convert vendorLogo path
            
-
-            // Convert deviceIcon
-           
-            // Convert devicePicture
-           
-
-            // Convert document paths to relativ package paths (if they are given)
-            // Convert decleration of Confiormity path
-           
-
-            // Convert short Guide
-           
-
-            // Convert bill of materials
-           
-           
-            // Create the internalElement DeviceIdentification
             InternalElementType ie = null;
             foreach (var internalelement in systemUnitClass.InternalElement)
             {
@@ -653,83 +569,33 @@ namespace Aml.Editor.Plugin
             {
                 // delete the old aml file
                 amlx.Package.DeletePart(partUri);
+                
+                // delete all files in the amlx package.
+               // Directory.Delete(Path.GetFullPath(amlx.ContainerFilename), true);
 
             }
-
+           
             // write the new aml file into the package
             PackagePart root = amlx.AddRoot(path, partUri);
-
-            if (!isEdit)
-            {
-                // copy the images from disk into the package
-                if (manuPart != null)
-                {
-                    amlx.AddAnyContent(root, device.vendorLogo, manuPart);
-                    copyFiles(device.vendorLogo, productNamePath);
-                 
-                    
-                }
-
-                if (deviceIconPart != null)
-                {
-                    amlx.AddAnyContent(root, device.deviceIcon, deviceIconPart);
-                    copyFiles(device.deviceIcon, productNamePath);
-                   
-                }
-
-                if (devicePicPart != null)
-                {
-                    amlx.AddAnyContent(root, device.devicePicture, devicePicPart);
-                    copyFiles(device.devicePicture, productNamePath);
-                 
-                }
-               
-                
-            }
-            if (!isEdit)
+            
+            
+           if (!isEdit)
             {
 
                 foreach (AttachablesDataGridViewParameters listWithUri in device.listWithURIConvertedToString)
                 {
                     
-                    if (listWithUri.AutomationMlRole != null)
+                    if (listWithUri.ElementName != null)
                     {
                         Uri newuri = null;
-                        newuri = new Uri(listWithUri.AutomationMlRole,UriKind.Relative);
-                        amlx.AddAnyContent(root, listWithUri.FileLocation.ToString(), newuri);
-                        copyFiles(listWithUri.FileLocation.ToString(), productNamePath);
+                        newuri = new Uri(listWithUri.ElementName, UriKind.Relative);
+                        amlx.AddAnyContent(root, listWithUri.FilePath.ToString(), newuri);
+                        //copyFiles(listWithUri.FilePath.ToString(), productNamePath);
                     }
 
                 }
             }
           
-            
-          
-            if (!isEdit)
-            {
-                // copy the documents from disk into the package
-                if (decOfConfPart != null)
-                {
-                    amlx.AddAnyContent(root, device.decOfConfDocument, decOfConfPart);
-                    copyFiles(device.decOfConfDocument, productNamePath);
-                }
-
-                if (shortGuidePart != null)
-                {
-                    amlx.AddAnyContent(root, device.shortGuideDocument, shortGuidePart);
-                    copyFiles(device.shortGuideDocument, productNamePath);
-                }
-
-                if (billOfMaterialsPart != null)
-                {
-                    amlx.AddAnyContent(root, device.billOfMaterialsDocument, billOfMaterialsPart);
-                    copyFiles(device.billOfMaterialsDocument, productNamePath);
-                }
-            }
-
-
-
-
             amlx.Save();
             amlx.Close();
             if (isEdit)
@@ -916,12 +782,14 @@ namespace Aml.Editor.Plugin
             initCAEXAttribute("CommunicationTechnology", "xs:string", ie);
             initCAEXAttribute("VendorName", "xs:string", ie);
             initCAEXAttribute("DeviceName", "xs:string", ie);
-            initCAEXAttribute("DeviceFamiliy", "xs:string", ie);
-            initCAEXAttribute("ProductName", "xs:string", ie);
+            initCAEXAttribute("ProductRange", "xs:string", ie);
+            initCAEXAttribute("ProductGroup", "xs:string", ie);
+            initCAEXAttribute("ProductFamily", "xs:string", ie);
             initCAEXAttribute("OrderNumber", "xs:string", ie);
+            initCAEXAttribute("ProductNumber", "xs:string", ie);
             initCAEXAttribute("ProductText", "xs:string", ie);
             initCAEXAttribute("IPProtection", "xs:string", ie);
-            initCAEXAttribute("VendorHompage", "xs:string", ie);
+            initCAEXAttribute("VendorHomepage", "xs:string", ie);
             initCAEXAttribute("HardwareRelease", "xs:string", ie);
             initCAEXAttribute("SoftwareRelease", "xs:string", ie);
             initCAEXAttribute("OperatingTemperatureMin", "xs:double", ie);
@@ -965,14 +833,16 @@ namespace Aml.Editor.Plugin
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorName"), device.vendorName);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceId"), device.deviceID);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceName"), device.deviceName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceFamiliy"), device.productRange);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductRange"), device.productRange);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductGroup"), device.productGroup);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductFamily"), device.productFamily);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("OrderNumber"), device.orderNumber);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductName"), device.productName);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductNumber"), device.productNumber);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductText"), device.productText);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("IPProtection"), device.ipProtection);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMin"), device.minTemperature);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMax"), device.maxTemperature);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorHompage"), device.vendorHomepage);
+            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorHomepage"), device.vendorHomepage);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("HardwareRelease"), device.harwareRelease);
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("SoftwareRelease"), device.softwareRelease);
         }

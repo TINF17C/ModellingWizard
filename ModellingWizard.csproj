@@ -138,12 +138,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StartGUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="StartGUI.Designer.cs">
-      <DependentUpon>StartGUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="MWDevice.cs" />
     <Compile Include="MWInterface.cs" />
     <Compile Include="ModellingWizard.xaml.cs">
@@ -184,9 +178,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StartGUI.resx">
-      <DependentUpon>StartGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateInterface.resx">
       <DependentUpon>CreateInterface.cs</DependentUpon>

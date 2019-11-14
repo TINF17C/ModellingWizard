@@ -11,7 +11,7 @@ namespace Aml.Editor.Plugin
         // the (initialised) GUIs
         private CreateDevice createDeviceForm;
         private CreateInterface createInterfaceForm;
-        private StartGUI startGUI;
+      
         private DeviceDescription deviceDescriptionForm;
         
 
@@ -78,15 +78,7 @@ namespace Aml.Editor.Plugin
         /// Create the new Start GUI or return the previously created GUI
         /// </summary>
         /// <returns>the CreateDevice GUI for this session</returns>
-        public StartGUI GetStartGUI()
-        {
-            if (startGUI == null)
-            {
-                startGUI = new StartGUI(this);
-            }
-
-            return startGUI;
-        }
+      
         
 
 
@@ -114,7 +106,7 @@ namespace Aml.Editor.Plugin
             else
             {
                 devices.Add(newInterface);
-                GetStartGUI().updateDeviceDropdown(devices);
+              
             }
 
             // go to Start GUI
@@ -131,6 +123,7 @@ namespace Aml.Editor.Plugin
         /// <returns></returns>
         public String CreateDeviceOnClick(MWDevice newDevice, bool isEdit)
         {
+            string result = "";
             // Check if device Name is set
             if (newDevice.deviceName.Equals(""))
             {
@@ -142,10 +135,11 @@ namespace Aml.Editor.Plugin
             {
                 return "Error no vendor name set!";
             }
-
-            // create the device
-            string result = mWData.CreateDevice(newDevice, isEdit);
-
+            if (newDevice.deviceName != null && newDevice.vendorName != null)
+            {
+                // create the device
+                 result = mWData.CreateDevice(newDevice, isEdit);
+            }
 
             // update the device list
             if (isEdit)
@@ -155,10 +149,10 @@ namespace Aml.Editor.Plugin
             else
             {
                 devices.Add(newDevice);
-                GetStartGUI().updateDeviceDropdown(devices);
+               
             }
 
-            ChangeGui(MWController.MWGUIType.Start);
+          
             return result;
 
         }
@@ -176,7 +170,7 @@ namespace Aml.Editor.Plugin
                 if (mWObject is MWDevice)
                 {
                     GetCreateDeviceForm().prefill((MWDevice)mWObject);
-                    ChangeGui(MWGUIType.CreateDevice);
+                    ChangeGui(MWGUIType.DeviceDescription);
                 }
                 else if (mWObject is MWInterface)
                 {
@@ -200,7 +194,7 @@ namespace Aml.Editor.Plugin
                 return;
             }
             devices.Add(mWObject);
-            GetStartGUI().updateDeviceDropdown(devices);
+           
 
             // show the most recently added device
             showDevice(devices.Count - 1);
@@ -212,7 +206,7 @@ namespace Aml.Editor.Plugin
         internal void ReloadObjects()
         {
             devices = mWData.LoadMWObjects();
-            GetStartGUI().updateDeviceDropdown(devices);
+           
         }
 
         /// <summary>
@@ -229,9 +223,7 @@ namespace Aml.Editor.Plugin
                 case MWGUIType.CreateInterface:
                     modellingWizard.changeGUI(GetCreateInterfaceForm());
                     break;
-                case MWGUIType.Start:
-                    modellingWizard.changeGUI(GetStartGUI());
-                    break;
+               
                 case MWGUIType.DeviceDescription:
                     modellingWizard.changeGUI(GetDeviceDescriptionForm());
                     break;

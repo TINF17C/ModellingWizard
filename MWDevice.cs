@@ -19,7 +19,7 @@ namespace Aml.Editor.Plugin
         public int? deviceID { get; set; }
         public string deviceName { get; set; }
         public string productRange { get; set; }
-        public string productName { get; set; }
+        public string productNumber { get; set; }
         // Can contain letters:
         public string orderNumber { get; set; }
         public string productText { get; set; }
@@ -37,10 +37,7 @@ namespace Aml.Editor.Plugin
         public string shortGuideDocument { get; set; }
         public string billOfMaterialsDocument { get; set; }
         public List<DataGridParameters> dataGridParametersLists { get; set; }
-        public List<DataGridProductDetailsParameters> dataGridProductDetailsParametersLists { get; set; }
-        public List<DataGridProductOrderDetailsParameters> dataGridProductOrderDetailsParametersLists { get; set; }
-        public List<DataGridProductPriceDetailsParameters> dataGridProductPriceDetailsParametersLists { get; set; }
-        public List<DataGridManufacturerDetailsParameters> dataGridManufacturerDetailsParametersLists { get; set; }
+       
 
 
         //Properties for Electrical Interface
@@ -83,95 +80,10 @@ namespace Aml.Editor.Plugin
         }
 
     }
-    public class DataGridProductDetailsParameters
-    {
-       
-        public string PDRefSemantics { get; set; }
-        public string PDAttributes { get; set; }
-        public string PDvalues { get; set; }
-
-        public DataGridProductDetailsParameters() { }
-
-        public DataGridProductDetailsParameters(string pdrefSemantic, string pdattributes, string pdvalue)
-        {
-            this.PDRefSemantics = pdrefSemantic;
-            this.PDAttributes = pdattributes;
-            this.PDvalues = pdvalue;
-
-        }
-        public override string ToString()
-        {
-            return "DataGridProductDetailsParameters(" + PDRefSemantics + "=" + PDAttributes + "=" + PDvalues + ")";
-        }
-
-    }
-    public class DataGridProductOrderDetailsParameters
-    {
-
-        public string PODRefSemantics { get; set; }
-        public string PODAttributes { get; set; }
-        public string PODvalues { get; set; }
-
-        public DataGridProductOrderDetailsParameters() { }
-
-        public DataGridProductOrderDetailsParameters(string podrefSemantic, string podattributes, string podvalue)
-        {
-            this.PODRefSemantics = podrefSemantic;
-            this.PODAttributes = podattributes;
-            this.PODvalues = podvalue;
-
-        }
-        public override string ToString()
-        {
-            return "DataGridProductOrderDetailsParameters(" + PODRefSemantics + "=" + PODAttributes + "=" + PODvalues + ")";
-        }
-
-    }
-    public class DataGridProductPriceDetailsParameters
-    {
-
-        public string PPDRefSemantics { get; set; }
-        public string PPDAttributes { get; set; }
-        public string PPDvalues { get; set; }
-
-        public DataGridProductPriceDetailsParameters() { }
-
-        public DataGridProductPriceDetailsParameters(string ppdrefSemantic, string ppdattributes, string ppdvalue)
-        {
-            this.PPDRefSemantics = ppdrefSemantic;
-            this.PPDAttributes = ppdattributes;
-            this.PPDvalues = ppdvalue;
-
-        }
-        public override string ToString()
-        {
-            return "DataGridProductPriceDetailsParameters(" + PPDRefSemantics + "=" + PPDAttributes + "=" + PPDvalues + ")";
-        }
-
-    }
-    public class DataGridManufacturerDetailsParameters
-    {
-
-        public string MDRefSemantics { get; set; }
-        public string MDAttributes { get; set; }
-        public string MDvalues { get; set; }
-
-        public DataGridManufacturerDetailsParameters() { }
-
-        public DataGridManufacturerDetailsParameters(string mdrefSemantic, string mdattributes, string mdvalue)
-        {
-            this.MDRefSemantics = mdrefSemantic;
-            this.MDAttributes = mdattributes;
-            this.MDvalues = mdvalue;
-
-        }
-        public override string ToString()
-        {
-            return "DataGridManufacturerDetailsParameters(" + MDRefSemantics + "=" + MDAttributes + "=" + MDvalues + ")";
-        }
-
-    }
-
+  
+   
+   
+   
 
 
     /// <summary>
@@ -287,26 +199,26 @@ namespace Aml.Editor.Plugin
     public class AttachablesDataGridViewParameters
     {
 
-        public string AutomationMlRole { get; set; }
-        public string FileLocation { get; set; }
-        public string FileName { get; set; }
+        public string ElementName { get; set; }
+        public string FilePath { get; set; }
+       
         
 
         public AttachablesDataGridViewParameters()
         {
 
         }
-        public AttachablesDataGridViewParameters(string automationMlRole, string fileLocation, string fileName)
+        public AttachablesDataGridViewParameters(string elementName, string filePath)
         {
-            this.AutomationMlRole = automationMlRole;
-            this.FileLocation = fileLocation;
-            this.FileName = fileName;
+            this.ElementName = elementName;
+            this.FilePath = filePath;
+           
             
 
         }
         public override string ToString()
         {
-            return "AttachablesDataGridViewParameters(" + AutomationMlRole + "=" + FileLocation + "=" + FileName + ")";
+            return "AttachablesDataGridViewParameters(" + ElementName + "=" + FilePath +  ")";
         }
 
 
