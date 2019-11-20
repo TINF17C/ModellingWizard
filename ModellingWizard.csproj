@@ -160,6 +160,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchAMLLibraryFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="About.xaml">

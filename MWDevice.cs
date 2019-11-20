@@ -201,24 +201,25 @@ namespace Aml.Editor.Plugin
 
         public string ElementName { get; set; }
         public string FilePath { get; set; }
-       
-        
+        public string  AddToFile { get; set; }
+
 
         public AttachablesDataGridViewParameters()
         {
 
         }
-        public AttachablesDataGridViewParameters(string elementName, string filePath)
+        public AttachablesDataGridViewParameters(string elementName, string filePath, bool addToFile)
         {
             this.ElementName = elementName;
             this.FilePath = filePath;
-           
-            
+            this.AddToFile = Convert.ToString(addToFile);
+
+
 
         }
         public override string ToString()
         {
-            return "AttachablesDataGridViewParameters(" + ElementName + "=" + FilePath +  ")";
+            return "AttachablesDataGridViewParameters(" + ElementName + "=" + FilePath +"="+ AddToFile + ")";
         }
 
 

@@ -343,8 +343,7 @@ namespace Aml.Editor.Plugin
             string productNamePath = System.IO.Path.Combine(productFamilyNamePath, device.deviceName);
             System.IO.Directory.CreateDirectory(productNamePath);
 
-           
-           
+          
             string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
           
             string amlFilePath = System.IO.Path.Combine(productNamePath, fileName + ".amlx");
@@ -352,23 +351,11 @@ namespace Aml.Editor.Plugin
             
             FileInfo file = new FileInfo(amlFilePath);
            
-            try
-            {
-                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
-                {
-                    stream.Close();
-                    
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+           
 
             // Create directory if it's not existing
             file.Directory.Create();
-
+           
 
             // Init CAEX Document
             if (isEdit)
@@ -396,8 +383,9 @@ namespace Aml.Editor.Plugin
             {
                 // create a new CAEX document
                 document = CAEXDocument.New_CAEXDocument();
-                
-                 amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
+                try
+                {amlx = new AutomationMLContainer(amlFilePath, FileMode.Create); } catch (Exception){}
+                 
 
             }
 
@@ -423,14 +411,23 @@ namespace Aml.Editor.Plugin
                     }
                     else
                     {
+                       
+                        Boolean myBool;
+                        Boolean.TryParse(eachparameter.AddToFile, out myBool);
+                        
+                        if (myBool == true)
+                        {
+                          
+                        }
+
                         Uri eachUri = null;
-                        eachUri = createPictureRef(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
                         AttachablesDataGridViewParameters par = new AttachablesDataGridViewParameters();
+                        eachUri = createPictureRef(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
                         par.ElementName = eachUri.ToString();
                         par.FilePath = eachparameter.FilePath;
-                        //par.FilePath = eachparameter.FilePath;
 
                         device.listWithURIConvertedToString.Add(par);
+
                     }
                    
                 }
@@ -463,7 +460,9 @@ namespace Aml.Editor.Plugin
                     systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
             }
 
+
            
+
             InternalElementType ie = null;
             foreach (var internalelement in systemUnitClass.InternalElement)
             {
@@ -557,6 +556,9 @@ namespace Aml.Editor.Plugin
                 }
  
             }
+
+           
+
             // create the PackageUri for the root aml file
             Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
 
@@ -590,12 +592,24 @@ namespace Aml.Editor.Plugin
                         Uri newuri = null;
                         newuri = new Uri(listWithUri.ElementName, UriKind.Relative);
                         amlx.AddAnyContent(root, listWithUri.FilePath.ToString(), newuri);
-                        //copyFiles(listWithUri.FilePath.ToString(), productNamePath);
+                       
                     }
+                   
 
                 }
             }
-          
+             DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(amlFilePath));
+             foreach (FileInfo fileInfos in directory.GetFiles())
+             {
+                 if (fileInfos.Extension != ".amlx")
+                 {
+                     fileInfos.Delete();
+                 }
+                 
+
+             }
+           
+
             amlx.Save();
             amlx.Close();
             if (isEdit)

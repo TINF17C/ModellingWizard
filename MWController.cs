@@ -170,7 +170,7 @@ namespace Aml.Editor.Plugin
                 if (mWObject is MWDevice)
                 {
                     GetCreateDeviceForm().prefill((MWDevice)mWObject);
-                    ChangeGui(MWGUIType.DeviceDescription);
+                    ChangeGui(MWGUIType.CreateDevice);
                 }
                 else if (mWObject is MWInterface)
                 {

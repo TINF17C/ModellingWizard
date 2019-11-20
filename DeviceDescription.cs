@@ -13,6 +13,10 @@ using System.IO;
 using System.IO.Packaging;
 using System.Xml;
 using System.Collections;
+using System.IO.Compression;
+using Aml.Editor.Plugin.Contracts;
+
+
 
 namespace Aml.Editor.Plugin
 {
@@ -24,6 +28,7 @@ namespace Aml.Editor.Plugin
 
         bool isEditing = false;
         AnimationClass AMC = new AnimationClass();
+        SearchAMLLibraryFile searchAMLLibraryFile = new SearchAMLLibraryFile();
 
         public DeviceDescription()
         {
@@ -34,6 +39,38 @@ namespace Aml.Editor.Plugin
         {
             this.mWController = mWController;
             InitializeComponent();
+        }
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateAML_Click(sender, e);
+
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear();
+            DataHierarchyTreeView();
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (vendorNameTxtBx.Text != "")
+            {
+                if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    GenerateAML_Click(sender, e);
+                    return;
+                }
+                else
+                {
+                    Environment.Exit(0);
+
+                }
+            }
+
+
         }
 
         private void ClearDeviceDataBtn_Click(object sender, EventArgs e)
@@ -75,25 +112,24 @@ namespace Aml.Editor.Plugin
                 TreeNode node2;
                 TreeNode node3;
                 TreeNode node4;
-
+                TreeNode node5;
                 //node = dataHierarchyTreeView.Nodes.Add("Device Data");
 
-                node1 = dataHierarchyTreeView.Nodes.Add("Generic Data");
-                node1.Nodes.Add("Identification Data");
-                node1.Nodes.Add("Commercial Data");
-                node1.Nodes.Add("Product Data");
+                node1 = dataHierarchyTreeView.Nodes.Add("Device Data");
 
-                node2 = dataHierarchyTreeView.Nodes.Add("Interfaces");
-                node2.Nodes.Add("Electrical interface");
-                node2.Nodes.Add("Sensor interface");
-                node2.Nodes.Add("Mechanical interface");
 
-                node3 = dataHierarchyTreeView.Nodes.Add("Field Attachables");
-                node3.Nodes.Add("Add logos");
-                node3.Nodes.Add("Add Documents");
 
-                node4 = dataHierarchyTreeView.Nodes.Add("Docs");
-                node4.Nodes.Add("Add Docs");
+                node2 = dataHierarchyTreeView.Nodes.Add("Field Attachables");
+                node2.Nodes.Add("Add");
+
+
+                node3 = dataHierarchyTreeView.Nodes.Add("Generic Data");
+
+
+                node4 = dataHierarchyTreeView.Nodes.Add("Interfaces");
+                node4.Nodes.Add("Electrical Interface");
+                node4.Nodes.Add("Sensor interface");
+                node4.Nodes.Add("Mechanical interface");
 
 
 
@@ -380,7 +416,7 @@ namespace Aml.Editor.Plugin
                         {
                             parametersFromAttachablesDataGrid.ElementName = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[0].Value);
                             parametersFromAttachablesDataGrid.FilePath = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[1].Value);
-
+                            parametersFromAttachablesDataGrid.AddToFile = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[2].Value);
                         }
                         catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); }
 
@@ -395,6 +431,7 @@ namespace Aml.Editor.Plugin
                
                 generateAML.Text = "Save AML FiLe";
             }
+           
 
             // Pass the device to the controller
             string result = mWController.CreateDeviceOnClick(device, isEditing);
@@ -527,24 +564,35 @@ namespace Aml.Editor.Plugin
         private void dataHierarchyTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
-            if (dataHierarchyTreeView.SelectedNode.Text == "Identification Data")
+            if (dataHierarchyTreeView.SelectedNode.Text == "Device Data")
             {
-              
+                dataTabControl.SelectTab("DeviceDataTabPage");
             }
-            if (dataHierarchyTreeView.SelectedNode.Text == "Commercial Data")
+            if (dataHierarchyTreeView.SelectedNode.Text == "Field Attachables")
             {
-                
-            }
+                dataTabControl.SelectTab("DocsTabPage");
 
-            if (dataHierarchyTreeView.SelectedNode.Text == "Electrical interface")
-            {
-                dataTabControl.SelectTab("InterfacesDataTabPage");
-                AMC.WindowSizeChanger(electricalInterfacePanel);
             }
-            if (dataHierarchyTreeView.SelectedNode.Text == "Add Docs")
+            if (dataHierarchyTreeView.SelectedNode.Text == "Add")
             {
                 dataTabControl.SelectTab("DocsTabPage");
                 AMC.WindowSizeChanger(addPicturesandDocsPanel);
+            }
+
+            if (dataHierarchyTreeView.SelectedNode.Text == "Interfaces")
+            {
+                dataTabControl.SelectTab("Interface");
+                
+            }
+            if (dataHierarchyTreeView.SelectedNode.Text == "Electrical Interfaces")
+            {
+                dataTabControl.SelectTab("Interface");
+                AMC.WindowSizeChanger(electricalInterfacesPanel);
+            }
+            if (dataHierarchyTreeView.SelectedNode.Text == "Generic Data")
+            {
+                dataTabControl.SelectTab("genericData");
+               
             }
             dataHierarchyTreeView.SelectedNode = null;
         }
@@ -856,11 +904,14 @@ namespace Aml.Editor.Plugin
         Dictionary<string, List<ElectricalInterfaceParameters>> dictofElectricalInterfaceParametrs = new Dictionary<string, List<ElectricalInterfaceParameters>>();
         private void selectAMLFileBtn_Click(object sender, EventArgs e)
         {
-            dictionaryofInterfaceClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
-            dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
-            dictionaryofExternalInterfaceattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
 
-          
+            searchAMLLibraryFile.dictionaryofInterfaceClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+
+            searchAMLLibraryFile.dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+            searchAMLLibraryFile.dictionaryofExternalInterfaceattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+            searchAMLLibraryFile.dictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+
             treeViewRoleClassLib.Nodes.Clear();
             treeViewInterfaceClassLib.Nodes.Clear();
 
@@ -887,6 +938,7 @@ namespace Aml.Editor.Plugin
                         // We expect the aml to only have one root part
                         if (rootParts.First() != null)
                         {
+                            
                             PackagePart part = rootParts.First();
 
                             // load the aml file as an CAEX document
@@ -903,27 +955,52 @@ namespace Aml.Editor.Plugin
                     }
 
 
-
+                    string referencedClassName = "";
                     foreach (var classLibType in document.CAEXFile.RoleClassLib)
                      {
 
                         TreeNode libNode = treeViewRoleClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(),0) ;
+                        
+                        
                          foreach (var classType in classLibType.RoleClass)
                          {
-                            TreeNode roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
-                            CheckForAttributes(classType);
+                            TreeNode roleNode;
+
+                            if (classType.ReferencedClassName != "")
+                            {
+                                 referencedClassName = classType.ReferencedClassName;
+                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{"+"Class:" + "  " + referencedClassName + "}", 1);
+                            }
+                            else
+                            {
+                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() , 1);
+                            }
+                            
+                            searchAMLLibraryFile.CheckForAttributes(classType);
+
                             if (classType.ExternalInterface.Exists)
                             {
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
-                                    CheckForAttributes(externalinterface);
-                                    TreeNode externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(),2);
-                                    
-                                    PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
+                                    TreeNode externalinterfacenode;
+                                   
+                                    if (externalinterface.BaseClass != null)
+                                    {
+                                        referencedClassName = externalinterface.BaseClass.ToString();
+                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                                    }
+                                    else
+                                    {
+                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
+                                    }
+
+                                    searchAMLLibraryFile.CheckForAttributes(externalinterface);
+
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
                                 
                             }
-                            PrintNodesRecursiveInRoleClassLib(roleNode, classType);
+                            searchAMLLibraryFile.PrintNodesRecursiveInRoleClassLib(roleNode, classType);
                          }
 
                      }
@@ -931,301 +1008,73 @@ namespace Aml.Editor.Plugin
                     foreach (var classLibType in document.CAEXFile.InterfaceClassLib)
                     {
                         TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(),0);
+                        
+                       
+
                         foreach (var classType in classLibType.InterfaceClass) 
                         {
-                            CheckForAttributes(classType);
-                            TreeNode interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(),1);
-                            
+                            TreeNode interfaceclassNode;
+                            if (classType.ReferencedClassName != "")
+                            {
+                                 referencedClassName = classType.ReferencedClassName;
+                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+                                /*searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);*/
+                                searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
+                            }
+                            else
+                            {
+                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
+                            }
+
+                            searchAMLLibraryFile.CheckForAttributes(classType);
 
                             if (classType.ExternalInterface.Exists)
                             {
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
-                                    TreeNode externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(),2);
-                                    CheckForAttributes(externalinterface);
-                                    PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
+                                    TreeNode externalinterfacenode;
+                                   
+                                    if (externalinterface.BaseClass != null)
+                                    {
+                                        referencedClassName = externalinterface.BaseClass.ToString();
+                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                                    }
+                                    else
+                                    {
+                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
+                                    }
+                                     
+                                    searchAMLLibraryFile.CheckForAttributes(externalinterface);
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
                             }
-                            PrintNodesRecursiveInInterfaceClassLib(interfaceclassNode, classType);
-                        }       
+                            searchAMLLibraryFile.PrintNodesRecursiveInInterfaceClassLib(document,interfaceclassNode, classType, referencedClassName);
+                        }
+                        
                     }
+                    /*foreach (var classLibType in document.CAEXFile.InterfaceClassLib)
+                    {
+                        foreach (var classType in classLibType.InterfaceClass)
+                        {
+                            if (classType.ReferencedClassName != "")
+                            {
+                               
+                            }
+                        }
+
+                    }*/
                 }
 
 
                 catch (Exception)
                 {
-
-                    MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                    throw; 
+                   // MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                 }
 
             }
         }
-
-        public void PrintNodesRecursiveInRoleClassLib(TreeNode oParentNode, RoleFamilyType classType)
-        {
-          
-            foreach (var item in classType.RoleClass)
-            {
-
-                TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(),1);
-                CheckForAttributes(item);
-                if (item.ExternalInterface.Exists)
-                {
-                    foreach (var externalinterfaces in item.ExternalInterface)
-                    {
-                       TreeNode externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(),2);
-                        PrintExternalInterfaceNodes(externalinterafcenode, externalinterfaces);
-                    }
-                }
-                PrintNodesRecursiveInRoleClassLib(newnode,item);
-            }
-        }
-        public void PrintNodesRecursiveInInterfaceClassLib(TreeNode oParentNode, InterfaceFamilyType classType)
-        {
-            
-            foreach (var item in classType.InterfaceClass)
-            {
-                CheckForAttributes(item);
-                TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(),1);
-                
-                if (item.ExternalInterface.Exists)
-                {
-                    foreach (var externalinterfaces in item.ExternalInterface)
-                    {
-                        CheckForAttributes(externalinterfaces);
-                        TreeNode externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(),2);
-                        PrintExternalInterfaceNodes(externalinterafcenode, externalinterfaces);
-                    } 
-                }
-                PrintNodesRecursiveInInterfaceClassLib(newnode, item);
-            }
-        }
-        public void PrintExternalInterfaceNodes(TreeNode oParentNode, ExternalInterfaceType classType)
-        {
-            if (classType.ExternalInterface.Exists)
-            {
-                foreach (var item in classType.ExternalInterface)
-                {
-                    CheckForAttributes(item);
-                    TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2) ;
-                    
-                    PrintExternalInterfaceNodes(newnode, item);
-                }
-            }
-           
-        }
-
-
-        // Atrributes checker is used to retrive each attributes and store them in a dictionary with classname+parentattributename+attributename as a key for the individual 
-        //list of parameters in an attribute.
-        // below classes are responsible to check for attributes in Interface classes and their individual attributes.
-        
-        public void CheckForAttributes (InterfaceFamilyType classType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (classType.Attribute.Exists)
-            {
-                foreach (var attribute in classType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType ,attribute);
-                    StoreEachAttributeValuesInList(attributelist,  classType, attribute);
-                }
-               
-            }
-            
-        }
-        public void CheckForNestedAttributeinsideAttribute(InterfaceFamilyType classType,AttributeType attributeType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (attributeType.Attribute.Exists)
-            {
-               
-                foreach (var attributeinattribute in attributeType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attributeinattribute);
-                    StoreEachAttributeValuesInList(attributelist, attributeinattribute, classType, attributeType) ;
-                }
-
-            }
-        }
-         public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, InterfaceFamilyType classType, AttributeType attributeType)
-         {
-            list = new List<ClassOfListsFromReferencefile>();
-             ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
-            // methods of name "StoreEachAttributeValuesInList" with four parameters.
-            attributeparameters.Name = AttributeInAttribute.Name;
-             attributeparameters.Value = AttributeInAttribute.Value;
-             attributeparameters.Default = AttributeInAttribute.DefaultValue;
-             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-             attributeparameters.Description = AttributeInAttribute.Description;
-             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-             attributeparameters.Reference = AttributeInAttribute.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofInterfaceClassattributes.Add(classType.Name.ToString()+attributeType.Name.ToString()+ AttributeInAttribute.Name.ToString(), list) ;
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-         }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, InterfaceFamilyType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = attributeType.Name;
-            attributeparameters.Value = attributeType.Value;
-            attributeparameters.Default = attributeType.DefaultValue;
-            attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = attributeType.Description;
-            attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofInterfaceClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() , list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-
-        /// Atrributes checker is used to retrive each attributes and store them in a dictionary with classname+parentattributename+attributename as a key for the individual 
-        //list of parameters in an attribute.
-        // below classes are responsible to check for attributes in Role classes and their individual attributes.
-        public void CheckForAttributes(RoleFamilyType classType)
-        {
-
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (classType.Attribute.Exists)
-            {
-                foreach (var attribute in classType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attribute);
-                    StoreEachAttributeValuesInList(attributelist,  classType, attribute);
-                }
-            }
-        }
-        public void CheckForNestedAttributeinsideAttribute(RoleFamilyType classType, AttributeType attributeType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (attributeType.Attribute.Exists)
-            {
-
-                foreach (var attributeinattribute in attributeType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attributeinattribute);
-                    StoreEachAttributeValuesInList(attributelist, attributeinattribute, classType, attributeType);
-                }
-
-            }
-        }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, RoleFamilyType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = AttributeInAttribute.Name;
-            attributeparameters.Value = AttributeInAttribute.Value;
-            attributeparameters.Default = AttributeInAttribute.DefaultValue;
-            attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = AttributeInAttribute.Description;
-            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofRoleClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, RoleFamilyType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = attributeType.Name;
-            attributeparameters.Value = attributeType.Value;
-            attributeparameters.Default = attributeType.DefaultValue;
-            attributeparameters.Unit = attributeType.Unit;
-            //attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = attributeType.Description;
-            attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofRoleClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-
-        /// Atrributes checker is used to retrive each attributes and store them in a dictionary with classname+parentattributename+attributename as a key for the individual 
-        //list of parameters in an attribute.
-        // below classes are responsible to check for attributes in ExternalInterfaces and their individual attributes.
-        public void CheckForAttributes(ExternalInterfaceType classType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (classType.Attribute.Exists)
-            {
-                foreach (var attribute in classType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attribute);
-                    StoreEachAttributeValuesInList(attributelist, classType, attribute);
-                }
-            }
-        }
-        public void CheckForNestedAttributeinsideAttribute(ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (attributeType.Attribute.Exists)
-            {
-
-                foreach (var attributeinattribute in attributeType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attributeinattribute);
-                    StoreEachAttributeValuesInList(attributelist, attributeinattribute, classType, attributeType);
-                }
-
-            }
-        }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = AttributeInAttribute.Name;
-            attributeparameters.Value = AttributeInAttribute.Value;
-            attributeparameters.Default = AttributeInAttribute.DefaultValue;
-            attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = AttributeInAttribute.Description;
-            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString()+ classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = attributeType.Name;
-            attributeparameters.Value = attributeType.Value;
-            attributeparameters.Default = attributeType.DefaultValue;
-            attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = attributeType.Description;
-            attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-
-            list.Add(attributeparameters);
-            dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString()+ classType.Name.ToString() + attributeType.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-
+     
         /// <summary>
         /// Drag and drop events of "AutomationML Interface Treeview" and "AutomationML Interface treeview" in Interfaces
         /// </summary>
@@ -1679,6 +1528,18 @@ namespace Aml.Editor.Plugin
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (vendorNameTxtBx.Text != "")
+            {
+                if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    GenerateAML_Click(sender, e);
+                    return;
+                }
+                else
+                {
+                    return;
+                }
+            }
            
             CAEXDocument document = null;
             OpenFileDialog open = new OpenFileDialog();
@@ -1691,18 +1552,19 @@ namespace Aml.Editor.Plugin
                     string file = open.FileName;
                     FileInfo fileInfo = new FileInfo(file);
                     string objectName = fileInfo.Name;
-                    string filetype = null;
+                    
 
                     DataHierarchyTreeView();
 
-                    if ((filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".amlx")
-                    {
-                        // Load the amlx container from the given filepath
-                        AutomationMLContainer amlx = new AutomationMLContainer(file);
-
+                    DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(file));
+                    
+                   
+                    // Load the amlx container from the given filepath
+                    AutomationMLContainer amlx = new AutomationMLContainer(file);
+                         amlx.ExtractAllFiles(Path.GetDirectoryName(file));
                         // Get the root path -> main .aml file
                         IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
+                        
                         // We expect the aml to only have one root part
                         if (rootParts.First() != null)
                         {
@@ -1711,17 +1573,12 @@ namespace Aml.Editor.Plugin
                             // load the aml file as an CAEX document
                              document = CAEXDocument.LoadFromStream(part.GetStream());
                            
-
+                            
                             // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
                             // since we expect only one device per aml(x) file, return after on is found
                         }
-                    }
-                    if ((filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".aml" || (filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".xml")
-                    {
-                        document = CAEXDocument.LoadFromFile(file);
                         
-                    }
-
+                    
                     generateAML.Text = "Update AML File";
                     foreach (var classLibType in document.CAEXFile.SystemUnitClassLib)
                     {
@@ -1812,14 +1669,36 @@ namespace Aml.Editor.Plugin
                                 }
                                 if (internalElements.Name != "ElectricalInterfaces" && internalElements.Name != "DeviceIdentification")
                                 {
-                                    
+                                   
+
                                     int num = attachablesInfoDataGridView.Rows.Add();
                                     attachablesInfoDataGridView.Rows[num].Cells[0].Value = internalElements.Name;
                                     foreach (var externalInterface in internalElements.ExternalInterface)
                                     {
+                                       
                                         foreach (var attribute in externalInterface.Attribute)
                                         {
-                                            attachablesInfoDataGridView.Rows[num].Cells[1].Value = attribute.Value;
+
+                                            foreach (FileInfo fileInfo1 in directory.GetFiles())
+                                            {
+                                                string name = attribute.Value.ToString();
+                                                if (name.Contains("%20"))
+                                                {
+                                                        //name.Replace("%20", " ");
+                                                    name = Uri.UnescapeDataString(name);
+                                                }
+                                                if (name.Contains("%28") || name.Contains("%29"))
+                                                {
+                                                    name = Uri.UnescapeDataString(name);
+                                                }
+                                                if ( name.Contains(fileInfo1.ToString()))
+                                                {
+                                                    attachablesInfoDataGridView.Rows[num].Cells[1].Value = fileInfo1.FullName;
+                                                    attachablesInfoDataGridView.Rows[num].Cells[2].Value = true;
+                                                }
+                                               
+                                            }
+                                            //attachablesInfoDataGridView.Rows[num].Cells[1].Value = attribute.Value;
                                         }
                                         
                                     }
@@ -1832,10 +1711,10 @@ namespace Aml.Editor.Plugin
                         }
                         
                     }
+                    amlx.Dispose();
                     
                     
                 }
-                
                 catch { }
                 
             }
@@ -1959,6 +1838,7 @@ namespace Aml.Editor.Plugin
         private void electricalInterfacesButton_Click(object sender, EventArgs e)
         {
             AMC.WindowSizeChanger(electricalInterfacesPanel, electricalInterfacesButton);
+
         }
        
 
@@ -2019,19 +1899,19 @@ namespace Aml.Editor.Plugin
                         foreach (var classType in classLibType.RoleClass)
                         {
                             TreeNode roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
-                            CheckForAttributes(classType);
+                            searchAMLLibraryFile.CheckForAttributes(classType);
                             if (classType.ExternalInterface.Exists)
                             {
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
-                                    CheckForAttributes(externalinterface);
+                                    searchAMLLibraryFile.CheckForAttributes(externalinterface);
                                     TreeNode externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
 
-                                    PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
 
                             }
-                            PrintNodesRecursiveInRoleClassLib(roleNode, classType);
+                            searchAMLLibraryFile.PrintNodesRecursiveInRoleClassLib(roleNode, classType);
                         }
 
                     }
@@ -2041,7 +1921,7 @@ namespace Aml.Editor.Plugin
                         TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(), 0);
                         foreach (var classType in classLibType.InterfaceClass)
                         {
-                            CheckForAttributes(classType);
+                            searchAMLLibraryFile.CheckForAttributes(classType);
                             TreeNode interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
 
 
@@ -2050,11 +1930,11 @@ namespace Aml.Editor.Plugin
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
                                     TreeNode externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
-                                    CheckForAttributes(externalinterface);
-                                    PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
+                                    searchAMLLibraryFile.CheckForAttributes(externalinterface);
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
                             }
-                            PrintNodesRecursiveInInterfaceClassLib(interfaceclassNode, classType);
+                           // searchAMLLibraryFile.PrintNodesRecursiveInInterfaceClassLib(interfaceclassNode, classType);
                         }
                     }
                 }
@@ -2239,32 +2119,43 @@ namespace Aml.Editor.Plugin
 
         private void electricalInterfacesCollectionDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             var AutomationMLDataTables = new AutomationMLDataTables();
+            electricalInterfacesCollectionDataGridView.CurrentRow.Selected = true;
             if (electricalInterfacesCollectionDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                elecInterAttDataGridView.Rows.Clear();
-                electricalInterfacesCollectionDataGridView.CurrentRow.Selected = true;
-                string interfaceClass = electricalInterfacesCollectionDataGridView.CurrentRow.Cells[1].Value.ToString();
-                foreach (var pair in dictionaryofInterfaceClassattributes)
+                if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
                 {
-                    if (pair.Key.Contains(interfaceClass))
+                    elecInterAttDataGridView.Rows.Clear();
+                    string interfaceClass = electricalInterfacesCollectionDataGridView.CurrentRow.Cells[1].Value.ToString();
+                    foreach (var pair in searchAMLLibraryFile.dictionaryofInterfaceClassattributes)
                     {
-                        DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
-                        AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, elecInterAttDataGridView, pair);
+                        if (pair.Key.Contains(interfaceClass))
+                        {
+                            DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
+                            AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, elecInterAttDataGridView, pair);
+                        }
                     }
+                    electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value = true;
                 }
+                if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == true)
+                {
+
+                }
+                
             }
         }
 
         private void genericInformationDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             var AutomationMLDataTables = new AutomationMLDataTables();
             if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 gwnericparametersAttrDataGridView.Rows.Clear();
                 genericInformationDataGridView.CurrentRow.Selected = true;
                 string roleClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
-                foreach (var pair in dictionaryofRoleClassattributes)
+                foreach (var pair in searchAMLLibraryFile.dictionaryofRoleClassattributes)
                 {
                     if (pair.Key.Contains(roleClass))
                     {
@@ -2275,22 +2166,49 @@ namespace Aml.Editor.Plugin
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveFromelecInterAttrButton_Click(object sender, EventArgs e)
         {
-            GenerateAML_Click(sender, e);
-            
+            List<ElectricalInterfaceParameters> listofElectricalInterfaceParameters = new List<ElectricalInterfaceParameters>();
+            if (elecInterAttDataGridView != null)
+            {
+
+                int i = 0;
+                int j = elecInterAttDataGridView.Rows.Count;
+                if (i <= 0)
+                {
+                    while (i < j)
+                    {
+                        ElectricalInterfaceParameters parametersFromElectricalInterfaceDataGridView = new ElectricalInterfaceParameters();
+                        try
+                        {
+                            parametersFromElectricalInterfaceDataGridView.AttributeName = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[0].Value);
+                            parametersFromElectricalInterfaceDataGridView.Values = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[1].Value);
+                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[2].Value);
+                            parametersFromElectricalInterfaceDataGridView.Units = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[3].Value);
+                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[4].Value);
+                            parametersFromElectricalInterfaceDataGridView.Semantic = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[5].Value);
+                            parametersFromElectricalInterfaceDataGridView.Reference = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[6].Value);
+
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+
+                        listofElectricalInterfaceParameters.Add(parametersFromElectricalInterfaceDataGridView);
+                        i++;
+
+                    }
+                }
+
+
+            }
+            if (dictofElectricalInterfaceParametrs.ContainsKey(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString())))
+            {
+                dictofElectricalInterfaceParametrs.Remove(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString()));
+            }
+            dictofElectricalInterfaceParametrs.Add(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString(), listofElectricalInterfaceParameters);
+            elecInterAttDataGridView.Rows.Clear();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear();
-            DataHierarchyTreeView();
-           
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-          
-        }
+        
     }
 }
