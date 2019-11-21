@@ -909,7 +909,8 @@ namespace Aml.Editor.Plugin
 
             searchAMLLibraryFile.dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
             searchAMLLibraryFile.dictionaryofExternalInterfaceattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
-            searchAMLLibraryFile.dictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            searchAMLLibraryFile.DictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            searchAMLLibraryFile.DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
 
 
             treeViewRoleClassLib.Nodes.Clear();
@@ -1019,6 +1020,7 @@ namespace Aml.Editor.Plugin
                                  referencedClassName = classType.ReferencedClassName;
                                 interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
                                 /*searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);*/
+                               searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
                                 searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
                             }
                             else
@@ -1026,7 +1028,7 @@ namespace Aml.Editor.Plugin
                                 interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
                             }
 
-                            searchAMLLibraryFile.CheckForAttributes(classType);
+                              /*0*/ searchAMLLibraryFile.CheckForAttributes(classType);
 
                             if (classType.ExternalInterface.Exists)
                             {
@@ -1038,13 +1040,15 @@ namespace Aml.Editor.Plugin
                                     {
                                         referencedClassName = externalinterface.BaseClass.ToString();
                                         externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
+                                        searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
                                     }
                                     else
                                     {
                                         externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
                                     }
                                      
-                                    searchAMLLibraryFile.CheckForAttributes(externalinterface);
+                                        /*0*/ searchAMLLibraryFile.CheckForAttributes(externalinterface);
                                     searchAMLLibraryFile.PrintExternalInterfaceNodes(externalinterfacenode, externalinterface);
                                 }
                             }
@@ -1052,17 +1056,7 @@ namespace Aml.Editor.Plugin
                         }
                         
                     }
-                    /*foreach (var classLibType in document.CAEXFile.InterfaceClassLib)
-                    {
-                        foreach (var classType in classLibType.InterfaceClass)
-                        {
-                            if (classType.ReferencedClassName != "")
-                            {
-                               
-                            }
-                        }
-
-                    }*/
+                    
                 }
 
 
