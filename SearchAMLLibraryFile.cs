@@ -24,11 +24,14 @@ namespace Aml.Editor.Plugin
         /// These are the properties iof this class i.e. dictionaries where all attribute values from AML file are strored and#
         /// further retrived in "Device Description Class" to edi values by user.
         /// </summary>
-        public Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofInterfaceClassattributes { get; set; }
+       
         public Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofRoleClassattributes { get; set; }
-        public Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofExternalInterfaceattributes { get; set; }
+        
         public Dictionary<string,List<List<ClassOfListsFromReferencefile>>> DictionaryForInterfaceClassInstancesAttributes { get; set; }
         public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib { get; set; }
+
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryForRoleClassInstanceAttributes { get; set; }
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib { get; set; }
 
         public string  referencedClassName { get; set; }
 
@@ -63,6 +66,20 @@ namespace Aml.Editor.Plugin
                     
                     if (classTypeSearchForReferencedClassName.Name == referencedClassName)
                     {
+                        if (classTypeSearchForReferencedClassName.ExternalInterface.Exists)
+                        {
+                            foreach (var externalInterface in classTypeSearchForReferencedClassName.ExternalInterface)
+                            {
+                                if (externalInterface.BaseClass != null)
+                                {
+                                    referencedClassName = externalInterface.BaseClass.ToString();
+                                    CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                    SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                                }
+                            }
+                        }
+
+
                         CheckForAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, classType);
                         if (classTypeSearchForReferencedClassName.ReferencedClassName != "" && classTypeSearchForReferencedClassName.ReferencedClassName != classTypeSearchForReferencedClassName.Name)
                         {
@@ -77,6 +94,7 @@ namespace Aml.Editor.Plugin
                         SearchForInterfaceClassesInsideInterfaceClass(doc, referencedClassName, classType, classTypeSearchForReferencedClassName);
                         
                     }
+                    
 
                 }
             }
@@ -93,6 +111,19 @@ namespace Aml.Editor.Plugin
             {
                 if (item.Name == referencedClassName)
                 {
+                    if (item.ExternalInterface.Exists)
+                    {
+                        foreach (var externalInterface in item.ExternalInterface)
+                        {
+                            if (externalInterface.BaseClass != null)
+                            {
+                                referencedClassName = externalInterface.BaseClass.ToString();
+                                CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                            }
+                        }
+                    }
+
                     CheckForAttributesOfReferencedClassName(item, classType);
                     if (item.ReferencedClassName != "" && item.ReferencedClassName != item.Name)
                     {
@@ -461,13 +492,433 @@ namespace Aml.Editor.Plugin
         }
 
 
+        public void SearchForReferencedClassName(CAEXDocument doc, string referencedClassName, RoleFamilyType classType)
+        {
+            string referencedClassNameofReferencedClassName = "";
+
+
+            foreach (var classLibTypeSearchForReferencedClassName in doc.CAEXFile.RoleClassLib)
+            {
+                foreach (var classTypeSearchForReferencedClassName in classLibTypeSearchForReferencedClassName.RoleClass)
+                {
+
+                    if (classTypeSearchForReferencedClassName.Name == referencedClassName)
+                    {
+                        if (classTypeSearchForReferencedClassName.ExternalInterface.Exists)
+                        {
+                            foreach (var externalInterface in classTypeSearchForReferencedClassName.ExternalInterface)
+                            {
+                                if (externalInterface.BaseClass != null)
+                                {
+                                    referencedClassName = externalInterface.BaseClass.ToString();
+                                    CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                    SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                                }
+                            }
+                        }
+
+
+                        CheckForAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, classType);
+                        if (classTypeSearchForReferencedClassName.ReferencedClassName != "" && classTypeSearchForReferencedClassName.ReferencedClassName != classTypeSearchForReferencedClassName.Name)
+                        {
+                            referencedClassNameofReferencedClassName = classTypeSearchForReferencedClassName.ReferencedClassName;
+
+                            SearchForReferencedClassName(doc, referencedClassNameofReferencedClassName, classType);
+                        }
+
+                    }
+                    if (classTypeSearchForReferencedClassName.RoleClass.Exists)
+                    {
+                        SearchForInterfaceClassesInsideInterfaceClass(doc, referencedClassName, classType, classTypeSearchForReferencedClassName);
+
+                    }
+
+
+                }
+            }
+
+        }
+        public void CheckForAttributesOfReferencedClassName(RoleFamilyType classTypeSearchForReferencedClassName, RoleFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (classTypeSearchForReferencedClassName.Attribute.Exists)
+            {
+                foreach (var attribute in classTypeSearchForReferencedClassName.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attribute, classType);
+                    StoreEachAttributeValueInListOfReferencedClassName(attributelist, classType, attribute);
+                }
+
+            }
+
+        }
+        public void CkeckForNestedAttributesOfReferencedClassName(RoleFamilyType classTypeSearchForReferencedClassName, AttributeType attributeType, RoleFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (attributeType.Attribute.Exists)
+            {
+
+                foreach (var attributeinattribute in attributeType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attributeinattribute, classType);
+                    StoreEachAttributeValueInListOfReferencedClassName(attributelist, attributeinattribute, classType, attributeType);
+                }
+
+            }
+        }
+        public void StoreEachAttributeValueInListOfReferencedClassName(List<List<ClassOfListsFromReferencefile>> list, RoleFamilyType classType, AttributeType attributeType)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = attributeType.Name;
+            attributeparameters.Value = attributeType.Value;
+            attributeparameters.Default = attributeType.DefaultValue;
+            attributeparameters.Unit = attributeType.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = attributeType.Description;
+            attributeparameters.CopyRight = attributeType.Copyright;
+            attributeparameters.Reference = attributeType.AttributePath;
+
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            try
+            {
+                if (DictionaryForRoleClassInstanceAttributes.ContainsKey(classType.Name.ToString()))
+                {
+                    DictionaryForRoleClassInstanceAttributes[classType.Name.ToString()].AddRange(list);
+                }
+                else
+                {
+                    DictionaryForRoleClassInstanceAttributes.Add(classType.Name.ToString(), list);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+        public void StoreEachAttributeValueInListOfReferencedClassName(List<List<ClassOfListsFromReferencefile>> list, AttributeType AttributeInAttribute, RoleFamilyType classType, AttributeType attributeType)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
+            // methods of name "StoreEachAttributeValuesInList" with four parameters.
+            attributeparameters.Name = AttributeInAttribute.Name;
+            attributeparameters.Value = AttributeInAttribute.Value;
+            attributeparameters.Default = AttributeInAttribute.DefaultValue;
+            attributeparameters.Unit = AttributeInAttribute.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = AttributeInAttribute.Description;
+            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            if (DictionaryForRoleClassInstanceAttributes.ContainsKey(classType.Name.ToString()))
+            {
+                DictionaryForRoleClassInstanceAttributes[classType.Name.ToString()].AddRange(list);
+            }
+            else
+            {
+                DictionaryForRoleClassInstanceAttributes.Add(classType.Name.ToString(), list);
+            }
+
+        }
+
+        public void CheckForAttributesOfReferencedClassNameofExternalIterface(RoleFamilyType classType, ExternalInterfaceType externalInterface)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (classType.Attribute.Exists)
+            {
+                foreach (var attribute in classType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attribute, classType, externalInterface);
+                    StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, classType, attribute, externalInterface);
+                }
+
+            }
+            else
+            {
+                return;
+            }
+
+        }
+        public void CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(AttributeType attributeType, RoleFamilyType classType, ExternalInterfaceType externalInterface)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (attributeType.Attribute.Exists)
+            {
+
+                foreach (var attributeinattribute in attributeType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attributeinattribute, classType, externalInterface);
+                    StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, attributeinattribute, classType, attributeType, externalInterface);
+                }
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
+
+        public void CheckForAttributesOfReferencedClassNameofExternalIterface(RoleFamilyType classTypeSearchForReferencedClassName, RoleFamilyType classType,
+             ExternalInterfaceType externalInterface)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (classTypeSearchForReferencedClassName.Attribute.Exists)
+            {
+                foreach (var attribute in classTypeSearchForReferencedClassName.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attribute, classType, externalInterface);
+                    StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, classType, attribute, externalInterface);
+                }
+
+            }
+
+        }
+        public void CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(RoleFamilyType classTypeSearchForReferencedClassName, AttributeType attributeType, RoleFamilyType classType,
+             ExternalInterfaceType externalInterface)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (attributeType.Attribute.Exists)
+            {
+
+                foreach (var attributeinattribute in attributeType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attributeinattribute, classType, externalInterface);
+                    StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, attributeinattribute, classType, attributeType, externalInterface);
+                }
+
+            }
+        }
+
+
+
+        public void StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(List<List<ClassOfListsFromReferencefile>> list,
+            RoleFamilyType classType, AttributeType attributeType, ExternalInterfaceType externalInterface)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = attributeType.Name;
+            attributeparameters.Value = attributeType.Value;
+            attributeparameters.Default = attributeType.DefaultValue;
+            attributeparameters.Unit = attributeType.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = attributeType.Description;
+            attributeparameters.CopyRight = attributeType.Copyright;
+            attributeparameters.Reference = attributeType.AttributePath;
+
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            try
+            {
+                if (DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib.ContainsKey(classType.Name.ToString() + externalInterface.Name.ToString()))
+                {
+                    DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib[classType.Name.ToString() + externalInterface.Name.ToString()].AddRange(list);
+                }
+                else
+                {
+                    DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib.Add(classType.Name.ToString() + externalInterface.Name.ToString(), list);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+        public void StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(List<List<ClassOfListsFromReferencefile>> list,
+            AttributeType AttributeInAttribute, RoleFamilyType classType, AttributeType attributeType, ExternalInterfaceType externalInterface)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
+            // methods of name "StoreEachAttributeValuesInList" with four parameters.
+            attributeparameters.Name = AttributeInAttribute.Name;
+            attributeparameters.Value = AttributeInAttribute.Value;
+            attributeparameters.Default = AttributeInAttribute.DefaultValue;
+            attributeparameters.Unit = AttributeInAttribute.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = AttributeInAttribute.Description;
+            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            if (DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib.ContainsKey(classType.Name.ToString() + externalInterface.Name.ToString()))
+            {
+                DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib[classType.Name.ToString() + externalInterface.Name.ToString()].AddRange(list);
+            }
+            else
+            {
+                DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib.Add(classType.Name.ToString() + externalInterface.Name.ToString(), list);
+            }
+
+        }
+
+
+        public void SearchForReferencedClassNameofExternalIterface(CAEXDocument doc, string referencedClassName, RoleFamilyType classType, ExternalInterfaceType externalInterface)
+        {
+            string referencedClassNameofReferencedClassName = "";
+
+
+            foreach (var classLibTypeSearchForReferencedClassName in doc.CAEXFile.RoleClassLib)
+            {
+                foreach (var classTypeSearchForReferencedClassName in classLibTypeSearchForReferencedClassName.RoleClass)
+                {
+
+                    if (classTypeSearchForReferencedClassName.Name == referencedClassName)
+                    {
+                        CheckForAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, classType, externalInterface);
+                        if (classTypeSearchForReferencedClassName.ReferencedClassName != "" && classTypeSearchForReferencedClassName.ReferencedClassName != classTypeSearchForReferencedClassName.Name)
+                        {
+                            referencedClassNameofReferencedClassName = classTypeSearchForReferencedClassName.ReferencedClassName;
+
+                            SearchForReferencedClassNameofExternalIterface(doc, referencedClassNameofReferencedClassName, classType, externalInterface);
+                        }
+
+                    }
+                    if (classTypeSearchForReferencedClassName.RoleClass.Exists)
+                    {
+
+                        SearchForInterfaceClassesInsideInterfaceClassofExternalIterface(doc, referencedClassName, classType, classTypeSearchForReferencedClassName, externalInterface);
+
+                    }
+
+
+                }
+            }
+
+        }
+        public void SearchForInterfaceClassesInsideInterfaceClass(CAEXDocument doc, string referencedClassName, RoleFamilyType classType,
+          RoleFamilyType classTypeSearchForReferencedClassName)
+        {
+            string referencedClassNameofReferencedClassName = "";
+            foreach (var item in classTypeSearchForReferencedClassName.RoleClass)
+            {
+                if (item.Name == referencedClassName)
+                {
+                    if (item.ExternalInterface.Exists)
+                    {
+                        foreach (var externalInterface in item.ExternalInterface)
+                        {
+                            if (externalInterface.BaseClass != null)
+                            {
+                                referencedClassName = externalInterface.BaseClass.ToString();
+                                CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                            }
+                        }
+                    }
+
+                    CheckForAttributesOfReferencedClassName(item, classType);
+                    if (item.ReferencedClassName != "" && item.ReferencedClassName != item.Name)
+                    {
+                        referencedClassNameofReferencedClassName = item.ReferencedClassName;
+
+                        SearchForReferencedClassName(doc, referencedClassNameofReferencedClassName, classType);
+                    }
+
+                }
+                if (item.RoleClass.Exists)
+                {
+                    SearchForInterfaceClassesInsideInterfaceClass(doc, referencedClassName, classType, item);
+
+                }
+            }
+        }
+        public void SearchForInterfaceClassesInsideInterfaceClassofExternalIterface(CAEXDocument doc, string referencedClassName, RoleFamilyType classType,
+          RoleFamilyType classTypeSearchForReferencedClassName, ExternalInterfaceType externalInterface)
+        {
+            string referencedClassNameofReferencedClassName = "";
+            foreach (var item in classTypeSearchForReferencedClassName.RoleClass)
+            {
+                if (item.Name == referencedClassName)
+                {
+                    CheckForAttributesOfReferencedClassNameofExternalIterface(item, classType, externalInterface);
+                    if (item.ReferencedClassName != "" && item.ReferencedClassName != item.Name)
+                    {
+                        referencedClassNameofReferencedClassName = item.ReferencedClassName;
+
+                        SearchForReferencedClassNameofExternalIterface(doc, referencedClassNameofReferencedClassName, classType, externalInterface);
+                    }
+
+                }
+                if (item.RoleClass.Exists)
+                {
+                    SearchForInterfaceClassesInsideInterfaceClassofExternalIterface(doc, referencedClassName, classType, item, externalInterface);
+
+                }
+
+            }
+        }
+        public void CheckForAttributesOfReferencedClassName(RoleFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (classType.Attribute.Exists)
+            {
+                foreach (var attribute in classType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassName(attribute, classType);
+                    StoreEachAttributeValueInListOfReferencedClassName(attributelist, classType, attribute);
+                }
+
+            }
+            else
+            {
+                return;
+            }
+
+        }
+        public void CkeckForNestedAttributesOfReferencedClassName(AttributeType attributeType, RoleFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (attributeType.Attribute.Exists)
+            {
+
+                foreach (var attributeinattribute in attributeType.Attribute)
+                {
+                    CkeckForNestedAttributesOfReferencedClassName(attributeinattribute, classType);
+                    StoreEachAttributeValueInListOfReferencedClassName(attributelist, attributeinattribute, classType, attributeType);
+                }
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
         /// <summary>
         /// This method takes arguments "TreeNode" and "RoleFamilyType" to print tree nodes in "Role Class Library TreeView " in Plugin.
         /// </summary>
         /// <param name="oParentNode"></param>
         /// <param name="classType"></param>
 
-        public void PrintNodesRecursiveInRoleClassLib(TreeNode oParentNode, RoleFamilyType classType)
+        public void PrintNodesRecursiveInRoleClassLib(CAEXDocument document, TreeNode oParentNode, RoleFamilyType classType,  string referencedclassName)
         {
             
             foreach (var item in classType.RoleClass)
@@ -477,6 +928,8 @@ namespace Aml.Editor.Plugin
                 {
                     referencedClassName = item.ReferencedClassName;
                     newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+                    CheckForAttributesOfReferencedClassName(classType);
+                    SearchForReferencedClassName(document, referencedClassName, classType);
                 }
                 else
                 {
@@ -493,6 +946,8 @@ namespace Aml.Editor.Plugin
                         {
                              referencedClassName = externalinterfaces.BaseClass.ToString();
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                            CheckForAttributesOfReferencedClassNameofExternalIterface(item, externalinterfaces);
+                            SearchForReferencedClassNameofExternalIterface(document, referencedclassName, item, externalinterfaces);
                         }
                         else
                         {
@@ -503,7 +958,7 @@ namespace Aml.Editor.Plugin
                         PrintExternalInterfaceNodes(externalinterafcenode, externalinterfaces);
                     }
                 }
-                PrintNodesRecursiveInRoleClassLib(newnode, item);
+                PrintNodesRecursiveInRoleClassLib(document, newnode, item, referencedclassName);
             }
         }
 
@@ -531,7 +986,7 @@ namespace Aml.Editor.Plugin
                     newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 1);
                 }
                
-                CheckForAttributes(item);
+               
                
                 if (item.ExternalInterface.Exists)
                 {
@@ -550,7 +1005,7 @@ namespace Aml.Editor.Plugin
                         {
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(), 2);
                         }
-                        CheckForAttributes(externalinterfaces);
+                        
                         
                         PrintExternalInterfaceNodes(externalinterafcenode, externalinterfaces);
                     }
@@ -571,7 +1026,7 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var item in classType.ExternalInterface)
                 {
-                    CheckForAttributes(item);
+                   
                     TreeNode newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2);
 
                     PrintExternalInterfaceNodes(newnode, item);
@@ -589,95 +1044,7 @@ namespace Aml.Editor.Plugin
         /// <param name="classType"></param>
         
 
-        public void CheckForAttributes(InterfaceFamilyType classType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (classType.Attribute.Exists)
-            {
-                foreach (var attribute in classType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attribute);
-                    StoreEachAttributeValuesInList(attributelist, classType, attribute);
-                }
-
-            }
-
-        }
-        /// <summary>
-        /// This check for Nested Atrributes of Attributes "InterfaceFamilyType".
-        /// </summary>
-        /// <param name="classType"></param>
-        /// <param name="attributeType"></param>
-        public void CheckForNestedAttributeinsideAttribute(InterfaceFamilyType classType, AttributeType attributeType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (attributeType.Attribute.Exists)
-            {
-
-                foreach (var attributeinattribute in attributeType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attributeinattribute);
-                    StoreEachAttributeValuesInList(attributelist, attributeinattribute, classType, attributeType);
-                }
-
-            }
-        }
-       /// <summary>
-       /// This method is connected with the above method that check for attributes in "InterafceFamilyType", this method store individual attribute value to list 
-       /// and store in a dictionary "dictionaryofInterfaceClassattributes" using a key
-       /// </summary>
-       /// <param name="list"></param>
-       /// <param name="classType"></param>
-       /// <param name="attributeType"></param>
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, InterfaceFamilyType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = attributeType.Name;
-            attributeparameters.Value = attributeType.Value;
-            attributeparameters.Default = attributeType.DefaultValue;
-            attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = attributeType.Description;
-            attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-
-            list.Add(attributeparameters);
-          // dictionaryofInterfaceClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-        /// <summary>
-        /// This method is linked with the above attribute checking method but holds more paramters than this previous method 
-        /// because this method stores each nested  attribute values in to the respective dictionary.
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="AttributeInAttribute"></param>
-        /// <param name="classType"></param>
-        /// <param name="attributeType"></param>
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, InterfaceFamilyType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
-            // methods of name "StoreEachAttributeValuesInList" with four parameters.
-            attributeparameters.Name = AttributeInAttribute.Name;
-            attributeparameters.Value = AttributeInAttribute.Value;
-            attributeparameters.Default = AttributeInAttribute.DefaultValue;
-            attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = AttributeInAttribute.Description;
-            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
-
-
-            list.Add(attributeparameters);
-            //dictionaryofInterfaceClassattributes.Add(classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
+       
 
 
         /// <summary>
@@ -782,91 +1149,7 @@ namespace Aml.Editor.Plugin
         /// </summary>
         /// <param name="classType"></param>
         
-        public void CheckForAttributes(ExternalInterfaceType classType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (classType.Attribute.Exists)
-            {
-                foreach (var attribute in classType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attribute);
-                    StoreEachAttributeValuesInList(attributelist, classType, attribute);
-                }
-            }
-        }
-        /// <summary>
-        /// This check for Nested Atrributes of Attributes in "ExternalInterfaceType".
-        /// </summary>
-        /// <param name="classType"></param>
-        /// <param name="attributeType"></param>
-        public void CheckForNestedAttributeinsideAttribute(ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            List<ClassOfListsFromReferencefile> attributelist = new List<ClassOfListsFromReferencefile>();
-            if (attributeType.Attribute.Exists)
-            {
-
-                foreach (var attributeinattribute in attributeType.Attribute)
-                {
-                    CheckForNestedAttributeinsideAttribute(classType, attributeinattribute);
-                    StoreEachAttributeValuesInList(attributelist, attributeinattribute, classType, attributeType);
-                }
-
-            }
-        }
-        /// <summary>
-        /// This method is connected with the above method that check for attributes in "ExternalInterfaceType", this method store individual attribute value to list 
-        /// and store in a dictionary "dictionaryofExternalInterfaceattributes" using a key
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="classType"></param>
-        /// <param name="attributeType"></param>
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, AttributeType AttributeInAttribute, ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = AttributeInAttribute.Name;
-            attributeparameters.Value = AttributeInAttribute.Value;
-            attributeparameters.Default = AttributeInAttribute.DefaultValue;
-            attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = AttributeInAttribute.Description;
-            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
-
-            list.Add(attributeparameters);
-           // dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString() + classType.Name.ToString() + attributeType.Name.ToString() + AttributeInAttribute.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
-
-        /// <summary>
-        /// This method is linked with the above attribute checking method but holds more paramters than this previous method 
-        /// because this method stores each nested  attribute values in to the respective dictionary.
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="AttributeInAttribute"></param>
-        /// <param name="classType"></param>
-        /// <param name="attributeType"></param>
-        public void StoreEachAttributeValuesInList(List<ClassOfListsFromReferencefile> list, ExternalInterfaceType classType, AttributeType attributeType)
-        {
-            list = new List<ClassOfListsFromReferencefile>();
-            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
-
-            attributeparameters.Name = attributeType.Name;
-            attributeparameters.Value = attributeType.Value;
-            attributeparameters.Default = attributeType.DefaultValue;
-            attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
-            attributeparameters.Description = attributeType.Description;
-            attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-
-            list.Add(attributeparameters);
-           // dictionaryofExternalInterfaceattributes.Add(classType.CAEXParent.ToString() + classType.Name.ToString() + attributeType.Name.ToString(), list);
-            // Limitation, attributes with identical names in one class type cannot be added.
-
-        }
+       
       
     }
 }

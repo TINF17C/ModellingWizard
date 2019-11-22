@@ -25,45 +25,32 @@ namespace Aml.Editor.Plugin
             return AMLAttributeParameters;
         }
 
-        public void CreateDataTableWithColumns( DataTable dataRowName, DataGridView dataGridViewName, KeyValuePair<string, List<ClassOfListsFromReferencefile>> pair)
+        public void CreateDataTableWithColumns( DataTable dataRowName, DataGridView dataGridViewName,
+            KeyValuePair<string, List<List<ClassOfListsFromReferencefile>>> pair)
         {
-            KeyValuePair<string, List<ClassOfListsFromReferencefile>> Pair = pair;
+            KeyValuePair<string, List<List<ClassOfListsFromReferencefile>>> Pair = pair;
+            
             DataTable DataRowName = dataRowName;
             DataGridView DataGridViewName = dataGridViewName;
-           
-            foreach (var item in Pair.Value)
+            
+            foreach (var valueList in Pair.Value)
             {
-               
-                DataRow row = DataRowName.NewRow();
-                /*foreach (DataGridViewRow eachrow in DataGridViewName.Rows)
+                foreach (var item in valueList)
                 {
-                    try
-                    {
-                         if (eachrow.Cells[0].Value.Equals(item.Name))
-                         {
+                    DataRow row = DataRowName.NewRow();
 
-                         }
-                        if (eachrow.Cells[0].Value == null && eachrow.Cells[0].Value.ToString() != item.Name.ToString())
-                        {*/
+                    row["AttributeName"] = item.Name;
+                    row["Value"] = item.Value;
+                    row["Default"] = item.Default;
+                    row["Unit"] = item.Unit;
+                    row["DataType"] = null;
+                    row["Semantic"] = item.Semantic;
+                    row["Reference"] = item.Reference;
+                    row["Description"] = item.Description;
+                    DataRowName.Rows.Add(row);
 
-                            row["AttributeName"] = item.Name;
-                            row["Value"] = item.Value;
-                            row["Default"] = item.Default;
-                            row["Unit"] = item.Unit;
-                            row["DataType"] = null;
-                            row["Semantic"] = item.Semantic;
-                            row["Reference"] = item.Reference;
-                            row["Description"] = item.Description;
-                            DataRowName.Rows.Add(row);
-
-                            break;
-/*
-                        }
-
-                    }
-                    catch (Exception) { }
-                }*/
-               
+                    break;
+                }
 
             }
             // For each loop creating the rows in the data table 
