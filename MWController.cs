@@ -10,7 +10,7 @@ namespace Aml.Editor.Plugin
     {
         // the (initialised) GUIs
         private CreateDevice createDeviceForm;
-        private CreateInterface createInterfaceForm;
+      
       
         private DeviceDescription deviceDescriptionForm;
         
@@ -60,59 +60,12 @@ namespace Aml.Editor.Plugin
             }
             return deviceDescriptionForm;
         }
-        /// <summary>
-        /// Create the new CreateInterface GUI or return the previously created GUI
-        /// </summary>
-        /// <returns>the CreateDevice GUI for this session</returns>
-        public CreateInterface GetCreateInterfaceForm()
-        {
-            if (createInterfaceForm == null)
-            {
-                createInterfaceForm = new CreateInterface(this);
-            }
-
-            return createInterfaceForm;
-        }
-
-        /// <summary>
-        /// Create the new Start GUI or return the previously created GUI
-        /// </summary>
-        /// <returns>the CreateDevice GUI for this session</returns>
+        
       
         
 
 
-        // OnClickFunktion für CreateDevice
-        // OnClickFunktion für CreateInterfac
-        //      Daten aus allen GUI Input Feldern auslesen
-        //      CreateDevice(/Interface) in MWModell mit diesen Daten als Parameter aufrufen#
-
-        /// <summary>
-        /// Pass the data of the newInterface to the MWData
-        /// </summary>
-        /// <param name="newInterface">the object holding the data</param>
-        /// <param name="isEdit">true if the device was edited, false if the device is created</param>
-        /// <returns>the result as a string</returns>
-        public string CreateInterfaceOnClick(MWInterface newInterface, bool isEdit)
-        {
-            // create the interface
-            string result = mWData.CreateInterface(newInterface, isEdit);
-
-            // update the device list
-            if (isEdit)
-            {
-                ReloadObjects();
-            }
-            else
-            {
-                devices.Add(newInterface);
-              
-            }
-
-            // go to Start GUI
-            ChangeGui(MWController.MWGUIType.Start);
-            return result;
-        }
+       
       
 
         /// <summary>
@@ -172,11 +125,7 @@ namespace Aml.Editor.Plugin
                     GetCreateDeviceForm().prefill((MWDevice)mWObject);
                     ChangeGui(MWGUIType.CreateDevice);
                 }
-                else if (mWObject is MWInterface)
-                {
-                    GetCreateInterfaceForm().prefill((MWInterface)mWObject);
-                    ChangeGui(MWGUIType.CreateInterface);
-                }
+               
                 
             }
         }
@@ -220,9 +169,7 @@ namespace Aml.Editor.Plugin
                 case MWGUIType.CreateDevice:
                     modellingWizard.changeGUI(GetCreateDeviceForm());
                     break;
-                case MWGUIType.CreateInterface:
-                    modellingWizard.changeGUI(GetCreateInterfaceForm());
-                    break;
+               
                
                 case MWGUIType.DeviceDescription:
                     modellingWizard.changeGUI(GetDeviceDescriptionForm());

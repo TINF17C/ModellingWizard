@@ -452,73 +452,7 @@ namespace Aml.Editor.Plugin
         private void AddSemanticSystems_Click(object sender, EventArgs e)
         {
 
-            if (semanticSystemCmbx.SelectedItem != null)
-            {
-                // Call "Datatables Class"  from the "Dictionary File/Class" and store in "datatables"
-                Datatables datatables = new Datatables();
-                // Call "ThreeParametersdatatable" method from "Dictionary Class" and store in "datatablesheader" Seperately for PD,POD,PPD,MD
-                DataTable datatableheadersPD = datatables.Parametersdatatable();
-                DataTable datatableheadersPPD = datatables.Parametersdatatable();
-                DataTable datatableheadersPOD = datatables.Parametersdatatable();
-                DataTable datatableheadersMD = datatables.Parametersdatatable();
-
-                // Call ""Commercialdatadictionary Class" From "Dictioanry File/Class" and store in "CDD"
-                CommercialDataDictionary CDD = new CommercialDataDictionary();
-                // Call "Product Details" method from "CommercialDataDictionary" and store in "PD"
-                Dictionary<int, Parameters> PD = CDD.ProductDetails();
-
-                // Call "Product Price Details" method from "CommercialDataDictionary" and store in "PPD"
-                Dictionary<int, Parameters> PPD = CDD.ProductPriceDetails();
-
-
-                // Call "Product Order Details" method from "CommercialDataDictionary" and store in "POD"
-                Dictionary<int, Parameters> POD = CDD.ProductOrderDetails();
-
-
-                // Call "Manufacturer Details" method from "CommercialDataDictionary" and store in "MD"
-                Dictionary<int, Parameters> MD = CDD.ManufacturerDetails();
-
-                //
-                datatables.CreateDataTableWith3Columns(PD, datatableheadersPD, dataGridViewPD);
-
-                datatables.CreateDataTableWith3Columns(PPD, datatableheadersPPD, dataGridViewPPD);
-                datatables.CreateDataTableWith3Columns(POD, datatableheadersPOD, dataGridViewPOD);
-                datatables.CreateDataTableWith3Columns(MD, datatableheadersMD, dataGridViewMD);
-                
-
-                treeViewCH.Nodes.Add("Generic Data");
-                treeViewCH.Nodes.Add("Interfaces");
-                treeViewCH.Nodes.Add("Field Attachables");
-
-               
-                if (semanticSystemCmbx.Text == "eClass")
-                {
-                    treeViewCH.Nodes.Add("Interfaces");
-                    
-
-                    DataTable datatableheadereClassID = datatables.Parametersdatatable();
-
-                    DictionaryeClass DEC = new DictionaryeClass();
-                    Dictionary<int, Parameters> eClassID = DEC.eClassIdentificationdataParameters();
-
-                    datatables.CreateDataTableWith3Columns(eClassID, datatableheadereClassID, dataGridViewIDT);
-                }
-                if (semanticSystemCmbx.SelectedText  == "IEC-CDD")
-                {
-                    DataTable datatableheaderIRDIID = datatables.Parametersdatatable();
-
-                    DictionaryIRDI DIRDI = new DictionaryIRDI();
-                    Dictionary<int, Parameters> IRDIID = DIRDI.IRDIIdentificationdata();
-
-                    datatables.CreateDataTableWith3Columns(IRDIID, datatableheaderIRDIID,dataGridViewIDT);
-                }
-
-            }
-
-
            
-           
-            
         }
 
         private void ToolStripButton3_Click(object sender, EventArgs e)
@@ -601,16 +535,7 @@ namespace Aml.Editor.Plugin
 
         private void AddConnector_Click(object sender, EventArgs e)
         {
-                Datatables datatables = new Datatables();
-
-                DataTable datatableheadersIRDIED = datatables.Parametersdatatable();
-
-                DictionaryIRDI DIRDI = new DictionaryIRDI();
-
-                Dictionary<int, Parameters> IRDIED = DIRDI.IRDIElectricalData();
-
-                datatables.CreateDataTableWith4Columns(IRDIED, datatableheadersIRDIED, dataGridViewIRDIElectricalData);
-
+               
             
                         
         }
@@ -657,49 +582,7 @@ namespace Aml.Editor.Plugin
         
         private void ToolStripButton16_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            // IRDIEIDI = IRDI Electrical Interfacce Dimensional Information
-            DataTable datatableheadersIRDIEIDI = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-
-            if (connectorStyleCmbx.Text == "Fixed Connectors")
-            {
-               
-                if (mountingCmbx.Text == "Square flange mounting")
-                {
-                    
-                    Dictionary<int, Parameters> IRDIEIDI = DIRDI.IRDIMountingSquareFlangeData();
-
-                    datatables.CreateDataTableWith4Columns(IRDIEIDI, datatableheadersIRDIEIDI, dataGridViewIRDIMountingData);
-                }
-                if (mountingCmbx.Text == "Single hole mounting")
-                {
-                    Dictionary<int, Parameters> IRDIEIDI = DIRDI.IRDIMountingSingleHoleData();
-
-                    datatables.CreateDataTableWith4Columns(IRDIEIDI, datatableheadersIRDIEIDI, dataGridViewIRDIMountingData);
-                }
-            }
-            if (connectorStyleCmbx.Text == "Free Connectors")
-            {
-                connectorVersion.Enabled = true;
-                connectorVersionCmbx.Enabled = true;
-
-                if(mountingCmbx.Text == "Locking nut")
-                {
-                    if (connectorVersionCmbx.Text == "Right Angled")
-                    {
-
-                    }
-                    if (connectorVersionCmbx.Text == "Straight")
-                    {
-
-                    }
-
-                }
-                
-
-            }
+           
         }
 
         private void ToolStripButton17_Click(object sender, EventArgs e)
@@ -709,26 +592,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton18_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDIEIDI2 = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-
-            if (connectorTypeCmbx.Text == "Male")
-            {
-                Dictionary<int, Parameters> IRDIEIDI2 = DIRDI.IRDIMaleConnectorDimensionData();
-
-                datatables.CreateDataTableWith6Columns(IRDIEIDI2, datatableheadersIRDIEIDI2, dataGridViewIRDIConnectorDimensions);
-
-            }
-            if (connectorTypeCmbx.Text == "Female")
-            {
-                Dictionary<int, Parameters> IRDIEIDI2 = DIRDI.IRDIFemaleConnectorDimensionData();
-
-                datatables.CreateDataTableWith6Columns(IRDIEIDI2, datatableheadersIRDIEIDI2, dataGridViewIRDIConnectorDimensions);
-
-            }
+            
 
         }
 
@@ -739,14 +603,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton24_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDIOD = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-            Dictionary<int, Parameters> IRDIOD = DIRDI.IRDIConnectorOrientationData();
-
-            datatables.CreateDataTableWith4Columns(IRDIOD, datatableheadersIRDIOD, dataGridViewIRDIOrientationData);
+            
 
         }
 
@@ -757,14 +614,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton26_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDITD = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-            Dictionary<int, Parameters> IRDITD = DIRDI.IRDITemperatureData();
-
-            datatables.CreateDataTableWith4Columns(IRDITD, datatableheadersIRDITD, dataGridViewIRDIConnectorTempData);
+           
         }
 
         private void ToolStripButton27_Click(object sender, EventArgs e)
@@ -774,14 +624,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton28_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDIMD = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-            Dictionary<int, Parameters> IRDIMD = DIRDI.IRDIMaterialData();
-
-            datatables.CreateDataTableWith3Columns(IRDIMD, datatableheadersIRDIMD, dataGridViewIRDIConnectorMaterialData);
+            
         }
 
         private void ToolStripButton29_Click(object sender, EventArgs e)
@@ -819,14 +662,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton30_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDIMiscD = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-            Dictionary<int, Parameters> IRDIMiscD = DIRDI.IRDIMiscelliniousData();
-
-            datatables.CreateDataTableWith4Columns(IRDIMiscD, datatableheadersIRDIMiscD, dataGridViewIRDIConnectorMiscData);
+          
         }
 
         private void ToolStripButton31_Click(object sender, EventArgs e)
@@ -841,14 +677,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton22_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersIRDIDMI = datatables.Parametersdatatable();
-
-            DictionaryIRDI DIRDI = new DictionaryIRDI();
-            Dictionary<int, Parameters> IRDIDMI = DIRDI.IRDICableDimensionData();
-
-            datatables.CreateDataTableWith4Columns(IRDIDMI, datatableheadersIRDIDMI, dataGridViewIRDICableDMI);
+           
 
         }
 
@@ -896,14 +725,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton40_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersSensorInterfaceOrientation = datatables.Parametersdatatable();
-
-            DictionarySensorInterface DictSensorInterface = new DictionarySensorInterface();
-            Dictionary<int, Parameters> SensorInterfaceOrientation = DictSensorInterface.SensorInterfaceOrientationData();
-
-            datatables.CreateDataTableWith4Columns(SensorInterfaceOrientation, datatableheadersSensorInterfaceOrientation, dataGridViewSensorInterfaceOrienatation);
+            
         }
 
         private void ToolStripButton41_Click(object sender, EventArgs e)
@@ -913,14 +735,7 @@ namespace Aml.Editor.Plugin
 
         private void ToolStripButton42_Click(object sender, EventArgs e)
         {
-            Datatables datatables = new Datatables();
-            //IRDIEIDI2 = IRDI Electrical Interafce Dimensional Information second data table
-            DataTable datatableheadersSensorMaterialOrientation = datatables.Parametersdatatable();
-
-            DictionarySensorInterface DictSensorInterface = new DictionarySensorInterface();
-            Dictionary<int, Parameters> SensorMaterialOrientation = DictSensorInterface.SensorInterfaceOrientationData();
-
-            datatables.CreateDataTableWith4Columns(SensorMaterialOrientation, datatableheadersSensorMaterialOrientation, dataGridViewSensingMaterialOrientation);
+          
         }
 
         private void ToolStripButton43_Click(object sender, EventArgs e)

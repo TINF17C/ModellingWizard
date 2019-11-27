@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Aml.Editor.Plugin
 {
@@ -97,14 +98,10 @@ namespace Aml.Editor.Plugin
                                     if (internalElement.Attribute.GetCAEXAttribute("InterfaceNumber") != null)
                                     {
 
-                                        MWInterface mWInterface = new MWInterface();
-                                        mWInterface.numberOfInterface = Convert.ToInt32(internalElement.Attribute.GetCAEXAttribute("InterfaceNumber").Value);
-
-                                        // read the attributes and write them directly into the interface
-                                        fillInterfaceWithData(mWInterface, internalElement.Attribute);
+                                      
 
                                         amlx.Close();
-                                        return mWInterface;
+                                       
                                     }
                                     else if (internalElement.Attribute.GetCAEXAttribute("DeviceName") != null)
                                     {
@@ -175,42 +172,7 @@ namespace Aml.Editor.Plugin
         /// </summary>
         /// <param name="mWInterface">the object to write the data into</param>
         /// <param name="attributes">the list of attributes</param>
-        private void fillInterfaceWithData(MWInterface mWInterface, AttributeSequence attributes)
-        {
-            List<MWPin> pinlist = new List<MWPin>();
-            // iterate over all attributes
-            foreach (AttributeType attribute in attributes)
-            {
-                // apply the value of the attribute to the correct interface parameter
-                switch (attribute.Name)
-                {
-                    case "InterfaceNumber":
-                        mWInterface.numberOfInterface = Int32.Parse(attribute.Value);
-                        break;
-                    case "Description":
-                        mWInterface.interfaceDescription = attribute.Value;
-                        break;
-                    case "ConnectorType":
-                        mWInterface.connectorType = attribute.Value;
-                        break;
-                    case "PinCount":
-                        mWInterface.amountPins = Int32.Parse(attribute.Value);
-                        break;
-                    case "PinAttributes":
-                        // Read the pinlist attribute
-
-                        for (int i = 0; i < mWInterface.amountPins; i++)
-                        {
-                            MWPin pin = new MWPin(Int32.Parse(attribute.Attribute[i].Name), attribute.Attribute[i].Value);
-                            pinlist.Add(pin);
-                        }
-                        // sort the pinlist after ascending pin Number
-                        pinlist = pinlist.OrderBy(o => o.pinNumber).ToList();
-                        break;
-                }
-            }
-            mWInterface.pinList = pinlist;
-        }
+       
 
         /// <summary>
         /// Read the all attributes in <paramref name="attributes"/> and write the values into <paramref name="device"/>
@@ -497,6 +459,87 @@ namespace Aml.Editor.Plugin
                 }
                 if (electricalInterface == null)
                     electricalInterface = systemUnitClass.InternalElement.Append("ElectricalInterfaces");
+
+                foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
+                {
+                    ExternalInterfaceType electricalConnectorType = null;
+
+                    ExternalInterfaceType electricalConnectorPins = null;
+
+                    Match numberfromElectricalConnectorType = Regex.Match(pair.Key.ToString(), @"\((\d+)\)");
+                    string initialnumberbetweenparanthesisofElectricalConnectorType = numberfromElectricalConnectorType.Groups[1].Value;
+
+
+                    string electricalConnectorTypeName = Regex.Replace(pair.Key.ToString(), @"\(.+?\)", "");
+                    electricalConnectorTypeName = Regex.Replace(electricalConnectorTypeName, @"\{.+?\}", "");
+
+                    electricalConnectorType = electricalInterface.ExternalInterface.Append(electricalConnectorTypeName);
+
+                    var attributesOfConnectorType = electricalConnectorType.Attribute;
+
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            var eachattribute = attributesOfConnectorType.Append(item.Name.ToString());
+                            eachattribute.Value = item.Value;
+                            eachattribute.DefaultValue = item.Default;
+                            eachattribute.Unit = item.Unit;
+                            //eachattribute.AttributeDataType = 
+                            eachattribute.Description = item.Description;
+                            eachattribute.Copyright = item.CopyRight;
+                            
+                            eachattribute.ID = item.ID;
+
+
+
+                            electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+                        }
+                    }
+
+
+                    foreach (var pairofList in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
+                    {
+                        Match numberfromElectricalConnectorPins = Regex.Match(pairofList.Key.ToString(), @"\((\d+)\)");
+                        string initialnumberbetweenparanthesisElectricalConnectorPins = numberfromElectricalConnectorPins.Groups[1].Value;
+
+                        string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"[^a-zA-Z]", "");
+                        electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.+?\}", "");
+                        electricalConnectorPinName = electricalConnectorPinName.Replace(electricalConnectorTypeName,"");
+
+                        
+
+
+                        if (initialnumberbetweenparanthesisofElectricalConnectorType == initialnumberbetweenparanthesisElectricalConnectorPins)
+                        {
+                            electricalConnectorPins = electricalConnectorType.ExternalInterface.Append(electricalConnectorPinName);
+
+                            var attributesOfConnectorPins = electricalConnectorPins.Attribute;
+
+                            foreach (var valueList in pairofList.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    var eachattribute = attributesOfConnectorPins.Append(item.Name.ToString());
+                                    eachattribute.Value = item.Value;
+                                    eachattribute.DefaultValue = item.Default;
+                                    eachattribute.Unit = item.Unit;
+                                    //eachattribute.AttributeDataType = 
+                                    eachattribute.Description = item.Description;
+                                    eachattribute.Copyright = item.CopyRight;
+
+                                    eachattribute.ID = item.ID;
+
+
+
+                                    electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+                                }
+                            }
+                        }
+                    }
+
+
+                }
 
                 
                 for (int i = 0; i < device.ElectricalInterfaceInstances.Count; i++)
@@ -889,165 +932,7 @@ namespace Aml.Editor.Plugin
             }
         }
 
-        /// <summary>
-        /// Create a new amlx file using <paramref name="newInterface"/>
-        /// </summary>
-        /// <param name="newInterface">the object to create</param>
-        /// <param name="isEdit">true if an amlx file get update, false if a new file will be created</param>
-        /// <returns></returns>
-        public string CreateInterface(MWInterface newInterface, bool isEdit)
-        {
-            // Anlegen des AML / XML's
-            // Siehe TINF17C/software-engineering-1/modelling-wizard/modellingwizardplugin#25
-
-            AutomationMLContainer amlx = null;
-            CAEXDocument document = null;
-
-            // init the filepath
-            string fileName = newInterface.numberOfInterface + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + newInterface.numberOfInterface + ".amlx";
-
-            FileInfo file = new FileInfo(amlFilePath);
-            file.Directory.Create();
-
-            // Init new CAEX Document
-            if (isEdit)
-            {
-                // Load the amlx file
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Open);
-
-                IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
-                // We expect the aml to only have one root part
-                if (rootParts.First() != null)
-                {
-                    PackagePart part = rootParts.First();
-
-                    // load the aml file as an CAEX document
-                    document = CAEXDocument.LoadFromStream(part.GetStream());
-                }
-                else
-                {
-                    // the amlx contains no aml file
-                    document = CAEXDocument.New_CAEXDocument();
-                }
-            }
-            else
-            {
-                // create a new CAEX document
-                document = CAEXDocument.New_CAEXDocument();
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
-            }
-
-            // Init the default Libs
-            AutomationMLBaseRoleClassLibType.RoleClassLib(document);
-            AutomationMLInterfaceClassLibType.InterfaceClassLib(document);
-
-
-            SystemUnitFamilyType systemUnitClass = null;
-            // Create the SystemUnitClass for our device
-            if (!isEdit)
-            {
-                systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-            }
-            else
-            {
-                bool foundSysClassLib = false;
-                foreach (var sysclasslib in document.CAEXFile.SystemUnitClassLib)
-                {
-                    if (sysclasslib.Name.Equals("ComponentSystemUnitClassLib"))
-                    {
-                        bool foundSysClass = false;
-                        foreach (var sysclass in sysclasslib.SystemUnitClass)
-                        {
-                            if (sysclass.Name.Equals(newInterface.numberOfInterface.ToString()))
-                            {
-                                foundSysClass = true;
-                                systemUnitClass = sysclass;
-                                break;
-                            }
-                        }
-                        if (!foundSysClass)
-                            sysclasslib.SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-                        foundSysClassLib = true;
-                    }
-                }
-                if (!foundSysClassLib)
-                    systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-            }
-
-            // create the DeviceIdentification InternalElement
-            InternalElementType ie = null;
-            foreach (var internalelement in systemUnitClass.InternalElement)
-            {
-                if (internalelement.Name.Equals("DeviceIdentification"))
-                {
-                    ie = internalelement;
-                    break;
-                }
-            }
-            if (ie == null)
-                ie = systemUnitClass.InternalElement.Append("DeviceIdentification");
-
-            // make sure that the attributes are initialized
-            initCAEXAttribute("InterfaceNumber", "xs:integer", ie);
-            initCAEXAttribute("Description", "xs:string", ie);
-            initCAEXAttribute("ConnectorType", "xs:string", ie);
-            initCAEXAttribute("PinCount", "xs:integer", ie);
-
-            // special handling for the pinlist
-            AttributeType pinlistAtt = null;
-            if (ie.Attribute.GetCAEXAttribute("PinAttributes") == null)
-            {
-                pinlistAtt = ie.Attribute.Append("PinAttributes");
-            }
-            else
-            {
-                pinlistAtt = ie.Attribute.GetCAEXAttribute("PinAttributes");
-                pinlistAtt.Attribute.Remove();
-            }
-
-            // assign the values for the pinlist
-            foreach (MWPin pin in newInterface.pinList)
-            {
-                pinlistAtt.Attribute.Append(pin.pinNumber.ToString()).Value = pin.attribute;
-            }
-
-            // assign the values for the 'normal' attributes
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("InterfaceNumber"), newInterface.numberOfInterface);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("Description"), newInterface.interfaceDescription);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ConnectorType"), newInterface.connectorType);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("PinCount"), newInterface.amountPins);
-
-            // create the aml package part
-            Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
-
-            // create a temp file with the new aml
-            string path = Path.GetTempFileName();
-            document.SaveToFile(path, true);
-
-            if (isEdit)
-            {
-                // delete the old aml file
-                amlx.Package.DeletePart(partUri);
-            }
-
-            // copy the new aml file into the package
-            PackagePart root = amlx.AddRoot(path, partUri);
-
-            amlx.Save();
-            amlx.Close();
-            if (isEdit)
-            {
-                return "Sucessfully updated interface!\nFilepath " + amlFilePath;
-
-            }
-            else
-            {
-                return "Sucessfully created interface!\nFilepath " + amlFilePath;
-
-            }
-        }
+      
 
         /// <summary>
         /// Calls the iodd2aml Converter using <see cref="System.Reflection"/>

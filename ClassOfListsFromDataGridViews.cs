@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Aml.Engine.AmlObjects;
-using Aml.Engine.CAEX;
 
 namespace Aml.Editor.Plugin
 {
-    public class ClassOfListsFromReferencefile
+    class ClassOfListsFromDataGridViews
     {
         public string Name { get; set; }
         public string Value { get; set; }
@@ -20,24 +18,24 @@ namespace Aml.Editor.Plugin
         public string CopyRight { get; set; }
         public string AttributePath { get; set; }
         public string RefBaseClassPath { get; set; }
-        public string  ID { get; set; }
+        public string ID { get; set; }
         public string ReferencedClassName { get; set; }
-        public CAEXSequence<RefSemanticType> RefSemanticList { get; set; }
-        
-       
-        //public List<ClassOfListsFromReferencefile> listofparameters { get; set; }
+        //public CAEXSequence<RefSemanticType> RefSemanticList { get; set; }
 
-        public ClassOfListsFromReferencefile()
+
+       
+
+        public ClassOfListsFromDataGridViews()
         {
-           // RefSemanticList = new List<CAEXSequence<RefSemanticType>>();
+            // RefSemanticList = new List<CAEXSequence<RefSemanticType>>();
         }
 
-        public ClassOfListsFromReferencefile(string name, string value,
+        public ClassOfListsFromDataGridViews(string name, string value,
             string _default, string unit,
-            string reference, string description, 
-            string copyRight, string semantic, string 
-            attributePath, string refBaseClassPath, 
-            string id, string referencedClassName, CAEXSequence<RefSemanticType> refSemanticList)
+            string reference, string description,
+            string copyRight, string semantic, string
+            attributePath, string refBaseClassPath,
+            string id, string referencedClassName /*CAEXSequence<RefSemanticType> refSemanticList*/)
             : this()
         {
             this.Name = name;
@@ -52,17 +50,16 @@ namespace Aml.Editor.Plugin
             this.RefBaseClassPath = refBaseClassPath;
             this.ID = id;
             this.ReferencedClassName = referencedClassName;
-            this.RefSemanticList = refSemanticList;
+            //this.RefSemanticList = refSemanticList;
 
         }
 
         public override string ToString()
         {
-            return "ClassOfListsFromReferencefile("+Name+"="+Value+"="+Default+"="+Unit+"="+Reference+"="
-                +Description+"="+CopyRight+"="+Semantic+"="+AttributePath+ "=" + RefBaseClassPath + "=" + ID
-                + "=" + ReferencedClassName + "=" + RefSemanticList + ")";
+            return "ClassOfListsFromReferencefile(" + Name + "=" + Value + "=" + Default + "=" + Unit + "=" + Reference + "="
+                + Description + "=" + CopyRight + "=" + Semantic + "=" + AttributePath + "=" + RefBaseClassPath + "=" + ID
+                + "=" + ReferencedClassName + ")";
         }
-
 
     }
 }

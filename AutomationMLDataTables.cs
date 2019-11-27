@@ -19,8 +19,8 @@ namespace Aml.Editor.Plugin
             AMLAttributeParameters.Columns.Add("Unit");
             AMLAttributeParameters.Columns.Add("DataType");
             AMLAttributeParameters.Columns.Add("Semantic");
-            AMLAttributeParameters.Columns.Add("Reference");
-            AMLAttributeParameters.Columns.Add("Description");
+            /*AMLAttributeParameters.Columns.Add("Reference");
+            AMLAttributeParameters.Columns.Add("Description");*/
 
             return AMLAttributeParameters;
         }
@@ -44,9 +44,21 @@ namespace Aml.Editor.Plugin
                     row["Default"] = item.Default;
                     row["Unit"] = item.Unit;
                     row["DataType"] = null;
-                    row["Semantic"] = item.Semantic;
-                    row["Reference"] = item.Reference;
-                    row["Description"] = item.Description;
+                    try
+                    {
+                        foreach (var value in item.RefSemanticList.Elements)
+                        {
+                            row["Semantic"] = value.FirstAttribute.Value.ToString();
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    
+                   
+                   /* row["Reference"] = item.Reference;
+                    row["Description"] = item.Description;*/
                     DataRowName.Rows.Add(row);
 
                     break;
@@ -56,6 +68,7 @@ namespace Aml.Editor.Plugin
             // For each loop creating the rows in the data table 
             foreach (DataRow IDT in DataRowName.Rows)
             {
+                
                 int num = DataGridViewName.Rows.Add();
                 DataGridViewName.Rows[num].Cells[0].Value = IDT["AttributeName"].ToString();
                 DataGridViewName.Rows[num].Cells[1].Value = IDT["Value"].ToString();
@@ -63,7 +76,7 @@ namespace Aml.Editor.Plugin
                 DataGridViewName.Rows[num].Cells[3].Value = IDT["Unit"].ToString();
                 DataGridViewName.Rows[num].Cells[4].Value = IDT["DataType"].ToString();
                 DataGridViewName.Rows[num].Cells[5].Value = IDT["Semantic"].ToString();
-                DataGridViewName.Rows[num].Cells[6].Value = IDT["Reference"].ToString();
+               // DataGridViewName.Rows[num].Cells[6].Value = IDT["Reference"].ToString();
                // DataGridViewName.Rows[num].Cells[7].Value = IDT["Description"].ToString();
 
             }

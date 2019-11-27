@@ -55,6 +55,16 @@ namespace Aml.Editor.Plugin
         // In this Dictionary Every list generated from the Electrical Interface is Added and can be retrived by the key KEY = "InterfaceClass+Externalinterface" strings
         public Dictionary<string, List<ElectricalInterfaceParameters>> DictofElectricalInterfaceParameters { get; set; }
 
+
+
+        // These are the Dictionary properties that store Electrical Interfaces Instances 
+        // This Dictionary Property Stores the "Parent Interface Class Attributes" as Values and "Interface Number + InterfaceName" as Key
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryForInterfaceClassesInElectricalInterfaces { get; set; }
+        // This Dictioanry Property Stores "Child ExternalInterfaces attributes under ParentClass" as Values 
+        // and "InterfaceNumbwer + ParentClassName + ExternalInterface Name" as Key
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces { get; set; }
+
+
     }
     // This class helps to carry parameters in "identification data table to AutomationML"
 

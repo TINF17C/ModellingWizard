@@ -124,30 +124,22 @@
     </Compile>
     <Compile Include="AnimationClass.cs" />
     <Compile Include="AutomationMLDataTables.cs" />
+    <Compile Include="ClassOfListsFromDataGridViews.cs" />
     <Compile Include="ClassOfListsFromReferencefile.cs" />
-    <Compile Include="Datatables.cs" />
     <Compile Include="DeviceDescription.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DeviceDescription.Designer.cs">
       <DependentUpon>DeviceDescription.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dictionary.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="MWDevice.cs" />
-    <Compile Include="MWInterface.cs" />
     <Compile Include="ModellingWizard.xaml.cs">
       <DependentUpon>ModellingWizard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreateInterface.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CreateInterface.Designer.cs">
-      <DependentUpon>CreateInterface.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateDevice.cs">
       <SubType>UserControl</SubType>
@@ -179,9 +171,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateInterface.resx">
-      <DependentUpon>CreateInterface.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateDevice.resx">
       <DependentUpon>CreateDevice.cs</DependentUpon>
