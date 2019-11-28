@@ -7,6 +7,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Aml.Editor.Plugin
 {
@@ -279,7 +280,16 @@ namespace Aml.Editor.Plugin
             // Init final .amlx Filepath
             //first of all create a folder on "Vendor Name"
             string vendorCompanyName = device.vendorName;
-            string vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
+            string vendorCompanyNameFilePath = "";
+            if (device.filepath != "")
+            {
+                vendorCompanyNameFilePath = device.filepath + vendorCompanyName;
+            }
+            if(device.filepath == "")
+            {
+                 vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
+            }
+           
             
             if (!Directory.Exists(vendorCompanyNameFilePath))
             {
@@ -503,8 +513,8 @@ namespace Aml.Editor.Plugin
                         Match numberfromElectricalConnectorPins = Regex.Match(pairofList.Key.ToString(), @"\((\d+)\)");
                         string initialnumberbetweenparanthesisElectricalConnectorPins = numberfromElectricalConnectorPins.Groups[1].Value;
 
-                        string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"[^a-zA-Z]", "");
-                        electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.+?\}", "");
+                        string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"\(.*?\)", "");
+                        electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.*?\}", "");
                         electricalConnectorPinName = electricalConnectorPinName.Replace(electricalConnectorTypeName,"");
 
                         
@@ -542,61 +552,6 @@ namespace Aml.Editor.Plugin
                 }
 
                 
-                for (int i = 0; i < device.ElectricalInterfaceInstances.Count; i++)
-                {
-                    List<ElectricalParameters> electricalInterfacenames = device.ElectricalInterfaceInstances[i];
-                    InternalElementType electricalconnector = null;
-                    InternalElementType electricalconnectorCode = null;
-                    
-                    InternalElementType electricalconnectorType = null;
-
-
-                    foreach (var variable in electricalInterfacenames)
-                    {
-                        electricalconnector = electricalInterface.InternalElement.Append(variable.Connector.ToString());
-
-                        var attributeofepconnector = electricalconnector.Attribute;
-                        
-                        foreach (var parametersofElectricalDataDataGridView in variable.listofElectricalDataDataGridViewParameters)
-                        {
-                           var eachAttribute =  attributeofepconnector.Append(parametersofElectricalDataDataGridView.Attributes.ToString());
-                            eachAttribute.Unit = parametersofElectricalDataDataGridView.Units.ToString();
-                            eachAttribute.Value = parametersofElectricalDataDataGridView.Values.ToString();
-                            var refsemanticsOfEachAttribute = eachAttribute.RefSemantic.Append();
-                            refsemanticsOfEachAttribute.Node.Add(parametersofElectricalDataDataGridView.ReferenceID.ToString());
-                           
-                        }
-
-
-                        if (electricalconnectorCode == null)
-                        {
-                            electricalconnectorCode = electricalconnector.InternalElement.Append(variable.Connector.ToString()+variable.ConnectorCode.ToString()+variable.Pins+"Pins");
-
-                           
-                            foreach (var item in variable.listOfPinInfoDataGridViewParameters)
-                            {
-                                if (item.PinNumber != null)
-                                {
-                                    var eachpin = electricalconnectorCode.ExternalInterface.Append(item.PinNumber);
-                                    var attributeofeachpin = eachpin.Attribute.Append(item.Attributes.ToString());
-                                    attributeofeachpin.Unit = item.Units;
-                                    attributeofeachpin.Value = item.Values;
-                                    var refSemanticOfEachAttribute = attributeofeachpin.RefSemantic.Append();
-                                    refSemanticOfEachAttribute.Node.Add(item.ReferenceID.ToString());
-
-                                }
-                                
-                            }
-                            
-                            if (electricalconnectorType == null)
-                            {
-                                electricalconnectorType = electricalconnectorCode.InternalElement.Append(variable.ConnectorType.ToString());
-                                
-                            }
-                        }
-                     
-                    }
-                }
  
             }
 

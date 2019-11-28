@@ -29,6 +29,7 @@ namespace Aml.Editor.Plugin
         bool isEditing = false;
         AnimationClass AMC = new AnimationClass();
         SearchAMLLibraryFile searchAMLLibraryFile = new SearchAMLLibraryFile();
+        SearchAMLComponentFile searchAMLComponentFile = new SearchAMLComponentFile();
         MWDevice device = new MWDevice();
 
         
@@ -160,183 +161,30 @@ namespace Aml.Editor.Plugin
 
         }
 
-        // This Save button method takes multiple electrical interfaces intances and store them in a list 
-
-        List<List<ElectricalParameters>> electricalInterfaceslistoflists = new List<List<ElectricalParameters>>();
-
-        public void saveElectricalInterfaceBtn_Click(object sender, EventArgs e)
-        {
-
-            if (electricalInterfacesComboBox.Items.Count == Convert.ToInt32(electricalInterfacenumbTxtBox.Text))
-            {
-                MessageBox.Show("Specified Interfaces Limit has been reached, Change Number of Interfaces to add more Interfaces", " Interface Limit Reached", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-
-                if (electricalInterfacesComboBox.Items.Count < Convert.ToInt32(electricalInterfacenumbTxtBox.Text))
-                {
-                    electricalInterfacesComboBox.Items.Add(connectorCombBox.Text);
-                }
-                ElectricalParameters eachElectricalParameter = new ElectricalParameters();
-                eachElectricalParameter.Connector = Convert.ToString(connectorCombBox.Text);
-                eachElectricalParameter.ConnectorCode = Convert.ToString(connectorCodeCombBox.Text);
-                eachElectricalParameter.ConnectorType = Convert.ToString(connectorTypeCombBox.Text);
-                eachElectricalParameter.Pins = Convert.ToString(numbOfPinsTxtBox.Text);
-
-                List<ElectricalParametersInElectricalDataDataGridView> listofElectricalParametersFromElectricalDataDataGridView = new List<ElectricalParametersInElectricalDataDataGridView>();
-                if (electricalDataDataGridView != null)
-                {
-
-                    int i = 0;
-                    int j = electricalDataDataGridView.Rows.Count;
-                    if (i <= 0)
-                    {
-                        while (i < j)
-                        {
-                            ElectricalParametersInElectricalDataDataGridView parametersFromElectricalDataDataGrid = new ElectricalParametersInElectricalDataDataGridView();
-                            try
-                            {
-                                parametersFromElectricalDataDataGrid.ReferenceID = Convert.ToString(electricalDataDataGridView.Rows[i].Cells[0].Value);
-                                parametersFromElectricalDataDataGrid.Attributes = Convert.ToString(electricalDataDataGridView.Rows[i].Cells[1].Value);
-                                parametersFromElectricalDataDataGrid.Values = Convert.ToString(electricalDataDataGridView.Rows[i].Cells[2].Value);
-                                parametersFromElectricalDataDataGrid.Units = Convert.ToString(electricalDataDataGridView.Rows[i].Cells[3].Value);
-                            }
-                            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-
-                            listofElectricalParametersFromElectricalDataDataGridView.Add(parametersFromElectricalDataDataGrid);
-                            i++;
-
-                        }
-                    }
-                }
-                eachElectricalParameter.listofElectricalDataDataGridViewParameters = listofElectricalParametersFromElectricalDataDataGridView;
-                List<PinParametersInPinInfoDataGridView> listofPinFrompinInfoDataGridView = new List<PinParametersInPinInfoDataGridView>();
-                if (pinInfoDataGridView != null)
-                {
-
-                    int i = 0;
-                    int j = pinInfoDataGridView.Rows.Count;
-                    if (i <= 0)
-                    {
-                        while (i < j)
-                        {
-                            PinParametersInPinInfoDataGridView parametersFrompinInfoDataGridView = new PinParametersInPinInfoDataGridView();
-                            try
-                            {
-                                if (pinInfoDataGridView.Rows[i].Cells[0].Value != null)
-                                {
-                                    parametersFrompinInfoDataGridView.PinNumber = Convert.ToString(pinInfoDataGridView.Rows[i].Cells[0].Value);
-                                    parametersFrompinInfoDataGridView.ReferenceID = Convert.ToString(pinInfoDataGridView.Rows[i].Cells[1].Value);
-                                    parametersFrompinInfoDataGridView.Attributes = Convert.ToString(pinInfoDataGridView.Rows[i].Cells[2].Value);
-                                    parametersFrompinInfoDataGridView.Values = Convert.ToString(pinInfoDataGridView.Rows[i].Cells[3].Value);
-                                    parametersFrompinInfoDataGridView.Units = Convert.ToString(pinInfoDataGridView.Rows[i].Cells[4].Value);
-                                }
-
-                            }
-                            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-
-                            listofPinFrompinInfoDataGridView.Add(parametersFrompinInfoDataGridView);
-                            i++;
-
-                        }
-                    }
-                }
-                eachElectricalParameter.listOfPinInfoDataGridViewParameters = listofPinFrompinInfoDataGridView;
-                List<ElectricalParameters> listOfElectrialParameters = new List<ElectricalParameters>();
-
-                listOfElectrialParameters.Add(eachElectricalParameter);
-
-
-                if (electricalInterfacesComboBox.Items.Count <= Convert.ToInt32(electricalInterfacenumbTxtBox.Text) && electricalInterfacesComboBox.Items.Count != 15)
-                {
-
-                    switch (electricalInterfacesComboBox.Items.Count)
-                    {
-                        case 1:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 1 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
-                            break;
-                        case 2:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 2 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 3:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 3 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 4:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 4 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 5:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 5 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 6:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 6 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 7:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 7 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 8:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 8 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 9:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 9 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 10:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 10 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 11:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 11 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 12:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 12 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 13:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 13 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 14:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 14 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case 15:
-                            electricalInterfaceslistoflists.Add(listOfElectrialParameters);
-                            MessageBox.Show("Electrical Interface number 15 is Created", "Electrical Interfaces of a Component", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        default:
-                            break;
-                    }
-
-
-
-                }
-
-                /*else
-                {
-                    MessageBox.Show("Specified Interfaces Limit has been reached, Change Number of Interfaces to add more Interfaces", " Interface Limit Reached",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                }*/
-
-            }
-
-
-
-
-        }
-       
         private void GenerateAML_Click(object sender, EventArgs e)
         {
+            if (generateAML.Text == "Save AML File")
+            {
+                try
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    
+                    saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //saveFileDialog.FileName = vendorNameTxtBx.Text;
+                        device.filepath = Path.GetDirectoryName(saveFileDialog.FileName) ;
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
+            }
+            
             // Create a new Device
             //var device = new MWDevice();
             
@@ -383,36 +231,11 @@ namespace Aml.Editor.Plugin
                 try { device.maxTemperature = Convert.ToDouble(opTempMaxTxtBx.Text); } catch (Exception) { device.maxTemperature = Double.NaN; MessageBox.Show("Max Temperature is in an invalid format (Expected only numbers)! Ignoring!"); }
             }
            
-            device.ElectricalInterfaceInstances = electricalInterfaceslistoflists;
+           
 
             // storing user defined values of Attachebles data grid view in to list 
 
-            device.dataGridAttachablesParametrsList = new List<AttachablesDataGridViewParameters>();
-            if (attachablesInfoDataGridView != null)
-            {
-                int i = 0;
-                int j = attachablesInfoDataGridView.Rows.Count - 1;
-                if (i <= 0)
-                {
-                    while (i < j)
-                    {
-
-                        AttachablesDataGridViewParameters parametersFromAttachablesDataGrid = new AttachablesDataGridViewParameters();
-
-                        try
-                        {
-                            parametersFromAttachablesDataGrid.ElementName = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[0].Value);
-                            parametersFromAttachablesDataGrid.FilePath = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[1].Value);
-                            parametersFromAttachablesDataGrid.AddToFile = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[2].Value);
-                        }
-                        catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); }
-
-                        device.dataGridAttachablesParametrsList.Add(parametersFromAttachablesDataGrid);
-                        i++;
-
-                    }
-                }
-            }
+           
             if (generateAML.Text == "Update AML File")
             {
                
@@ -431,6 +254,8 @@ namespace Aml.Editor.Plugin
                 // Display error Dialog
                 MessageBox.Show(result);
             }
+            device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
            
             // Assigning values and parameters in "Identification data grid" to properties given in class "DatatableParametersCarrier" in MWDevice
 
@@ -563,19 +388,6 @@ namespace Aml.Editor.Plugin
                
             }
             dataHierarchyTreeView.SelectedNode = null;
-        }
-
-
-
-        private void electricalInterfaceBtn_Click_1(object sender, EventArgs e)
-        {
-            AMC.WindowSizeChanger(electricalInterfacePanel, electricalInterfaceBtn);
-        }
-
-        private void addElectricalInterfacesBtn_Click(object sender, EventArgs e)
-        {
-
-
         }
 
 
@@ -745,24 +557,10 @@ namespace Aml.Editor.Plugin
 
       
 
-        private void deleteElectricalInterfaceBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                electricalInterfaceslistoflists.RemoveAt(electricalInterfacesComboBox.Items.IndexOf(electricalInterfacesComboBox.SelectedItem));
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-            electricalInterfacesComboBox.Items.Remove(electricalInterfacesComboBox.SelectedItem);
-            MessageBox.Show("Electrical Interface is removed", "Deleted Interface", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        
 
        
-        Dictionary<string, List<ClassOfListsFromReferencefile>> dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+       
        
 
         // this below dictionary stores each attribute values from electrical Interaface Data grid View to the current Hierarchy Treeview by a key.
@@ -993,9 +791,6 @@ namespace Aml.Editor.Plugin
         }
 
 
-      
-       
-
         private void treeViewImportedInterfaceHierarchy_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -1072,23 +867,7 @@ namespace Aml.Editor.Plugin
                
                 electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = sourceNode.Text;
                
-                /* TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
-
-                 TreeNode targetNode2 = treeViewCurrentHierarchy.SelectedNode;
-
-                 foreach (TreeNode n in sourceNode.Nodes)
-                 {
-                     targetNode.Nodes.Add((TreeNode)n.Clone());
-
-                     targetNode2.Nodes.Add((TreeNode)n.Clone());
-                 }
-                 targetNode.Text = sourceNode.Text;
-                 targetNode.ImageIndex = sourceNode.ImageIndex;
-                 targetNode.SelectedImageIndex = targetNode.ImageIndex;
-
-                 targetNode2.Text = sourceNode.Text;
-                 targetNode2.ImageIndex = sourceNode.ImageIndex;
-                 targetNode2.SelectedImageIndex = targetNode2.ImageIndex;*/
+               
             }
             catch (Exception)
             {
@@ -1096,92 +875,9 @@ namespace Aml.Editor.Plugin
             }
         }
 
-        private void treeViewImportedInterfaceHierarchy_MouseClick_1(object sender, MouseEventArgs e)
-        {
-           
-        }
-        
-        private void treeViewImportedInterfaceHierarchy_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            var AutomationMLDataTables = new AutomationMLDataTables();
-          
-            try
-            {
-              /*  //treeViewAttributeHierarchy.Nodes.Clear();
-                dataGridViewElectricalAttributes.Rows.Clear();
-               
-                TreeNode targetNode = treeViewImportedInterfaceHierarchy.SelectedNode;
-               
-                targetNode.SelectedImageIndex = targetNode.ImageIndex;
-                if (e.Button == MouseButtons.Left)
-                {
-                    if (targetNode.ImageIndex == 1)
-                    {
-                        interfaceClassTextBox.Text = targetNode.Text;
-                        externalInterfaceTxtBox.Text = null;
-                        foreach (KeyValuePair<string, List<ClassOfListsFromReferencefile>> pair in dictionaryofInterfaceClassattributes)
-                        {
-                            if (pair.Key.Contains(targetNode.Text))
-                            {
-                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
-                                
-                                DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
-                                AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes,pair) ;
-                            }
-
-                        }
-                    }
-                    if (targetNode.ImageIndex == 2)
-                    {
-                       
-                        externalInterfaceTxtBox.Text = targetNode.Text;
-                        if (targetNode.Parent.ImageIndex == 2)
-                        {
-                            SearchForRightParentNode(targetNode, interfaceClassTextBox);
-                        }
-                        else
-                        {
-                            interfaceClassTextBox.Text = targetNode.Parent.Text;
-                        }
-                        foreach (KeyValuePair<string, List<ClassOfListsFromReferencefile>> pair in dictionaryofExternalInterfaceattributes)
-                        {
-                            if (pair.Key.Contains(targetNode.Parent.Text +targetNode.Text))
-                            {
-                                //treeViewAttributeHierarchy.Nodes.Add(pair.Key.ToString());
-
-                                DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
-                                AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, dataGridViewElectricalAttributes, pair);
-                                
-                            }
-
-                        }
-                    }
-
-
-                }*/
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            
-        }
-        public void SearchForRightParentNode(TreeNode treeNode, ToolStripTextBox textBox)
-        {
-            TreeNode targetNode = treeNode.Parent;
-            if (targetNode.ImageIndex == 2)
-            {
-                SearchForRightParentNode(targetNode,textBox);
-            }
-            if (targetNode.ImageIndex == 1)
-            {
-                textBox.Text = targetNode.Text;
-            }
-        }
        
-        
-
+       
+      
 
         private void treeViewInterfaceClassLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -1197,6 +893,8 @@ namespace Aml.Editor.Plugin
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            searchAMLComponentFile.DictionaryofElectricalConnectorType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            searchAMLComponentFile.DictioanryofElectricalConnectorPinType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             if (vendorNameTxtBx.Text != "")
             {
                 if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
@@ -1379,7 +1077,65 @@ namespace Aml.Editor.Plugin
                                 }
                                 if (internalElements.Name == "ElectricalInterfaces")
                                 {
+                                    int i = 1;
+                                    foreach (var electricalConnectorType in internalElements.ExternalInterface)
+                                    {
+                                        
+                                        if (electricalConnectorType != null)
+                                        {
 
+                                            searchAMLComponentFile.CheckForAttributesOfExternalIterface(i,electricalConnectorType);
+
+                                            int num = electricalInterfacesCollectionDataGridView.Rows.Add();
+                                            List<string> listofSerialNumbers = new List<string>();
+                                            List<int> listofFinalSerialNumber = new List<int>();
+                                            string number = "";
+                                            int finalNumber = 0;
+                                            int ultimatenumber = 0;
+                                            if (electricalInterfacesCollectionDataGridView.Rows.Count > 2)
+                                            {
+                                                foreach (DataGridViewRow row in electricalInterfacesCollectionDataGridView.Rows)
+                                                {
+                                                    if (row.Cells[0].Value == null)
+                                                    {
+                                                        number = "0";
+                                                        listofSerialNumbers.Add(number);
+                                                    }
+                                                    if (row.Cells[0].Value != null)
+                                                    {
+                                                        number = row.Cells[0].Value.ToString();
+                                                        listofSerialNumbers.Add(number);
+                                                    }
+                                                }
+                                                foreach (string str in listofSerialNumbers)
+                                                {
+                                                    finalNumber = Convert.ToInt32(str);
+                                                    listofFinalSerialNumber.Add(finalNumber);
+                                                }
+                                                ultimatenumber = listofFinalSerialNumber.Max();
+                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = ++ultimatenumber;
+                                            }
+                                            else
+                                            {
+                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = 1;
+                                            }
+
+                                            electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + electricalConnectorType.Name.ToString()
+                                                +"{" + "Class:" + "  " + electricalConnectorType.BaseClass+"}";
+                                            electricalInterfacesCollectionDataGridView.Rows[num].Cells[4].Value = true;
+
+
+                                            foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
+                                            {
+                                                if (electricalConnectorPins != null)
+                                                {
+                                                    searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
+                                                }
+                                            }
+                                        }
+
+                                        i++;
+                                    }
                                 }
                             }
                         }
@@ -1591,8 +1347,8 @@ namespace Aml.Editor.Plugin
                 }
 
                 electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = row;
+                electricalInterfacesCollectionDataGridView.Rows[num].Cells[3].Value = true;
 
-               
 
                 dragging = false;
 
@@ -1754,7 +1510,7 @@ namespace Aml.Editor.Plugin
             {
                 string interfaceSerialNumber = electricalInterfacesCollectionDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
+                if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == true)
                 {
                     elecInterAttDataGridView.Rows.Clear();
                     string interfaceClass = electricalInterfacesCollectionDataGridView.CurrentRow.Cells[1].Value.ToString();
@@ -1820,12 +1576,76 @@ namespace Aml.Editor.Plugin
                     electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value = true;
                 }
 
-                if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == true)
+                if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[4].Value) == true)
                 {
+                    elecInterAttDataGridView.Rows.Clear();
+                    string interfaceClass = electricalInterfacesCollectionDataGridView.CurrentRow.Cells[1].Value.ToString();
+                    foreach (var pair in searchAMLComponentFile.DictionaryofElectricalConnectorType)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            try
+                            {
+                                if (device.DictionaryForInterfaceClassesInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                                {
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
 
+                                throw;
+                            }
+
+                        }
+
+                    }
+
+
+                    parentNode = treeViewElectricalInterfaces.Nodes.Add("(" + interfaceSerialNumber + ")" + interfaceClass,
+                        "(" + interfaceSerialNumber + ")" + interfaceClass, 2);
+
+
+                    foreach (var pair in searchAMLComponentFile.DictioanryofElectricalConnectorPinType)
+                    {
+                        if (pair.Key.Contains(interfaceClass))
+                        {
+                            try
+                            {
+                                if (device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
+                                {
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+
+                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
+                                , pair.Key.Replace(interfaceClass, "").ToString(), 2);
+                        }
+                    }
+
+                   // electricalInterfacesCollectionDataGridView.CurrentRow.Cells[4].Value = true;
                 }
+
+                
                 
             }
+
         }
         private void electricalInterfacesCollectionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1851,7 +1671,7 @@ namespace Aml.Editor.Plugin
             {
                 if (e.Button == MouseButtons.Left)
                 {
-
+                    
                     if (targetNode.Parent != null)
                     {
                         
@@ -1864,18 +1684,7 @@ namespace Aml.Editor.Plugin
                             {
                                 DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
                                 AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, elecInterAttDataGridView, pair);
-                                /*foreach (var valueList in pair.Value)
-                                {
-                                    foreach (var item in valueList)
-                                    {
-                                        descriptionTxtBoxElecAttri.Text = item.Description;
-                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
-                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
-                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
-                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
-                                        idTxtBxElecAttri.Text = item.ID;
-                                    }
-                                }*/
+                               
                             }
 
                         }
@@ -1911,18 +1720,7 @@ namespace Aml.Editor.Plugin
                             {
                                 DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
                                 AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, elecInterAttDataGridView, pair);
-                                /*foreach (var valueList in pair.Value)
-                                {
-                                    foreach (var item in valueList)
-                                    {
-                                        descriptionTxtBoxElecAttri.Text = item.Description;
-                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
-                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
-                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
-                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
-                                        idTxtBxElecAttri.Text = item.ID;
-                                    }
-                                }*/
+                               
                             }
 
                         }
@@ -1985,14 +1783,7 @@ namespace Aml.Editor.Plugin
                     genericparametersAttrDataGridView.Rows.Clear();
                     string roleClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
 
-                     /* foreach (var pair in searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes)
-                      {
-                          if (pair.Key.Contains(roleClass))
-                          {
-                              DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
-                              AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, genericparametersAttrDataGridView, pair);
-                          }
-                      }*/
+                   
                     parentNode = genericInformationtreeView.Nodes.Add(roleClass, roleClass, 2);
                     foreach (var pair in searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib)
                     {
@@ -2012,80 +1803,8 @@ namespace Aml.Editor.Plugin
             }
         }
 
-        private void saveFromelecInterAttrButton_Click(object sender, EventArgs e)
-        {
-            List<ClassOfListsFromDataGridViews> listofElectricalInterfaceParameters = new List<ClassOfListsFromDataGridViews>();
-            if (elecInterAttDataGridView != null)
-            {
-
-                int i = 0;
-                int j = elecInterAttDataGridView.Rows.Count;
-                if (i <= 0)
-                {
-                    while (i < j)
-                    {
-                        ClassOfListsFromDataGridViews parametersFromElectricalInterfaceDataGridView = new ClassOfListsFromDataGridViews();
-                        try
-                        {
-                            parametersFromElectricalInterfaceDataGridView.Name = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[0].Value);
-                            parametersFromElectricalInterfaceDataGridView.Value = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[1].Value);
-                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[2].Value);
-                            parametersFromElectricalInterfaceDataGridView.Unit = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[3].Value);
-                            parametersFromElectricalInterfaceDataGridView.Default = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[4].Value);
-                            parametersFromElectricalInterfaceDataGridView.Semantic = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[5].Value);
-                            parametersFromElectricalInterfaceDataGridView.Reference = Convert.ToString(elecInterAttDataGridView.Rows[i].Cells[6].Value);
-
-                        }
-                        catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-
-                        listofElectricalInterfaceParameters.Add(parametersFromElectricalInterfaceDataGridView);
-                        i++;
-                        
-
-                    }
-                }
-
-
-            }
-           /* if (dictofElectricalInterfaceParametrs.ContainsKey(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString())))
-            {
-                dictofElectricalInterfaceParametrs.Remove(Convert.ToString(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString()));
-            }
-            dictofElectricalInterfaceParametrs.Add(interfaceClassTextBox.Text.ToString() + externalInterfaceTxtBox.Text.ToString(), listofElectricalInterfaceParameters);
-            elecInterAttDataGridView.Rows.Clear();*/
-        }
-
-        private void clearAllPinsInfoBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clearPinsBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addPinsBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clearAllElectricalDataBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clearElectricalDataBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addElectricalDataBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
+       
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
 
@@ -2198,11 +1917,7 @@ namespace Aml.Editor.Plugin
                                 {
                                     if (item.Name.ToString() == attributeName)
                                     {
-                                       /* item.Value = values;
-                                        item.Default = defaults;
-                                        item.Unit = Units;
-                                        item.Semantic = semantics;*/
-
+                                      
 
                                         descriptionTxtBoxElecAttri.Text = item.Description;
                                         copyrightTxtBxElecAttri.Text = item.CopyRight;
@@ -2211,6 +1926,35 @@ namespace Aml.Editor.Plugin
                                         attributepathTxtBxElecAttri.Text = item.AttributePath;
                                         idTxtBxElecAttri.Text = item.ID;
                                         nameTxtBxElecAttri.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForInterfaceClassesInElectricalInterfaces)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
+                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
+                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
+                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
+                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
+                                                            item2.ID = idTxtBxElecAttri.Text;
+                                                            item2.Name = nameTxtBxElecAttri.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
                                     }
                                 }
 
@@ -2242,6 +1986,35 @@ namespace Aml.Editor.Plugin
                                         attributepathTxtBxElecAttri.Text = item.AttributePath;
                                         idTxtBxElecAttri.Text = item.ID;
                                         nameTxtBxElecAttri.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
+                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
+                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
+                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
+                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
+                                                            item2.ID = idTxtBxElecAttri.Text;
+                                                            item2.Name = nameTxtBxElecAttri.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -2253,6 +2026,11 @@ namespace Aml.Editor.Plugin
                 }
             }
             elecInterAttDataGridView.CurrentRow.Selected = false;
+        }
+
+        private void saveeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

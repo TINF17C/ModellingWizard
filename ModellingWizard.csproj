@@ -152,6 +152,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchAMLComponentFile.cs" />
     <Compile Include="SearchAMLLibraryFile.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,7 @@ namespace Aml.Editor.Plugin
     // this class initialize the parameters exclusively for the "Device Identofication", "DataGridViews in "Generic Data Tab" AND "Field Attachables Tab""
     public class MWDevice: MWData.MWObject
     {
-        public string  semanticsystem { get; set; }
-        public string semanticSystemVersion { get; set; }
-        public string semanticSystemClassificationSystem { get; set; }
+        public string filepath { get; set; }
         public string deviceType { get; set; }
         public int? vendorID { get; set; }
         public string vendorName { get; set; }
