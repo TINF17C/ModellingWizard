@@ -130,7 +130,7 @@ namespace Aml.Editor.Plugin
                 TreeNode node2;
                 TreeNode node3;
                 TreeNode node4;
-                TreeNode node5;
+                
                 //node = dataHierarchyTreeView.Nodes.Add("Device Data");
 
                 node1 = dataHierarchyTreeView.Nodes.Add("Device Data");
@@ -163,7 +163,7 @@ namespace Aml.Editor.Plugin
 
         private void GenerateAML_Click(object sender, EventArgs e)
         {
-            if (generateAML.Text == "Save AML File")
+          /*  if (generateAML.Text == "Save AML File")
             {
                 try
                 {
@@ -183,7 +183,7 @@ namespace Aml.Editor.Plugin
                     throw;
                 }
                 
-            }
+            }*/
             
             // Create a new Device
             //var device = new MWDevice();
@@ -221,6 +221,33 @@ namespace Aml.Editor.Plugin
             device.productGroup = productGroupTxtBx.Text;
             
             device.ipProtection = ipProtectionTxtBx.Text;
+
+            device.dataGridAttachablesParametrsList = new List<AttachablesDataGridViewParameters>();
+            if (attachablesInfoDataGridView != null)
+            {
+                int i = 0;
+                int j = attachablesInfoDataGridView.Rows.Count - 1;
+                if (i <= 0)
+                {
+                    while (i < j)
+                    {
+
+                        AttachablesDataGridViewParameters parametersFromAttachablesDataGrid = new AttachablesDataGridViewParameters();
+
+                        try
+                        {
+                            parametersFromAttachablesDataGrid.ElementName = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[0].Value);
+                            parametersFromAttachablesDataGrid.FilePath = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[1].Value);
+                            parametersFromAttachablesDataGrid.AddToFile = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[2].Value);
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); }
+
+                        device.dataGridAttachablesParametrsList.Add(parametersFromAttachablesDataGrid);
+                        i++;
+
+                    }
+                }
+            }
 
             if (!String.IsNullOrWhiteSpace(opTempMaxTxtBx.Text))
             {
@@ -918,6 +945,7 @@ namespace Aml.Editor.Plugin
             open.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
             clear();
             if (open.ShowDialog() == DialogResult.OK)
+                device.filepath = Path.GetDirectoryName(open.FileName);
             {
                 try
                 {
@@ -1501,7 +1529,7 @@ namespace Aml.Editor.Plugin
 
             TreeNode parentNode;
             TreeNode childNodes;
-            string childNodeName = "";
+           
             var AutomationMLDataTables = new AutomationMLDataTables();
             electricalInterfacesCollectionDataGridView.CurrentRow.Selected = true;
             
@@ -1773,7 +1801,7 @@ namespace Aml.Editor.Plugin
 
             TreeNode parentNode;
             TreeNode childNodes;
-            string childNodeName = "";
+            
             var AutomationMLDataTables = new AutomationMLDataTables();
             genericInformationDataGridView.CurrentRow.Selected = true;
             if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
@@ -2029,6 +2057,21 @@ namespace Aml.Editor.Plugin
         }
 
         private void saveeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void treeViewElectricalInterfaces_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TreeNode targetNode = treeViewRoleClassLib.SelectedNode;
+                targetNode.SelectedImageIndex = targetNode.ImageIndex;
+            }
+            catch (Exception) { }
+        }
+
+        private void treeViewElectricalInterfaces_MouseClick(object sender, MouseEventArgs e)
         {
 
         }

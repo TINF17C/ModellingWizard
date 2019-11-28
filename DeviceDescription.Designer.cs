@@ -225,6 +225,11 @@
             this.treeViewElectricalInterfaces = new System.Windows.Forms.TreeView();
             this.panel29 = new System.Windows.Forms.Panel();
             this.electricalInterfacesCollectionDataGridView = new System.Windows.Forms.DataGridView();
+            this.SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectedClassorInterface = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.libraryFile = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.componentFile = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip24 = new System.Windows.Forms.ToolStrip();
             this.deleterowsInelectricalInterfacesDataGridView = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -301,11 +306,6 @@
             this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
-            this.SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SelectedClassorInterface = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.libraryFile = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.componentFile = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -428,28 +428,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveeToolStripMenuItem
             // 
             this.saveeToolStripMenuItem.Name = "saveeToolStripMenuItem";
-            this.saveeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveeToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.saveeToolStripMenuItem.Text = "Save As";
             this.saveeToolStripMenuItem.Click += new System.EventHandler(this.saveeToolStripMenuItem_Click);
             // 
@@ -459,7 +459,7 @@
             this.importIODDFileToolStripMenuItem,
             this.importGSDFileToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // importIODDFileToolStripMenuItem
@@ -482,7 +482,7 @@
             this.currentLibraryFile,
             this.fileFromDeviceButton});
             this.loadLibraryFile.Name = "loadLibraryFile";
-            this.loadLibraryFile.Size = new System.Drawing.Size(224, 26);
+            this.loadLibraryFile.Size = new System.Drawing.Size(174, 26);
             this.loadLibraryFile.Text = "Load Library";
             // 
             // currentLibraryFile
@@ -501,7 +501,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -529,13 +529,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // manualToolStripMenuItem
             // 
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
-            this.manualToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.manualToolStripMenuItem.Text = "Manual";
             // 
             // panel1
@@ -605,8 +605,8 @@
             // 
             this.dataTabControl.Controls.Add(this.DeviceDataTabPage);
             this.dataTabControl.Controls.Add(this.DocsTabPage);
-            this.dataTabControl.Controls.Add(this.genericData);
             this.dataTabControl.Controls.Add(this.Interface);
+            this.dataTabControl.Controls.Add(this.genericData);
             this.dataTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTabControl.Location = new System.Drawing.Point(0, 0);
             this.dataTabControl.Margin = new System.Windows.Forms.Padding(0);
@@ -2110,7 +2110,7 @@
             this.Interface.Padding = new System.Windows.Forms.Padding(3);
             this.Interface.Size = new System.Drawing.Size(790, 801);
             this.Interface.TabIndex = 6;
-            this.Interface.Text = "Interface";
+            this.Interface.Text = "Interfaces";
             // 
             // electricalInterfacesPanel
             // 
@@ -2131,7 +2131,7 @@
             this.panel39.Controls.Add(this.panel23);
             this.panel39.Controls.Add(this.toolStrip2);
             this.panel39.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel39.Location = new System.Drawing.Point(0, 398);
+            this.panel39.Location = new System.Drawing.Point(0, 233);
             this.panel39.Name = "panel39";
             this.panel39.Size = new System.Drawing.Size(784, 290);
             this.panel39.TabIndex = 10;
@@ -2236,7 +2236,7 @@
             this.header.Location = new System.Drawing.Point(4, 25);
             this.header.Name = "header";
             this.header.Padding = new System.Windows.Forms.Padding(3);
-            this.header.Size = new System.Drawing.Size(776, 234);
+            this.header.Size = new System.Drawing.Size(776, 236);
             this.header.TabIndex = 1;
             this.header.Text = "Header";
             // 
@@ -2445,7 +2445,7 @@
             // 
             this.electricalInterfacesHeaderlabel.ForeColor = System.Drawing.Color.Black;
             this.electricalInterfacesHeaderlabel.Name = "electricalInterfacesHeaderlabel";
-            this.electricalInterfacesHeaderlabel.Size = new System.Drawing.Size(0, 24);
+            this.electricalInterfacesHeaderlabel.Size = new System.Drawing.Size(0, 22);
             // 
             // electricalInterfacesTreeViewPanel
             // 
@@ -2455,7 +2455,7 @@
             this.electricalInterfacesTreeViewPanel.MaximumSize = new System.Drawing.Size(784, 175);
             this.electricalInterfacesTreeViewPanel.MinimumSize = new System.Drawing.Size(784, 0);
             this.electricalInterfacesTreeViewPanel.Name = "electricalInterfacesTreeViewPanel";
-            this.electricalInterfacesTreeViewPanel.Size = new System.Drawing.Size(784, 175);
+            this.electricalInterfacesTreeViewPanel.Size = new System.Drawing.Size(784, 10);
             this.electricalInterfacesTreeViewPanel.TabIndex = 9;
             // 
             // treeViewElectricalInterfaces
@@ -2466,10 +2466,12 @@
             this.treeViewElectricalInterfaces.Location = new System.Drawing.Point(0, 0);
             this.treeViewElectricalInterfaces.Name = "treeViewElectricalInterfaces";
             this.treeViewElectricalInterfaces.SelectedImageIndex = 0;
-            this.treeViewElectricalInterfaces.Size = new System.Drawing.Size(784, 175);
+            this.treeViewElectricalInterfaces.Size = new System.Drawing.Size(784, 10);
             this.treeViewElectricalInterfaces.TabIndex = 0;
             this.treeViewElectricalInterfaces.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewRoleClassLib_AfterSelect);
             this.treeViewElectricalInterfaces.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewElectricalInterfaces_NodeMouseClick);
+            this.treeViewElectricalInterfaces.Click += new System.EventHandler(this.treeViewElectricalInterfaces_Click);
+            this.treeViewElectricalInterfaces.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeViewElectricalInterfaces_MouseClick);
             // 
             // panel29
             // 
@@ -2501,6 +2503,43 @@
             this.electricalInterfacesCollectionDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.electricalInterfacesCollectionDataGridView_CellClick);
             this.electricalInterfacesCollectionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.electricalInterfacesCollectionDataGridView_CellDoubleClick);
             this.electricalInterfacesCollectionDataGridView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.electricalInterfacesCollectionDataGridView_MouseUp);
+            // 
+            // SerialNumber
+            // 
+            this.SerialNumber.HeaderText = "S.No";
+            this.SerialNumber.MinimumWidth = 6;
+            this.SerialNumber.Name = "SerialNumber";
+            this.SerialNumber.Width = 42;
+            // 
+            // SelectedClassorInterface
+            // 
+            this.SelectedClassorInterface.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SelectedClassorInterface.HeaderText = "Interface Class";
+            this.SelectedClassorInterface.MinimumWidth = 6;
+            this.SelectedClassorInterface.Name = "SelectedClassorInterface";
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Add to AML-File";
+            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 125;
+            // 
+            // libraryFile
+            // 
+            this.libraryFile.HeaderText = "LibraryFile";
+            this.libraryFile.MinimumWidth = 6;
+            this.libraryFile.Name = "libraryFile";
+            this.libraryFile.Visible = false;
+            this.libraryFile.Width = 125;
+            // 
+            // componentFile
+            // 
+            this.componentFile.HeaderText = "ComponentFile";
+            this.componentFile.MinimumWidth = 6;
+            this.componentFile.Name = "componentFile";
+            this.componentFile.Visible = false;
+            this.componentFile.Width = 125;
             // 
             // toolStrip24
             // 
@@ -3202,43 +3241,6 @@
             this.toolStripButton15.Name = "toolStripButton15";
             this.toolStripButton15.Size = new System.Drawing.Size(44, 24);
             this.toolStripButton15.Text = "Save";
-            // 
-            // SerialNumber
-            // 
-            this.SerialNumber.HeaderText = "S.No";
-            this.SerialNumber.MinimumWidth = 6;
-            this.SerialNumber.Name = "SerialNumber";
-            this.SerialNumber.Width = 42;
-            // 
-            // SelectedClassorInterface
-            // 
-            this.SelectedClassorInterface.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.SelectedClassorInterface.HeaderText = "Interface Class";
-            this.SelectedClassorInterface.MinimumWidth = 6;
-            this.SelectedClassorInterface.Name = "SelectedClassorInterface";
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.HeaderText = "Add to AML-File";
-            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.Width = 125;
-            // 
-            // libraryFile
-            // 
-            this.libraryFile.HeaderText = "LibraryFile";
-            this.libraryFile.MinimumWidth = 6;
-            this.libraryFile.Name = "libraryFile";
-            this.libraryFile.Visible = false;
-            this.libraryFile.Width = 125;
-            // 
-            // componentFile
-            // 
-            this.componentFile.HeaderText = "ComponentFile";
-            this.componentFile.MinimumWidth = 6;
-            this.componentFile.Name = "componentFile";
-            this.componentFile.Visible = false;
-            this.componentFile.Width = 125;
             // 
             // DeviceDescription
             // 

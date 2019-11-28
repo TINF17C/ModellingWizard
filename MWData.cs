@@ -281,16 +281,16 @@ namespace Aml.Editor.Plugin
             //first of all create a folder on "Vendor Name"
             string vendorCompanyName = device.vendorName;
             string vendorCompanyNameFilePath = "";
-            if (device.filepath != "")
+           /* if (device.filepath != "")
             {
                 vendorCompanyNameFilePath = device.filepath + vendorCompanyName;
             }
             if(device.filepath == "")
             {
-                 vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
-            }
-           
-            
+                
+            }*/
+            vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
+
             if (!Directory.Exists(vendorCompanyNameFilePath))
             {
                 Directory.CreateDirectory(vendorCompanyNameFilePath);

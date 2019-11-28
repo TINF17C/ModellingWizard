@@ -9,7 +9,7 @@ namespace Aml.Editor.Plugin
     public class MWController
     {
         // the (initialised) GUIs
-        private CreateDevice createDeviceForm;
+        
       
       
         private DeviceDescription deviceDescriptionForm;
@@ -40,15 +40,7 @@ namespace Aml.Editor.Plugin
         /// Create the new CreateDevice GUI or return the previously created GUI
         /// </summary>
         /// <returns>the CreateDevice GUI for this session</returns>
-        public CreateDevice GetCreateDeviceForm()
-        {
-            if (createDeviceForm == null)
-            {
-                createDeviceForm = new CreateDevice(this);
-            }
-
-            return createDeviceForm;
-        }
+       
         /// <summary>
         /// creáte the new DeviceDescription GUI or return the previously created GUI
         /// </summary>
@@ -114,21 +106,7 @@ namespace Aml.Editor.Plugin
         /// Show the correct GUI for the selected device
         /// </summary>
         /// <param name="selectedIndex">The index of the selected item in the dropdown</param>
-        internal void showDevice(int selectedIndex)
-        {
-            if (devices.Count >= 1)
-            {
-                MWData.MWObject mWObject = devices[selectedIndex];
-                // Display the corect GUI for the object type
-                if (mWObject is MWDevice)
-                {
-                    GetCreateDeviceForm().prefill((MWDevice)mWObject);
-                    ChangeGui(MWGUIType.CreateDevice);
-                }
-               
-                
-            }
-        }
+        
 
         /// <summary>
         /// Load the AMLX file and display the loaded device
@@ -146,7 +124,7 @@ namespace Aml.Editor.Plugin
            
 
             // show the most recently added device
-            showDevice(devices.Count - 1);
+           
         }
 
         /// <summary>
@@ -166,10 +144,6 @@ namespace Aml.Editor.Plugin
         {
             switch (targetGUI)
             {
-                case MWGUIType.CreateDevice:
-                    modellingWizard.changeGUI(GetCreateDeviceForm());
-                    break;
-               
                
                 case MWGUIType.DeviceDescription:
                     modellingWizard.changeGUI(GetDeviceDescriptionForm());
