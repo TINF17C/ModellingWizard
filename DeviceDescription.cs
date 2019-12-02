@@ -15,6 +15,7 @@ using System.Xml;
 using System.Collections;
 using System.IO.Compression;
 using Aml.Editor.Plugin.Contracts;
+using System.Windows.Forms;
 
 
 
@@ -46,8 +47,14 @@ namespace Aml.Editor.Plugin
         {
             this.mWController = mWController;
             InitializeComponent();
+
+
             device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+            device.DictionaryForRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
         }
 
 
@@ -55,172 +62,10 @@ namespace Aml.Editor.Plugin
         
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GenerateAML_Click(sender, e);
+            device.vendorName = vendorNameTextBox.Text;
 
-        }
+            device.deviceName = deviceNameTextBox.Text;
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear();
-            DataHierarchyTreeView();
-
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            if (vendorNameTxtBx.Text != "")
-            {
-                if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    GenerateAML_Click(sender, e);
-                    return;
-                }
-                else
-                {
-                    Environment.Exit(0);
-
-                }
-            }
-            else
-            {
-                Environment.Exit(0);
-
-            }
-
-
-        }
-
-        private void ClearDeviceDataBtn_Click(object sender, EventArgs e)
-        {
-            vendorNameTxtBx.Text = "";
-            productRangeTxtBx.Text = "";
-            vendorIDTxtBx.Text = "";
-            hardwareReleaseTxtBx.Text = "";
-            softwareReleaseTxtBx.Text = "";
-            productNumberTxtBx.Text = "";
-            orderNumberTxtBx.Text = "";
-            vendorHomepageTxtBx.Text = "";
-            communicationTechnologyTxtBx.Text = "";
-            opTempMaxTxtBx.Text = "";
-            opTempMinTxtBx.Text = "";
-            producTxtBx.Text = "";
-            productGroupTxtBx.Text = "";
-            deviceNameTxtBx.Text = "";
-            deviceIDTxtBx.Text = "";
-            productFamilyTxtBx.Text = "";
-
-            vendorNameRefSemanticBtn.Text = "";
-            deviceNameRefSemanticBtn.Text = "";
-            vendorHomepageRefSemanticBtn.Text = "";
-            productFamilyRefSemanticBtn.Text = "";
-
-            vendorNameRefSemanticBtn.Visible = false;
-            deviceNameRefSemanticBtn.Visible = false;
-            vendorHomepageRefSemanticBtn.Visible = false;
-            productFamilyRefSemanticBtn.Visible = false;
-        }
-       public void DataHierarchyTreeView()
-        {
-            if (dataHierarchyTreeView.Nodes.Count == 0)
-            {
-                // Tree view updates on the "dataHiereachyTreeView"
-                //TreeNode node;
-                TreeNode node1;
-                TreeNode node2;
-                TreeNode node3;
-                TreeNode node4;
-                
-                //node = dataHierarchyTreeView.Nodes.Add("Device Data");
-
-                node1 = dataHierarchyTreeView.Nodes.Add("Device Data");
-
-
-
-                node2 = dataHierarchyTreeView.Nodes.Add("Field Attachables");
-                node2.Nodes.Add("Add");
-
-
-                node3 = dataHierarchyTreeView.Nodes.Add("Generic Data");
-
-
-                node4 = dataHierarchyTreeView.Nodes.Add("Interfaces");
-                node4.Nodes.Add("Electrical Interface");
-                node4.Nodes.Add("Sensor interface");
-                node4.Nodes.Add("Mechanical interface");
-
-
-
-            }
-        }
-
-
-        private void AddSemanticSystemBtn_Click(object sender, EventArgs e)
-        {
-           
-
-        }
-
-        private void GenerateAML_Click(object sender, EventArgs e)
-        {
-          /*  if (generateAML.Text == "Save AML File")
-            {
-                try
-                {
-                    SaveFileDialog saveFileDialog = new SaveFileDialog();
-                    
-                    saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        //saveFileDialog.FileName = vendorNameTxtBx.Text;
-                        device.filepath = Path.GetDirectoryName(saveFileDialog.FileName) ;
-                    }
-
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                
-            }*/
-            
-            // Create a new Device
-            //var device = new MWDevice();
-            
-            // Read all the input fields and write them to the device data
-            if (communicationTechnologyTxtBx.SelectedItem != null)
-            {
-                device.deviceType = communicationTechnologyTxtBx.SelectedItem.ToString();
-            }
-            else
-            {
-                device.deviceType = "";
-            }
-
-            // Check if there was an input in this field, if so: try to convert it to integer
-            if (!String.IsNullOrWhiteSpace(vendorIDTxtBx.Text))
-            {
-                try { device.vendorID = Convert.ToInt32(vendorIDTxtBx.Text); } catch (Exception) { MessageBox.Show("Warning: Vendor ID must be number.\n please correct input"); }
-            }
-            // Check if there was an input in this field, if so: try to convert it to integer
-            if (!String.IsNullOrWhiteSpace(productRangeTxtBx.Text))
-            {
-                try { device.deviceID = Convert.ToInt32(deviceIDTxtBx.Text); } catch (Exception) { MessageBox.Show("Device ID is in an invalid format (Expected only numbers)! Ignoring!"); }
-            }
-            device.vendorName = vendorNameTxtBx.Text;
-            device.vendorHomepage = vendorHomepageTxtBx.Text;
-            device.deviceName = deviceNameTxtBx.Text;
-            device.productRange = productRangeTxtBx.Text;
-            device.productNumber = productNumberTxtBx.Text;
-            device.orderNumber = orderNumberTxtBx.Text;
-            device.productText = producTxtBx.Text;
-            device.harwareRelease = hardwareReleaseTxtBx.Text;
-            device.softwareRelease = softwareReleaseTxtBx.Text;
-            device.productFamily = productFamilyTxtBx.Text;
-            device.productGroup = productGroupTxtBx.Text;
-            
-            device.ipProtection = ipProtectionTxtBx.Text;
 
             device.dataGridAttachablesParametrsList = new List<AttachablesDataGridViewParameters>();
             if (attachablesInfoDataGridView != null)
@@ -249,26 +94,43 @@ namespace Aml.Editor.Plugin
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(opTempMaxTxtBx.Text))
-            {
-                try { device.minTemperature = Convert.ToDouble(opTempMinTxtBx.Text); } catch (Exception) { device.minTemperature = Double.NaN; MessageBox.Show("Min Temperature is in an invalid format (Expected only numbers)! Ignoring!"); }
-            }
-            if (!String.IsNullOrWhiteSpace(opTempMaxTxtBx.Text))
-            {
-                try { device.maxTemperature = Convert.ToDouble(opTempMaxTxtBx.Text); } catch (Exception) { device.maxTemperature = Double.NaN; MessageBox.Show("Max Temperature is in an invalid format (Expected only numbers)! Ignoring!"); }
-            }
-           
-           
 
+            if (fileNameLabel.Text == "")
+            {
+                try
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                    saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
+                    saveFileDialog.FileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                    device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //saveFileDialog.FileName = vendorNameTxtBx.Text;
+                        device.filepath = Path.GetDirectoryName(saveFileDialog.FileName);
+                        device.environment = Path.GetDirectoryName(saveFileDialog.FileName);
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+            if (fileNameLabel.Text != "")
+            {
+                device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                //device.filepath = Path.GetDirectoryName(fileNameLabel.Text);
+
+            }
+
+            fileNameLabel.Text = "";
             // storing user defined values of Attachebles data grid view in to list 
 
-           
-            if (generateAML.Text == "Update AML File")
-            {
-               
-                generateAML.Text = "Save AML FiLe";
-            }
-           
+
+
 
             // Pass the device to the controller
             string result = mWController.CreateDeviceOnClick(device, isEditing);
@@ -281,57 +143,89 @@ namespace Aml.Editor.Plugin
                 // Display error Dialog
                 MessageBox.Show(result);
             }
+
             device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-           
+
+
+            device.DictionaryForRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
             // Assigning values and parameters in "Identification data grid" to properties given in class "DatatableParametersCarrier" in MWDevice
 
+           
 
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear();
+            DataHierarchyTreeView();
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            {
+                Environment.Exit(0);
+
+            }
+        }
+
+        private void ClearDeviceDataBtn_Click(object sender, EventArgs e)
+        {
+            vendorNameTextBox.Text = "";
+           
+            deviceNameTextBox.Text = "";
+           
+        }
+
+        public void DataHierarchyTreeView()
+        {
+            if (dataHierarchyTreeView.Nodes.Count == 0)
+            {
+                // Tree view updates on the "dataHiereachyTreeView"
+                //TreeNode node;
+                TreeNode node1;
+                TreeNode node2;
+                TreeNode node3;
+                
+                
+                //node = dataHierarchyTreeView.Nodes.Add("Device Data");
+
+                node1 = dataHierarchyTreeView.Nodes.Add("Generic Data");
+
+
+
+                node2 = dataHierarchyTreeView.Nodes.Add("Documents");
+                node2.Nodes.Add("Add");
+
+
+
+
+
+                node3 = dataHierarchyTreeView.Nodes.Add("Interfaces");
+                node3.Nodes.Add("Electrical Interface");
+                node3.Nodes.Add("Sensor interface");
+                node3.Nodes.Add("Mechanical interface");
+
+
+
+            }
+        }
+
+
+       
         public void clear()
         {
-            vendorNameTxtBx.Text = "";
-            deviceNameTxtBx.Text = "";
-            deviceIDTxtBx.Text = "";
-            productRangeTxtBx.Text = "";
-            vendorIDTxtBx.Text = "";
-            hardwareReleaseTxtBx.Text = "";
-            softwareReleaseTxtBx.Text = "";
-            productNumberTxtBx.Text = "";
-            orderNumberTxtBx.Text = "";
-            vendorHomepageTxtBx.Text = "";
-            communicationTechnologyTxtBx.Text = "";
-            ipProtectionTxtBx.Text = "";
-            opTempMaxTxtBx.Text = "";
-            opTempMinTxtBx.Text = "";
-            producTxtBx.Text = "";
-            productGroupTxtBx.Text = "";
-            deviceNameTxtBx.Text = "";
-            
-            productFamilyTxtBx.Text = "";
-
-
-
-            // All "Data Grid Views" gets cleared
-            dataGridViewManufacturerDetails.Rows.Clear();
-            dataGridViewProductDetails.Rows.Clear();
-            dataGridViewProductOrderDetails.Rows.Clear();
-            dataGridViewProductPriceDetails.Rows.Clear();
-            identificationDataGridView.Rows.Clear();
-            
-
-            // clear tree view
-            dataHierarchyTreeView.Nodes.Clear();
-
+            vendorNameTextBox.Text = "";
+            deviceNameTextBox.Text = "";
+            genericInformationDataGridView.Rows.Clear();
+            genericInformationtreeView.Nodes.Clear();
+            genericparametersAttrDataGridView.Rows.Clear();
             attachablesInfoDataGridView.Rows.Clear();
             electricalInterfacesCollectionDataGridView.Rows.Clear();
             elecInterAttDataGridView.Rows.Clear();
-            genericInformationDataGridView.Rows.Clear();
-            genericparametersAttrDataGridView.Rows.Clear();
-
-            // reset switch case to case 1 again.
-            //electricalInterfacesComboBox.Items.Clear();
-
         }
 
 
@@ -341,54 +235,16 @@ namespace Aml.Editor.Plugin
             
         }
 
-
-
         private void CommercialDataBtn_Click(object sender, EventArgs e)
         {
-           
-        }
-
-        
-
-        private void VendorNameRefSemanticBtn_Click(object sender, EventArgs e)
-        {
-
-            AMC.SemanticSystemOpener(vendorNameRefSemanticBtn.Text);
-           
-
-        }
-
-        private void VendorLogoDisplayBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DeviceNameRefSemanticBtn_Click(object sender, EventArgs e)
-        {
-            AMC.SemanticSystemOpener(deviceNameRefSemanticBtn.Text);
-            
-        }
-
-        private void ProductFamilyRefSemanticBtn_Click(object sender, EventArgs e)
-        {
-            AMC.SemanticSystemOpener(productFamilyRefSemanticBtn.Text);
-           
-        }
-
-        private void VendorHomepageRefSemanticBtn_Click(object sender, EventArgs e)
-        {
-            AMC.SemanticSystemOpener(vendorHomepageRefSemanticBtn.Text);
            
         }
 
         private void dataHierarchyTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
-            if (dataHierarchyTreeView.SelectedNode.Text == "Device Data")
-            {
-                dataTabControl.SelectTab("DeviceDataTabPage");
-            }
-            if (dataHierarchyTreeView.SelectedNode.Text == "Field Attachables")
+           
+            if (dataHierarchyTreeView.SelectedNode.Text == "Documents")
             {
                 dataTabControl.SelectTab("DocsTabPage");
 
@@ -404,7 +260,7 @@ namespace Aml.Editor.Plugin
                 dataTabControl.SelectTab("Interface");
                 
             }
-            if (dataHierarchyTreeView.SelectedNode.Text == "Electrical Interfaces")
+            if (dataHierarchyTreeView.SelectedNode.Text == "Electrical Interface")
             {
                 dataTabControl.SelectTab("Interface");
                 AMC.WindowSizeChanger(electricalInterfacesPanel);
@@ -414,7 +270,7 @@ namespace Aml.Editor.Plugin
                 dataTabControl.SelectTab("genericData");
                
             }
-            dataHierarchyTreeView.SelectedNode = null;
+           // dataHierarchyTreeView.SelectedNode = null;
         }
 
 
@@ -580,200 +436,6 @@ namespace Aml.Editor.Plugin
         }
 
        
-
-
-      
-
-        
-
-       
-       
-       
-
-        // this below dictionary stores each attribute values from electrical Interaface Data grid View to the current Hierarchy Treeview by a key.
-        Dictionary<string, List<ElectricalInterfaceParameters>> dictofElectricalInterfaceParametrs = new Dictionary<string, List<ElectricalInterfaceParameters>>();
-        private void selectAMLFileBtn_Click(object sender, EventArgs e)
-        {
-            searchAMLLibraryFile.dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
-           
-            searchAMLLibraryFile.DictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-            searchAMLLibraryFile.DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-
-            searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-            searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-
-            searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes = new Dictionary<string, string>();
-
-            treeViewRoleClassLib.Nodes.Clear();
-            treeViewInterfaceClassLib.Nodes.Clear();
-
-            CAEXDocument document = null;
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
-
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    string file = open.FileName;
-                    FileInfo fileInfo = new FileInfo(file);
-                    string objectName = fileInfo.Name;
-                    string filetype = null;
-                    if (( filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".amlx")
-                    {
-                        // Load the amlx container from the given filepath
-                        AutomationMLContainer amlx = new AutomationMLContainer(file);
-
-                        // Get the root path -> main .aml file
-                        IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
-                        // We expect the aml to only have one root part
-                        if (rootParts.First() != null)
-                        {
-                            
-                            PackagePart part = rootParts.First();
-
-                            // load the aml file as an CAEX document
-                            document = CAEXDocument.LoadFromStream(part.GetStream());
-
-
-                            // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
-                            // since we expect only one device per aml(x) file, return after on is found
-                        }
-                    }
-                    if ((filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".aml" || (filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".xml")
-                    {
-                        document = CAEXDocument.LoadFromFile(file);
-                    }
-
-
-                    string referencedClassName = "";
-                    foreach (var classLibType in document.CAEXFile.RoleClassLib)
-                     {
-
-                        TreeNode libNode = treeViewRoleClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(),0) ;
-                        
-                        
-                         foreach (var classType in classLibType.RoleClass)
-                         {
-                            TreeNode roleNode;
-
-                            if (classType.ReferencedClassName != "")
-                            {
-                                 referencedClassName = classType.ReferencedClassName;
-                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{"+"Class:" + "  " + referencedClassName + "}", 1);
-                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
-                                searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
-                            }
-                            else
-                            {
-                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() , 1);
-                            }
-                            
-                           
-
-                            if (classType.ExternalInterface.Exists)
-                            {
-                                foreach (var externalinterface in classType.ExternalInterface)
-                                {
-                                    TreeNode externalinterfacenode;
-                                   
-                                    if (externalinterface.BaseClass != null)
-                                    {
-                                        referencedClassName = externalinterface.BaseClass.ToString();
-                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
-
-                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
-                                        searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
-
-                                    }
-                                    else
-                                    {
-                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
-                                    }
-
-                                   
-
-                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(document,externalinterfacenode, externalinterface, classType);
-                                }
-                                
-                            }
-                            searchAMLLibraryFile.PrintNodesRecursiveInRoleClassLib(document, roleNode, classType, referencedClassName);
-                         }
-
-                     }
-                   
-                    foreach (var classLibType in document.CAEXFile.InterfaceClassLib)
-                    {
-                       // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classLibType.Name.ToString(), classLibType.ID.ToString());
-                        TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(),0);
-                        
-                       
-
-                        foreach (var classType in classLibType.InterfaceClass) 
-                        {
-                            TreeNode interfaceclassNode;
-                            if (classType.ReferencedClassName != "")
-                            {
-                               // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString(), classType.ID.ToString());
-
-                                referencedClassName = classType.ReferencedClassName;
-                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
-                              
-                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
-                                searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
-                            }
-                            else
-                            {
-                                //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString(), classType.ID.ToString());
-
-                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
-                            }
-
-                             
-
-                            if (classType.ExternalInterface.Exists)
-                            {
-                                foreach (var externalinterface in classType.ExternalInterface)
-                                {
-                                    TreeNode externalinterfacenode;
-                                   
-                                    if (externalinterface.BaseClass != null)
-                                    {
-                                        //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString()+ externalinterface.ToString(), externalinterface.ID.ToString());
-
-                                        referencedClassName = externalinterface.BaseClass.ToString();
-                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
-                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
-                                        searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
-                                    }
-                                    else
-                                    {
-                                        //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterface.ToString(), externalinterface.ID.ToString());
-
-                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
-                                    }
-                                     
-                                       
-                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(document,externalinterfacenode, externalinterface, classType);
-                                }
-                            }
-                            searchAMLLibraryFile.PrintNodesRecursiveInInterfaceClassLib(document,interfaceclassNode, classType, referencedClassName);
-                        }
-                        
-                    }
-                    
-                }
-
-
-                catch (Exception)
-                {
-                   
-                    MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
-                }
-
-            }
-        }
      
         /// <summary>
         /// Drag and drop events of "AutomationML Interface Treeview" and "AutomationML Interface treeview" in Interfaces
@@ -922,11 +584,10 @@ namespace Aml.Editor.Plugin
         {
             searchAMLComponentFile.DictionaryofElectricalConnectorType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             searchAMLComponentFile.DictioanryofElectricalConnectorPinType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
-            if (vendorNameTxtBx.Text != "")
+            if (vendorNameTextBox.Text != "")
             {
                 if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    GenerateAML_Click(sender, e);
                     return;
                 }
                 if(MessageBox.Show("Save Current File", "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.No)
@@ -953,7 +614,7 @@ namespace Aml.Editor.Plugin
                     FileInfo fileInfo = new FileInfo(file);
                     string objectName = fileInfo.Name;
                     
-
+                    
                     DataHierarchyTreeView();
 
                     DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(file));
@@ -977,13 +638,70 @@ namespace Aml.Editor.Plugin
                             // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
                             // since we expect only one device per aml(x) file, return after on is found
                         }
-                        
-                    
-                    generateAML.Text = "Update AML File";
+
+
+                    fileNameLabel.Text = fileInfo.Name;
                     foreach (var classLibType in document.CAEXFile.SystemUnitClassLib)
                     {
                         foreach (var classType in classLibType.SystemUnitClass)
                         {
+                            /*if (classType.SupportedRoleClass.Exists)
+                            {
+                                int i = 1;
+                                foreach (var SRC in classType.SupportedRoleClass)
+                                {
+                                    searchAMLComponentFile.CheckForAttributesOfExternalIterface(i, electricalConnectorType);
+
+                                    int num = genericInformationDataGridView.Rows.Add();
+                                    List<string> listofSerialNumbers = new List<string>();
+                                    List<int> listofFinalSerialNumber = new List<int>();
+                                    string number = "";
+                                    int finalNumber = 0;
+                                    int ultimatenumber = 0;
+                                    if (genericInformationDataGridView.Rows.Count > 2)
+                                    {
+                                        foreach (DataGridViewRow row in genericInformationDataGridView.Rows)
+                                        {
+                                            if (row.Cells[0].Value == null)
+                                            {
+                                                number = "0";
+                                                listofSerialNumbers.Add(number);
+                                            }
+                                            if (row.Cells[0].Value != null)
+                                            {
+                                                number = row.Cells[0].Value.ToString();
+                                                listofSerialNumbers.Add(number);
+                                            }
+                                        }
+                                        foreach (string str in listofSerialNumbers)
+                                        {
+                                            finalNumber = Convert.ToInt32(str);
+                                            listofFinalSerialNumber.Add(finalNumber);
+                                        }
+                                        ultimatenumber = listofFinalSerialNumber.Max();
+                                        genericInformationDataGridView.Rows[num].Cells[0].Value = ++ultimatenumber;
+                                    }
+                                    else
+                                    {
+                                        genericInformationDataGridView.Rows[num].Cells[0].Value = 1;
+                                    }
+
+                                    genericInformationDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + electricalConnectorType.Name.ToString()
+                                        + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}";
+                                    genericInformationDataGridView.Rows[num].Cells[4].Value = true;
+
+
+                                    foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
+                                    {
+                                        if (electricalConnectorPins != null)
+                                        {
+                                            searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
+                                        }
+                                    }
+                                    i++;
+                                }
+                            }*/
+
                             foreach (var internalElements in classType.InternalElement)
                             {
                                 if (internalElements.Name.Equals("DeviceIdentification"))
@@ -992,78 +710,15 @@ namespace Aml.Editor.Plugin
                                     {
                                         switch (attribute.Name)
                                         {
-                                            case "CommunicationTechonolgy":
-                                                communicationTechnologyTxtBx.SelectedItem = attribute.Value;
-                                                break;
-                                            case "VendorId":
-                                                try
-                                                {
-                                                    vendorIDTxtBx.Text = Convert.ToString(attribute.Value);
-                                                }catch (Exception){/*// let the value be null*/}
-                                                break;
+                                          
                                             case "VendorName":
-                                               vendorNameTxtBx.Text = attribute.Value;
+                                               vendorNameTextBox.Text = attribute.Value;
                                                 break;
-                                            case "DeviceId":
-                                                try{deviceIDTxtBx.Text = Convert.ToString(attribute.Value);}
-                                                catch (Exception)
-                                                {
-                                                    // let the value be null
-                                                }
-                                                break;
+                                           
                                             case "DeviceName":
-                                                deviceNameTxtBx.Text = attribute.Value;
+                                                deviceNameTextBox.Text = attribute.Value;
                                                 break;
-                                            case "ProductRange":
-                                                productRangeTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "ProductNumber":
-                                                productNumberTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "OrderNumber":
-                                                orderNumberTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "ProductText":
-                                                producTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "IPProtection":
-                                                ipProtectionTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "OperatingTemperatureMin":
-                                                try
-                                                {
-                                                    opTempMinTxtBx.Text = Convert.ToString(attribute.Value);
-                                                }
-                                                catch (Exception)
-                                                {
-                                                    opTempMinTxtBx.Text = "";
-                                                }
-                                                break;
-                                            case "OperatingTemperatureMax":
-                                                try
-                                                {
-                                                   opTempMaxTxtBx.Text = Convert.ToString(attribute.Value);
-                                                }
-                                                catch (Exception)
-                                                {
-                                                    opTempMaxTxtBx.Text = "";
-                                                }
-                                                break;
-                                            case "VendorHomepage":
-                                                vendorHomepageTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "HardwareRelease":
-                                                hardwareReleaseTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "SoftwareRelease":
-                                                softwareReleaseTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "ProductGroup":
-                                                productGroupTxtBx.Text = attribute.Value;
-                                                break;
-                                            case "ProductFamily":
-                                                productFamilyTxtBx.Text = attribute.Value;
-                                                break;
+                                          
                                         }
                                     }
                                 }
@@ -1106,60 +761,64 @@ namespace Aml.Editor.Plugin
                                 if (internalElements.Name == "ElectricalInterfaces")
                                 {
                                     int i = 1;
-                                    foreach (var electricalConnectorType in internalElements.ExternalInterface)
+                                    foreach (var subinternalElements in internalElements.InternalElement)
                                     {
-                                        
-                                        if (electricalConnectorType != null)
+                                        foreach (var electricalConnectorType in subinternalElements.ExternalInterface)
                                         {
-
-                                            searchAMLComponentFile.CheckForAttributesOfExternalIterface(i,electricalConnectorType);
-
-                                            int num = electricalInterfacesCollectionDataGridView.Rows.Add();
-                                            List<string> listofSerialNumbers = new List<string>();
-                                            List<int> listofFinalSerialNumber = new List<int>();
-                                            string number = "";
-                                            int finalNumber = 0;
-                                            int ultimatenumber = 0;
-                                            if (electricalInterfacesCollectionDataGridView.Rows.Count > 2)
+                                           
+                                            if (electricalConnectorType != null)
                                             {
-                                                foreach (DataGridViewRow row in electricalInterfacesCollectionDataGridView.Rows)
+
+                                                searchAMLComponentFile.CheckForAttributesOfExternalIterface(i, electricalConnectorType);
+
+                                                int num = electricalInterfacesCollectionDataGridView.Rows.Add();
+                                                List<string> listofSerialNumbers = new List<string>();
+                                                List<int> listofFinalSerialNumber = new List<int>();
+                                                string number = "";
+                                                int finalNumber = 0;
+                                                int ultimatenumber = 0;
+                                                if (electricalInterfacesCollectionDataGridView.Rows.Count > 2)
                                                 {
-                                                    if (row.Cells[0].Value == null)
+                                                    foreach (DataGridViewRow row in electricalInterfacesCollectionDataGridView.Rows)
                                                     {
-                                                        number = "0";
-                                                        listofSerialNumbers.Add(number);
+                                                        if (row.Cells[0].Value == null)
+                                                        {
+                                                            number = "0";
+                                                            listofSerialNumbers.Add(number);
+                                                        }
+                                                        if (row.Cells[0].Value != null)
+                                                        {
+                                                            number = row.Cells[0].Value.ToString();
+                                                            listofSerialNumbers.Add(number);
+                                                        }
                                                     }
-                                                    if (row.Cells[0].Value != null)
+                                                    foreach (string str in listofSerialNumbers)
                                                     {
-                                                        number = row.Cells[0].Value.ToString();
-                                                        listofSerialNumbers.Add(number);
+                                                        finalNumber = Convert.ToInt32(str);
+                                                        listofFinalSerialNumber.Add(finalNumber);
+                                                    }
+                                                    ultimatenumber = listofFinalSerialNumber.Max();
+                                                    electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = ++ultimatenumber;
+                                                }
+                                                else
+                                                {
+                                                    electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = 1;
+                                                }
+
+                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + electricalConnectorType.Name.ToString()
+                                                    + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}";
+                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[4].Value = true;
+
+
+                                                foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
+                                                {
+                                                    if (electricalConnectorPins != null)
+                                                    {
+                                                        searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
                                                     }
                                                 }
-                                                foreach (string str in listofSerialNumbers)
-                                                {
-                                                    finalNumber = Convert.ToInt32(str);
-                                                    listofFinalSerialNumber.Add(finalNumber);
-                                                }
-                                                ultimatenumber = listofFinalSerialNumber.Max();
-                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = ++ultimatenumber;
-                                            }
-                                            else
-                                            {
-                                                electricalInterfacesCollectionDataGridView.Rows[num].Cells[0].Value = 1;
                                             }
 
-                                            electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + electricalConnectorType.Name.ToString()
-                                                +"{" + "Class:" + "  " + electricalConnectorType.BaseClass+"}";
-                                            electricalInterfacesCollectionDataGridView.Rows[num].Cells[4].Value = true;
-
-
-                                            foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
-                                            {
-                                                if (electricalConnectorPins != null)
-                                                {
-                                                    searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
-                                                }
-                                            }
                                         }
 
                                         i++;
@@ -1302,11 +961,8 @@ namespace Aml.Editor.Plugin
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-          
+            
         }
-
-
-
 
 
         //these declerations need to happen inside of the class but outside of any methods in the class
@@ -1501,6 +1157,7 @@ namespace Aml.Editor.Plugin
                 }
 
                 genericInformationDataGridView.Rows[num].Cells[1].Value = row;
+                genericInformationDataGridView.Rows[num].Cells[3].Value = true;
 
                 dragging = false;
 
@@ -1516,7 +1173,50 @@ namespace Aml.Editor.Plugin
                 if (genericInformationDataGridView.CurrentCell != null)
                 {
                     int rowIndex = genericInformationDataGridView.CurrentCell.RowIndex;
+                    genericInformationDataGridView.CurrentRow.Selected = true;
+                    string interfaceSerialNumber = genericInformationDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    string interfaceClass = genericInformationDataGridView.Rows[rowIndex].Cells[1].Value.ToString();
+
+                    try
+                    {
+                        if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                        {
+                            device.DictionaryForRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
+
+                        }
+
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                    foreach (var pair in searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib)
+                    {
+                        if (pair.Key.Contains(interfaceClass))
+                        {
+                            try
+                            {
+                                if (device.DictionaryForExternalInterfacesUnderRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
+                                {
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
+
+                                }
+
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+                        }
+                    }
+
                     genericInformationDataGridView.Rows.RemoveAt(rowIndex);
+
                 }
 
             }
@@ -1796,8 +1496,8 @@ namespace Aml.Editor.Plugin
         private void genericInformationDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
-           
-            genericInformationtreeView.Nodes.Clear();
+
+            /*genericInformationtreeView.Nodes.Clear();
 
             TreeNode parentNode;
             TreeNode childNodes;
@@ -1828,11 +1528,160 @@ namespace Aml.Editor.Plugin
 
                 
 
+            }*/
+            genericInformationtreeView.Nodes.Clear();
+
+            TreeNode parentNode;
+            TreeNode childNodes;
+
+            var AutomationMLDataTables = new AutomationMLDataTables();
+            genericInformationDataGridView.CurrentRow.Selected = true;
+
+
+            if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string interfaceSerialNumber = genericInformationDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                if (Convert.ToBoolean(genericInformationDataGridView.CurrentRow.Cells[3].Value) == true)
+                {
+                    genericparametersAttrDataGridView.Rows.Clear();
+                    string interfaceClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
+                    foreach (var pair in searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            try
+                            {
+                                if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                                {
+                                    device.DictionaryForRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
+                                    device.DictionaryForRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+                        }
+
+                    }
+
+
+                    parentNode = genericInformationtreeView.Nodes.Add("(" + interfaceSerialNumber + ")" + interfaceClass,
+                        "(" + interfaceSerialNumber + ")" + interfaceClass, 2);
+
+
+                    foreach (var pair in searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib)
+                    {
+                        if (pair.Key.Contains(interfaceClass))
+                        {
+                            try
+                            {
+                                if (device.DictionaryForExternalInterfacesUnderRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
+                                {
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+
+                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
+                                , pair.Key.Replace(interfaceClass, "").ToString(), 2);
+                        }
+                    }
+
+                    genericInformationDataGridView.CurrentRow.Cells[3].Value = true;
+                }
+
+               /* if (Convert.ToBoolean(genericInformationDataGridView.CurrentRow.Cells[4].Value) == true)
+                {
+                    genericparametersAttrDataGridView.Rows.Clear();
+                    string interfaceClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
+                    foreach (var pair in searchAMLComponentFile.DictionaryofElectricalConnectorType)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            try
+                            {
+                                if (device.DictionaryForInterfaceClassesInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                                {
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+                        }
+
+                    }
+
+
+                    parentNode = treeViewElectricalInterfaces.Nodes.Add("(" + interfaceSerialNumber + ")" + interfaceClass,
+                        "(" + interfaceSerialNumber + ")" + interfaceClass, 2);
+
+
+                    foreach (var pair in searchAMLComponentFile.DictioanryofElectricalConnectorPinType)
+                    {
+                        if (pair.Key.Contains(interfaceClass))
+                        {
+                            try
+                            {
+                                if (device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
+                                {
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                                else
+                                {
+                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+
+                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
+                                , pair.Key.Replace(interfaceClass, "").ToString(), 2);
+                        }
+                    }
+
+                    // electricalInterfacesCollectionDataGridView.CurrentRow.Cells[4].Value = true;
+                }*/
+
+
+
             }
+
         }
 
-        
-       
+
+
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
 
@@ -1854,7 +1703,7 @@ namespace Aml.Editor.Plugin
 
             TreeNode targetNode = genericInformationtreeView.SelectedNode;
             /* targetNode.SelectedImageIndex = targetNode.ImageIndex;*/
-
+            ClearHeaderTabPageValuesofElectricalInterfaces();
             genericparametersAttrDataGridView.Rows.Clear();
 
             try
@@ -1865,7 +1714,7 @@ namespace Aml.Editor.Plugin
                     if (targetNode.Parent != null)
                     {
                         searchName = targetNode.Parent.Text + targetNode.Text;
-                        foreach (var pair in searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib)
+                        foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
                         {
                             if (pair.Key.ToString() == searchName)
                             {
@@ -1878,7 +1727,7 @@ namespace Aml.Editor.Plugin
                     else
                     {
                         searchName = targetNode.Text;
-                        foreach (var pair in searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes)
+                        foreach (var pair in device.DictionaryForRoleClassofComponent)
                         {
                             if (pair.Key.ToString() == searchName)
                             {
@@ -2058,6 +1907,89 @@ namespace Aml.Editor.Plugin
 
         private void saveeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            device.vendorName = vendorNameTextBox.Text;
+
+            device.deviceName = deviceNameTextBox.Text;
+
+
+            device.dataGridAttachablesParametrsList = new List<AttachablesDataGridViewParameters>();
+            if (attachablesInfoDataGridView != null)
+            {
+                int i = 0;
+                int j = attachablesInfoDataGridView.Rows.Count - 1;
+                if (i <= 0)
+                {
+                    while (i < j)
+                    {
+
+                        AttachablesDataGridViewParameters parametersFromAttachablesDataGrid = new AttachablesDataGridViewParameters();
+
+                        try
+                        {
+                            parametersFromAttachablesDataGrid.ElementName = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[0].Value);
+                            parametersFromAttachablesDataGrid.FilePath = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[1].Value);
+                            parametersFromAttachablesDataGrid.AddToFile = Convert.ToString(attachablesInfoDataGridView.Rows[i].Cells[2].Value);
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); }
+
+                        device.dataGridAttachablesParametrsList.Add(parametersFromAttachablesDataGrid);
+                        i++;
+
+                    }
+                }
+            }
+
+
+            // if (generateAML.Text == "Save AML File")
+            {
+                try
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                    saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
+                    saveFileDialog.FileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                    device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                       
+                        device.filepath = Path.GetDirectoryName(saveFileDialog.FileName);
+                        device.environment = Path.GetDirectoryName(saveFileDialog.FileName);
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+
+
+            // storing user defined values of Attachebles data grid view in to list 
+
+
+
+            // Pass the device to the controller
+            string result = mWController.CreateDeviceOnClick(device, isEditing);
+
+
+            clear();
+            // Display the result
+            if (result != null)
+            {
+                // Display error Dialog
+                MessageBox.Show(result);
+            }
+
+            device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+
+            device.DictionaryForRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+            // Assigning values and parameters in "Identification data grid" to properties given in class "DatatableParametersCarrier" in MWDevice
 
         }
 
@@ -2074,6 +2006,243 @@ namespace Aml.Editor.Plugin
         private void treeViewElectricalInterfaces_MouseClick(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void dataTabControl_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataTabControl_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            try
+            {
+                //Size, Name, Style ändern...
+                Font Font;
+                //For background color
+                Brush backBrush;
+                //For forground color
+                Brush foreBrush;
+
+                //Aktueller Focus
+                if (e.Index == this.dataTabControl.SelectedIndex)
+                {
+                    //This line of code will help you to change the appearance like size,name,style.
+                    Font = new Font(e.Font, FontStyle.Bold | FontStyle.Bold);
+                    Font = new Font(e.Font, FontStyle.Bold);
+
+                    //backBrush = new System.Drawing.SolidBrush(Color.Black);
+                    foreBrush = Brushes.Black;
+                }
+                else
+                {
+                    Font = e.Font;
+                    //backBrush = new SolidBrush(e.BackColor);
+                    foreBrush = new SolidBrush(e.ForeColor);
+                }
+
+                //To set the alignment of the caption.
+                string sTabName = this.dataTabControl.TabPages[e.Index].Text;
+                StringFormat sf = new StringFormat();
+                sf.Alignment = StringAlignment.Center;
+
+                //Thsi will help you to fill the interior portion of
+                //selected tabpage.
+                e.Graphics.FillRectangle(new SolidBrush(Color.LightBlue), e.Bounds);
+                Rectangle rect = e.Bounds;
+                rect = new Rectangle(rect.X, rect.Y + 3, rect.Width, rect.Height - 3);
+                e.Graphics.DrawString(sTabName, Font, foreBrush, rect, sf);
+
+                sf.Dispose();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message.ToString(), "Error Occured", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        private void loadLibraryFile_Click(object sender, EventArgs e)
+        {
+            searchAMLLibraryFile.dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
+
+            searchAMLLibraryFile.DictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            searchAMLLibraryFile.DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+            searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+            searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes = new Dictionary<string, string>();
+
+            treeViewRoleClassLib.Nodes.Clear();
+            treeViewInterfaceClassLib.Nodes.Clear();
+
+            CAEXDocument document = null;
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
+
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string file = open.FileName;
+                    FileInfo fileInfo = new FileInfo(file);
+                    string objectName = fileInfo.Name;
+                    string filetype = null;
+                    if ((filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".amlx")
+                    {
+                        // Load the amlx container from the given filepath
+                        AutomationMLContainer amlx = new AutomationMLContainer(file);
+
+                        // Get the root path -> main .aml file
+                        IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
+
+                        // We expect the aml to only have one root part
+                        if (rootParts.First() != null)
+                        {
+
+                            PackagePart part = rootParts.First();
+
+                            // load the aml file as an CAEX document
+                            document = CAEXDocument.LoadFromStream(part.GetStream());
+
+
+                            // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
+                            // since we expect only one device per aml(x) file, return after on is found
+                        }
+                    }
+                    if ((filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".aml" || (filetype = Convert.ToString(Path.GetExtension(open.FileName))) == ".xml")
+                    {
+                        document = CAEXDocument.LoadFromFile(file);
+                    }
+
+
+                    string referencedClassName = "";
+                    foreach (var classLibType in document.CAEXFile.RoleClassLib)
+                    {
+
+                        TreeNode libNode = treeViewRoleClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(), 0);
+
+
+                        foreach (var classType in classLibType.RoleClass)
+                        {
+                            TreeNode roleNode;
+
+                            if (classType.ReferencedClassName != "")
+                            {
+                                referencedClassName = classType.ReferencedClassName;
+                                roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
+                                searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
+                            }
+                            else
+                            {
+                                roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
+                            }
+
+
+
+                            if (classType.ExternalInterface.Exists)
+                            {
+                                foreach (var externalinterface in classType.ExternalInterface)
+                                {
+                                    TreeNode externalinterfacenode;
+
+                                    if (externalinterface.BaseClass != null)
+                                    {
+                                        referencedClassName = externalinterface.BaseClass.ToString();
+                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+
+                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
+                                        searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
+
+                                    }
+                                    else
+                                    {
+                                        externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
+                                    }
+
+
+
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(document, externalinterfacenode, externalinterface, classType);
+                                }
+
+                            }
+                            searchAMLLibraryFile.PrintNodesRecursiveInRoleClassLib(document, roleNode, classType, referencedClassName);
+                        }
+
+                    }
+
+                    foreach (var classLibType in document.CAEXFile.InterfaceClassLib)
+                    {
+                        // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classLibType.Name.ToString(), classLibType.ID.ToString());
+                        TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(), 0);
+
+
+
+                        foreach (var classType in classLibType.InterfaceClass)
+                        {
+                            TreeNode interfaceclassNode;
+                            if (classType.ReferencedClassName != "")
+                            {
+                                // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString(), classType.ID.ToString());
+
+                                referencedClassName = classType.ReferencedClassName;
+                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+
+                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
+                                searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
+                            }
+                            else
+                            {
+                                //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString(), classType.ID.ToString());
+
+                                interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
+                            }
+
+
+
+                            if (classType.ExternalInterface.Exists)
+                            {
+                                foreach (var externalinterface in classType.ExternalInterface)
+                                {
+                                    TreeNode externalinterfacenode;
+
+                                    if (externalinterface.BaseClass != null)
+                                    {
+                                        //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString()+ externalinterface.ToString(), externalinterface.ID.ToString());
+
+                                        referencedClassName = externalinterface.BaseClass.ToString();
+                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
+                                        searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
+                                    }
+                                    else
+                                    {
+                                        //searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterface.ToString(), externalinterface.ID.ToString());
+
+                                        externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
+                                    }
+
+
+                                    searchAMLLibraryFile.PrintExternalInterfaceNodes(document, externalinterfacenode, externalinterface, classType);
+                                }
+                            }
+                            searchAMLLibraryFile.PrintNodesRecursiveInInterfaceClassLib(document, interfaceclassNode, classType, referencedClassName);
+                        }
+
+                    }
+
+                }
+
+
+                catch (Exception)
+                {
+                    throw;
+                    //MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                }
+
+            }
         }
     }
 }

@@ -26,147 +26,9 @@ namespace Aml.Editor.Plugin
             this.mWController = mWController;
         }
 
-        /// <summary>
-        /// Iterate over all .amlx Files in .\modellingwizard\ and try to load them as a device
-        /// </summary>
-        /// <returns>all loaded devices and interfaces</returns>
-        public List<MWObject> LoadMWObjects()
-        {
-            List<MWObject> objects = new List<MWObject>();
+       
 
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\";
-            // create Directory if it's not existing
-            if (!Directory.Exists(amlFilePath))
-            {
-                Directory.CreateDirectory(amlFilePath);
-            }
-
-            // Get all .amlx Files in the directory
-            string[] files = Directory.GetFiles(amlFilePath, "*.amlx");
-
-            foreach (string file in files)
-            {
-                // try to load the object
-                MWObject mWObject = loadObject(file);
-                if (mWObject != null)
-                {
-                    objects.Add(mWObject);
-                }
-            }
-            return objects;
-        }
-
-        /// <summary>
-        /// Load the amlx container and try to load it as an <see cref="MWObject"/>
-        /// </summary>
-        /// <param name="file">The full path to the amlx file</param>
-        /// <returns></returns>
-        public MWObject loadObject(string file)
-        {
-            try
-            {
-                FileInfo fileInfo = new FileInfo(file);
-                string objectName = fileInfo.Name;
-
-                // Load the amlx container from the given filepath
-                AutomationMLContainer amlx = new AutomationMLContainer(file);
-
-                // Get the root path -> main .aml file
-                IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
-                // We expect the aml to only have one root part
-                if (rootParts.First() != null)
-                {
-                    PackagePart part = rootParts.First();
-
-                    // load the aml file as an CAEX document
-                    CAEXDocument document = CAEXDocument.LoadFromStream(part.GetStream());
-
-
-                    // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
-                    // since we expect only one device per aml(x) file, return after on is found
-                    foreach (SystemUnitClassLibType classLibType in document.CAEXFile.SystemUnitClassLib)
-                    {
-                        foreach (SystemUnitFamilyType classLib in classLibType.SystemUnitClass)
-                        {
-                            // check if it matches our format
-                            foreach (InternalElementType internalElement in classLib.InternalElement)
-                            {
-                                // is the DeviceIdentification there?
-                                if (internalElement.Name.Equals("DeviceIdentification"))
-                                {
-                                    // is it an interface or a device?
-                                    if (internalElement.Attribute.GetCAEXAttribute("InterfaceNumber") != null)
-                                    {
-
-                                      
-
-                                        amlx.Close();
-                                       
-                                    }
-                                    else if (internalElement.Attribute.GetCAEXAttribute("DeviceName") != null)
-                                    {
-                                        MWDevice mWDevice = new MWDevice();
-
-                                        // read the attributes and write them directly into the device
-                                        fillDeviceWithData(mWDevice, internalElement.Attribute);
-
-                                        // check if there are pictures provided
-                                        foreach (InternalElementType ie in classLib.InternalElement)
-                                        {
-                                            switch (ie.Name)
-                                            {
-                                                case "ManufacturerIcon":
-                                                    try
-                                                    {
-                                                        mWDevice.vendorLogo = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                                case "ComponentPicture":
-                                                    try
-                                                    {
-                                                        mWDevice.devicePicture = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                                case "ComponentIcon":
-                                                    try
-                                                    {
-                                                        mWDevice.deviceIcon = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                            }
-                                        }
-                                        amlx.Close();
-                                        return mWDevice;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-                }
-                amlx.Close();
-                return null;
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message, "Error while loading the AMLX-File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                return null;
-            }
-        }
+      
 
         /// <summary>
         /// Read the all attributes in <paramref name="attributes"/> and write the values into <paramref name="mWInterface"/>
@@ -188,79 +50,7 @@ namespace Aml.Editor.Plugin
                 // apply the value of the attribute to the correct interface parameter
                 switch (attribute.Name)
                 {
-                    case "CommunicationTechonolgy":
-                        device.deviceType = attribute.Value;
-                        break;
-                    case "VendorId":
-                        try
-                        {
-                            device.vendorID = Int32.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            // let the value be null
-                        }
-                        break;
-                    case "VendorName":
-                        device.vendorName = attribute.Value;
-                        break;
-                    case "DeviceId":
-                        try
-                        {
-                            device.deviceID = Int32.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            // let the value be null
-                        }
-                        break;
-                    case "DeviceName":
-                        device.deviceName = attribute.Value;
-                        break;
-                    case "ProductRange":
-                        device.productRange = attribute.Value;
-                        break;
-                    case "ProductName":
-                        device.productNumber = attribute.Value;
-                        break;
-                    case "OrderNumber":
-                        device.orderNumber = attribute.Value;
-                        break;
-                    case "ProductText":
-                        device.productText = attribute.Value;
-                        break;
-                    case "IPProtection":
-                        device.ipProtection = attribute.Value;
-                        break;
-                    case "OperatingTemperatureMin":
-                        try
-                        {
-                            device.minTemperature = Double.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            device.minTemperature = Double.NaN;
-                        }
-                        break;
-                    case "OperatingTemperatureMax":
-                        try
-                        {
-                            device.maxTemperature = Double.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            device.maxTemperature = Double.NaN;
-                        }
-                        break;
-                    case "VendorUrl":
-                        device.vendorHomepage = attribute.Value;
-                        break;
-                    case "HardwareRelease":
-                        device.harwareRelease = attribute.Value;
-                        break;
-                    case "SoftwareRelease":
-                        device.softwareRelease = attribute.Value;
-                        break;
+                   
                 }
             }
         }
@@ -281,46 +71,14 @@ namespace Aml.Editor.Plugin
             //first of all create a folder on "Vendor Name"
             string vendorCompanyName = device.vendorName;
             string vendorCompanyNameFilePath = "";
-           /* if (device.filepath != "")
-            {
-                vendorCompanyNameFilePath = device.filepath + vendorCompanyName;
-            }
-            if(device.filepath == "")
-            {
-                
-            }*/
-            vendorCompanyNameFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + vendorCompanyName;
-
-            if (!Directory.Exists(vendorCompanyNameFilePath))
-            {
-                Directory.CreateDirectory(vendorCompanyNameFilePath);
-            }
-
-            // Cretae a folder inside "Vendor Name"  file defining "Product Range"
-
-            string deviceFamilyNamePath = System.IO.Path.Combine(vendorCompanyNameFilePath, device.productRange);
-            System.IO.Directory.CreateDirectory(deviceFamilyNamePath);
-
-            // Create a folder inside the "Product Range" file defining "Product Group"
-           
-            string productGroupNamePath = System.IO.Path.Combine(deviceFamilyNamePath, device.productGroup);
-            System.IO.Directory.CreateDirectory(productGroupNamePath);
-
-            // Create a folder inside the "Product Group" file defining "Product Families"
-           
-            string productFamilyNamePath = System.IO.Path.Combine(productGroupNamePath, device.productFamily);
-            System.IO.Directory.CreateDirectory(productFamilyNamePath);
-
-            // Create a folder inside the "Product Families" file for individual products
-            string productNamePath = System.IO.Path.Combine(productFamilyNamePath, device.deviceName);
-            System.IO.Directory.CreateDirectory(productNamePath);
-
           
-            string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
           
-            string amlFilePath = System.IO.Path.Combine(productNamePath, fileName + ".amlx");
 
-            
+            string fileName = device.fileName;
+
+            string amlFilePath = System.IO.Path.Combine(device.filepath, fileName + ".amlx");
+
+
             FileInfo file = new FileInfo(amlFilePath);
            
            
@@ -403,9 +161,95 @@ namespace Aml.Editor.Plugin
                     }
                    
                 }
+                 foreach (var pair in device.DictionaryForRoleClassofComponent)
+                 {
+
+                    SupportedRoleClassType supportedRoleClass = null;
+
+
+                    Match numberfromElectricalConnectorType = Regex.Match(pair.Key.ToString(), @"\((\d+)\)");
+                     string initialnumberbetweenparanthesisofElectricalConnectorType = numberfromElectricalConnectorType.Groups[1].Value;
+                   // string stringinparanthesis = Regex.Match(pair.Key.ToString(), @"\{(\d+)\}").Groups[1].Value;
+
+                    string supportedRoleClassFromDictionary = Regex.Replace(pair.Key.ToString(), @"\(.+?\)", "");
+                     supportedRoleClassFromDictionary = Regex.Replace(supportedRoleClassFromDictionary, @"\{.+?\}", "");
+
+
+                   
+                    var SRC = systemUnitClass.SupportedRoleClass.Append();
+
+                    SRC.RefRoleClassPath = supportedRoleClassFromDictionary;
+
+                    var attributesOfSystemUnitClass = systemUnitClass.Attribute;
+
+                     foreach (var valueList in pair.Value)
+                     {
+                         foreach (var item in valueList)
+                         {
+                             var eachattribute = attributesOfSystemUnitClass.Append(item.Name.ToString());
+                             eachattribute.Value = item.Value;
+                             eachattribute.DefaultValue = item.Default;
+                             eachattribute.Unit = item.Unit;
+                             //eachattribute.AttributeDataType = 
+                             eachattribute.Description = item.Description;
+                             eachattribute.Copyright = item.CopyRight;
+
+                             eachattribute.ID = item.ID;
+
+                            
+                            
+                        }
+                     }
+                   
+
+                    foreach (var pairofList in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                     {
+                         Match numberfromElectricalConnectorPins = Regex.Match(pairofList.Key.ToString(), @"\((\d+)\)");
+                         string initialnumberbetweenparanthesisElectricalConnectorPins = numberfromElectricalConnectorPins.Groups[1].Value;
+
+                         string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"\(.*?\)", "");
+                         electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.*?\}", "");
+                         electricalConnectorPinName = electricalConnectorPinName.Replace(supportedRoleClassFromDictionary, "");
+
+
+
+
+                         /*if (initialnumberbetweenparanthesisofElectricalConnectorType == initialnumberbetweenparanthesisElectricalConnectorPins)
+                         {
+                             supportedRoleClass.RoleReference = pairofList.Key.ToString();
+
+                             systemUnitClass.SupportedRoleClass.Append(supportedRoleClass);
+                             systemUnitClass.BaseClass.Name = supportedRoleClassFromDictionary;
+
+                             var attributesOfSystemUnitClassattributes = systemUnitClass.Attribute;
+
+                             foreach (var valueList in pairofList.Value)
+                             {
+                                 foreach (var item in valueList)
+                                 {
+                                     var eachattribute = attributesOfSystemUnitClassattributes.Append(item.Name.ToString());
+                                     eachattribute.Value = item.Value;
+                                     eachattribute.DefaultValue = item.Default;
+                                     eachattribute.Unit = item.Unit;
+                                     //eachattribute.AttributeDataType = 
+                                     eachattribute.Description = item.Description;
+                                     eachattribute.Copyright = item.CopyRight;
+
+                                     eachattribute.ID = item.ID;
+
+
+
+                                    // systemUnitClass.BaseClass.Name   = item.RefBaseClassPath;
+                                 }
+                             }
+                         }*/
+                     }
+ 
+
+                 }
 
             }
-           else
+            else
             {
                 // check if our format is given in the amlx file if not: create it
                 bool foundSysClassLib = false;
@@ -472,6 +316,8 @@ namespace Aml.Editor.Plugin
 
                 foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
                 {
+
+                    InternalElementType internalElementofElectricalConnectorType = null;
                     ExternalInterfaceType electricalConnectorType = null;
 
                     ExternalInterfaceType electricalConnectorPins = null;
@@ -483,7 +329,9 @@ namespace Aml.Editor.Plugin
                     string electricalConnectorTypeName = Regex.Replace(pair.Key.ToString(), @"\(.+?\)", "");
                     electricalConnectorTypeName = Regex.Replace(electricalConnectorTypeName, @"\{.+?\}", "");
 
-                    electricalConnectorType = electricalInterface.ExternalInterface.Append(electricalConnectorTypeName);
+                    internalElementofElectricalConnectorType = electricalInterface.InternalElement.Append(electricalConnectorTypeName);
+
+                    electricalConnectorType = internalElementofElectricalConnectorType.ExternalInterface.Append(electricalConnectorTypeName);
 
                     var attributesOfConnectorType = electricalConnectorType.Attribute;
 
@@ -840,23 +688,11 @@ namespace Aml.Editor.Plugin
         /// <param name="device">the device for this aml</param>
         private void setCAEXattribute(InternalElementType ie, MWDevice device)
         {
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("CommunicationTechnology"), device.deviceType);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorId"), device.vendorID);
+          
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorName"), device.vendorName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceId"), device.deviceID);
+           
             writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceName"), device.deviceName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductRange"), device.productRange);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductGroup"), device.productGroup);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductFamily"), device.productFamily);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OrderNumber"), device.orderNumber);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductNumber"), device.productNumber);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductText"), device.productText);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("IPProtection"), device.ipProtection);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMin"), device.minTemperature);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMax"), device.maxTemperature);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorHomepage"), device.vendorHomepage);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("HardwareRelease"), device.harwareRelease);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("SoftwareRelease"), device.softwareRelease);
+           
         }
 
         /// <summary>

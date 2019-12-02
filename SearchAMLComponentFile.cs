@@ -12,6 +12,11 @@ namespace Aml.Editor.Plugin
         public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryofElectricalConnectorType { get; set; }
         public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictioanryofElectricalConnectorPinType { get; set; }
 
+
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryofRolesforAutomationComponenet { get; set; }
+        public Dictionary<string, List<List<ClassOfListsFromReferencefile>>> DictionaryofRoles { get; set; }
+
+
         public SearchAMLComponentFile()
         {
             

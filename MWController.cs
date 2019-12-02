@@ -33,7 +33,7 @@ namespace Aml.Editor.Plugin
         {
             this.modellingWizard = modellingWizard;
             mWData = new MWData(this);
-            ReloadObjects();
+           
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Aml.Editor.Plugin
             // update the device list
             if (isEdit)
             {
-                ReloadObjects();
+               
             }
             else
             {
@@ -107,34 +107,10 @@ namespace Aml.Editor.Plugin
         /// </summary>
         /// <param name="selectedIndex">The index of the selected item in the dropdown</param>
         
-
-        /// <summary>
-        /// Load the AMLX file and display the loaded device
-        /// </summary>
-        /// <param name="fileName">the full path to an .amlx file</param>
-        internal void showDevice(string fileName)
-        {
-            MWData.MWObject mWObject = mWData.loadObject(fileName);
-            if (mWObject == null)
-            {
-                System.Windows.Forms.MessageBox.Show("The loaded device does not match the required format.\nThe ModellingWizard can not display this object");
-                return;
-            }
-            devices.Add(mWObject);
-           
-
-            // show the most recently added device
-           
-        }
-
         /// <summary>
         /// Reload all .amlx files in ./modellingwizard/ and update the dropdown.
         /// </summary>
-        internal void ReloadObjects()
-        {
-            devices = mWData.LoadMWObjects();
-           
-        }
+        
 
         /// <summary>
         /// Switch the displayed 
@@ -180,7 +156,7 @@ namespace Aml.Editor.Plugin
                     result = "Invalid Filetype";
                     break;
             }
-            ReloadObjects();
+           
             return result;
         }
     }

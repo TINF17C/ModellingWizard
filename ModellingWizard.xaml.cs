@@ -92,7 +92,7 @@ namespace Aml.Editor.Plugin
 
         private void ReloadObjectsExecute(object obj)
         {
-            mWController.ReloadObjects();
+           
         }
 
         /// <summary>
