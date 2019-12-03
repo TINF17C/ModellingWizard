@@ -178,7 +178,7 @@ namespace Aml.Editor.Plugin
                    
                     var SRC = systemUnitClass.SupportedRoleClass.Append();
 
-                    SRC.RefRoleClassPath = supportedRoleClassFromDictionary;
+                    //SRC.RefRoleClassPath = supportedRoleClassFromDictionary;
 
                     var attributesOfSystemUnitClass = systemUnitClass.Attribute;
 
@@ -196,8 +196,8 @@ namespace Aml.Editor.Plugin
 
                              eachattribute.ID = item.ID;
 
-                            
-                            
+                            SRC.RefRoleClassPath = item.SupportesRoleClassType;
+
                         }
                      }
                    

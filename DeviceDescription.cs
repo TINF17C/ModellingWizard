@@ -584,6 +584,9 @@ namespace Aml.Editor.Plugin
         {
             searchAMLComponentFile.DictionaryofElectricalConnectorType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             searchAMLComponentFile.DictioanryofElectricalConnectorPinType = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+            searchAMLComponentFile.DictionaryofRolesforAutomationComponenet = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
             if (vendorNameTextBox.Text != "")
             {
                 if (MessageBox.Show("Save Current File", "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
@@ -645,12 +648,12 @@ namespace Aml.Editor.Plugin
                     {
                         foreach (var classType in classLibType.SystemUnitClass)
                         {
-                            /*if (classType.SupportedRoleClass.Exists)
+                            if (classType.SupportedRoleClass.Exists)
                             {
                                 int i = 1;
                                 foreach (var SRC in classType.SupportedRoleClass)
                                 {
-                                    searchAMLComponentFile.CheckForAttributesOfExternalIterface(i, electricalConnectorType);
+                                    searchAMLComponentFile.CheckForAttributesOfComponent(i, SRC, classType); 
 
                                     int num = genericInformationDataGridView.Rows.Add();
                                     List<string> listofSerialNumbers = new List<string>();
@@ -686,21 +689,21 @@ namespace Aml.Editor.Plugin
                                         genericInformationDataGridView.Rows[num].Cells[0].Value = 1;
                                     }
 
-                                    genericInformationDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + electricalConnectorType.Name.ToString()
-                                        + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}";
+                                    genericInformationDataGridView.Rows[num].Cells[1].Value = "(" + i + ")" + SRC.RoleReference.ToString()
+                                       /* + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}"*/;
                                     genericInformationDataGridView.Rows[num].Cells[4].Value = true;
 
 
-                                    foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
+                                    /*foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
                                     {
                                         if (electricalConnectorPins != null)
                                         {
                                             searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
                                         }
-                                    }
+                                    }*/
                                     i++;
                                 }
-                            }*/
+                            }
 
                             foreach (var internalElements in classType.InternalElement)
                             {
@@ -1540,26 +1543,28 @@ namespace Aml.Editor.Plugin
 
             if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                string interfaceSerialNumber = genericInformationDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string SRCSerialNumber = genericInformationDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
 
                 if (Convert.ToBoolean(genericInformationDataGridView.CurrentRow.Cells[3].Value) == true)
                 {
                     genericparametersAttrDataGridView.Rows.Clear();
-                    string interfaceClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
+
+                    string SRC = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
+
                     foreach (var pair in searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes)
                     {
-                        if (pair.Key.ToString() == interfaceClass)
+                        if (pair.Key.ToString() == SRC)
                         {
                             try
                             {
-                                if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                                if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + SRCSerialNumber + ")" + SRC))
                                 {
-                                    device.DictionaryForRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
-                                    device.DictionaryForRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                    device.DictionaryForRoleClassofComponent.Remove("(" + SRCSerialNumber + ")" + SRC);
+                                    device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
                                 }
                                 else
                                 {
-                                    device.DictionaryForRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                    device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
                                 }
                             }
                             catch (Exception)
@@ -1573,24 +1578,24 @@ namespace Aml.Editor.Plugin
                     }
 
 
-                    parentNode = genericInformationtreeView.Nodes.Add("(" + interfaceSerialNumber + ")" + interfaceClass,
-                        "(" + interfaceSerialNumber + ")" + interfaceClass, 2);
+                    parentNode = genericInformationtreeView.Nodes.Add("(" + SRCSerialNumber + ")" + SRC,
+                        "(" + SRCSerialNumber + ")" + SRC, 2);
 
 
                     foreach (var pair in searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib)
                     {
-                        if (pair.Key.Contains(interfaceClass))
+                        if (pair.Key.Contains(SRC))
                         {
                             try
                             {
-                                if (device.DictionaryForExternalInterfacesUnderRoleClassofComponent.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
+                                if (device.DictionaryForExternalInterfacesUnderRoleClassofComponent.ContainsKey("(" + SRCSerialNumber + ")" + pair.Key.ToString()))
                                 {
-                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
-                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Remove("(" + SRCSerialNumber + ")" + pair.Key.ToString());
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + pair.Key.ToString(), pair.Value);
                                 }
                                 else
                                 {
-                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
+                                    device.DictionaryForExternalInterfacesUnderRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + pair.Key.ToString(), pair.Value);
                                 }
                             }
                             catch (Exception)
@@ -1600,32 +1605,32 @@ namespace Aml.Editor.Plugin
                             }
 
 
-                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
-                                , pair.Key.Replace(interfaceClass, "").ToString(), 2);
+                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(SRC, "").ToString()
+                                , pair.Key.Replace(SRC, "").ToString(), 2);
                         }
                     }
 
                     genericInformationDataGridView.CurrentRow.Cells[3].Value = true;
                 }
 
-               /* if (Convert.ToBoolean(genericInformationDataGridView.CurrentRow.Cells[4].Value) == true)
+                if (Convert.ToBoolean(genericInformationDataGridView.CurrentRow.Cells[4].Value) == true)
                 {
                     genericparametersAttrDataGridView.Rows.Clear();
-                    string interfaceClass = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
-                    foreach (var pair in searchAMLComponentFile.DictionaryofElectricalConnectorType)
+                    string SRC = genericInformationDataGridView.CurrentRow.Cells[1].Value.ToString();
+                    foreach (var pair in searchAMLComponentFile.DictionaryofRolesforAutomationComponenet)
                     {
-                        if (pair.Key.ToString() == interfaceClass)
+                        if (pair.Key.ToString() == SRC)
                         {
                             try
                             {
-                                if (device.DictionaryForInterfaceClassesInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + interfaceClass))
+                                if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + SRCSerialNumber + ")" + SRC))
                                 {
-                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + interfaceClass);
-                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                    device.DictionaryForRoleClassofComponent.Remove("(" + SRCSerialNumber + ")" + SRC);
+                                    device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
                                 }
                                 else
                                 {
-                                    device.DictionaryForInterfaceClassesInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + interfaceClass, pair.Value);
+                                    device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
                                 }
                             }
                             catch (Exception)
@@ -1639,10 +1644,10 @@ namespace Aml.Editor.Plugin
                     }
 
 
-                    parentNode = treeViewElectricalInterfaces.Nodes.Add("(" + interfaceSerialNumber + ")" + interfaceClass,
-                        "(" + interfaceSerialNumber + ")" + interfaceClass, 2);
+                    parentNode = genericInformationtreeView.Nodes.Add("(" + SRCSerialNumber + ")" + SRC,
+                        "(" + SRCSerialNumber + ")" + SRC, 2);
 
-
+/*
                     foreach (var pair in searchAMLComponentFile.DictioanryofElectricalConnectorPinType)
                     {
                         if (pair.Key.Contains(interfaceClass))
@@ -1669,10 +1674,10 @@ namespace Aml.Editor.Plugin
                             childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
                                 , pair.Key.Replace(interfaceClass, "").ToString(), 2);
                         }
-                    }
+                    }*/
 
                     // electricalInterfacesCollectionDataGridView.CurrentRow.Cells[4].Value = true;
-                }*/
+                }
 
 
 
@@ -1682,10 +1687,7 @@ namespace Aml.Editor.Plugin
 
 
 
-        private void toolStripButton6_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void genericInformationDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1702,8 +1704,9 @@ namespace Aml.Editor.Plugin
             var AutomationMLDataTables = new AutomationMLDataTables();
 
             TreeNode targetNode = genericInformationtreeView.SelectedNode;
+            
             /* targetNode.SelectedImageIndex = targetNode.ImageIndex;*/
-            ClearHeaderTabPageValuesofElectricalInterfaces();
+            ClearHeaderTabPageValuesofgenericData();
             genericparametersAttrDataGridView.Rows.Clear();
 
             try
@@ -1714,6 +1717,7 @@ namespace Aml.Editor.Plugin
                     if (targetNode.Parent != null)
                     {
                         searchName = targetNode.Parent.Text + targetNode.Text;
+                        genericDataHeaderLabel.Text = searchName;
                         foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
                         {
                             if (pair.Key.ToString() == searchName)
@@ -1723,18 +1727,59 @@ namespace Aml.Editor.Plugin
                             }
 
                         }
+                        foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                        {
+                            if (pair.Key.ToString() == searchName)
+                            {
+                                foreach (var valueList in pair.Value)
+                                {
+                                    foreach (var item in valueList)
+                                    {
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                    }
+                                }
+                            }
+
+                        }
                     }
                     else
                     {
+                       
                         searchName = targetNode.Text;
+                        genericDataHeaderLabel.Text = searchName;
                         foreach (var pair in device.DictionaryForRoleClassofComponent)
                         {
                             if (pair.Key.ToString() == searchName)
                             {
                                 DataTable AMLDataTable = AutomationMLDataTables.AMLAttributeParameters();
                                 AutomationMLDataTables.CreateDataTableWithColumns(AMLDataTable, genericparametersAttrDataGridView, pair);
+                                
                             }
 
+                        }
+                        foreach (var pair in device.DictionaryForRoleClassofComponent)
+                        {
+                            if (pair.Key.ToString() == searchName)
+                            {
+
+                                foreach (var valueList in pair.Value)
+                                {
+                                    foreach (var item in valueList)
+                                    {
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -1762,6 +1807,16 @@ namespace Aml.Editor.Plugin
             attributepathTxtBxElecAttri.Text = "";
             idTxtBxElecAttri.Text = "";
             nameTxtBxElecAttri.Text = "";
+        }
+        public void ClearHeaderTabPageValuesofgenericData()
+        {
+            genericDataDescriptionTxtBx.Text = "";
+            genericDataCopyrightTxtBx.Text = "";
+            genericDataRefClassNameTxtBx.Text = "";
+            genericDataRefBaseClassPathTxtBx.Text = "";
+            genericDataAttributePathTxtBx.Text = "";
+            genericDataIDTxtBx.Text = "";
+            genericDataNameTxtBx.Text = "";
         }
 
         private void elecInterAttDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1965,7 +2020,7 @@ namespace Aml.Editor.Plugin
 
             }
 
-
+            fileNameLabel.Text = "";
             // storing user defined values of Attachebles data grid view in to list 
 
 
@@ -2147,7 +2202,7 @@ namespace Aml.Editor.Plugin
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
                                     TreeNode externalinterfacenode;
-
+                                    
                                     if (externalinterface.BaseClass != null)
                                     {
                                         referencedClassName = externalinterface.BaseClass.ToString();
@@ -2160,6 +2215,7 @@ namespace Aml.Editor.Plugin
                                     else
                                     {
                                         externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
+                                       // searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
                                     }
 
 
@@ -2238,11 +2294,156 @@ namespace Aml.Editor.Plugin
 
                 catch (Exception)
                 {
-                    throw;
-                    //MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                    
+                    MessageBox.Show("Missing names of attributes or Same atrribute sequence is repeated in the given file","Missing Names", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                 }
 
             }
         }
+
+        private void genericparametersAttrDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ClearHeaderTabPageValuesofgenericData();
+            genericparametersAttrDataGridView.CurrentRow.Selected = true;
+            if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string attributeName = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string values = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string defaults = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string Units = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string datatype = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                string semantics = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+
+
+                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
+                {
+
+                    string interfaceClass = genericDataHeaderLabel.Text;
+                    foreach (var pair in device.DictionaryForRoleClassofComponent)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                        genericDataNameTxtBx.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForRoleClassofComponent)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = genericDataDescriptionTxtBx.Text;
+                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
+                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
+                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
+                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
+                                                            item2.ID = genericDataIDTxtBx.Text;
+                                                            item2.Name = genericDataNameTxtBx.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                    foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+                                        /* item.Value = values;
+                                         item.Default = defaults;
+                                         item.Unit = Units;
+                                         item.Semantic = semantics;*/
+
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                        genericDataNameTxtBx.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = genericDataDescriptionTxtBx.Text;
+                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
+                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
+                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
+                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
+                                                            item2.ID = genericDataIDTxtBx.Text;
+                                                            item2.Name = genericDataNameTxtBx.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            genericparametersAttrDataGridView.CurrentRow.Selected = false;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
+        }
     }
+    
 }

@@ -189,13 +189,6 @@ namespace Aml.Editor.Plugin
 
 
 
-
-
-
-
-
-
-
         public void CheckForAttributesOfEclectricalConnectorPins(int i, ExternalInterfaceType externalInterface, ExternalInterfaceType classType)
         {
             List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
@@ -360,5 +353,177 @@ namespace Aml.Editor.Plugin
         }
 
 
+
+
+
+
+        // read supported role class attributes of System Unit Class i.e. "Component Attributes "
+
+        public void CheckForAttributesOfComponent(int i, SupportedRoleClassType supportedRoleClass, SystemUnitFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (classType.Attribute.Exists)
+            {
+                foreach (var attribute in classType.Attribute)
+                {
+                    CkeckForNestedAttributesOfComponent(i, attribute, supportedRoleClass, classType);
+                    StoreEachAttributeValueInListOfComponent(i, attributelist, attribute, supportedRoleClass, classType);
+                }
+
+            }
+            if (!classType.Attribute.Exists)
+            {
+                List<List<ClassOfListsFromReferencefile>> list = new List<List<ClassOfListsFromReferencefile>>();
+                List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+
+                list.Add(sublist);
+                try
+                {
+                    if (DictionaryofRolesforAutomationComponenet.ContainsKey("(" + i + ")" + supportedRoleClass.RoleReference.ToString() ))
+                    {
+                        DictionaryofRolesforAutomationComponenet["(" + i + ")" + supportedRoleClass.RoleReference.ToString()].AddRange(list);
+                    }
+                    else
+                    {
+                        DictionaryofRolesforAutomationComponenet.Add("(" + i + ")" + supportedRoleClass.RoleReference.ToString(), list);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
+
+        }
+        public void CkeckForNestedAttributesOfComponent(int i, AttributeType attributeType, SupportedRoleClassType supportedRoleClass, SystemUnitFamilyType classType)
+        {
+            List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
+            if (attributeType.Attribute.Exists)
+            {
+
+                foreach (var attributeinattribute in attributeType.Attribute)
+                {
+                    CkeckForNestedAttributesOfComponent(i, attributeinattribute, supportedRoleClass, classType);
+                    StoreEachAttributeValueInListOfComponent(i, attributelist, attributeinattribute, attributeType, supportedRoleClass, classType);
+                }
+
+            }
+            if (!attributeType.Attribute.Exists)
+            {
+                List<List<ClassOfListsFromReferencefile>> list = new List<List<ClassOfListsFromReferencefile>>();
+                List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+
+
+                list.Add(sublist);
+                try
+                {
+                    if (DictionaryofRolesforAutomationComponenet.ContainsKey("(" + i + ")" + supportedRoleClass.RoleReference.ToString()))
+                    {
+                        DictionaryofRolesforAutomationComponenet["(" + i + ")" + supportedRoleClass.RoleReference.ToString()].AddRange(list);
+                    }
+                    else
+                    {
+                        DictionaryofRolesforAutomationComponenet.Add("(" + i + ")" + supportedRoleClass.RoleReference.ToString(), list);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+
+        }
+
+        public void StoreEachAttributeValueInListOfComponent(int i, List<List<ClassOfListsFromReferencefile>> list,
+           AttributeType attributeType, SupportedRoleClassType supportedRoleClass, SystemUnitFamilyType classType)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            attributeparameters.Name = attributeType.Name;
+            attributeparameters.Value = attributeType.Value;
+            attributeparameters.Default = attributeType.DefaultValue;
+            attributeparameters.Unit = attributeType.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = attributeType.Description;
+            attributeparameters.CopyRight = attributeType.Copyright;
+            attributeparameters.AttributePath = attributeType.AttributePath;
+            attributeparameters.RefSemanticList = attributeType.RefSemantic;
+            // attributeparameters.ReferencedClassName = externalInterface.BaseClass.ToString();
+            attributeparameters.SupportesRoleClassType = supportedRoleClass.RefRoleClassPath.ToString();
+            //attributeparameters.ID = supportedRoleClass.ID;
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            try
+            {
+                if (DictionaryofRolesforAutomationComponenet.ContainsKey("(" + i + ")" + supportedRoleClass.RoleReference.ToString()))
+                {
+                    DictionaryofRolesforAutomationComponenet["(" + i + ")" + supportedRoleClass.RoleReference.ToString()].AddRange(list);
+                }
+                else
+                {
+                    DictionaryofRolesforAutomationComponenet.Add("(" + i + ")" + supportedRoleClass.RoleReference.ToString(), list);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public void StoreEachAttributeValueInListOfComponent(int i, List<List<ClassOfListsFromReferencefile>> list,
+            AttributeType AttributeInAttribute, AttributeType attributeType, SupportedRoleClassType supportedRoleClass, SystemUnitFamilyType classType)
+        {
+            list = new List<List<ClassOfListsFromReferencefile>>();
+            List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
+
+            ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
+
+            // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
+            // methods of name "StoreEachAttributeValuesInList" with four parameters.
+            attributeparameters.Name = AttributeInAttribute.Name;
+            attributeparameters.Value = AttributeInAttribute.Value;
+            attributeparameters.Default = AttributeInAttribute.DefaultValue;
+            attributeparameters.Unit = AttributeInAttribute.Unit;
+            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.Description = AttributeInAttribute.Description;
+            attributeparameters.CopyRight = AttributeInAttribute.Copyright;
+            attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
+            attributeparameters.RefSemanticList = AttributeInAttribute.RefSemantic;
+            // attributeparameters.ReferencedClassName = externalInterface.BaseClass.ToString();
+            attributeparameters.SupportesRoleClassType = supportedRoleClass.RefRoleClassPath.ToString();
+            /*attributeparameters.RefBaseClassPath = externalInterface.RefBaseClassPath;
+            attributeparameters.ID = externalInterface.ID;*/
+
+
+            sublist.Add(attributeparameters);
+            list.Add(sublist);
+            try
+            {
+                if (DictionaryofRolesforAutomationComponenet.ContainsKey("(" + i + ")" + supportedRoleClass.RoleReference.ToString()))
+                {
+                    DictionaryofRolesforAutomationComponenet["(" + i + ")" + supportedRoleClass.RoleReference.ToString()].AddRange(list);
+                }
+                else
+                {
+                    DictionaryofRolesforAutomationComponenet.Add("(" + i + ")" + supportedRoleClass.RoleReference.ToString(), list);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

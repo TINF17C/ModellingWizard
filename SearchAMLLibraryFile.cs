@@ -813,15 +813,22 @@ namespace Aml.Editor.Plugin
             List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
             ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
 
-            attributeparameters.Name = Convert.ToString(attributeType.Name);
+          
+
+            attributeparameters.Name = attributeType.Name;
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
+
             // attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
+            attributeparameters.AttributePath = attributeType.AttributePath;
+            attributeparameters.RefSemanticList = attributeType.RefSemantic;
+            attributeparameters.ReferencedClassName = classType.ReferencedClassName;
             attributeparameters.RefBaseClassPath = classType.RefBaseClassPath;
+            attributeparameters.ID = classType.ID;
+            attributeparameters.SupportesRoleClassType = classType.CAEXPath();
 
 
             sublist.Add(attributeparameters);
@@ -855,16 +862,21 @@ namespace Aml.Editor.Plugin
             // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
             // methods of name "StoreEachAttributeValuesInList" with four parameters.
             
-            attributeparameters.Name = Convert.ToString(AttributeInAttribute.Name) ;
+          
+
+            attributeparameters.Name = AttributeInAttribute.Name;
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
             // attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+            attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
+            attributeparameters.RefSemanticList = attributeType.RefSemantic;
+            attributeparameters.ReferencedClassName = classType.ReferencedClassName;
             attributeparameters.RefBaseClassPath = classType.RefBaseClassPath;
-
+            attributeparameters.ID = classType.ID;
+            attributeparameters.SupportesRoleClassType = classType.CAEXPath();
 
             sublist.Add(attributeparameters);
             list.Add(sublist);
@@ -882,9 +894,9 @@ namespace Aml.Editor.Plugin
         public void CheckForAttributesOfReferencedClassNameofExternalIterface(RoleFamilyType classType, ExternalInterfaceType externalInterface)
         {
             List<List<ClassOfListsFromReferencefile>> attributelist = new List<List<ClassOfListsFromReferencefile>>();
-            if (classType.Attribute.Exists)
+            if (externalInterface.Attribute.Exists)
             {
-                foreach (var attribute in classType.Attribute)
+                foreach (var attribute in externalInterface.Attribute)
                 {
                     CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attribute, classType, externalInterface);
                     StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, classType, attribute, externalInterface);
@@ -1056,6 +1068,8 @@ namespace Aml.Editor.Plugin
             List<ClassOfListsFromReferencefile> sublist = new List<ClassOfListsFromReferencefile>();
             ClassOfListsFromReferencefile attributeparameters = new ClassOfListsFromReferencefile();
 
+           
+
             attributeparameters.Name = attributeType.Name;
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
@@ -1063,9 +1077,12 @@ namespace Aml.Editor.Plugin
             // attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
-            attributeparameters.Reference = attributeType.AttributePath;
-            attributeparameters.RefBaseClassPath = classType.RefBaseClassPath;
-
+            attributeparameters.AttributePath = attributeType.AttributePath;
+            attributeparameters.RefSemanticList = attributeType.RefSemantic;
+            attributeparameters.ReferencedClassName = externalInterface.BaseClass.ToString();
+            attributeparameters.RefBaseClassPath = externalInterface.RefBaseClassPath;
+            attributeparameters.ID = externalInterface.ID;
+            attributeparameters.SupportesRoleClassType = externalInterface.CAEXPath();
 
             sublist.Add(attributeparameters);
             list.Add(sublist);
@@ -1104,6 +1121,8 @@ namespace Aml.Editor.Plugin
 
             // In the following parameters on right hand side "attributeType" has been changed to "AttributeInAttribute" this has been repeated to all 
             // methods of name "StoreEachAttributeValuesInList" with four parameters.
+           
+
             attributeparameters.Name = AttributeInAttribute.Name;
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
@@ -1111,8 +1130,12 @@ namespace Aml.Editor.Plugin
             // attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
-            attributeparameters.Reference = AttributeInAttribute.AttributePath;
+            attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
+            attributeparameters.RefSemanticList = AttributeInAttribute.RefSemantic;
+            attributeparameters.ReferencedClassName = externalInterface.BaseClass.ToString();
             attributeparameters.RefBaseClassPath = externalInterface.RefBaseClassPath;
+            attributeparameters.ID = externalInterface.ID;
+            attributeparameters.SupportesRoleClassType = externalInterface.CAEXPath();
 
 
             sublist.Add(attributeparameters);
@@ -1455,6 +1478,8 @@ namespace Aml.Editor.Plugin
                 foreach (var item in classType.ExternalInterface)
                 {
                     TreeNode newnode;
+                   
+
                     if (item.BaseClass != null)
                     {
                         referencedClassName = item.BaseClass.ToString();
@@ -1465,6 +1490,7 @@ namespace Aml.Editor.Plugin
                     else
                     {
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2);
+                        //CheckForAttributesOfReferencedClassNameofExternalIterface(RoleclassType, item);
                     }
                     // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + item.ToString(), item.ID.ToString());
 
