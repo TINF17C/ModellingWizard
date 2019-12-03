@@ -178,7 +178,7 @@ namespace Aml.Editor.Plugin
                    
                     var SRC = systemUnitClass.SupportedRoleClass.Append();
 
-                    //SRC.RefRoleClassPath = supportedRoleClassFromDictionary;
+                    
 
                     var attributesOfSystemUnitClass = systemUnitClass.Attribute;
 
@@ -186,17 +186,77 @@ namespace Aml.Editor.Plugin
                      {
                          foreach (var item in valueList)
                          {
-                             var eachattribute = attributesOfSystemUnitClass.Append(item.Name.ToString());
-                             eachattribute.Value = item.Value;
-                             eachattribute.DefaultValue = item.Default;
-                             eachattribute.Unit = item.Unit;
-                             //eachattribute.AttributeDataType = 
-                             eachattribute.Description = item.Description;
-                             eachattribute.Copyright = item.CopyRight;
+                           
+                            
+                            if ( item.AttributePath.Contains("/"))
+                            {
+                                int count = 2;
+                                int counter = 0;
+                                Stack<char> stack = new Stack<char>();
+                                string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
 
-                             eachattribute.ID = item.ID;
+                                foreach (var character in searchAttributeName.Reverse())
+                                {
+                                   
+                                    if (!char.IsLetterOrDigit(character))
+                                    {
+                                        counter++;
+                                        if (counter == count)
+                                        {
+                                            break;
+                                        }
+                                       
+                                    }
+                                    if (char.IsLetterOrDigit(character))
+                                    {
+                                        stack.Push(character);
+                                    }
+                                    
+                                }
 
-                            SRC.RefRoleClassPath = item.SupportesRoleClassType;
+                                string finalAttributeName = new string(stack.ToArray());
+                                foreach (var attribute in systemUnitClass.Attribute)
+                                {
+                                    if (attribute.Name == finalAttributeName)
+                                    {
+                                        var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
+
+
+                                        SRC.RefRoleClassPath = item.SupportesRoleClassType;
+
+                                    }
+                                    if (attribute.Attribute.Exists)
+                                    {
+
+                                        SearchForAttributesInsideAttributesofAutomationComponent(finalAttributeName, attribute, item,SRC);
+                                    }
+                                }
+                               
+                            }
+                            else
+                            {
+                                var eachattribute = attributesOfSystemUnitClass.Append(item.Name.ToString());
+                                eachattribute.Value = item.Value;
+                                eachattribute.DefaultValue = item.Default;
+                                eachattribute.Unit = item.Unit;
+                                //eachattribute.AttributeDataType = 
+                                eachattribute.Description = item.Description;
+                                eachattribute.Copyright = item.CopyRight;
+
+                                eachattribute.ID = item.ID;
+
+
+                                SRC.RefRoleClassPath = item.SupportesRoleClassType;
+                            }
+                            
 
                         }
                      }
@@ -466,6 +526,34 @@ namespace Aml.Editor.Plugin
             {
                 return "Device description file created!\nFilepath " + amlFilePath;
             }
+        }
+
+        public void SearchForAttributesInsideAttributesofAutomationComponent(string searchName, AttributeType attribute, ClassOfListsFromReferencefile item
+            ,SupportedRoleClassType SRC)
+        {
+            foreach (var nestedAttribute in attribute.Attribute)
+            {
+                if (nestedAttribute.Name == searchName)
+                {
+                    var eachattribute = nestedAttribute.Attribute.Append(item.Name.ToString());
+                    eachattribute.Value = item.Value;
+                    eachattribute.DefaultValue = item.Default;
+                    eachattribute.Unit = item.Unit;
+                    //eachattribute.AttributeDataType = 
+                    eachattribute.Description = item.Description;
+                    eachattribute.Copyright = item.CopyRight;
+
+                    eachattribute.ID = item.ID;
+
+
+                    SRC.RefRoleClassPath = item.SupportesRoleClassType;
+                }
+                if (nestedAttribute.Attribute.Exists)
+                {
+                    SearchForAttributesInsideAttributesofAutomationComponent(searchName, nestedAttribute, item, SRC);
+                }
+            }
+           
         }
       
         /// <summary>

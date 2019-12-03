@@ -2187,8 +2187,9 @@ namespace Aml.Editor.Plugin
                             {
                                 referencedClassName = classType.ReferencedClassName;
                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
-                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
                                 searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
+                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
+                               
                             }
                             else
                             {
@@ -2207,9 +2208,9 @@ namespace Aml.Editor.Plugin
                                     {
                                         referencedClassName = externalinterface.BaseClass.ToString();
                                         externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
-
-                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
                                         searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
+                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
+                                      
 
                                     }
                                     else

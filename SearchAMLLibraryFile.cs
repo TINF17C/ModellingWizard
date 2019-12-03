@@ -711,8 +711,9 @@ namespace Aml.Editor.Plugin
                                 if (externalInterface.BaseClass != null)
                                 {
                                     referencedClassName = externalInterface.BaseClass.ToString();
-                                    CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
                                     SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                                    CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                   
                                 }
                             }
                         }
@@ -745,8 +746,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in classTypeSearchForReferencedClassName.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attribute, classType);
                     StoreEachAttributeValueInListOfReferencedClassName(attributelist, classType, attribute);
+                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attribute, classType);
+                    
                 }
 
             }
@@ -785,8 +787,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attributeinattribute, classType);
                     StoreEachAttributeValueInListOfReferencedClassName(attributelist, attributeinattribute, classType, attributeType);
+                    CkeckForNestedAttributesOfReferencedClassName(classTypeSearchForReferencedClassName, attributeinattribute, classType);
+                    
                 }
 
             }
@@ -898,8 +901,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in externalInterface.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attribute, classType, externalInterface);
                     StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, classType, attribute, externalInterface);
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attribute, classType, externalInterface);
+                   
                 }
 
             }
@@ -942,8 +946,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attributeinattribute, classType, externalInterface);
                     StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, attributeinattribute, classType, attributeType, externalInterface);
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(attributeinattribute, classType, externalInterface);
+                   
                 }
 
             }
@@ -982,8 +987,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in classTypeSearchForReferencedClassName.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attribute, classType, externalInterface);
                     StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, classType, attribute, externalInterface);
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attribute, classType, externalInterface);
+                   
                 }
 
             }
@@ -1030,8 +1036,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attributeinattribute, classType, externalInterface);
                     StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface(attributelist, attributeinattribute, classType, attributeType, externalInterface);
+                    CkeckForNestedAttributesOfReferencedClassNameofExternalIterface(classTypeSearchForReferencedClassName, attributeinattribute, classType, externalInterface);
+                   
                 }
 
             }
@@ -1206,8 +1213,9 @@ namespace Aml.Editor.Plugin
                             if (externalInterface.BaseClass != null)
                             {
                                 referencedClassName = externalInterface.BaseClass.ToString();
-                                CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
                                 SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalInterface);
+                                CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalInterface);
+                                
                             }
                         }
                     }
@@ -1260,8 +1268,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in classType.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassName(attribute, classType);
                     StoreEachAttributeValueInListOfReferencedClassName(attributelist, classType, attribute);
+                    CkeckForNestedAttributesOfReferencedClassName(attribute, classType);
+                   
                 }
 
             }
@@ -1298,8 +1307,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfReferencedClassName(attributeinattribute, classType);
                     StoreEachAttributeValueInListOfReferencedClassName(attributelist, attributeinattribute, classType, attributeType);
+                    CkeckForNestedAttributesOfReferencedClassName(attributeinattribute, classType);
+                   
                 }
 
             }
@@ -1337,8 +1347,9 @@ namespace Aml.Editor.Plugin
                 {
                     referencedClassName = item.ReferencedClassName;
                     newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
-                    CheckForAttributesOfReferencedClassName(classType);
                     SearchForReferencedClassName(document, referencedClassName, classType);
+                    CheckForAttributesOfReferencedClassName(classType);
+                    
                 }
                 else
                 {
@@ -1355,8 +1366,9 @@ namespace Aml.Editor.Plugin
                         {
                             referencedClassName = externalinterfaces.BaseClass.ToString();
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
-                            CheckForAttributesOfReferencedClassNameofExternalIterface(item, externalinterfaces);
                             SearchForReferencedClassNameofExternalIterface(document, referencedclassName, item, externalinterfaces);
+                            CheckForAttributesOfReferencedClassNameofExternalIterface(item, externalinterfaces);
+                           
                         }
                         else
                         {

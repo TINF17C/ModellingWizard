@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aml.Editor.Plugin.SearchAMLLibraryFile">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACCAAAwEAAAAgABEAASAAAGAAACEAAAEAEE=</HashCode>
+      <FileName>SearchAMLLibraryFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aml.Editor.Plugin.SearchAMLComponentFile">
+    <Position X="9.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAEAAAAAAABAQBAAgAAEAEBAAAAAEIBACA=</HashCode>
+      <FileName>SearchAMLComponentFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aml.Editor.Plugin.DeviceDescription" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>fmLfxn8fg3/IWD7rwP335sn/arvH2xLM59r3e+r9h74=</HashCode>
+      <FileName>DeviceDescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="4.25" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Forms.UserControl" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aml.Editor.Plugin.MWData" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAAAAAAKgCAAAAAAAAEIAAAAABAAAAJEAAAAAAAAA=</HashCode>
+      <FileName>MWData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
