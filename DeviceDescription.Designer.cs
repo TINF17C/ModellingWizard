@@ -357,28 +357,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveeToolStripMenuItem
             // 
             this.saveeToolStripMenuItem.Name = "saveeToolStripMenuItem";
-            this.saveeToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.saveeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveeToolStripMenuItem.Text = "Save As";
             this.saveeToolStripMenuItem.Click += new System.EventHandler(this.saveeToolStripMenuItem_Click);
             // 
@@ -388,7 +388,7 @@
             this.importIODDFileToolStripMenuItem,
             this.importGSDFileToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // importIODDFileToolStripMenuItem
@@ -408,14 +408,14 @@
             // loadLibraryFile
             // 
             this.loadLibraryFile.Name = "loadLibraryFile";
-            this.loadLibraryFile.Size = new System.Drawing.Size(174, 26);
+            this.loadLibraryFile.Size = new System.Drawing.Size(224, 26);
             this.loadLibraryFile.Text = "Load Library";
             this.loadLibraryFile.Click += new System.EventHandler(this.loadLibraryFile_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -443,7 +443,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -569,7 +569,7 @@
             this.panel26.Controls.Add(this.panel8);
             this.panel26.Controls.Add(this.toolStrip5);
             this.panel26.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel26.Location = new System.Drawing.Point(0, 370);
+            this.panel26.Location = new System.Drawing.Point(0, 230);
             this.panel26.Name = "panel26";
             this.panel26.Size = new System.Drawing.Size(784, 300);
             this.panel26.TabIndex = 10;
@@ -899,7 +899,7 @@
             this.genericInformationpanel.MaximumSize = new System.Drawing.Size(784, 150);
             this.genericInformationpanel.MinimumSize = new System.Drawing.Size(784, 0);
             this.genericInformationpanel.Name = "genericInformationpanel";
-            this.genericInformationpanel.Size = new System.Drawing.Size(784, 150);
+            this.genericInformationpanel.Size = new System.Drawing.Size(784, 10);
             this.genericInformationpanel.TabIndex = 9;
             // 
             // genericInformationtreeView
@@ -2042,6 +2042,7 @@
             // 
             // vendorNameTextBox
             // 
+            this.vendorNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.vendorNameTextBox.Name = "vendorNameTextBox";
             this.vendorNameTextBox.Size = new System.Drawing.Size(250, 27);
             // 
@@ -2064,6 +2065,7 @@
             // 
             // deviceNameTextBox
             // 
+            this.deviceNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.deviceNameTextBox.Name = "deviceNameTextBox";
             this.deviceNameTextBox.Size = new System.Drawing.Size(250, 27);
             // 

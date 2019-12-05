@@ -103,12 +103,13 @@ namespace Aml.Editor.Plugin
 
                     saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
                     saveFileDialog.FileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-                    device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                  
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        //saveFileDialog.FileName = vendorNameTxtBx.Text;
+                       
                         device.filepath = Path.GetDirectoryName(saveFileDialog.FileName);
                         device.environment = Path.GetDirectoryName(saveFileDialog.FileName);
+                        device.fileName = saveFileDialog.FileName;
                     }
 
                 }
@@ -119,12 +120,7 @@ namespace Aml.Editor.Plugin
                 }
 
             }
-            if (fileNameLabel.Text != "")
-            {
-                device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-                //device.filepath = Path.GetDirectoryName(fileNameLabel.Text);
-
-            }
+            
 
             fileNameLabel.Text = "";
             // storing user defined values of Attachebles data grid view in to list 
@@ -620,14 +616,25 @@ namespace Aml.Editor.Plugin
                     
                     DataHierarchyTreeView();
 
-                    DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(file));
-                    
-                   
+                   // DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(file));
+
+                    string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                    Directory.CreateDirectory(tempDirectory);
+
+                    DirectoryInfo directory = new DirectoryInfo(tempDirectory);
                     // Load the amlx container from the given filepath
+
+                   
                     AutomationMLContainer amlx = new AutomationMLContainer(file);
-                         amlx.ExtractAllFiles(Path.GetDirectoryName(file));
-                        // Get the root path -> main .aml file
-                        IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
+                   
+
+                    amlx.ExtractAllFiles(tempDirectory);
+
+                   
+
+                    //amlx.ExtractAllFiles(Path.GetDirectoryName(file));
+                    // Get the root path -> main .aml file
+                    IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
                         
                         // We expect the aml to only have one root part
                         if (rootParts.First() != null)
@@ -693,14 +700,11 @@ namespace Aml.Editor.Plugin
                                        /* + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}"*/;
                                     genericInformationDataGridView.Rows[num].Cells[4].Value = true;
 
+                                    int rowindex = genericInformationDataGridView.Rows[num].Cells[1].RowIndex;
+                                    int columnindex = genericInformationDataGridView.Rows[num].Cells[1].ColumnIndex;
 
-                                    /*foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
-                                    {
-                                        if (electricalConnectorPins != null)
-                                        {
-                                            searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
-                                        }
-                                    }*/
+                                    genericInformationDataGridView_CellClick(new object(), new DataGridViewCellEventArgs(columnindex, rowindex));
+
                                     i++;
                                 }
                             }
@@ -812,6 +816,12 @@ namespace Aml.Editor.Plugin
                                                     + "{" + "Class:" + "  " + electricalConnectorType.BaseClass + "}";
                                                 electricalInterfacesCollectionDataGridView.Rows[num].Cells[4].Value = true;
 
+                                               
+                                                int rowindex = electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].RowIndex;
+                                                int columnindex = electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].ColumnIndex;
+
+                                                
+
 
                                                 foreach (var electricalConnectorPins in electricalConnectorType.ExternalInterface)
                                                 {
@@ -820,9 +830,11 @@ namespace Aml.Editor.Plugin
                                                         searchAMLComponentFile.CheckForAttributesOfEclectricalConnectorPins(i, electricalConnectorPins, electricalConnectorType);
                                                     }
                                                 }
+                                                electricalInterfacesCollectionDataGridView_CellClick(new object(), new DataGridViewCellEventArgs(columnindex, rowindex));
                                             }
 
                                         }
+                                        
 
                                         i++;
                                     }
@@ -1036,11 +1048,16 @@ namespace Aml.Editor.Plugin
                 electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].Value = row;
                 electricalInterfacesCollectionDataGridView.Rows[num].Cells[3].Value = true;
 
+                int rowindex = electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].RowIndex;
+                int columnindex = electricalInterfacesCollectionDataGridView.Rows[num].Cells[1].ColumnIndex;
+
+
+                electricalInterfacesCollectionDataGridView_CellClick(new object(), new DataGridViewCellEventArgs(columnindex, rowindex));
+            
 
                 dragging = false;
 
                 
-
                 //set your cursor back to the deafault
             }
             
@@ -1161,6 +1178,11 @@ namespace Aml.Editor.Plugin
 
                 genericInformationDataGridView.Rows[num].Cells[1].Value = row;
                 genericInformationDataGridView.Rows[num].Cells[3].Value = true;
+
+                int rowindex = genericInformationDataGridView.Rows[num].Cells[1].RowIndex;
+                int columnindex = genericInformationDataGridView.Rows[num].Cells[1].ColumnIndex;
+
+                genericInformationDataGridView_CellClick(new object(), new DataGridViewCellEventArgs(columnindex, rowindex));
 
                 dragging = false;
 
@@ -1381,7 +1403,7 @@ namespace Aml.Editor.Plugin
         private void electricalInterfacesCollectionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             electricalInterfacesCollectionDataGridView.CurrentRow.Selected = true;
-            if (electricalInterfacesCollectionDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+           // if (electricalInterfacesCollectionDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 AMC.WindowSizeChanger(electricalInterfacesTreeViewPanel);
             }
@@ -1692,7 +1714,7 @@ namespace Aml.Editor.Plugin
         private void genericInformationDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             genericInformationDataGridView.CurrentRow.Selected = true;
-            if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            //if (genericInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 AMC.WindowSizeChanger(genericInformationpanel);
             }
@@ -2003,12 +2025,13 @@ namespace Aml.Editor.Plugin
 
                     saveFileDialog.Filter = "AML Files(*.aml; *.amlx;*.xml;*.AML )|*.aml; *.amlx;*.xml;*.AML;";
                     saveFileDialog.FileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-                    device.fileName = vendorNameTextBox.Text + "-" + deviceNameTextBox.Text + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
+                    
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                        
                         device.filepath = Path.GetDirectoryName(saveFileDialog.FileName);
                         device.environment = Path.GetDirectoryName(saveFileDialog.FileName);
+                        device.fileName = saveFileDialog.FileName;
                     }
 
                 }
@@ -2187,9 +2210,10 @@ namespace Aml.Editor.Plugin
                             {
                                 referencedClassName = classType.ReferencedClassName;
                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+                                
                                 searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
                                 searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
-                               
+
                             }
                             else
                             {
@@ -2246,9 +2270,9 @@ namespace Aml.Editor.Plugin
 
                                 referencedClassName = classType.ReferencedClassName;
                                 interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
-
-                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
                                 searchAMLLibraryFile.SearchForReferencedClassName(document, referencedClassName, classType);
+                                searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
+                                
                             }
                             else
                             {
@@ -2271,8 +2295,9 @@ namespace Aml.Editor.Plugin
 
                                         referencedClassName = externalinterface.BaseClass.ToString();
                                         externalinterfacenode = interfaceclassNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
-                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
+                                        
                                         searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(document, referencedClassName, classType, externalinterface);
+                                        searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
                                     }
                                     else
                                     {

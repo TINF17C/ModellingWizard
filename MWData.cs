@@ -15,8 +15,8 @@ namespace Aml.Editor.Plugin
     {
         // holds the controller to report created devices to
         private readonly MWController mWController;
-       
 
+        
         /// <summary>
         /// Create the MWData Object
         /// </summary>
@@ -122,8 +122,11 @@ namespace Aml.Editor.Plugin
            
 
             // Init the default Libs
-            AutomationMLBaseRoleClassLibType.RoleClassLib(document);
-            AutomationMLInterfaceClassLibType.InterfaceClassLib(document);
+            AutomationMLBaseRoleClassLibType.RoleClassLib(document) ;
+            AutomationMLInterfaceClassLibType.InterfaceClassLib(document) ;
+
+            var structureRoleFamilyType = AutomationMLBaseRoleClassLibType.RoleClassLib(document).Structure;
+            
 
             SystemUnitFamilyType systemUnitClass = null;
             // Create the SystemUnitClass for our device
@@ -215,6 +218,7 @@ namespace Aml.Editor.Plugin
                                 }
 
                                 string finalAttributeName = new string(stack.ToArray());
+
                                 foreach (var attribute in systemUnitClass.Attribute)
                                 {
                                     if (attribute.Name == finalAttributeName)
@@ -250,7 +254,7 @@ namespace Aml.Editor.Plugin
                                 //eachattribute.AttributeDataType = 
                                 eachattribute.Description = item.Description;
                                 eachattribute.Copyright = item.CopyRight;
-
+                                
                                 eachattribute.ID = item.ID;
 
 
@@ -363,16 +367,22 @@ namespace Aml.Editor.Plugin
             if (device.vendorName != null)
             {
                 InternalElementType electricalInterface = null;
+                RoleRequirementsType roleRequirements = null ;
                 foreach (var internalElement in systemUnitClass.InternalElement)
                 {
                     if (internalElement.Name.Equals("ElectricalInterfaces"))
                     {
                         electricalInterface = internalElement;
+                        roleRequirements = electricalInterface.RoleRequirements.Append();
+                        roleRequirements.RefBaseRoleClassPath = structureRoleFamilyType.CAEXPath();
                         break;
                     }
                 }
                 if (electricalInterface == null)
                     electricalInterface = systemUnitClass.InternalElement.Append("ElectricalInterfaces");
+                   roleRequirements = electricalInterface.RoleRequirements.Append();
+
+                    roleRequirements.RefBaseRoleClassPath = structureRoleFamilyType.CAEXPath();
 
                 foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
                 {
@@ -399,19 +409,80 @@ namespace Aml.Editor.Plugin
                     {
                         foreach (var item in valueList)
                         {
-                            var eachattribute = attributesOfConnectorType.Append(item.Name.ToString());
-                            eachattribute.Value = item.Value;
-                            eachattribute.DefaultValue = item.Default;
-                            eachattribute.Unit = item.Unit;
-                            //eachattribute.AttributeDataType = 
-                            eachattribute.Description = item.Description;
-                            eachattribute.Copyright = item.CopyRight;
-                            
-                            eachattribute.ID = item.ID;
+                            if (item.AttributePath.Contains("/"))
+                            {
+                                int count = 2;
+                                int counter = 0;
+                                Stack<char> stack = new Stack<char>();
+                                string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
+
+                                foreach (var character in searchAttributeName.Reverse())
+                                {
+
+                                    if (!char.IsLetterOrDigit(character))
+                                    {
+                                        counter++;
+                                        if (counter == count)
+                                        {
+                                            break;
+                                        }
+
+                                    }
+                                    if (char.IsLetterOrDigit(character))
+                                    {
+                                        stack.Push(character);
+                                    }
+
+                                }
+
+                                string finalAttributeName = new string(stack.ToArray());
+
+                                foreach (var attribute in electricalConnectorType.Attribute)
+                                {
+                                    if (attribute.Name == finalAttributeName)
+                                    {
+                                        var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
 
 
 
-                            electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+                                        electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+
+                                    }
+                                    if (attribute.Attribute.Exists)
+                                    {
+
+                                        SearchAttributesInsideAttributesOFElectricConnectorType(finalAttributeName, attribute, item, electricalConnectorType);
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                var eachattribute = attributesOfConnectorType.Append(item.Name.ToString());
+                                eachattribute.Value = item.Value;
+                                eachattribute.DefaultValue = item.Default;
+                                eachattribute.Unit = item.Unit;
+                                //eachattribute.AttributeDataType = 
+                                eachattribute.Description = item.Description;
+                                eachattribute.Copyright = item.CopyRight;
+
+                                eachattribute.ID = item.ID;
+
+
+
+                                electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+                            }
+
+
+                           
                         }
                     }
 
@@ -438,19 +509,79 @@ namespace Aml.Editor.Plugin
                             {
                                 foreach (var item in valueList)
                                 {
-                                    var eachattribute = attributesOfConnectorPins.Append(item.Name.ToString());
-                                    eachattribute.Value = item.Value;
-                                    eachattribute.DefaultValue = item.Default;
-                                    eachattribute.Unit = item.Unit;
-                                    //eachattribute.AttributeDataType = 
-                                    eachattribute.Description = item.Description;
-                                    eachattribute.Copyright = item.CopyRight;
+                                    if (item.AttributePath.Contains("/"))
+                                    {
+                                        int count = 2;
+                                        int counter = 0;
+                                        Stack<char> stack = new Stack<char>();
+                                        string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
 
-                                    eachattribute.ID = item.ID;
+                                        foreach (var character in searchAttributeName.Reverse())
+                                        {
+
+                                            if (!char.IsLetterOrDigit(character))
+                                            {
+                                                counter++;
+                                                if (counter == count)
+                                                {
+                                                    break;
+                                                }
+
+                                            }
+                                            if (char.IsLetterOrDigit(character))
+                                            {
+                                                stack.Push(character);
+                                            }
+
+                                        }
+
+                                        string finalAttributeName = new string(stack.ToArray());
+
+                                        foreach (var attribute in electricalConnectorPins.Attribute)
+                                        {
+                                            if (attribute.Name == finalAttributeName)
+                                            {
+                                                var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                                eachattribute.Value = item.Value;
+                                                eachattribute.DefaultValue = item.Default;
+                                                eachattribute.Unit = item.Unit;
+                                                //eachattribute.AttributeDataType = 
+                                                eachattribute.Description = item.Description;
+                                                eachattribute.Copyright = item.CopyRight;
+
+                                                eachattribute.ID = item.ID;
 
 
 
-                                    electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+                                                electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+
+                                            }
+                                            if (attribute.Attribute.Exists)
+                                            {
+
+                                                SearchAttributesInsideAttributesOFElectricConnectorType(finalAttributeName, attribute, item, electricalConnectorPins);
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        var eachattribute = attributesOfConnectorPins.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
+
+
+
+                                        electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+                                    }
+
+                                   
                                 }
                             }
                         }
@@ -554,6 +685,37 @@ namespace Aml.Editor.Plugin
                 }
             }
            
+        }
+
+        public void SearchAttributesInsideAttributesOFElectricConnectorType(string searchName, AttributeType attribute, ClassOfListsFromReferencefile item
+            ,ExternalInterfaceType electricConnectorType)
+        {
+            foreach (var nestedAttribute in attribute.Attribute)
+            {
+                
+                if (nestedAttribute.Name == searchName)
+                {
+                    var eachattribute = nestedAttribute.Attribute.Append(item.Name.ToString());
+                    eachattribute.Value = item.Value;
+                    eachattribute.DefaultValue = item.Default;
+                    eachattribute.Unit = item.Unit;
+                    //eachattribute.AttributeDataType = 
+                    eachattribute.Description = item.Description;
+                    eachattribute.Copyright = item.CopyRight;
+
+                    eachattribute.ID = item.ID;
+
+
+
+                    electricConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+
+                }
+               
+                if (nestedAttribute.Attribute.Exists)
+                {
+                    SearchAttributesInsideAttributesOFElectricConnectorType(searchName, nestedAttribute, item, electricConnectorType);
+                }
+            }
         }
       
         /// <summary>

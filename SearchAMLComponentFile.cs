@@ -30,8 +30,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in externalInterface.Attribute)
                 {
+                    StoreEachAttributeValueInListOfExternalIterface(i, attributelist, attribute, externalInterface);
                     CkeckForNestedAttributesOfExternalIterface(i,attribute,  externalInterface);
-                    StoreEachAttributeValueInListOfExternalIterface(i,attributelist,  attribute, externalInterface);
+                    
                 }
 
             }
@@ -71,8 +72,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
+                    StoreEachAttributeValueInListOfExternalIterface(i, attributelist, attributeinattribute, attributeType, externalInterface);
                     CkeckForNestedAttributesOfExternalIterface(i,attributeinattribute,  externalInterface);
-                    StoreEachAttributeValueInListOfExternalIterface(i,attributelist, attributeinattribute,  attributeType, externalInterface);
+                   
                 }
 
             }
@@ -196,8 +198,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in externalInterface.Attribute)
                 {
-                    CkeckForNestedAttributesOfElectricalConnectorPins(i, attribute, externalInterface, classType);
                     StoreEachAttributeValueInListOfElectricalConnectorPins(i, attributelist, attribute, externalInterface, classType);
+                    CkeckForNestedAttributesOfElectricalConnectorPins(i, attribute, externalInterface, classType);
+                   
                 }
 
             }
@@ -239,8 +242,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfElectricalConnectorPins(i, attributeinattribute, externalInterface, classType);
                     StoreEachAttributeValueInListOfElectricalConnectorPins(i, attributelist, attributeinattribute, attributeType, externalInterface, classType);
+                    CkeckForNestedAttributesOfElectricalConnectorPins(i, attributeinattribute, externalInterface, classType);
+                    
                 }
 
             }
@@ -366,8 +370,9 @@ namespace Aml.Editor.Plugin
             {
                 foreach (var attribute in classType.Attribute)
                 {
-                    CkeckForNestedAttributesOfComponent(i, attribute, supportedRoleClass, classType);
                     StoreEachAttributeValueInListOfComponent(i, attributelist, attribute, supportedRoleClass, classType);
+                    CkeckForNestedAttributesOfComponent(i, attribute, supportedRoleClass, classType);
+                    
                 }
 
             }
@@ -405,8 +410,9 @@ namespace Aml.Editor.Plugin
 
                 foreach (var attributeinattribute in attributeType.Attribute)
                 {
-                    CkeckForNestedAttributesOfComponent(i, attributeinattribute, supportedRoleClass, classType);
                     StoreEachAttributeValueInListOfComponent(i, attributelist, attributeinattribute, attributeType, supportedRoleClass, classType);
+                    CkeckForNestedAttributesOfComponent(i, attributeinattribute, supportedRoleClass, classType);
+                    
                 }
 
             }
