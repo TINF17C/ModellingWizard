@@ -191,7 +191,7 @@ namespace Aml.Editor.Plugin
                          {
                            
                             
-                            if ( item.AttributePath.Contains("/"))
+                            if ( item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
                             {
                                 int count = 2;
                                 int counter = 0;
@@ -409,7 +409,7 @@ namespace Aml.Editor.Plugin
                     {
                         foreach (var item in valueList)
                         {
-                            if (item.AttributePath.Contains("/"))
+                            if (item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
                             {
                                 int count = 2;
                                 int counter = 0;
@@ -509,7 +509,7 @@ namespace Aml.Editor.Plugin
                             {
                                 foreach (var item in valueList)
                                 {
-                                    if (item.AttributePath.Contains("/"))
+                                    if (item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
                                     {
                                         int count = 2;
                                         int counter = 0;
@@ -657,6 +657,7 @@ namespace Aml.Editor.Plugin
             {
                 return "Device description file created!\nFilepath " + amlFilePath;
             }
+            
         }
 
         public void SearchForAttributesInsideAttributesofAutomationComponent(string searchName, AttributeType attribute, ClassOfListsFromReferencefile item
@@ -889,23 +890,10 @@ namespace Aml.Editor.Plugin
         /// <param name="ie"></param>
         private void initCAEXattributes(InternalElementType ie)
         {
-            initCAEXAttribute("CommunicationTechnology", "xs:string", ie);
+          
             initCAEXAttribute("VendorName", "xs:string", ie);
             initCAEXAttribute("DeviceName", "xs:string", ie);
-            initCAEXAttribute("ProductRange", "xs:string", ie);
-            initCAEXAttribute("ProductGroup", "xs:string", ie);
-            initCAEXAttribute("ProductFamily", "xs:string", ie);
-            initCAEXAttribute("OrderNumber", "xs:string", ie);
-            initCAEXAttribute("ProductNumber", "xs:string", ie);
-            initCAEXAttribute("ProductText", "xs:string", ie);
-            initCAEXAttribute("IPProtection", "xs:string", ie);
-            initCAEXAttribute("VendorHomepage", "xs:string", ie);
-            initCAEXAttribute("HardwareRelease", "xs:string", ie);
-            initCAEXAttribute("SoftwareRelease", "xs:string", ie);
-            initCAEXAttribute("OperatingTemperatureMin", "xs:double", ie);
-            initCAEXAttribute("OperatingTemperatureMax", "xs:double", ie);
-            initCAEXAttribute("VendorId", "xs:integer", ie);
-            initCAEXAttribute("DeviceId", "xs:integer", ie);
+           
         }
 
         /// <summary>

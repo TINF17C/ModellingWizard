@@ -65,6 +65,11 @@
     <Reference Include="AML.Engine.Services, Version=1.1.1.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
       <HintPath>packages\Aml.Engine.1.1.1\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
+    <Reference Include="AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Plugins\ModellingWizard\AxInterop.AcroPDFLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Gsd2Aml.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Gsd2Aml.Lib.1.0.0\lib\net47\Gsd2Aml.Lib.dll</HintPath>
     </Reference>
@@ -172,9 +177,15 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+    <None Include="Resources\IndustrialSensorLibrary_v1_0_0.aml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gsd2aml.xml" />
+    <None Include="Resources\AutomationComponentLibrary_v1_0_0.aml" />
+    <None Include="Resources\AutomationComponentLibrary_v1_0_0_CAEX3_BETA.aml" />
+    <None Include="Resources\AutomationComponentLibrary_v1_0_0_Full.aml" />
+    <None Include="Resources\AutomationComponentLibrary_v1_0_0_Full_CAEX3_BETA.aml" />
+    <None Include="Resources\ElectricConnectorLibrary_v1_0_0.aml" />
     <None Include="Resources\icons8-winkel-links-30.png" />
     <None Include="Resources\icons8-winkel-rechts-30.png" />
     <None Include="Resources\icons8-plus-mathe-30.png" />
@@ -214,7 +225,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="AxAcroPDFLib">
       <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
@@ -223,6 +234,33 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxMicrosoft.Vbe.Interop.Forms">
+      <Guid>{0D452EE1-E08F-101A-852E-02608C4D0BB4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="Microsoft.Vbe.Interop.Forms">
+      <Guid>{0D452EE1-E08F-101A-852E-02608C4D0BB4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

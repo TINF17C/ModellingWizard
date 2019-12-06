@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using Aml.Engine.AmlObjects;
 using Aml.Engine.CAEX;
@@ -1374,6 +1375,7 @@ namespace Aml.Editor.Plugin
                         {
                             referencedClassName = externalinterfaces.BaseClass.ToString();
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                            externalinterafcenode.ForeColor = SystemColors.GrayText;
                             SearchForReferencedClassNameofExternalIterface(document, referencedclassName, item, externalinterfaces);
                             CheckForAttributesOfReferencedClassNameofExternalIterface(item, externalinterfaces);
                            
@@ -1381,6 +1383,7 @@ namespace Aml.Editor.Plugin
                         else
                         {
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(), 2);
+                            externalinterafcenode.ForeColor = SystemColors.GrayText;
                         }
 
 
@@ -1426,12 +1429,13 @@ namespace Aml.Editor.Plugin
                     foreach (var externalinterfaces in item.ExternalInterface)
                     {
                         TreeNode externalinterafcenode;
-                        if (externalinterfaces.BaseClass.ToString() != "")
+                        if (externalinterfaces.BaseClass!= null)
                         {
                            // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterfaces.ToString(), externalinterfaces.ID.ToString());
 
                             referencedclassName = externalinterfaces.BaseClass.ToString();
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString() + "{" + "Class:" + "  " + referencedclassName + "}", 2);
+                            externalinterafcenode.ForeColor = SystemColors.GrayText;
                             CheckForAttributesOfReferencedClassNameofExternalIterface(item, externalinterfaces);
                             SearchForReferencedClassNameofExternalIterface(document, referencedclassName, item, externalinterfaces);
 
@@ -1441,6 +1445,7 @@ namespace Aml.Editor.Plugin
                             //DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterfaces.ToString(), externalinterfaces.ID.ToString());
 
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(), 2);
+                            externalinterafcenode.ForeColor = SystemColors.GrayText;
                         }
 
 
@@ -1469,12 +1474,14 @@ namespace Aml.Editor.Plugin
                     {
                         referencedClassName = item.BaseClass.ToString();
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                        newnode.ForeColor = SystemColors.GrayText;
                         CheckForAttributesOfReferencedClassNameofExternalIterface(InterafceclassType, item);
                         SearchForReferencedClassNameofExternalIterface(document, referencedClassName, InterafceclassType, item);
                     }
                     else
                     {
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() , 2);
+                        newnode.ForeColor = SystemColors.GrayText;
                     }
                    // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + item.ToString(), item.ID.ToString());
 
@@ -1504,12 +1511,14 @@ namespace Aml.Editor.Plugin
                     {
                         referencedClassName = item.BaseClass.ToString();
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
+                        newnode.ForeColor = SystemColors.GrayText;
                         CheckForAttributesOfReferencedClassNameofExternalIterface(RoleclassType, item);
                         SearchForReferencedClassNameofExternalIterface(document, referencedClassName, RoleclassType, item);
                     }
                     else
                     {
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2);
+                        newnode.ForeColor = SystemColors.GrayText;
                         //CheckForAttributesOfReferencedClassNameofExternalIterface(RoleclassType, item);
                     }
                     // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + item.ToString(), item.ID.ToString());

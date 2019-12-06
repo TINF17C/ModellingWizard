@@ -61,12 +61,52 @@ namespace Aml.Editor.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_abo_kündigen_16 {
+        internal static byte[] AutomationComponentLibrary_v1_0_0 {
             get {
-                object obj = ResourceManager.GetObject("icons8-abo-kündigen-16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("AutomationComponentLibrary_v1_0_0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] AutomationComponentLibrary_v1_0_0_CAEX3_BETA {
+            get {
+                object obj = ResourceManager.GetObject("AutomationComponentLibrary_v1_0_0_CAEX3_BETA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] AutomationComponentLibrary_v1_0_0_Full {
+            get {
+                object obj = ResourceManager.GetObject("AutomationComponentLibrary_v1_0_0_Full", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] AutomationComponentLibrary_v1_0_0_Full_CAEX3_BETA {
+            get {
+                object obj = ResourceManager.GetObject("AutomationComponentLibrary_v1_0_0_Full_CAEX3_BETA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ElectricConnectorLibrary_v1_0_0 {
+            get {
+                object obj = ResourceManager.GetObject("ElectricConnectorLibrary_v1_0_0", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -76,56 +116,6 @@ namespace Aml.Editor.Plugin.Properties {
         internal static System.Drawing.Bitmap icons8_collapse_arrow_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-collapse-arrow-24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_datei_hinzufügen_16 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-datei-hinzufügen-16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_datei_hinzufügen_161 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-datei-hinzufügen-161", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_dateiuntermodul_16 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-dateiuntermodul-16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_dateiuntermodul_16__1_ {
-            get {
-                object obj = ResourceManager.GetObject("icons8-dateiuntermodul-16 (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_datenbank_hinzufügen_30 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-datenbank-hinzufügen-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,59 +133,9 @@ namespace Aml.Editor.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_eingekreist_links_2_32 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-eingekreist-links-2-32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap icons8_expand_arrow_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-expand-arrow-24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_expand_arrow_30 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-expand-arrow-30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_liste_hinzufügen_26 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-liste-hinzufügen-26", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_löschen_26 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-löschen-26", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_plus_2_24 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-plus-2-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -211,32 +151,12 @@ namespace Aml.Editor.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_stornieren_16 {
+        internal static byte[] IndustrialSensorLibrary_v1_0_0 {
             get {
-                object obj = ResourceManager.GetObject("icons8-stornieren-16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_winkel_links_30 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-winkel-links-30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_winkel_rechts_30 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-winkel-rechts-30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("IndustrialSensorLibrary_v1_0_0", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
