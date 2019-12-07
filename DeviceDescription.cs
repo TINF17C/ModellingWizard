@@ -398,6 +398,45 @@ namespace Aml.Editor.Plugin
             loadStandardLibrary();
             checkForAutomtionComponent();
 
+            foreach (DataGridViewRow row in genericInformationDataGridView.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    if (row.Cells[0].Value.ToString() == "1" && row.Cells[1].Value.ToString() == "AutomationComponent{Class:  AutomationMLBaseRole}")
+                    {
+                        string SRCSerialNumber = row.Cells[0].Value.ToString();
+                        string SRC = row.Cells[1].Value.ToString();
+                        foreach (var pair in searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes)
+                        {
+                            if (pair.Key.ToString() == SRC)
+                            {
+                                try
+                                {
+                                    if (device.DictionaryForRoleClassofComponent.ContainsKey("(" + SRCSerialNumber + ")" + SRC))
+                                    {
+                                        device.DictionaryForRoleClassofComponent.Remove("(" + SRCSerialNumber + ")" + SRC);
+                                        device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
+                                    }
+                                    else
+                                    {
+                                        device.DictionaryForRoleClassofComponent.Add("(" + SRCSerialNumber + ")" + SRC, pair.Value);
+                                    }
+                                }
+                                catch (Exception)
+                                {
+
+                                    throw;
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+               
+            }
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -428,6 +467,16 @@ namespace Aml.Editor.Plugin
             electricalInterfacesCollectionDataGridView.Rows.Clear();
             elecInterAttDataGridView.Rows.Clear();
             treeViewElectricalInterfaces.Nodes.Clear();
+
+            device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+
+            device.DictionaryForRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+            device.DictionaryForExternalInterfacesUnderRoleClassofComponent = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
+
+
+
         }
 
 
@@ -826,6 +875,42 @@ namespace Aml.Editor.Plugin
                                 int i = 1;
                                 foreach (var SRC in classType.SupportedRoleClass)
                                 {
+                                    if (classType.Attribute.Exists)
+                                    {
+                                      
+                                       
+                                        foreach (var attribute in classType.Attribute)
+                                        {
+                                            searchForComponentNames(attribute);
+                                            if (attribute.Name == "Manufacturer")
+                                            {
+                                                if (attribute.Value != null)
+                                                {
+                                                    vendorNameTextBox.Text = attribute.Value;
+                                                }
+                                                else
+                                                {
+                                                    vendorNameTextBox.Text = "No Vendor Name Set";
+                                                }
+                                              
+                                            }
+                                            if (attribute.Name == "Model")
+                                            {
+                                                if (attribute.Value != null)
+                                                {
+                                                    deviceNameTextBox.Text = attribute.Value;
+                                                }
+                                                else
+                                                {
+                                                    deviceNameTextBox.Text = "No Device Name Set";
+                                                }
+                                               
+                                            }
+                                            
+                                        }
+                                    }
+                                   
+                                   
                                     searchAMLComponentFile.CheckForAttributesOfComponent(i, SRC, classType); 
 
                                     int num = genericInformationDataGridView.Rows.Add();
@@ -877,7 +962,7 @@ namespace Aml.Editor.Plugin
 
                             foreach (var internalElements in classType.InternalElement)
                             {
-                                if (internalElements.Name.Equals("DeviceIdentification"))
+                                /*if (internalElements.Name.Equals("DeviceIdentification"))
                                 {
                                     foreach (var attribute in internalElements.Attribute)
                                     {
@@ -894,7 +979,7 @@ namespace Aml.Editor.Plugin
                                           
                                         }
                                     }
-                                }
+                                }*/
                                 if (internalElements.Name != "ElectricalInterfaces" && internalElements.Name != "DeviceIdentification")
                                 {
                                    
@@ -1037,6 +1122,40 @@ namespace Aml.Editor.Plugin
                 {
                 }
                
+            }
+        }
+
+        public void searchForComponentNames(AttributeType classType)
+        {
+            if (classType.Attribute.Exists)
+            {
+                
+                foreach (var attribute in classType.Attribute)
+                {
+                    searchForComponentNames(attribute);
+                    if (attribute.Name == "Manufacturer")
+                    {
+                        if (attribute.Value != null)
+                        {
+                            vendorNameTextBox.Text = attribute.Value;
+                        }
+                        else
+                        {
+                            vendorNameTextBox.Text = "No Vendor Name Set";
+                        }
+                    }
+                    if (attribute.Name == "Model")
+                    {
+                        if (attribute.Value != null)
+                        {
+                            deviceNameTextBox.Text = attribute.Value;
+                        }
+                        else
+                        {
+                            deviceNameTextBox.Text = "No Device Name Set";
+                        }
+                    }
+                }
             }
         }
 
@@ -1891,41 +2010,17 @@ namespace Aml.Editor.Plugin
                     parentNode = genericInformationtreeView.Nodes.Add("(" + SRCSerialNumber + ")" + SRC,
                         "(" + SRCSerialNumber + ")" + SRC, 2);
 
-/*
-                    foreach (var pair in searchAMLComponentFile.DictioanryofElectricalConnectorPinType)
-                    {
-                        if (pair.Key.Contains(interfaceClass))
-                        {
-                            try
-                            {
-                                if (device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.ContainsKey("(" + interfaceSerialNumber + ")" + pair.Key.ToString()))
-                                {
-                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Remove("(" + interfaceSerialNumber + ")" + pair.Key.ToString());
-                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
-                                }
-                                else
-                                {
-                                    device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces.Add("(" + interfaceSerialNumber + ")" + pair.Key.ToString(), pair.Value);
-                                }
-                            }
-                            catch (Exception)
-                            {
-
-                                throw;
-                            }
 
 
-                            childNodes = parentNode.Nodes.Add(pair.Key.Replace(interfaceClass, "").ToString()
-                                , pair.Key.Replace(interfaceClass, "").ToString(), 2);
-                        }
-                    }*/
-
-                    // electricalInterfacesCollectionDataGridView.CurrentRow.Cells[4].Value = true;
+                   
                 }
 
 
 
             }
+            vendorNameTextBox_Leave(new object(), new EventArgs());
+            deviceNameTextBox_Leave(new object(), new EventArgs());
+
 
         }
 
@@ -2066,142 +2161,6 @@ namespace Aml.Editor.Plugin
         private void elecInterAttDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            ClearHeaderTabPageValuesofElectricalInterfaces();
-            elecInterAttDataGridView.CurrentRow.Selected = true;
-            if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-            {
-                string attributeName = elecInterAttDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-                string values = elecInterAttDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-                string defaults = elecInterAttDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string Units = elecInterAttDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-                string datatype = elecInterAttDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-                string semantics = elecInterAttDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-               
-
-
-                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
-                {
-
-                    string interfaceClass = electricalInterfacesHeaderlabel.Text;
-                    foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
-                    {
-                        if (pair.Key.ToString() == interfaceClass)
-                        {
-                            foreach (var valueList in pair.Value)
-                            {
-                                foreach (var item in valueList)
-                                {
-                                    if (item.Name.ToString() == attributeName)
-                                    {
-                                      
-
-                                        descriptionTxtBoxElecAttri.Text = item.Description;
-                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
-                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
-                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
-                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
-                                        idTxtBxElecAttri.Text = item.ID;
-                                        nameTxtBxElecAttri.Text = item.Name;
-
-                                        foreach (var pair2 in device.DictionaryForInterfaceClassesInElectricalInterfaces)
-                                        {
-                                            if (pair2.Key.ToString() == interfaceClass)
-                                            {
-                                                foreach (var valueList2 in pair2.Value)
-                                                {
-                                                    foreach (var item2 in valueList2)
-                                                    {
-                                                        if (item2.Name.ToString() == attributeName)
-                                                        {
-                                                            item2.Name = attributeName;
-                                                            item2.Value = values;
-                                                            item2.Default = defaults;
-                                                            item2.Unit = Units;
-                                                            item2.Semantic = semantics;
-                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
-                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
-                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
-                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
-                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
-                                                            item2.ID = idTxtBxElecAttri.Text;
-                                                            item2.Name = nameTxtBxElecAttri.Text;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            
-                                        }
-                                    }
-                                }
-
-                            }
-
-                        }
-
-                    }
-                    foreach (var pair in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
-                    {
-                        if (pair.Key.ToString() == interfaceClass)
-                        {
-                            foreach (var valueList in pair.Value)
-                            {
-                                foreach (var item in valueList)
-                                {
-                                    if (item.Name.ToString() == attributeName)
-                                    {
-                                       /* item.Value = values;
-                                        item.Default = defaults;
-                                        item.Unit = Units;
-                                        item.Semantic = semantics;*/
-
-
-                                        descriptionTxtBoxElecAttri.Text = item.Description;
-                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
-                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
-                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
-                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
-                                        idTxtBxElecAttri.Text = item.ID;
-                                        nameTxtBxElecAttri.Text = item.Name;
-
-                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
-                                        {
-                                            if (pair2.Key.ToString() == interfaceClass)
-                                            {
-                                                foreach (var valueList2 in pair2.Value)
-                                                {
-                                                    foreach (var item2 in valueList2)
-                                                    {
-                                                        if (item2.Name.ToString() == attributeName)
-                                                        {
-                                                            item2.Name = attributeName;
-                                                            item2.Value = values;
-                                                            item2.Default = defaults;
-                                                            item2.Unit = Units;
-                                                            item2.Semantic = semantics;
-                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
-                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
-                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
-                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
-                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
-                                                            item2.ID = idTxtBxElecAttri.Text;
-                                                            item2.Name = nameTxtBxElecAttri.Text;
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                            }
-
-                        }
-
-                    }
-                }
-            }
-            elecInterAttDataGridView.CurrentRow.Selected = false;
         }
 
         private void saveeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2559,140 +2518,7 @@ namespace Aml.Editor.Plugin
 
         private void genericparametersAttrDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            ClearHeaderTabPageValuesofgenericData();
-            genericparametersAttrDataGridView.CurrentRow.Selected = true;
-            if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-            {
-                string attributeName = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-                string values = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-                string defaults = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string Units = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-                string datatype = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-                string semantics = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-
-
-
-                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
-                {
-
-                    string interfaceClass = genericDataHeaderLabel.Text;
-                    foreach (var pair in device.DictionaryForRoleClassofComponent)
-                    {
-                        if (pair.Key.ToString() == interfaceClass)
-                        {
-                            foreach (var valueList in pair.Value)
-                            {
-                                foreach (var item in valueList)
-                                {
-                                    if (item.Name.ToString() == attributeName)
-                                    {
-
-                                        genericDataDescriptionTxtBx.Text = item.Description;
-                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
-                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
-                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
-                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
-                                        genericDataIDTxtBx.Text = item.ID;
-                                        genericDataNameTxtBx.Text = item.Name;
-
-                                        foreach (var pair2 in device.DictionaryForRoleClassofComponent)
-                                        {
-                                            if (pair2.Key.ToString() == interfaceClass)
-                                            {
-                                                foreach (var valueList2 in pair2.Value)
-                                                {
-                                                    foreach (var item2 in valueList2)
-                                                    {
-                                                        if (item2.Name.ToString() == attributeName)
-                                                        {
-                                                            item2.Name = attributeName;
-                                                            item2.Value = values;
-                                                            item2.Default = defaults;
-                                                            item2.Unit = Units;
-                                                            item2.Semantic = semantics;
-                                                            item2.Description = genericDataDescriptionTxtBx.Text;
-                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
-                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
-                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
-                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
-                                                            item2.ID = genericDataIDTxtBx.Text;
-                                                            item2.Name = genericDataNameTxtBx.Text;
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                            }
-
-                        }
-
-                    }
-                    foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
-                    {
-                        if (pair.Key.ToString() == interfaceClass)
-                        {
-                            foreach (var valueList in pair.Value)
-                            {
-                                foreach (var item in valueList)
-                                {
-                                    if (item.Name.ToString() == attributeName)
-                                    {
-                                        /* item.Value = values;
-                                         item.Default = defaults;
-                                         item.Unit = Units;
-                                         item.Semantic = semantics;*/
-
-                                        genericDataDescriptionTxtBx.Text = item.Description;
-                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
-                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
-                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
-                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
-                                        genericDataIDTxtBx.Text = item.ID;
-                                        genericDataNameTxtBx.Text = item.Name;
-
-                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
-                                        {
-                                            if (pair2.Key.ToString() == interfaceClass)
-                                            {
-                                                foreach (var valueList2 in pair2.Value)
-                                                {
-                                                    foreach (var item2 in valueList2)
-                                                    {
-                                                        if (item2.Name.ToString() == attributeName)
-                                                        {
-                                                            item2.Name = attributeName;
-                                                            item2.Value = values;
-                                                            item2.Default = defaults;
-                                                            item2.Unit = Units;
-                                                            item2.Semantic = semantics;
-                                                            item2.Description = genericDataDescriptionTxtBx.Text;
-                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
-                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
-                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
-                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
-                                                            item2.ID = genericDataIDTxtBx.Text;
-                                                            item2.Name = genericDataNameTxtBx.Text;
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                            }
-
-                        }
-
-                    }
-                }
-            }
-            genericparametersAttrDataGridView.CurrentRow.Selected = false;
+           
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2931,6 +2757,355 @@ namespace Aml.Editor.Plugin
         private void industrialSensorLibraryv100ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             selectLibrary(Properties.Resources.IndustrialSensorLibrary_v1_0_0);
+        }
+
+        private void vendorNameTextBox_Leave(object sender, EventArgs e)
+        {
+            
+
+            foreach (var pair in device.DictionaryForRoleClassofComponent)
+            {
+                if (pair.Key != null && pair.Key.ToString() == "(" + 1+ ")"+ "AutomationComponent{Class:  AutomationMLBaseRole}")
+                {
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            if (item.Name == "Manufacturer")
+                            {
+                                item.Value = vendorNameTextBox.Text;
+                            }
+                        }
+                    }
+
+                }
+                if (pair.Key != null && pair.Key.Contains("(" + 1+ ")"))
+                {
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            if (item.Name == "Manufacturer")
+                            {
+                                item.Value = vendorNameTextBox.Text;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void deviceNameTextBox_Leave(object sender, EventArgs e)
+        {
+            foreach (var pair in device.DictionaryForRoleClassofComponent)
+            {
+                if (pair.Key != null && pair.Key.ToString() == "(" + 1 + ")" + "AutomationComponent{Class:  AutomationMLBaseRole}")
+                {
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            if (item.Name == "Model")
+                            {
+                                item.Value = deviceNameTextBox.Text;
+                            }
+                        }
+                    }
+
+                }
+                if (pair.Key != null && pair.Key.Contains("(" + 1 + ")"))
+                {
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            if (item.Name == "Model")
+                            {
+                                item.Value = deviceNameTextBox.Text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void genericparametersAttrDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            ClearHeaderTabPageValuesofgenericData();
+            genericparametersAttrDataGridView.CurrentRow.Selected = true;
+            if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string attributeName = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string values = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string defaults = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string Units = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string datatype = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                string semantics = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+
+
+                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
+                {
+
+                    string interfaceClass = genericDataHeaderLabel.Text;
+                    foreach (var pair in device.DictionaryForRoleClassofComponent)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                        genericDataNameTxtBx.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForRoleClassofComponent)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = genericDataDescriptionTxtBx.Text;
+                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
+                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
+                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
+                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
+                                                            item2.ID = genericDataIDTxtBx.Text;
+                                                            item2.Name = genericDataNameTxtBx.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                    foreach (var pair in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+                                        /* item.Value = values;
+                                         item.Default = defaults;
+                                         item.Unit = Units;
+                                         item.Semantic = semantics;*/
+
+                                        genericDataDescriptionTxtBx.Text = item.Description;
+                                        genericDataCopyrightTxtBx.Text = item.CopyRight;
+                                        genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
+                                        genericDataRefBaseClassPathTxtBx.Text = item.RefBaseClassPath;
+                                        genericDataAttributePathTxtBx.Text = item.AttributePath;
+                                        genericDataIDTxtBx.Text = item.ID;
+                                        genericDataNameTxtBx.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = genericDataDescriptionTxtBx.Text;
+                                                            item2.CopyRight = genericDataCopyrightTxtBx.Text;
+                                                            item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
+                                                            item2.RefBaseClassPath = genericDataRefBaseClassPathTxtBx.Text;
+                                                            item2.AttributePath = genericDataAttributePathTxtBx.Text;
+                                                            item2.ID = genericDataIDTxtBx.Text;
+                                                            item2.Name = genericDataNameTxtBx.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            genericparametersAttrDataGridView.CurrentRow.Selected = false;
+        }
+
+        private void elecInterAttDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            ClearHeaderTabPageValuesofElectricalInterfaces();
+            elecInterAttDataGridView.CurrentRow.Selected = true;
+            if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string attributeName = elecInterAttDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string values = elecInterAttDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string defaults = elecInterAttDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string Units = elecInterAttDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string datatype = elecInterAttDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                string semantics = elecInterAttDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+
+
+                //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
+                {
+
+                    string interfaceClass = electricalInterfacesHeaderlabel.Text;
+                    foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+
+
+                                        descriptionTxtBoxElecAttri.Text = item.Description;
+                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
+                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
+                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
+                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
+                                        idTxtBxElecAttri.Text = item.ID;
+                                        nameTxtBxElecAttri.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForInterfaceClassesInElectricalInterfaces)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
+                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
+                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
+                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
+                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
+                                                            item2.ID = idTxtBxElecAttri.Text;
+                                                            item2.Name = nameTxtBxElecAttri.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                    foreach (var pair in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
+                    {
+                        if (pair.Key.ToString() == interfaceClass)
+                        {
+                            foreach (var valueList in pair.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.Name.ToString() == attributeName)
+                                    {
+                                        /* item.Value = values;
+                                         item.Default = defaults;
+                                         item.Unit = Units;
+                                         item.Semantic = semantics;*/
+
+
+                                        descriptionTxtBoxElecAttri.Text = item.Description;
+                                        copyrightTxtBxElecAttri.Text = item.CopyRight;
+                                        RefClassNameTxtBxElecAttri.Text = item.ReferencedClassName;
+                                        RefBaseClassPathTxtBxElecAttri.Text = item.RefBaseClassPath;
+                                        attributepathTxtBxElecAttri.Text = item.AttributePath;
+                                        idTxtBxElecAttri.Text = item.ID;
+                                        nameTxtBxElecAttri.Text = item.Name;
+
+                                        foreach (var pair2 in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
+                                        {
+                                            if (pair2.Key.ToString() == interfaceClass)
+                                            {
+                                                foreach (var valueList2 in pair2.Value)
+                                                {
+                                                    foreach (var item2 in valueList2)
+                                                    {
+                                                        if (item2.Name.ToString() == attributeName)
+                                                        {
+                                                            item2.Name = attributeName;
+                                                            item2.Value = values;
+                                                            item2.Default = defaults;
+                                                            item2.Unit = Units;
+                                                            item2.Semantic = semantics;
+                                                            item2.Description = descriptionTxtBoxElecAttri.Text;
+                                                            item2.CopyRight = copyrightTxtBxElecAttri.Text;
+                                                            item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
+                                                            item2.RefBaseClassPath = RefBaseClassPathTxtBxElecAttri.Text;
+                                                            item2.AttributePath = attributepathTxtBxElecAttri.Text;
+                                                            item2.ID = idTxtBxElecAttri.Text;
+                                                            item2.Name = nameTxtBxElecAttri.Text;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            elecInterAttDataGridView.CurrentRow.Selected = false;
         }
     }
     
