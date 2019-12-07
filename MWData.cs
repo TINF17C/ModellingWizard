@@ -343,24 +343,7 @@ namespace Aml.Editor.Plugin
 
            
 
-            InternalElementType ie = null;
-            foreach (var internalelement in systemUnitClass.InternalElement)
-            {
-                if (internalelement.Name.Equals("DeviceIdentification"))
-                {
-                    ie = internalelement;
-                    break;
-                }
-               
-            }
-            if (ie == null)
-                ie = systemUnitClass.InternalElement.Append("DeviceIdentification");
-
-            // Init the Attributes for our format and set the correct DataTypes
-            initCAEXattributes(ie);
-
-            // Set the correct values for the Attributes
-            setCAEXattribute(ie, device);
+          
 
             // Create the internalElement Electrical Interfaces
 
@@ -884,84 +867,9 @@ namespace Aml.Editor.Plugin
 
             return documentPart;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ie"></param>
-        private void initCAEXattributes(InternalElementType ie)
-        {
-          
-            initCAEXAttribute("VendorName", "xs:string", ie);
-            initCAEXAttribute("DeviceName", "xs:string", ie);
-           
-        }
-
-        /// <summary>
-        /// Create a attribute <paramref name="attribute"/> with the given datatype <paramref name="datatype"/> in the <paramref name="ie"/>
-        /// </summary>
-        /// <param name="attribute">the name of the attribute</param>
-        /// <param name="datatype">the xs datatype</param>
-        /// <param name="ie">the internalelement for these attributes</param>
-        /// <returns></returns>
-        private AttributeType initCAEXAttribute(string attribute, string datatype, InternalElementType ie)
-        {
-            AttributeType attributeType = null;
-            // check if the attribute exists, if not create it
-            if (ie.Attribute.GetCAEXAttribute(attribute) == null)
-            {
-                attributeType = ie.Attribute.Append(attribute);
-                attributeType.AttributeDataType = datatype;
-            }
-            else
-            {
-                ie.Attribute.GetCAEXAttribute(attribute).AttributeDataType = datatype;
-            }
-            return attributeType;
-        }
-
-        /// <summary>
-        /// assign the values of the <paramref name="device"/> to the corresponding attributes
-        /// </summary>
-        /// <param name="ie">the DeviceIdentification InternalElement</param>
-        /// <param name="device">the device for this aml</param>
-        private void setCAEXattribute(InternalElementType ie, MWDevice device)
-        {
-          
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorName"), device.vendorName);
-           
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceName"), device.deviceName);
-           
-        }
-
-        /// <summary>
-        /// Write the Value if it's not null / empty / NaN
-        /// </summary>
-        /// <param name="attribute">the attribute</param>
-        /// <param name="value">the value. Expected types: string, int, double</param>
-        private void writeIfNotNull(AttributeType attribute, object value)
-        {
-            if (value is string)
-            {
-                if (!String.IsNullOrEmpty((string)value))
-                    attribute.Value = (string)value;
-            }
-            else if (value is double)
-            {
-                if (!Double.IsNaN((double)value) && value != null)
-                {
-                    attribute.Value = ((double)value).ToString();
-                }
-            }
-            else if (value is int)
-            {
-                if (value != null)
-                {
-                    attribute.Value = value.ToString();
-                }
-            }
-        }
-
       
+      
+
 
         /// <summary>
         /// Calls the iodd2aml Converter using <see cref="System.Reflection"/>
