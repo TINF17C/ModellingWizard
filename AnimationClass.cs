@@ -90,7 +90,7 @@ namespace Aml.Editor.Plugin
             }
         }
        // method for opening IEC-CDD urls 
-       public void SemanticSystemOpener(string btnText)
+       public void ManualOpener(string btnText)
         {
             
             string mainUrl = "https://cdd.iec.ch/CDD/IEC62683/iec62683.nsf/PropertiesAllVersions/0112-2---62683%23";
