@@ -22,8 +22,8 @@ namespace Aml.Editor.Plugin
     class SearchAMLLibraryFile
     {
         /// <summary>
-        /// These are the properties iof this class i.e. dictionaries where all attribute values from AML file are strored and#
-        /// further retrived in "Device Description Class" to edi values by user.
+        /// These are the properties of this class i.e. dictionaries where all attribute values from AML file are strored and#
+        /// further retrived in "Device Description Class" to edit values by user.
         /// </summary>
         /// 
         public Dictionary<string, string> DictioanryOfIDofInterfaceClassLibraryNodes { get; set; }
@@ -100,14 +100,21 @@ namespace Aml.Editor.Plugin
 
                     }
 
-
+                    
                 }
             }
 
         }
 
 
-
+        /// <summary>
+        /// This class is responsible to search for interface classes ´nested inside Interface classes and recursion of 
+        /// this interface classes.
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="referencedClassName"></param>
+        /// <param name="classType"></param>
+        /// <param name="classTypeSearchForReferencedClassName"></param>
         public void SearchForInterfaceClassesInsideInterfaceClass(CAEXDocument doc, string referencedClassName, InterfaceFamilyType classType,
            InterfaceFamilyType classTypeSearchForReferencedClassName)
         {
