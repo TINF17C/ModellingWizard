@@ -891,7 +891,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
-            attributeparameters.RefSemanticList = attributeType.RefSemantic;
+            attributeparameters.RefSemanticList = AttributeInAttribute.RefSemantic;
             attributeparameters.ReferencedClassName = classType.ReferencedClassName;
             attributeparameters.RefBaseClassPath = classType.RefBaseClassPath;
             attributeparameters.ID = classType.ID;

@@ -2602,7 +2602,7 @@ namespace Aml.Editor.Plugin
         {
             try
             {
-                //Size, Name, Style ändern...
+                //Size, Name, Style change...
                 Font Font;
                 
                 //For forground color
@@ -3154,14 +3154,87 @@ namespace Aml.Editor.Plugin
         {
             ClearHeaderTabPageValuesofgenericData();
             genericparametersAttrDataGridView.CurrentRow.Selected = true;
+
+            string attributeName = "";
+            string values = "";
+            string defaults = "";
+            string Units = "";
+            string datatype = "";
+
             if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                string attributeName = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-                string values = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-                string defaults = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string Units = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-                string datatype = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-                string semantics = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+                try
+                {
+                    if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value != null)
+                    {
+                        attributeName = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                {}
+
+                try
+                {
+                    if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value != null)
+                    {
+                         values = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+                try
+                {
+                    if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value != null)
+                    {
+                        defaults = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+                try
+                {
+                    if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value != null)
+                    {
+                         Units = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+                try
+                {
+                    if (genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value != null)
+                    {
+                        datatype = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+
+               
+
+                List<string> lists = new List<string>();
+                DataGridViewComboBoxCell dgvcbc = (DataGridViewComboBoxCell)genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5];
+                
+                foreach (var refsemantic in dgvcbc.Items)
+                {
+                    try
+                    {
+                        if (refsemantic != null)
+                        {
+                            lists.Add( refsemantic.ToString());
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                    
+                }
+               /* string semantics = genericparametersAttrDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();*/
 
 
 
@@ -3179,7 +3252,8 @@ namespace Aml.Editor.Plugin
                                 {
                                     if (item.Name.ToString() == attributeName)
                                     {
-
+                                        
+                                        
                                         genericDataDescriptionTxtBx.Text = item.Description;
                                         genericDataCopyrightTxtBx.Text = item.CopyRight;
                                         genericDataRefClassNameTxtBx.Text = item.ReferencedClassName;
@@ -3198,11 +3272,18 @@ namespace Aml.Editor.Plugin
                                                     {
                                                         if (item2.Name.ToString() == attributeName)
                                                         {
+                                                            item2.RefSemanticList.Remove();
                                                             item2.Name = attributeName;
                                                             item2.Value = values;
                                                             item2.Default = defaults;
                                                             item2.Unit = Units;
-                                                            item2.Semantic = semantics;
+                                                           
+                                                            foreach (var str in lists)
+                                                            {
+                                                                var refsems = item2.RefSemanticList.Append();
+                                                                refsems.CorrespondingAttributePath = str;
+                                                            }
+
                                                             item2.Description = genericDataDescriptionTxtBx.Text;
                                                             item2.CopyRight = genericDataCopyrightTxtBx.Text;
                                                             item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
@@ -3257,11 +3338,17 @@ namespace Aml.Editor.Plugin
                                                     {
                                                         if (item2.Name.ToString() == attributeName)
                                                         {
+                                                            item2.RefSemanticList.Remove();
                                                             item2.Name = attributeName;
                                                             item2.Value = values;
                                                             item2.Default = defaults;
                                                             item2.Unit = Units;
-                                                            item2.Semantic = semantics;
+                                                            
+                                                            foreach (var str in lists)
+                                                            {
+                                                                var refsems = item2.RefSemanticList.Append();
+                                                                refsems.CorrespondingAttributePath = str;
+                                                            }
                                                             item2.Description = genericDataDescriptionTxtBx.Text;
                                                             item2.CopyRight = genericDataCopyrightTxtBx.Text;
                                                             item2.ReferencedClassName = genericDataRefClassNameTxtBx.Text;
@@ -3292,15 +3379,85 @@ namespace Aml.Editor.Plugin
         {
             ClearHeaderTabPageValuesofElectricalInterfaces();
             elecInterAttDataGridView.CurrentRow.Selected = true;
+
+            string attributeName = "";
+            string values = "";
+            string defaults = "";
+            string Units = "";
+            string datatype = "";
+
+
             if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                string attributeName = elecInterAttDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-                string values = elecInterAttDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-                string defaults = elecInterAttDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string Units = elecInterAttDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-                string datatype = elecInterAttDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-                string semantics = elecInterAttDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+                try
+                {
+                    if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[0].Value != null)
+                    {
+                        attributeName = elecInterAttDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
 
+                try
+                {
+                    if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[1].Value != null)
+                    {
+                        values = elecInterAttDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+                try
+                {
+                    if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[2].Value != null)
+                    {
+                        defaults = elecInterAttDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+                try
+                {
+                    if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[3].Value != null)
+                    {
+                        Units = elecInterAttDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+                try
+                {
+                    if (elecInterAttDataGridView.Rows[e.RowIndex].Cells[4].Value != null)
+                    {
+                        datatype = elecInterAttDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    }
+                }
+                catch (Exception)
+                { }
+
+
+                List<string> lists = new List<string>();
+                DataGridViewComboBoxCell dgvcbc = (DataGridViewComboBoxCell)elecInterAttDataGridView.Rows[e.RowIndex].Cells[5];
+
+                foreach (var refsemantic in dgvcbc.Items)
+                {
+                    try
+                    {
+                        if (refsemantic != null)
+                        {
+                            lists.Add(refsemantic.ToString());
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                }
 
 
                 //if (Convert.ToBoolean(electricalInterfacesCollectionDataGridView.CurrentRow.Cells[3].Value) == false)
@@ -3337,11 +3494,19 @@ namespace Aml.Editor.Plugin
                                                     {
                                                         if (item2.Name.ToString() == attributeName)
                                                         {
+                                                            item2.RefSemanticList.Remove();
                                                             item2.Name = attributeName;
                                                             item2.Value = values;
                                                             item2.Default = defaults;
                                                             item2.Unit = Units;
-                                                            item2.Semantic = semantics;
+
+                                                           
+                                                            foreach (var str in lists)
+                                                            {
+                                                                var refsems = item2.RefSemanticList.Append();
+                                                                refsems.CorrespondingAttributePath = str;
+                                                            }
+
                                                             item2.Description = descriptionTxtBoxElecAttri.Text;
                                                             item2.CopyRight = copyrightTxtBxElecAttri.Text;
                                                             item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;
@@ -3397,11 +3562,17 @@ namespace Aml.Editor.Plugin
                                                     {
                                                         if (item2.Name.ToString() == attributeName)
                                                         {
+                                                            item2.RefSemanticList.Remove();
                                                             item2.Name = attributeName;
                                                             item2.Value = values;
                                                             item2.Default = defaults;
                                                             item2.Unit = Units;
-                                                            item2.Semantic = semantics;
+                                                            
+                                                            foreach (var str in lists)
+                                                            {
+                                                                var refsems = item2.RefSemanticList.Append();
+                                                                refsems.CorrespondingAttributePath = str;
+                                                            }
                                                             item2.Description = descriptionTxtBoxElecAttri.Text;
                                                             item2.CopyRight = copyrightTxtBxElecAttri.Text;
                                                             item2.ReferencedClassName = RefClassNameTxtBxElecAttri.Text;

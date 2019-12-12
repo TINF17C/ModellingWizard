@@ -233,6 +233,14 @@ namespace Aml.Editor.Plugin
 
                                         eachattribute.ID = item.ID;
 
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                                            
+                                        }
+
+
 
                                         SRC.RefRoleClassPath = item.SupportesRoleClassType;
 
@@ -256,6 +264,13 @@ namespace Aml.Editor.Plugin
                                 eachattribute.Copyright = item.CopyRight;
                                 
                                 eachattribute.ID = item.ID;
+
+                               
+                                foreach (var val in item.RefSemanticList.Elements)
+                                {
+                                    var refsem = eachattribute.RefSemantic.Append();
+                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                                }
 
 
                                 SRC.RefRoleClassPath = item.SupportesRoleClassType;
@@ -434,7 +449,12 @@ namespace Aml.Editor.Plugin
 
                                         eachattribute.ID = item.ID;
 
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
 
+                                        }
 
                                         electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
 
@@ -459,7 +479,12 @@ namespace Aml.Editor.Plugin
 
                                 eachattribute.ID = item.ID;
 
+                                foreach (var val in item.RefSemanticList.Elements)
+                                {
+                                    var refsem = eachattribute.RefSemantic.Append();
+                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
 
+                                }
 
                                 electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
                             }
@@ -534,7 +559,12 @@ namespace Aml.Editor.Plugin
 
                                                 eachattribute.ID = item.ID;
 
+                                                foreach (var val in item.RefSemanticList.Elements)
+                                                {
+                                                    var refsem = eachattribute.RefSemantic.Append();
+                                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
 
+                                                }
 
                                                 electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
 
@@ -559,7 +589,12 @@ namespace Aml.Editor.Plugin
 
                                         eachattribute.ID = item.ID;
 
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
 
+                                        }
 
                                         electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
                                     }
@@ -660,6 +695,12 @@ namespace Aml.Editor.Plugin
 
                     eachattribute.ID = item.ID;
 
+                    foreach (var val in item.RefSemanticList.Elements)
+                    {
+                        var refsem = eachattribute.RefSemantic.Append();
+                        refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                    }
+
 
                     SRC.RefRoleClassPath = item.SupportesRoleClassType;
                 }
@@ -688,7 +729,12 @@ namespace Aml.Editor.Plugin
                     eachattribute.Copyright = item.CopyRight;
 
                     eachattribute.ID = item.ID;
+                    foreach (var val in item.RefSemanticList.Elements)
+                    {
+                        var refsem = eachattribute.RefSemantic.Append();
+                        refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
 
+                    }
 
 
                     electricConnectorType.RefBaseClassPath = item.RefBaseClassPath;
