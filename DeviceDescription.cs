@@ -1073,6 +1073,11 @@ namespace Aml.Editor.Plugin
                                        
                                         foreach (var attribute in externalInterface.Attribute)
                                         {
+                                            if (attribute.Value.Contains("https://") || attribute.Value.Contains("http://") || attribute.Value.Contains("www") || attribute.Value.Contains("WWW"))
+                                            {
+                                                attachablesInfoDataGridView.Rows[num].Cells[1].Value = attribute.Value;
+                                                attachablesInfoDataGridView.Rows[num].Cells[2].Value = true;
+                                            }
 
                                             foreach (FileInfo fileInfo1 in directory.GetFiles())
                                             {

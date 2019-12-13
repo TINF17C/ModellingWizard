@@ -112,7 +112,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -160,7 +160,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -282,7 +282,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -330,7 +330,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -455,7 +455,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -500,7 +500,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;

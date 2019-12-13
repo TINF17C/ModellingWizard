@@ -311,7 +311,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            
+            attributeparameters.DataType = attributeType.AttributeDataType;
             // attributeparameters.Semantic = attributeType.RefSemantic;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
@@ -357,7 +357,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -628,7 +628,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -678,7 +678,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -839,7 +839,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
 
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -887,7 +887,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -1097,7 +1097,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = attributeType.Value;
             attributeparameters.Default = attributeType.DefaultValue;
             attributeparameters.Unit = attributeType.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = attributeType.AttributeDataType;
             attributeparameters.Description = attributeType.Description;
             attributeparameters.CopyRight = attributeType.Copyright;
             attributeparameters.AttributePath = attributeType.AttributePath;
@@ -1150,7 +1150,7 @@ namespace Aml.Editor.Plugin
             attributeparameters.Value = AttributeInAttribute.Value;
             attributeparameters.Default = AttributeInAttribute.DefaultValue;
             attributeparameters.Unit = AttributeInAttribute.Unit;
-            // attributeparameters.Semantic = attributeType.RefSemantic;
+            attributeparameters.DataType = AttributeInAttribute.AttributeDataType;
             attributeparameters.Description = AttributeInAttribute.Description;
             attributeparameters.CopyRight = AttributeInAttribute.Copyright;
             attributeparameters.AttributePath = AttributeInAttribute.AttributePath;
@@ -1414,8 +1414,7 @@ namespace Aml.Editor.Plugin
                 TreeNode newnode;
                 if (item.ReferencedClassName != "")
                 {
-                   // DictioanryOfIDofInterfaceClassLibraryNodes.Add(item.Name.ToString(), item.ID.ToString());
-
+                   
                     referencedclassName = item.ReferencedClassName;
                     newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() + "{" + "Class:" + "  " + referencedclassName + "}", 1);
                     CheckForAttributesOfReferencedClassName(item);
@@ -1424,8 +1423,6 @@ namespace Aml.Editor.Plugin
                 }
                 else
                 {
-                   // DictioanryOfIDofInterfaceClassLibraryNodes.Add(item.Name.ToString(), item.ID.ToString());
-
                     newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 1);
                 }
 
@@ -1438,8 +1435,7 @@ namespace Aml.Editor.Plugin
                         TreeNode externalinterafcenode;
                         if (externalinterfaces.BaseClass!= null)
                         {
-                           // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterfaces.ToString(), externalinterfaces.ID.ToString());
-
+                           
                             referencedclassName = externalinterfaces.BaseClass.ToString();
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString() + "{" + "Class:" + "  " + referencedclassName + "}", 2);
                             externalinterafcenode.ForeColor = SystemColors.GrayText;
@@ -1449,8 +1445,6 @@ namespace Aml.Editor.Plugin
                         }
                         else
                         {
-                            //DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + externalinterfaces.ToString(), externalinterfaces.ID.ToString());
-
                             externalinterafcenode = newnode.Nodes.Add(externalinterfaces.ToString(), externalinterfaces.ToString(), 2);
                             externalinterafcenode.ForeColor = SystemColors.GrayText;
                         }
@@ -1490,9 +1484,7 @@ namespace Aml.Editor.Plugin
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString() , 2);
                         newnode.ForeColor = SystemColors.GrayText;
                     }
-                   // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + item.ToString(), item.ID.ToString());
-
-                   
+                  
 
                     PrintExternalInterfaceNodes(document, newnode, item, InterafceclassType);
                 }
@@ -1526,11 +1518,9 @@ namespace Aml.Editor.Plugin
                     {
                         newnode = oParentNode.Nodes.Add(item.ToString(), item.ToString(), 2);
                         newnode.ForeColor = SystemColors.GrayText;
-                        //CheckForAttributesOfReferencedClassNameofExternalIterface(RoleclassType, item);
+                       
                     }
-                    // DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString() + item.ToString(), item.ID.ToString());
-
-
+                   
 
                     PrintExternalInterfaceNodes(document, newnode, item, RoleclassType);
                 }

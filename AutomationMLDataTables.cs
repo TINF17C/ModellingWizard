@@ -67,7 +67,7 @@ namespace Aml.Editor.Plugin
                     DataGridViewName.Rows[num].Cells[1].Value = item.Value;
                     DataGridViewName.Rows[num].Cells[2].Value = item.Default;
                     DataGridViewName.Rows[num].Cells[3].Value = item.Unit;
-                    DataGridViewName.Rows[num].Cells[4].Value = null;
+                    DataGridViewName.Rows[num].Cells[4].Value = item.DataType;
                     try
                     {
                         foreach (var value in item.RefSemanticList.Elements)
@@ -136,7 +136,7 @@ namespace Aml.Editor.Plugin
                 row["Value"] = item.Values;
                 row["Default"] = item.Default;
                 row["Unit"] = item.Units;
-                row["DataType"] = null;
+                row["DataType"] = item.DataType;
                 row["Semantic"] = item.Semantic;
                 row["Reference"] = item.Reference;
                 row["Description"] = item.Description;

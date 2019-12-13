@@ -227,7 +227,7 @@ namespace Aml.Editor.Plugin
                                         eachattribute.Value = item.Value;
                                         eachattribute.DefaultValue = item.Default;
                                         eachattribute.Unit = item.Unit;
-                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.AttributeDataType = item.DataType;
                                         eachattribute.Description = item.Description;
                                         eachattribute.Copyright = item.CopyRight;
 
@@ -259,7 +259,7 @@ namespace Aml.Editor.Plugin
                                 eachattribute.Value = item.Value;
                                 eachattribute.DefaultValue = item.Default;
                                 eachattribute.Unit = item.Unit;
-                                //eachattribute.AttributeDataType = 
+                                eachattribute.AttributeDataType = item.DataType;
                                 eachattribute.Description = item.Description;
                                 eachattribute.Copyright = item.CopyRight;
                                 
@@ -443,7 +443,7 @@ namespace Aml.Editor.Plugin
                                         eachattribute.Value = item.Value;
                                         eachattribute.DefaultValue = item.Default;
                                         eachattribute.Unit = item.Unit;
-                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.AttributeDataType = item.DataType;
                                         eachattribute.Description = item.Description;
                                         eachattribute.Copyright = item.CopyRight;
 
@@ -473,7 +473,7 @@ namespace Aml.Editor.Plugin
                                 eachattribute.Value = item.Value;
                                 eachattribute.DefaultValue = item.Default;
                                 eachattribute.Unit = item.Unit;
-                                //eachattribute.AttributeDataType = 
+                                eachattribute.AttributeDataType = item.DataType;
                                 eachattribute.Description = item.Description;
                                 eachattribute.Copyright = item.CopyRight;
 
@@ -553,7 +553,7 @@ namespace Aml.Editor.Plugin
                                                 eachattribute.Value = item.Value;
                                                 eachattribute.DefaultValue = item.Default;
                                                 eachattribute.Unit = item.Unit;
-                                                //eachattribute.AttributeDataType = 
+                                                eachattribute.AttributeDataType = item.DataType;
                                                 eachattribute.Description = item.Description;
                                                 eachattribute.Copyright = item.CopyRight;
 
@@ -583,7 +583,7 @@ namespace Aml.Editor.Plugin
                                         eachattribute.Value = item.Value;
                                         eachattribute.DefaultValue = item.Default;
                                         eachattribute.Unit = item.Unit;
-                                        //eachattribute.AttributeDataType = 
+                                        eachattribute.AttributeDataType = item.DataType;
                                         eachattribute.Description = item.Description;
                                         eachattribute.Copyright = item.CopyRight;
 
@@ -689,7 +689,7 @@ namespace Aml.Editor.Plugin
                     eachattribute.Value = item.Value;
                     eachattribute.DefaultValue = item.Default;
                     eachattribute.Unit = item.Unit;
-                    //eachattribute.AttributeDataType = 
+                    eachattribute.AttributeDataType = item.DataType;
                     eachattribute.Description = item.Description;
                     eachattribute.Copyright = item.CopyRight;
 
@@ -724,7 +724,7 @@ namespace Aml.Editor.Plugin
                     eachattribute.Value = item.Value;
                     eachattribute.DefaultValue = item.Default;
                     eachattribute.Unit = item.Unit;
-                    //eachattribute.AttributeDataType = 
+                    eachattribute.AttributeDataType = item.DataType;
                     eachattribute.Description = item.Description;
                     eachattribute.Copyright = item.CopyRight;
 

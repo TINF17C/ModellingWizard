@@ -24,6 +24,7 @@ namespace Aml.Editor.Plugin
         public string ReferencedClassName { get; set; }
         public CAEXSequence<RefSemanticType> RefSemanticList { get; set; }
         public string SupportesRoleClassType { get; set; }
+        public string DataType { get; set; }
 
 
         //public List<ClassOfListsFromReferencefile> listofparameters { get; set; }
@@ -38,7 +39,7 @@ namespace Aml.Editor.Plugin
             string reference, string description, 
             string copyRight, string semantic, string 
             attributePath, string refBaseClassPath, 
-            string id, string referencedClassName, CAEXSequence<RefSemanticType> refSemanticList, string supportesRoleClassType)
+            string id, string referencedClassName, CAEXSequence<RefSemanticType> refSemanticList, string supportesRoleClassType, string dataType)
             : this()
         {
             this.Name = name;
@@ -55,6 +56,7 @@ namespace Aml.Editor.Plugin
             this.ReferencedClassName = referencedClassName;
             this.RefSemanticList = refSemanticList;
             this.SupportesRoleClassType = supportesRoleClassType;
+            this.DataType = dataType;
 
         }
 
@@ -62,7 +64,7 @@ namespace Aml.Editor.Plugin
         {
             return "ClassOfListsFromReferencefile("+Name+"="+Value+"="+Default+"="+Unit+"="+Reference+"="
                 +Description+"="+CopyRight+"="+Semantic+"="+AttributePath+ "=" + RefBaseClassPath + "=" + ID
-                + "=" + ReferencedClassName + "=" + RefSemanticList + "=" + SupportesRoleClassType + ")";
+                + "=" + ReferencedClassName + "=" + RefSemanticList + "=" + SupportesRoleClassType + "=" + DataType + ")";
         }
 
 
