@@ -74,8 +74,18 @@
                         <TextBlock Margin="15,0,0,0">
                             <Run FontWeight="Bold" Text="DHBW Stuttgart" />
                         </TextBlock>
+                        <TextBlock Margin="15,0,0,0">
+                            <Run  Text="and" />
+                        </TextBlock>
+                        <TextBlock Margin="15,0,0,0">
+                            <Run FontWeight="Bold" Text="Master Student Raj Kumar Pulaparthi" />
+                        </TextBlock>
+                        <TextBlock Margin="15,0,0,0">
+                            <Run FontWeight="Bold" Text="Otto-von-Guericke University Magdeburg" />
+                        </TextBlock>
 
                         <TextBlock Margin="15,5,0,10" Text="This Plugin was created as a group project in the class &quot;Software Engineering&quot;" />
+                        <TextBlock Margin="15,5,0,10" Text="Later this plugin was developed as a sample tool that create vendor independent &#x0a;automation component, and included as part of Master Thesis &quot;" />
 
 
                         <Border Margin="0,2,0,2" BorderThickness="0,2,0,0">
