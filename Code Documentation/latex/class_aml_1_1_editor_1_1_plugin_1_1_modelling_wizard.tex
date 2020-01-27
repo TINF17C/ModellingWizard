@@ -1,0 +1,357 @@
+\hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}{}\doxysection{Aml.\+Editor.\+Plugin.\+Modelling\+Wizard Class Reference}
+\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+
+
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}{Modelling\+Wizard}} is an Plug\+In, which implements the I\+A\+M\+L\+Editor\+View Interface.  
+
+
+Inheritance diagram for Aml.\+Editor.\+Plugin.\+Modelling\+Wizard\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a85e08850a3ce8148f119f8e3d14f6d02}{Modelling\+Wizard}} ()
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a26f6f59bc82891ccc525e509720d5302}{Change\+A\+M\+L\+File\+Path}} (string aml\+File\+Path)
+\begin{DoxyCompactList}\small\item\em Changes the current aml\+File\+Path. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a467688bd862ea1e99e204f6d3735ed1d}{Change\+Selected\+Object}} (C\+A\+E\+X\+Basic\+Object selected\+Object)
+\begin{DoxyCompactList}\small\item\em Changes the selected object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4dc6bf714b86a1d9be420637c23a1307}{Execute\+Command}} (Plugin\+Commands\+Enum command, string aml\+File\+Path)
+\begin{DoxyCompactList}\small\item\em This Method is called from the Automation\+ML \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} to execute a specific command. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_acedb8a1abb912c96703fd73d3267bcea}{Publish\+Automation\+M\+L\+File\+And\+Object}} (string aml\+File\+Path, C\+A\+E\+X\+Basic\+Object selected\+Object)
+\begin{DoxyCompactList}\small\item\em This Method is called on activation of a Plug\+In. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3426aa766858f85fbdcdc6f3cfe92dc1}{change\+G\+UI}} (System.\+Windows.\+Forms.\+Control content)
+\begin{DoxyCompactList}\small\item\em Replace the Content in the \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}} window with the Windows Forms G\+UI \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Dock\+Position\+Enum \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ad191779a3806423c951cf6839300c6e9}{Initial\+Dock\+Position}} =$>$ Dock\+Position\+Enum.\+Floating
+\begin{DoxyCompactList}\small\item\em Gets the initial dock position for the Plug\+In window. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a333ba75a3b713bdbae46969df659d06b}{Package\+Name}} =$>$ \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em Gets the package name which is used to download the Plug\+In package from a Nu\+Get feed. \end{DoxyCompactList}\item 
+Bitmap\+Image \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ae6285059764c32a912289a8f0c97262d}{Pane\+Image}} =$>$ null
+\begin{DoxyCompactList}\small\item\em Gets the image which should be used in the Header of the Plug\+In window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+System.\+Windows.\+Input.\+I\+Command?? \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ac767be8789446b8040a0d7fd9a8eb283}{About\+Command}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The About\+Command -\/ Command \end{DoxyCompactList}\item 
+Plugin\+Command \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a68418cf3879299385765d352ffc4731b}{Activate\+Plugin}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the Command to activate the Plug\+In. \end{DoxyCompactList}\item 
+Plugin\+Command \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4311a3ca5fb875e5035bc029291e5920}{Reload\+Objects}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the Command to reload the A\+M\+LX Files in . \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2f1de7716c88ed7de9cf7f716a0d4f76}{Can\+Close}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether this User\+Control could be closed from the \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}}\textquotesingle{}s Window\+Manager. \end{DoxyCompactList}\item 
+List$<$ Plugin\+Command $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_aa92890be9446ee5c87cc91739e41a5f0}{Commands}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the List of commands, which are viewed in the Plug\+In Menu in the Host Application \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6d63f793ebaa384ba4bbf9903f06fdaa}{Display\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the display name which is shown in the Plug\+In Menu in the Host Application \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2bd037ce5c76ad9051a995400e28a75e}{Is\+Active}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether this instance is active. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6b3b6e17a0159a4c6045c2b8751e2fc5}{Is\+Reactive}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether this instance is reactive. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9700716878b0e98f507d30b396e2872f}{Is\+Readonly}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether this instance is read only. \end{DoxyCompactList}\item 
+Plugin\+Command \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a1754b39a06b47d1b1f9010f6bcbbffde}{Terminate\+Plugin}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the terminate Plug\+In command. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9ff5d55c0dd2f4113e5a9d41b5418c4a}{Is\+Auto\+Active}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets a value indicating whether this instance is automatic active when loaded. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Event\+Handler \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a5acb66f94a2026857791dcb495e200df}{Plugin\+Activated}}
+\begin{DoxyCompactList}\small\item\em Occurs when the Plug\+In is activated (for example via the Start\+Command ). \end{DoxyCompactList}\item 
+Event\+Handler \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3da02aecef3324c9c3b65a1b8fa73f6c}{Plugin\+Terminated}}
+\begin{DoxyCompactList}\small\item\em Occurs when the Plug\+In is deactivated (some User\+Interaction inside the Plug\+In or via the Stop\+Command ). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}{Modelling\+Wizard}} is an Plug\+In, which implements the I\+A\+M\+L\+Editor\+View Interface. 
+
+The Plug\+In is a User\+Control, which is managed by the Automation\+ML Editors Window-\/ and Docking -\/ Manager. The Export Attribute enables the Automation\+ML \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} to load the Plug\+In with the \href{http://msdn.microsoft.com/en-us/library/dd460648\%28v=vs.110\%29.aspx}{\texttt{ Microsoft Managed Extensibility Framework}}.
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a85e08850a3ce8148f119f8e3d14f6d02}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a85e08850a3ce8148f119f8e3d14f6d02}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ModellingWizard@{ModellingWizard}}
+\index{ModellingWizard@{ModellingWizard}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ModellingWizard()}{ModellingWizard()}}
+{\footnotesize\ttfamily Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Modelling\+Wizard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a26f6f59bc82891ccc525e509720d5302}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a26f6f59bc82891ccc525e509720d5302}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ChangeAMLFilePath@{ChangeAMLFilePath}}
+\index{ChangeAMLFilePath@{ChangeAMLFilePath}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ChangeAMLFilePath()}{ChangeAMLFilePath()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Change\+A\+M\+L\+File\+Path (\begin{DoxyParamCaption}\item[{string}]{aml\+File\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Changes the current aml\+File\+Path. 
+
+The Host Application will call this method when the Plug\+Ins P\+:\+Aml.\+Editor.\+Plugin.\+Contracts.\+I\+A\+M\+L\+Editor\+Plugin.\+Is\+Reactive Property is set to true and the Currently opened Automation\+ML File changes in the A\+M\+L\+Editor Host Application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em aml\+File\+Path} & The Path to the current A\+ML File in the A\+ML \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}}.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3426aa766858f85fbdcdc6f3cfe92dc1}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3426aa766858f85fbdcdc6f3cfe92dc1}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!changeGUI@{changeGUI}}
+\index{changeGUI@{changeGUI}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{changeGUI()}{changeGUI()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+change\+G\+UI (\begin{DoxyParamCaption}\item[{System.\+Windows.\+Forms.\+Control}]{content }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Replace the Content in the \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}} window with the Windows Forms G\+UI 
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The Form to be displayed in the plugin window\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a467688bd862ea1e99e204f6d3735ed1d}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a467688bd862ea1e99e204f6d3735ed1d}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ChangeSelectedObject@{ChangeSelectedObject}}
+\index{ChangeSelectedObject@{ChangeSelectedObject}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ChangeSelectedObject()}{ChangeSelectedObject()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Change\+Selected\+Object (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Basic\+Object}]{selected\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Changes the selected object. 
+
+The Host Application will call this method when the Plug\+Ins P\+:\+Aml.\+Editor.\+Plugin.\+Contracts.\+I\+A\+M\+L\+Editor\+Plugin.\+Is\+Reactive Property is set to true and the Current Selection changes in the A\+M\+L\+Editor Host Application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em selected\+Object} & The selected C\+A\+EX -\/ object.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4dc6bf714b86a1d9be420637c23a1307}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4dc6bf714b86a1d9be420637c23a1307}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ExecuteCommand@{ExecuteCommand}}
+\index{ExecuteCommand@{ExecuteCommand}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ExecuteCommand()}{ExecuteCommand()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Execute\+Command (\begin{DoxyParamCaption}\item[{Plugin\+Commands\+Enum}]{command,  }\item[{string}]{aml\+File\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This Method is called from the Automation\+ML \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} to execute a specific command. 
+
+The \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} can only execute those commands, which are identified by the Plugin\+Commands\+Enum Enumeration. The \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} may execute the termination command of the Plug\+In, so here some preparations for a clean termination should be performed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command.\\
+\hline
+{\em aml\+File\+Path} & The aml\+File\+Path.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_acedb8a1abb912c96703fd73d3267bcea}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_acedb8a1abb912c96703fd73d3267bcea}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!PublishAutomationMLFileAndObject@{PublishAutomationMLFileAndObject}}
+\index{PublishAutomationMLFileAndObject@{PublishAutomationMLFileAndObject}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{PublishAutomationMLFileAndObject()}{PublishAutomationMLFileAndObject()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Publish\+Automation\+M\+L\+File\+And\+Object (\begin{DoxyParamCaption}\item[{string}]{aml\+File\+Path,  }\item[{C\+A\+E\+X\+Basic\+Object}]{selected\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This Method is called on activation of a Plug\+In. 
+
+The Automation\+ML \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}} \textquotesingle{}publishes\textquotesingle{} its current state to the Plug\+In, that is the Path of the loaded Automation\+ML Document and the currently selected Automation\+ML Object\textquotesingle{}. Please note, that the objects may be empty or null.
+
+
+\begin{DoxyParams}{Parameters}
+{\em aml\+File\+Path} & The A\+ML file path, may be empty.\\
+\hline
+{\em selected\+Object} & The selected object, may be null.\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ad191779a3806423c951cf6839300c6e9}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ad191779a3806423c951cf6839300c6e9}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!InitialDockPosition@{InitialDockPosition}}
+\index{InitialDockPosition@{InitialDockPosition}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{InitialDockPosition}{InitialDockPosition}}
+{\footnotesize\ttfamily Dock\+Position\+Enum Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Initial\+Dock\+Position =$>$ Dock\+Position\+Enum.\+Floating}
+
+
+
+Gets the initial dock position for the Plug\+In window. 
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a333ba75a3b713bdbae46969df659d06b}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a333ba75a3b713bdbae46969df659d06b}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!PackageName@{PackageName}}
+\index{PackageName@{PackageName}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{PackageName}{PackageName}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Package\+Name =$>$ \char`\"{}\char`\"{}}
+
+
+
+Gets the package name which is used to download the Plug\+In package from a Nu\+Get feed. 
+
+If a Package name is defined, the A\+M\+L\+Editor can update Plug\+In packages independently from its own update cycle.
+
+The package name. \mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ae6285059764c32a912289a8f0c97262d}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ae6285059764c32a912289a8f0c97262d}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!PaneImage@{PaneImage}}
+\index{PaneImage@{PaneImage}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{PaneImage}{PaneImage}}
+{\footnotesize\ttfamily Bitmap\+Image Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Pane\+Image =$>$ null}
+
+
+
+Gets the image which should be used in the Header of the Plug\+In window. 
+
+If no image is defined the editor uses a default image.
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ac767be8789446b8040a0d7fd9a8eb283}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_ac767be8789446b8040a0d7fd9a8eb283}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!AboutCommand@{AboutCommand}}
+\index{AboutCommand@{AboutCommand}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{AboutCommand}{AboutCommand}}
+{\footnotesize\ttfamily System.\+Windows.\+Input.\+I\+Command?? Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+About\+Command\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The About\+Command -\/ Command 
+
+The about command.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a68418cf3879299385765d352ffc4731b}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a68418cf3879299385765d352ffc4731b}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ActivatePlugin@{ActivatePlugin}}
+\index{ActivatePlugin@{ActivatePlugin}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ActivatePlugin}{ActivatePlugin}}
+{\footnotesize\ttfamily Plugin\+Command Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Activate\+Plugin\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the Command to activate the Plug\+In. 
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2f1de7716c88ed7de9cf7f716a0d4f76}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2f1de7716c88ed7de9cf7f716a0d4f76}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!CanClose@{CanClose}}
+\index{CanClose@{CanClose}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{CanClose}{CanClose}}
+{\footnotesize\ttfamily bool Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Can\+Close\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether this User\+Control could be closed from the \mbox{\hyperlink{namespace_aml_1_1_editor}{Editor}}\textquotesingle{}s Window\+Manager. 
+
+When a close occurs from the Window\+Manager, the Stop\+Command will be executed via the \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4dc6bf714b86a1d9be420637c23a1307}{Execute\+Command}} Method.
+
+{\ttfamily true} if this instance can close; otherwise, {\ttfamily false}.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_aa92890be9446ee5c87cc91739e41a5f0}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_aa92890be9446ee5c87cc91739e41a5f0}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!Commands@{Commands}}
+\index{Commands@{Commands}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{Commands}{Commands}}
+{\footnotesize\ttfamily List$<$Plugin\+Command$>$ Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Commands\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the List of commands, which are viewed in the Plug\+In Menu in the Host Application 
+
+The command List.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6d63f793ebaa384ba4bbf9903f06fdaa}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6d63f793ebaa384ba4bbf9903f06fdaa}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!DisplayName@{DisplayName}}
+\index{DisplayName@{DisplayName}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{DisplayName}{DisplayName}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Display\+Name\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the display name which is shown in the Plug\+In Menu in the Host Application 
+
+The display name.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2bd037ce5c76ad9051a995400e28a75e}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a2bd037ce5c76ad9051a995400e28a75e}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!IsActive@{IsActive}}
+\index{IsActive@{IsActive}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{IsActive}{IsActive}}
+{\footnotesize\ttfamily bool Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Is\+Active\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether this instance is active. 
+
+The Property should be set to true in the Start\+Command and set to false in the Stop\+Command
+
+{\ttfamily true} if this instance is active; otherwise, {\ttfamily false}.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9ff5d55c0dd2f4113e5a9d41b5418c4a}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9ff5d55c0dd2f4113e5a9d41b5418c4a}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!IsAutoActive@{IsAutoActive}}
+\index{IsAutoActive@{IsAutoActive}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{IsAutoActive}{IsAutoActive}}
+{\footnotesize\ttfamily bool Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Is\+Auto\+Active\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Gets or sets a value indicating whether this instance is automatic active when loaded. 
+
+This value can be initially set and will be defined by the user.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6b3b6e17a0159a4c6045c2b8751e2fc5}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a6b3b6e17a0159a4c6045c2b8751e2fc5}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!IsReactive@{IsReactive}}
+\index{IsReactive@{IsReactive}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{IsReactive}{IsReactive}}
+{\footnotesize\ttfamily bool Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Is\+Reactive\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether this instance is reactive. 
+
+Reactive Plug\+In will be notified, when the actual C\+A\+E\+X-\/\+Object changes (Selection of the Tree view Item) \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a26f6f59bc82891ccc525e509720d5302}{Change\+A\+M\+L\+File\+Path}} and \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a467688bd862ea1e99e204f6d3735ed1d}{Change\+Selected\+Object}}.
+
+{\ttfamily true} if this instance is reactive; otherwise, {\ttfamily false}.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9700716878b0e98f507d30b396e2872f}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a9700716878b0e98f507d30b396e2872f}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!IsReadonly@{IsReadonly}}
+\index{IsReadonly@{IsReadonly}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{IsReadonly}{IsReadonly}}
+{\footnotesize\ttfamily bool Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Is\+Readonly\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether this instance is read only. 
+
+A Read only Plug\+In should not change any C\+A\+EX Objects.
+
+{\ttfamily true} if this instance is read only; otherwise, {\ttfamily false}. \mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4311a3ca5fb875e5035bc029291e5920}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a4311a3ca5fb875e5035bc029291e5920}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!ReloadObjects@{ReloadObjects}}
+\index{ReloadObjects@{ReloadObjects}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{ReloadObjects}{ReloadObjects}}
+{\footnotesize\ttfamily Plugin\+Command Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Reload\+Objects\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the Command to reload the A\+M\+LX Files in . 
+
+/modellingwizard/\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a1754b39a06b47d1b1f9010f6bcbbffde}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a1754b39a06b47d1b1f9010f6bcbbffde}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!TerminatePlugin@{TerminatePlugin}}
+\index{TerminatePlugin@{TerminatePlugin}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{TerminatePlugin}{TerminatePlugin}}
+{\footnotesize\ttfamily Plugin\+Command Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Terminate\+Plugin\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the terminate Plug\+In command. 
+
+
+
+\doxysubsection{Event Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a5acb66f94a2026857791dcb495e200df}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a5acb66f94a2026857791dcb495e200df}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!PluginActivated@{PluginActivated}}
+\index{PluginActivated@{PluginActivated}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{PluginActivated}{PluginActivated}}
+{\footnotesize\ttfamily Event\+Handler Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Plugin\+Activated}
+
+
+
+Occurs when the Plug\+In is activated (for example via the Start\+Command ). 
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3da02aecef3324c9c3b65a1b8fa73f6c}\label{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard_a3da02aecef3324c9c3b65a1b8fa73f6c}} 
+\index{Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}!PluginTerminated@{PluginTerminated}}
+\index{PluginTerminated@{PluginTerminated}!Aml.Editor.Plugin.ModellingWizard@{Aml.Editor.Plugin.ModellingWizard}}
+\doxysubsubsection{\texorpdfstring{PluginTerminated}{PluginTerminated}}
+{\footnotesize\ttfamily Event\+Handler Aml.\+Editor.\+Plugin.\+Modelling\+Wizard.\+Plugin\+Terminated}
+
+
+
+Occurs when the Plug\+In is deactivated (some User\+Interaction inside the Plug\+In or via the Stop\+Command ). 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_modelling_wizard_8xaml_8cs}{Modelling\+Wizard.\+xaml.\+cs}}\end{DoxyCompactItemize}

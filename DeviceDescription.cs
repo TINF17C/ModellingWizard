@@ -24,19 +24,42 @@ namespace Aml.Editor.Plugin
 {
     public partial class DeviceDescription : UserControl
     {
+        /// <summary>
+        /// These are private fields of this class.
+        /// </summary>
         private MWController mWController;
         private MWData.MWFileType filetype;
 
 
         bool isEditing = false;
+
+        /// <summary>
+        /// Instance of Animation Class is created.
+        /// </summary>
         AnimationClass AMC = new AnimationClass();
+
+        /// <summary>
+        /// Instance of SearchforAMLLibraryFile is created.
+        /// This class search for "Interface Class Libraries" and "Role Class Libraries" in AML file loaded by user into plugin.
+        /// </summary>
         SearchAMLLibraryFile searchAMLLibraryFile = new SearchAMLLibraryFile();
+
+        /// <summary>
+        /// Instance of "SearchAMLComponentFile" is created
+        /// This class search for "System Unit Class Libraries"  in AML Component  file loaded by user into plugin. 
+        /// </summary>
         SearchAMLComponentFile searchAMLComponentFile = new SearchAMLComponentFile();
+
+        /// <summary>
+        /// Instance of MWDevice Class
+        /// </summary>
         MWDevice device = new MWDevice();
 
         
 
-
+        /// <summary>
+        /// Constructor with no arguments that intilizes Device Description GUI
+        /// </summary>
         public DeviceDescription()
         {
             InitializeComponent();
@@ -44,14 +67,23 @@ namespace Aml.Editor.Plugin
            
         }
 
+        /// <summary>
+        /// This is a constructor of this class with MWControlle rargument. 
+        /// </summary>
+        /// <param name="mWController"></param>
         public DeviceDescription(MWController mWController)
         {
             this.mWController = mWController;
             InitializeComponent();
 
+            // After intialization of this GUI, plugin all this function to load Standard Libraries.  
             loadStandardLibrary();
+
+            // This Function look for "AutomationComponent" Role and assign it to "Generic Data Tab" as a compulsary role along with attributes.
             checkForAutomtionComponent();
 
+            // These are the dictionaries created in MWDevice Class to store attributes inside them.
+            //These dictionaries are initiated as new dictionaries in here.
             device.DictionaryForInterfaceClassesInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
 
@@ -60,75 +92,105 @@ namespace Aml.Editor.Plugin
 
         }
 
+        /// <summary>
+        /// This function loads "Interface Class Libraries" and"Role Class Libraries" from already defined libaraies in plugin or, 
+        /// libraries from the AML file those user want ot load from local machine.
+        /// </summary>
         public void loadStandardLibrary()
         {
             CAEXDocument doc = null;
+
+            // These library already come along with plugin. This library is loaded into GUI automaticcally by plugin.
             doc = CAEXDocument.LoadFromBinary(Properties.Resources.AutomationComponentLibrary_v1_0_0_Full);
+
+            //Following newly initiated dictionaries store "Interface Classes and its attributes" and "Role Classes and its attributes" of loaded file
+            //in the respective libraries.
+
+            //(Note:- This libaray is not used at all)
             searchAMLLibraryFile.dictionaryofRoleClassattributes = new Dictionary<string, List<ClassOfListsFromReferencefile>>();
 
+
+            // These are the main libraraies used.
             searchAMLLibraryFile.DictionaryForInterfaceClassInstancesAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             searchAMLLibraryFile.DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
 
             searchAMLLibraryFile.DictionaryForRoleClassInstanceAttributes = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
             searchAMLLibraryFile.DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib = new Dictionary<string, List<List<ClassOfListsFromReferencefile>>>();
 
+
+        //(´Note:- This library is not used ata all.)
             searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes = new Dictionary<string, string>();
 
+            // These are the tree hierarchies in the GUI, which has to be cleared all during intiation of plugin.
             treeViewRoleClassLib.Nodes.Clear();
             treeViewInterfaceClassLib.Nodes.Clear();
 
-           
-
-           // if (open.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                   
-
-
+                    // This is a string variable that store the name of the "referenced name" of each "Interface Class in ICL of loaded file"
+                    // and/or "Referenced name" of each "Role Class in RCL of loaded file" 
                     string referencedClassName = "";
+
+                    // This foreach loop look into every individual "Role Class libaray" in RCL in the loaded file. 
                     foreach (var classLibType in doc.CAEXFile.RoleClassLib)
                     {
-
+                        // This Populate Role Class Tree Node in GUI
                         TreeNode libNode = treeViewRoleClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(), 0);
 
-
+                        // This foreach loop looks inside the individual "Role Class" 
                         foreach (var classType in classLibType.RoleClass)
                         {
+
                             TreeNode roleNode;
 
+                            // This If loop check for the "refernced name" of each role class.
                             if (classType.ReferencedClassName != "")
                             {
+                                //Store "referenced name" in the String that declared above "referencedClassName"
                                 referencedClassName = classType.ReferencedClassName;
+                                // Print the role  node
                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
 
+                                // Search for the "refernced name" (This referenced name will be as an "Role Class" in the RCL).....
+                                //.....in the whole RCL to find the attribute behind it and also its further "referenced name"
                                 searchAMLLibraryFile.SearchForReferencedClassName(doc, referencedClassName, classType);
+                                //This method is responsible to check attributes of referenced Class
                                 searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
 
                             }
+                            // If there is no "Referenced Class name" then just print the name in GUI.
                             else
                             {
                                 roleNode = libNode.Nodes.Add(classType.ToString(), classType.ToString(), 1);
                             }
 
 
-
+                            // This If loop check for the "ExternalInterface" under each role class.
                             if (classType.ExternalInterface.Exists)
                             {
+                                // This foreach loop look for number of "ExternalInterfaces" under "Role Class"
                                 foreach (var externalinterface in classType.ExternalInterface)
                                 {
                                     TreeNode externalinterfacenode;
 
+                                    // This If loop check for the "refernced name" of each externalinterface.
                                     if (externalinterface.BaseClass != null)
                                     {
                                         referencedClassName = externalinterface.BaseClass.ToString();
                                         externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 2);
                                         externalinterfacenode.ForeColor = SystemColors.GrayText;
+
+                                        //This method is responsible to check for "Referenced Class Name" of "External Interfaces" under the "Role Class"
                                         searchAMLLibraryFile.SearchForReferencedClassNameofExternalIterface(doc, referencedClassName, classType, externalinterface);
+
+                                        // This Function is responsible to search attributes under the "Referenced Classs Name" i.e. in this part "RoleFamilyType"
                                         searchAMLLibraryFile.CheckForAttributesOfReferencedClassNameofExternalIterface(classType, externalinterface);
 
 
                                     }
+                                    //Else directly print the node.
                                     else
                                     {
                                         externalinterfacenode = roleNode.Nodes.Add(externalinterface.ToString(), externalinterface.ToString(), 2);
@@ -136,36 +198,39 @@ namespace Aml.Editor.Plugin
                                     }
 
 
-
+                                    //This method is called to print "External Interfaces" in both "Role class Library and Interface Class Library" in the plugin.
                                     searchAMLLibraryFile.PrintExternalInterfaceNodes(doc, externalinterfacenode, externalinterface, classType);
                                 }
 
                             }
+                            //This method takes arguments "TreeNode" and "RoleFamilyType" to print tree nodes in "Role Class Library TreeView " in Plugin.
                             searchAMLLibraryFile.PrintNodesRecursiveInRoleClassLib(doc, roleNode, classType, referencedClassName);
                         }
 
                     }
 
-                   
-
-
                     foreach (var classLibType in doc.CAEXFile.InterfaceClassLib)
                     {
-                        // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classLibType.Name.ToString(), classLibType.ID.ToString());
+                        // Print a "Interface Class lib" treenode in GUI 
                         TreeNode libNode = treeViewInterfaceClassLib.Nodes.Add(classLibType.ToString(), classLibType.ToString(), 0);
 
 
-
+                        // for each "interface classlib" print chlid nodes of "Interface Classes"
                         foreach (var classType in classLibType.InterfaceClass)
                         {
+
                             TreeNode interfaceclassNode;
+                            //If "refernced Class Name" is not null
                             if (classType.ReferencedClassName != "")
                             {
-                                // searchAMLLibraryFile.DictioanryOfIDofInterfaceClassLibraryNodes.Add(classType.Name.ToString(), classType.ID.ToString());
+                                // Print Child node...
 
                                 referencedClassName = classType.ReferencedClassName;
                                 interfaceclassNode = libNode.Nodes.Add(classType.ToString(), classType.ToString() + "{" + "Class:" + "  " + referencedClassName + "}", 1);
+
+                                //This method search for "Referenced Class Name" "Interface Class"
                                 searchAMLLibraryFile.SearchForReferencedClassName(doc, referencedClassName, classType);
+                                //
                                 searchAMLLibraryFile.CheckForAttributesOfReferencedClassName(classType);
 
                             }

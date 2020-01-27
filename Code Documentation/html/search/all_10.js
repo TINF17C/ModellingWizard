@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['unit_172',['Unit',['../class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_data_grid_views.html#a7be0e6cafa4b934c86e6a0d5c44ee8cb',1,'Aml.Editor.Plugin.ClassOfListsFromDataGridViews.Unit()'],['../class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile.html#a9277f25074496cfaff11f041441e1ec9',1,'Aml.Editor.Plugin.ClassOfListsFromReferencefile.Unit()']]],
+  ['units_173',['Units',['../class_aml_1_1_editor_1_1_plugin_1_1_electrical_parameters_in_electrical_data_data_grid_view.html#a38a479b3e379cfdd431903504404d747',1,'Aml.Editor.Plugin.ElectricalParametersInElectricalDataDataGridView.Units()'],['../class_aml_1_1_editor_1_1_plugin_1_1_pin_parameters_in_pin_info_data_grid_view.html#ae1260c02a1e4e5a3f8a5dbace4df3192',1,'Aml.Editor.Plugin.PinParametersInPinInfoDataGridView.Units()'],['../class_aml_1_1_editor_1_1_plugin_1_1_electrical_interface_parameters.html#a7a76f3f614c194a2b9b9276000faf5d2',1,'Aml.Editor.Plugin.ElectricalInterfaceParameters.Units()']]]
+];

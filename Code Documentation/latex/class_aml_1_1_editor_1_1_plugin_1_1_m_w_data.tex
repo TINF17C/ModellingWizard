@@ -1,0 +1,239 @@
+\hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}{}\doxysection{Aml.\+Editor.\+Plugin.\+M\+W\+Data Class Reference}
+\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+Inheritance diagram for Aml.\+Editor.\+Plugin.\+M\+W\+Data\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_1_1_m_w_object}{M\+W\+Object}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}{M\+W\+File\+Type}} \{ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a39b9e3b34cacf78c2c21cf073949a2ad}{M\+W\+File\+Type.\+I\+O\+DD}}, 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a8e78dfecfc3872d38eb7f78c8427987a}{M\+W\+File\+Type.\+G\+SD}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a767c914fb975ac022140ea314fa8a425}{M\+W\+Data}} (\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller}{M\+W\+Controller}} m\+W\+Controller)
+\begin{DoxyCompactList}\small\item\em Create the \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}{M\+W\+Data}} Object \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a71cc9a3da731421b4b58bf0d5902471d}{Create\+Device}} (\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_device}{M\+W\+Device}} device, bool is\+Edit)
+\begin{DoxyCompactList}\small\item\em Create the A\+M\+LX File with the correct A\+ML File and optional pictures \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a27f6de7395f7fd5dbbddcbc3655dc35b}{Search\+For\+Attributes\+Inside\+Attributesof\+Automation\+Component}} (string search\+Name, Attribute\+Type attribute, \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} item, Supported\+Role\+Class\+Type S\+RC)
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a05f0351fc99bd19136a3fc6888506020}{Search\+Attributes\+Inside\+Attributes\+O\+F\+Electric\+Connector\+Type}} (string search\+Name, Attribute\+Type attribute, \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} item, External\+Interface\+Type electric\+Connector\+Type)
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a89057897b9fb2106ee38d14a2ff070aa}{interneturl}} (string url, string urltype, string externalname, System\+Unit\+Class\+Type system\+Unit\+Class)
+\begin{DoxyCompactList}\small\item\em Takes the url of the picture and setup in the value attribute of the corresponding internal element {\itshape pic} . \end{DoxyCompactList}\item 
+Uri \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_ac060052e0d94500e5ed2c3747790195e}{create\+Picture\+Ref}} (string pic, string pictype, string externalname, System\+Unit\+Class\+Type system\+Unit\+Class)
+\begin{DoxyCompactList}\small\item\em Creates the Structur to reference a picture and set the correct value {\itshape pic} . \end{DoxyCompactList}\item 
+Uri \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a3d43709c34fb4171f4999a72bfc439b2}{create\+Document\+Ref}} (string doc, string doctype, string externalname, System\+Unit\+Class\+Type system\+Unit\+Class)
+\begin{DoxyCompactList}\small\item\em Creates the Structur to reference a document and set the correct value {\itshape doc} . \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a9968abc7dcc16187dd2f604d8c3a927e}{Import\+I\+O\+D\+D2\+A\+ML}} (string filename)
+\begin{DoxyCompactList}\small\item\em Calls the iodd2aml Converter using System.\+Reflection the converted iodd will be saved in an amlx \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a629fe82e27f15bbd5616e78c1e3f41bb}{Import\+G\+S\+D2\+A\+ML}} (string filename)
+\begin{DoxyCompactList}\small\item\em Calls the gsd2aml Converter using System.\+Reflection the converted gsdml will be saved in an amlx \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a90291aedf55074223efa93204edb3dbb}{copy\+Files}} (string source\+File\+Path, string destination\+File\+Path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!MWFileType@{MWFileType}}
+\index{MWFileType@{MWFileType}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{MWFileType}{MWFileType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}{Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+M\+W\+File\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IODD@{IODD}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!IODD@{IODD}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a39b9e3b34cacf78c2c21cf073949a2ad}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a39b9e3b34cacf78c2c21cf073949a2ad}} 
+I\+O\+DD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GSD@{GSD}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!GSD@{GSD}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a8e78dfecfc3872d38eb7f78c8427987a}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233a8e78dfecfc3872d38eb7f78c8427987a}} 
+G\+SD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a767c914fb975ac022140ea314fa8a425}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a767c914fb975ac022140ea314fa8a425}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!MWData@{MWData}}
+\index{MWData@{MWData}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{MWData()}{MWData()}}
+{\footnotesize\ttfamily Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+M\+W\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller}{M\+W\+Controller}}}]{m\+W\+Controller }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create the \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}{M\+W\+Data}} Object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m\+W\+Controller} & the \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller}{M\+W\+Controller}} to report to\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a90291aedf55074223efa93204edb3dbb}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a90291aedf55074223efa93204edb3dbb}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!copyFiles@{copyFiles}}
+\index{copyFiles@{copyFiles}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{copyFiles()}{copyFiles()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+copy\+Files (\begin{DoxyParamCaption}\item[{string}]{source\+File\+Path,  }\item[{string}]{destination\+File\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a71cc9a3da731421b4b58bf0d5902471d}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a71cc9a3da731421b4b58bf0d5902471d}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!CreateDevice@{CreateDevice}}
+\index{CreateDevice@{CreateDevice}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{CreateDevice()}{CreateDevice()}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+Create\+Device (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_device}{M\+W\+Device}}}]{device,  }\item[{bool}]{is\+Edit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create the A\+M\+LX File with the correct A\+ML File and optional pictures 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device} & The device which will be created\\
+\hline
+{\em is\+Edit} & true if an amlx file get update, false if a new file will be created\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a3d43709c34fb4171f4999a72bfc439b2}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a3d43709c34fb4171f4999a72bfc439b2}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!createDocumentRef@{createDocumentRef}}
+\index{createDocumentRef@{createDocumentRef}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{createDocumentRef()}{createDocumentRef()}}
+{\footnotesize\ttfamily Uri Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+create\+Document\+Ref (\begin{DoxyParamCaption}\item[{string}]{doc,  }\item[{string}]{doctype,  }\item[{string}]{externalname,  }\item[{System\+Unit\+Class\+Type}]{system\+Unit\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates the Structur to reference a document and set the correct value {\itshape doc} . 
+
+If the structur is already there, it will only update the value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & the absolut path to the document\\
+\hline
+{\em doctype} & Documenttype like \textquotesingle{}Short Guide\textquotesingle{} or \textquotesingle{}Bill of Materials\textquotesingle{}\\
+\hline
+{\em externalname} & The name of the external\+Element\\
+\hline
+{\em system\+Unit\+Class} & the system\+Unit\+Class to insert the structure into\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_ac060052e0d94500e5ed2c3747790195e}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_ac060052e0d94500e5ed2c3747790195e}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!createPictureRef@{createPictureRef}}
+\index{createPictureRef@{createPictureRef}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{createPictureRef()}{createPictureRef()}}
+{\footnotesize\ttfamily Uri Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+create\+Picture\+Ref (\begin{DoxyParamCaption}\item[{string}]{pic,  }\item[{string}]{pictype,  }\item[{string}]{externalname,  }\item[{System\+Unit\+Class\+Type}]{system\+Unit\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates the Structur to reference a picture and set the correct value {\itshape pic} . 
+
+If the structur is already there, it will only update the value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pic} & the absolut path to the picture\\
+\hline
+{\em pictype} & Picturetyp like \textquotesingle{}Device\+Picture\textquotesingle{} or \textquotesingle{}Device\+Icon\textquotesingle{}\\
+\hline
+{\em externalname} & The name of the external\+Element\\
+\hline
+{\em system\+Unit\+Class} & the system\+Unit\+Class to insert the structure into\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a629fe82e27f15bbd5616e78c1e3f41bb}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a629fe82e27f15bbd5616e78c1e3f41bb}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!ImportGSD2AML@{ImportGSD2AML}}
+\index{ImportGSD2AML@{ImportGSD2AML}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{ImportGSD2AML()}{ImportGSD2AML()}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+Import\+G\+S\+D2\+A\+ML (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calls the gsd2aml Converter using System.\+Reflection the converted gsdml will be saved in an amlx 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the path to the gsdml file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result message as a string
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a9968abc7dcc16187dd2f604d8c3a927e}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a9968abc7dcc16187dd2f604d8c3a927e}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!ImportIODD2AML@{ImportIODD2AML}}
+\index{ImportIODD2AML@{ImportIODD2AML}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{ImportIODD2AML()}{ImportIODD2AML()}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+Import\+I\+O\+D\+D2\+A\+ML (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calls the iodd2aml Converter using System.\+Reflection the converted iodd will be saved in an amlx 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the path to the iodd file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result message as a string
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a89057897b9fb2106ee38d14a2ff070aa}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a89057897b9fb2106ee38d14a2ff070aa}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!interneturl@{interneturl}}
+\index{interneturl@{interneturl}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{interneturl()}{interneturl()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+interneturl (\begin{DoxyParamCaption}\item[{string}]{url,  }\item[{string}]{urltype,  }\item[{string}]{externalname,  }\item[{System\+Unit\+Class\+Type}]{system\+Unit\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Takes the url of the picture and setup in the value attribute of the corresponding internal element {\itshape pic} . 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & the absolut path to the picture or document in the internet\\
+\hline
+{\em urltype} & Picturetyp like \textquotesingle{}Device\+Picture\textquotesingle{} or \textquotesingle{}Device\+Icon\textquotesingle{} and document type like \char`\"{}\+Short guide\char`\"{} or \char`\"{}\+Bill of materials\char`\"{} etc\\
+\hline
+{\em externalname} & The name of the external\+Element\\
+\hline
+{\em system\+Unit\+Class} & the system\+Unit\+Class to insert the structure into\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a05f0351fc99bd19136a3fc6888506020}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a05f0351fc99bd19136a3fc6888506020}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!SearchAttributesInsideAttributesOFElectricConnectorType@{SearchAttributesInsideAttributesOFElectricConnectorType}}
+\index{SearchAttributesInsideAttributesOFElectricConnectorType@{SearchAttributesInsideAttributesOFElectricConnectorType}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{SearchAttributesInsideAttributesOFElectricConnectorType()}{SearchAttributesInsideAttributesOFElectricConnectorType()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+Search\+Attributes\+Inside\+Attributes\+O\+F\+Electric\+Connector\+Type (\begin{DoxyParamCaption}\item[{string}]{search\+Name,  }\item[{Attribute\+Type}]{attribute,  }\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}}]{item,  }\item[{External\+Interface\+Type}]{electric\+Connector\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a27f6de7395f7fd5dbbddcbc3655dc35b}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a27f6de7395f7fd5dbbddcbc3655dc35b}} 
+\index{Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}!SearchForAttributesInsideAttributesofAutomationComponent@{SearchForAttributesInsideAttributesofAutomationComponent}}
+\index{SearchForAttributesInsideAttributesofAutomationComponent@{SearchForAttributesInsideAttributesofAutomationComponent}!Aml.Editor.Plugin.MWData@{Aml.Editor.Plugin.MWData}}
+\doxysubsubsection{\texorpdfstring{SearchForAttributesInsideAttributesofAutomationComponent()}{SearchForAttributesInsideAttributesofAutomationComponent()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+M\+W\+Data.\+Search\+For\+Attributes\+Inside\+Attributesof\+Automation\+Component (\begin{DoxyParamCaption}\item[{string}]{search\+Name,  }\item[{Attribute\+Type}]{attribute,  }\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}}]{item,  }\item[{Supported\+Role\+Class\+Type}]{S\+RC }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_m_w_data_8cs}{M\+W\+Data.\+cs}}\end{DoxyCompactItemize}

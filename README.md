@@ -10,6 +10,9 @@ This project was developed as a student project at the [Cooperative State Univer
 * Joukhadar, Abdulkarim
 * Wandel, Simon
 
+This project was further developed as a Mater Thesis work at [Innovative Software Services GmbH Stuttgart] by student from [Otto-Von-Guericke University Magdeburg] under supervision of Markus Rentschler.
+* Raj Kumar Pulaparthi
+
 ## Missing Labels and Text
 Due to a bug in the window manager of the AMLEditor if you are using the theme "Metro Light" the text and icon will not be visible on startup.
 To fix this, simply select another theme using "View" > "Change Theme".
