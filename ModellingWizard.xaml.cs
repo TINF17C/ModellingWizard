@@ -92,7 +92,7 @@ namespace Aml.Editor.Plugin
 
         private void ReloadObjectsExecute(object obj)
         {
-            mWController.ReloadObjects();
+           
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Aml.Editor.Plugin
         /// <value>The display name.</value>
         public string DisplayName
         {
-            get { return "Modeling Wizard for Devices"; }
+            get { return "Modeling Wizard for Devices (V 1.0.0.1)(21.10.2019)"; }
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace Aml.Editor.Plugin
             this.IsActive = true;
             
             // create the new PlugInUI and add it to the forms host
-            mWController.ChangeGui(MWController.MWGUIType.Start);
+            mWController.ChangeGui(MWController.MWGUIType.DeviceDescription);
 
             PluginActivated?.Invoke(this, EventArgs.Empty);
         }

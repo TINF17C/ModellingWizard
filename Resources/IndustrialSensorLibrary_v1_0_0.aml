@@ -1,0 +1,350 @@
+﻿<CAEXFile SchemaVersion="2.15" FileName="IndustrialSensorLibrary_v1_0_0.aml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd">
+  <AdditionalInformation AutomationMLVersion="2.0" />
+  <AdditionalInformation>
+    <WriterHeader>
+      <WriterName>AutomationML Editor</WriterName>
+      <WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+      <WriterVendor>AutomationML e.V.</WriterVendor>
+      <WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+      <WriterVersion>5.3.0.0</WriterVersion>
+      <WriterRelease>5.3.0.0</WriterRelease>
+      <LastWritingDateTime>2019-11-22T12:29:29.6333413</LastWritingDateTime>
+      <WriterProjectTitle>unspecified</WriterProjectTitle>
+      <WriterProjectID>unspecified</WriterProjectID>
+    </WriterHeader>
+  </AdditionalInformation>
+  <RoleClassLib Name="IndustrialSensorTypeRCL">
+    <Description>The IndustrialSensorTypeRCL collects role class type descriptions of standard industrial sensors, aligned to the standards where they were originally defined. The mapping of the attributes towards the semantic systems IEC-CDD and eCl@ss was defined by the ZVEI working group "Industrie 4.0 in der Sensorik" in 2019. Please check legal restrictions that may exist for your organisation regarding the use of the eCl@ss-IRDIs. For questions regarding this AutomationML-Library please contact Markus.Rentschler@balluff.de.</Description>
+    <Version>1.0.0</Version>
+    <RoleClass Name="ProximitySwitch_IEC60947-5-2" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+      <Description>This role class provides standard classification attributes for proximity switches according to IEC 60947-5-2, which applies to inductive and capacitive proximity switches that sense the presence of metallic and/or non-metallic objects, ultrasonic proximity switches that sense the presence of sound reflecting objects, photoelectric proximity switches that sense the presence of objects and non-mechanical magnetic proximity switches that sense the presence of objects with a magnetic field.</Description>
+      <Attribute Name="SemanticSystems" AttributeDataType="xs:string">
+        <Description>Defines the semantic systems in use.</Description>
+        <RefSemantic CorrespondingAttributePath="ListType" />
+        <Attribute Name="IEC62683" AttributeDataType="xs:string">
+          <Attribute Name="ClassificationSystem" AttributeDataType="xs:string">
+            <Value>IEC 62683 - SC 3D / SC 17B - Common Data Dictionary</Value>
+          </Attribute>
+          <Attribute Name="Version" AttributeDataType="xs:string">
+            <Value>2.0014.0016</Value>
+          </Attribute>
+          <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+            <Value>IRDI:0112/2///62683#</Value>
+          </Attribute>
+          <Attribute Name="URL" AttributeDataType="xs:string">
+            <Value>https://cdd.iec.ch/cdd/iec62683/iec62683.nsf</Value>
+          </Attribute>
+        </Attribute>
+        <Attribute Name="eCl@ss" AttributeDataType="xs:string">
+          <Attribute Name="ClassificationSystem" AttributeDataType="xs:string">
+            <Value>eCl@ss</Value>
+          </Attribute>
+          <Attribute Name="Version" AttributeDataType="xs:string">
+            <Value>10.1</Value>
+          </Attribute>
+          <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+            <Value>IRDI:0173</Value>
+          </Attribute>
+          <Attribute Name="URL" AttributeDataType="xs:string">
+            <Value>https://www.eclasscontent.com</Value>
+          </Attribute>
+        </Attribute>
+      </Attribute>
+      <Attribute Name="Identification">
+        <Description>Information necessary for unambiguous identification of the device</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACC011#001" />
+        <Attribute Name="GTIN" AttributeDataType="xs:string">
+          <Description>Global Trade Item Number (GTIN). International unique and universal item number for products and services used by trade and industry (formerly EAN)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE101#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAO663#003" />
+        </Attribute>
+        <Attribute Name="Manufacturer" AttributeDataType="xs:string">
+          <Description>Name of the Manufacturer (person, company or organisation)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE102#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAO677#002" />
+        </Attribute>
+        <Attribute Name="DeviceClass" AttributeDataType="xs:string">
+          <Description>Product family name of the manufacturer, characterization may be based on its usage, operation principle, and its fabricated form</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE104#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAU731#001" />
+        </Attribute>
+        <Attribute Name="Model" AttributeDataType="xs:string">
+          <Description>Product name or model code of the manufacturer</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE105#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAW338#001" />
+        </Attribute>
+        <Attribute Name="ProductCode" AttributeDataType="xs:string">
+          <Description>Unique product identifier given by the manufacturer</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE103#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAO676#003" />
+        </Attribute>
+        <Attribute Name="ProductURI" AttributeDataType="xs:string">
+          <Description>Online information URL to the product data.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE108#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAQ326#002" />
+        </Attribute>
+        <Attribute Name="CustomsTariffNumber" AttributeDataType="xs:integer">
+          <Description>Classification of a product according to trade regulations. Number assigned to each type of product sold internationally.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE109#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAD931#005" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="InstallationMountingDimensions">
+        <Description>Physical information of the proximity switch</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACG121#001" />
+        <Attribute Name="Height" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Height of the body, vertical distance between the top and bottom of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE801#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD849#004" />
+        </Attribute>
+        <Attribute Name="Width" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Width or breadth of the body, horizontal distance between the left-hand and right-hand extremes of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE802#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD823#004" />
+        </Attribute>
+        <Attribute Name="Length" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Length of the body, horizontal distance between the front and back of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE803#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD856#005" />
+        </Attribute>
+        <Attribute Name="Diameter" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Diameter of circular cross section of the device.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE810#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD826#005" />
+        </Attribute>
+        <Attribute Name="Mounting Position" AttributeDataType="xs:string" Unit="code">
+          <Description>Condition of mounting position of the sensor related to its sensing side (i.e. FLUSH, NOTFLUSH)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE810#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD866#007" />
+        </Attribute>
+        <Attribute Name="Housing Construction" AttributeDataType="xs:string" Unit="code">
+          <Description>Basic exterior form of the device (i.e. RECT, CYLPL, CYL, OTHOUS).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE813#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD840#007" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="GeneralTechnicalData">
+        <Description>General technical aspects of the proximity switch.</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACG122#001" />
+        <Attribute Name="Rated Operating Distance" AttributeDataType="xs:float" Unit="mm">
+          <Description>The switch distance without considering manufacturing tolerances or variations due to external conditions such as voltage and temperature.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE251#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD815#006" />
+        </Attribute>
+        <Attribute Name="Effective Operating Distance" AttributeDataType="xs:float" Unit="mm">
+          <Description>The switch distance measured at stated temperature, voltage and mounting conditions.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE250#001" />
+        </Attribute>
+        <Attribute Name="Switching Element Function" AttributeDataType="xs:string" Unit="code">
+          <Description>Output function of a device realised with a switching semiconductor element or a contact element (i.e. NO, NC, CHOVER, PROG, OTHFUNC).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE253#001" />
+        </Attribute>
+        <Attribute Name="Switch Frequency" AttributeDataType="xs:float" Unit="Hz">
+          <Description>Number of switch activations for a sensor within a determined time period.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD900#004" />
+        </Attribute>
+        <Attribute Name="Kind of Current" AttributeDataType="xs:string" Unit="code">
+          <Description>Kind of electric current supply (i.e. AC, DC, ACDC).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE601#001" />
+        </Attribute>
+        <Attribute Name="Type of Sensor Output" AttributeDataType="xs:string" Unit="code">
+          <Description>Type of technology of the output interface of the sensor (i.e. NPN, PNP, NPNORPNP, PNP/PNP, NPN/NPN, PNP/NPN, OTHTEC, NAMUR, ASI, IOLINK, RELAY, REED, OPTO, TWOWIRE).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE254#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD898#005" />
+        </Attribute>
+        <Attribute Name="Number of Wiring Terminals" AttributeDataType="xs:string" Unit="code">
+          <Description>Number of conductive parts provided for electrical connection to external circuits (i.e. TWOWR, THREEWR, FOURWR, OTHWR).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE877#001" />
+        </Attribute>
+        <Attribute Name="IP Code" AttributeDataType="xs:string" Unit="code">
+          <Description>Degree of protection (IP code) of the component provided by enclosure, numerical classification in accordance with IEC 60529 preceded by the symbol IP (i.e. IP20, IP67).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE218#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAG975#011" />
+        </Attribute>
+        <Attribute Name="Ambient Temperature" AttributeDataType="xs:string" Unit="°C">
+          <Description>Operating temperature limits of the air surrounding the complete component.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE440#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAS155#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAS160#002" />
+        </Attribute>
+        <Attribute Name="Electric Shock Protection Class" AttributeDataType="xs:string" Unit="code">
+          <Description>The prescribed protection class in accordance with EN 60730-1 (i.e. CLASS_I, CLASS_II, CLASS_III)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE249#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD781#006" />
+        </Attribute>
+        <Attribute Name="Housing Material" AttributeDataType="xs:string" Unit="code">
+          <Description>Basic material of the housing of the component.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE260#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAC461#012" />
+        </Attribute>
+        <Attribute Name="Sensing Face Material" AttributeDataType="xs:string" Unit="code">
+          <Description>Basic material of the sensing face of the component.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE261#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD946#007" />
+        </Attribute>
+        <Attribute Name="Additional Functions" AttributeDataType="xs:string">
+          <Description>Additional functionality of the device</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE256#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD816#002" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="ControlAndAuxiliaryCircuits">
+        <Description>General technical aspects of the proximity switch.</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACG123#001" />
+        <Attribute Name="Rated Operational Voltage" AttributeDataType="xs:integer" Unit="V">
+          <Description>Range of voltage combined with a rated operational current intended to be switched by the device under specified conditions.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE455#001" />
+        </Attribute>
+        <Attribute Name="Supply Voltage Limit" AttributeDataType="xs:string" Unit="V">
+          <Description>Range of supply voltage of the device from the lower limit to the upper limit, including supply tolerances.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE531#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAC962#007" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAC965#007" />
+        </Attribute>
+        <Attribute Name="Rated Supply Frequency" AttributeDataType="xs:string" Unit="code">
+          <Description>Frequency of the supply assigned to a device by the manufacturer for a specified operating condition (i.e. 50HZ, 60HZ, 50/60HZ, NOFREQ).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE532#001" />
+        </Attribute>
+        <Attribute Name="Rated Operational Current AC" AttributeDataType="xs:string" Unit="mA">
+          <Description>Range of current combined with an a.c. rated operational voltage intended to be switched by the device under specified conditions.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE533#001" />
+        </Attribute>
+        <Attribute Name="Rated Operational Current DC" AttributeDataType="xs:string" Unit="mA">
+          <Description>Range of current combined with an d.c. rated operational voltage intended to be switched by the device under specified conditions.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE534#001" />
+        </Attribute>
+        <Attribute Name="OFF-state current" AttributeDataType="xs:float" Unit="mA">
+          <Description>Current which flows through the load circuit of the proximity switch in the OFF-state.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE537#001" />
+        </Attribute>
+        <Attribute Name="ON-state current minimum" AttributeDataType="xs:float" Unit="mA">
+          <Description>Minimum current necessary to maintain the ON-state conduction of the switching element.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE538#001" />
+        </Attribute>
+        <Attribute Name="Voltage Drop" AttributeDataType="xs:float" Unit="V">
+          <Description>Voltage measured across the switching element when carrying the operational current flow under specified conditions.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE539#001" />
+        </Attribute>
+        <Attribute Name="Overload and short circuit protected output" AttributeDataType="xs:boolean">
+          <Description>Device output protected against overload and short-circuits of the connected load.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE540#001" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="ConnectionFacilities">
+        <Description>General technical aspects of the proximity switch.</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACG124#001" />
+        <Attribute Name="Electrical Connection" AttributeDataType="xs:string" Unit="code">
+          <Description>Physical design of the electrical connection from the body of the sensor to the conductor suitable for the intended use (i.e. SPGCON, CABLE, CABLECON, SCREWCON, CON1/2, CON3/4, CON7/8, CONM5, CONM8, CONM12, OTHCON).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE856#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD831#011" />
+        </Attribute>
+        <Attribute Name="Cable Length" AttributeDataType="xs:float" Unit="mm or m">
+          <Description>Length of the electrical connecting cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE857#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAF309#003" />
+        </Attribute>
+        <Attribute Name="Rated Cross-Section" AttributeDataType="xs:float" Unit="mm2">
+          <Description>Value of the maximum cross-section of all connectable types of conductors.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE862#001" />
+        </Attribute>
+        <Attribute Name="Cable Sheath Material" AttributeDataType="xs:string" Unit="code">
+          <Description>Material of the sheath or jacket (tubular covering) of the cable (i.e. PVC, SILICONE, PUR_VULC, POLYUR, OTHMAT).</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE859#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAD251#007" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="ProductCertificatesAndStandards">
+        <Description>Conformity of a device with specified requirements and compliance with recognised product standards.</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACC070#001" />
+        <Attribute Name="CertificatesAndApprovals" AttributeDataType="xs:string">
+          <Description>Certificate for which it is confirmed that the product corresponds to the significant technical specifications and is subjected to a factory-internal production control</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE902#001" />
+        </Attribute>
+        <Attribute Name="ProductStandards" AttributeDataType="xs:string">
+          <Description>Reference to one or more standards to which the product complies</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE901#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAP798#001" />
+        </Attribute>
+        <Attribute Name="EnvironmentalDeclaration" AttributeDataType="xs:boolean">
+          <Description>Availability of data providing quantified environmental data using predetermined parameters and, where relevant, additional environmental information</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE903#001" />
+        </Attribute>
+      </Attribute>
+      <RoleClass Name="ProximitySwitchInductive" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2">
+        <Description>Proximity switch producing an electromagnetic field within a sensing zone for detecting objects and having a semiconductor switching element</Description>
+      </RoleClass>
+      <RoleClass Name="ProximitySwitchCapacitive" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2">
+        <Description>Proximity switch producing an electric field within a sensing zone for detecting objects and having a semiconductor switching element</Description>
+        <Attribute Name="Pressure resistant" AttributeDataType="xs:boolean">
+          <Description>Whether the active surface is pressure resistant</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD825#008" />
+        </Attribute>
+      </RoleClass>
+      <RoleClass Name="ProximitySwitchMagnetic" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2">
+        <Description>Proximity switch producing an electromagnetic field within a sensing zone for detecting objects and having a semiconductor switching element</Description>
+        <Attribute Name="Type of actuation" AttributeDataType="xs:string">
+          <Description>Constructive arrangement of the element which dampens or determines position</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD803#006" />
+        </Attribute>
+        <Attribute Name="Ensured switch distance OFF" AttributeDataType="xs:float" Unit="mm">
+          <Description>	Distance from the active surface, within which correct recording of the absence of an established object is achieved under all established environmental conditions and manufacturers' tolerances</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD843#005" />
+        </Attribute>
+        <Attribute Name="Ensured switch distance ON" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Distance from the active surface, within which correct recording of the presence of an established object is achieved under all established environmental conditions and manufacturers' tolerances</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD844#006" />
+        </Attribute>
+      </RoleClass>
+      <RoleClass Name="ProximitySwitchPhotoelectric" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2">
+        <Description>proximity switch which detects objects that either reflect or interrupt visible or invisible light and having a semiconductor switching element</Description>
+        <Attribute Name="Blind zone" AttributeDataType="xs:float" Unit="mm">
+          <Description>Zone before a sensor in which an object or reflector is not recognized, measured from active surface</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE252#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD822#004" />
+        </Attribute>
+        <Attribute Name="Kind of light source" AttributeDataType="xs:string">
+          <Description>Properties of light (radiation, defined for a certain range of wavelengths) and source of light</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE259#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD859#008" />
+        </Attribute>
+        <Attribute Name="Laser safety class" AttributeDataType="xs:string">
+          <Description>Assignment of laser facilities to classes, defining limiting values for accessible radiation regarding photochemical endangerment</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE263#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD857#006" />
+        </Attribute>
+        <RoleClass Name="ProximitySwitchPhotoelectricDiffuse" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2/ProximitySwitchPhotoelectric">
+          <Description>Diffuse reflective photoelectric proximity switch which is directly operated through lateral or axial approach to its reference axis by a defined object</Description>
+        </RoleClass>
+        <RoleClass Name="ProximitySwitchPhotoelectricDiffuseBackgroundSuppression" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2/ProximitySwitchPhotoelectric">
+          <Description>Photoelectric proximity switch which is directly operated through lateral or axial approach to its reference axis by a defined object and specifically optimized for more predictable detection at the desired distance of objects with different reflectivity and capable of non-detection of objects in a precisely defined region called the background zone.</Description>
+        </RoleClass>
+        <RoleClass Name="ProximitySwitchPhotoelectricRetroreflective" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2/ProximitySwitchPhotoelectric">
+          <Description>Retroreflective photoelectric proximity switch which is indirectly operated through lateral  approach to its reference axis between emitter-receiver and reflector by a defined object</Description>
+        </RoleClass>
+        <RoleClass Name="ProximitySwitchPhotoelectricThroughBeam" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2/ProximitySwitchPhotoelectric">
+          <Description>Through beam photoelectric proximity switch which is indirectly operated through lateral approach to its reference axis between emitter and receiver by a defined object</Description>
+        </RoleClass>
+      </RoleClass>
+      <RoleClass Name="ProximitySwitchTypeUltrasonic" RefBaseClassPath="IndustrialSensorTypeRCL/ProximitySwitch_IEC60947-5-2">
+        <Description>Proximity switch which detects objects that either reflect or interrupt ultrasound energy and having a semiconductor switching element</Description>
+        <Attribute Name="Blind zone" AttributeDataType="xs:float" Unit="mm">
+          <Description>Zone before a sensor in which an object or reflector is not recognized, measured from active surface</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE252#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD822#004" />
+        </Attribute>
+        <Attribute Name="Synchronization possible" AttributeDataType="xs:boolean">
+          <Description>Whether the sensor is equipped with a synchronization function (avoidance of mutual influencing of neighboring sensors via a special synchronization input through which a measurement cycle is launched)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-BAD926#009" />
+        </Attribute>
+        <Attribute Name="Min. adjustable spacing" AttributeDataType="xs:float" Unit="mm">
+          <Description>Minimum value for the stipulated spatial extension for use as work space</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAB980#005" />
+        </Attribute>
+        <Attribute Name="Max. adjustable spacing" AttributeDataType="xs:float" Unit="mm">
+          <Description>Maximum value for the stipulated spatial extension for use as work space</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0173-1#02-AAB854#005" />
+        </Attribute>
+      </RoleClass>
+    </RoleClass>
+  </RoleClassLib>
+</CAEXFile>

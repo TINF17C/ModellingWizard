@@ -6,14 +6,17 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Aml.Editor.Plugin
 {
-    public class MWData
+    public class MWData : DeviceDescription
     {
         // holds the controller to report created devices to
         private readonly MWController mWController;
 
+        
         /// <summary>
         /// Create the MWData Object
         /// </summary>
@@ -23,193 +26,16 @@ namespace Aml.Editor.Plugin
             this.mWController = mWController;
         }
 
-        /// <summary>
-        /// Iterate over all .amlx Files in .\modellingwizard\ and try to load them as a device
-        /// </summary>
-        /// <returns>all loaded devices and interfaces</returns>
-        public List<MWObject> LoadMWObjects()
-        {
-            List<MWObject> objects = new List<MWObject>();
+       
 
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\";
-            // create Directory if it's not existing
-            if (!Directory.Exists(amlFilePath))
-            {
-                Directory.CreateDirectory(amlFilePath);
-            }
-
-            // Get all .amlx Files in the directory
-            string[] files = Directory.GetFiles(amlFilePath, "*.amlx");
-
-            foreach (string file in files)
-            {
-                // try to load the object
-                MWObject mWObject = loadObject(file);
-                if (mWObject != null)
-                {
-                    objects.Add(mWObject);
-                }
-            }
-            return objects;
-        }
-
-        /// <summary>
-        /// Load the amlx container and try to load it as an <see cref="MWObject"/>
-        /// </summary>
-        /// <param name="file">The full path to the amlx file</param>
-        /// <returns></returns>
-        public MWObject loadObject(string file)
-        {
-            try
-            {
-                FileInfo fileInfo = new FileInfo(file);
-                string objectName = fileInfo.Name;
-
-                // Load the amlx container from the given filepath
-                AutomationMLContainer amlx = new AutomationMLContainer(file);
-
-                // Get the root path -> main .aml file
-                IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
-                // We expect the aml to only have one root part
-                if (rootParts.First() != null)
-                {
-                    PackagePart part = rootParts.First();
-
-                    // load the aml file as an CAEX document
-                    CAEXDocument document = CAEXDocument.LoadFromStream(part.GetStream());
-
-
-                    // Iterate over all SystemUnitClassLibs and SystemUnitClasses and scan if it matches our format
-                    // since we expect only one device per aml(x) file, return after on is found
-                    foreach (SystemUnitClassLibType classLibType in document.CAEXFile.SystemUnitClassLib)
-                    {
-                        foreach (SystemUnitFamilyType classLib in classLibType.SystemUnitClass)
-                        {
-                            // check if it matches our format
-                            foreach (InternalElementType internalElement in classLib.InternalElement)
-                            {
-                                // is the DeviceIdentification there?
-                                if (internalElement.Name.Equals("DeviceIdentification"))
-                                {
-                                    // is it an interface or a device?
-                                    if (internalElement.Attribute.GetCAEXAttribute("InterfaceNumber") != null)
-                                    {
-
-                                        MWInterface mWInterface = new MWInterface();
-                                        mWInterface.numberOfInterface = Convert.ToInt32(internalElement.Attribute.GetCAEXAttribute("InterfaceNumber").Value);
-
-                                        // read the attributes and write them directly into the interface
-                                        fillInterfaceWithData(mWInterface, internalElement.Attribute);
-
-                                        amlx.Close();
-                                        return mWInterface;
-                                    }
-                                    else if (internalElement.Attribute.GetCAEXAttribute("DeviceName") != null)
-                                    {
-                                        MWDevice mWDevice = new MWDevice();
-
-                                        // read the attributes and write them directly into the device
-                                        fillDeviceWithData(mWDevice, internalElement.Attribute);
-
-                                        // check if there are pictures provided
-                                        foreach (InternalElementType ie in classLib.InternalElement)
-                                        {
-                                            switch (ie.Name)
-                                            {
-                                                case "ManufacturerIcon":
-                                                    try
-                                                    {
-                                                        mWDevice.vendorLogo = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                                case "ComponentPicture":
-                                                    try
-                                                    {
-                                                        mWDevice.devicePicture = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                                case "ComponentIcon":
-                                                    try
-                                                    {
-                                                        mWDevice.deviceIcon = ie.ExternalInterface.First().Attribute.GetCAEXAttribute("refURI").Value;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        // No vendorLogo
-                                                    }
-                                                    break;
-                                            }
-                                        }
-                                        amlx.Close();
-                                        return mWDevice;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-                }
-                amlx.Close();
-                return null;
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message, "Error while loading the AMLX-File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                return null;
-            }
-        }
+      
 
         /// <summary>
         /// Read the all attributes in <paramref name="attributes"/> and write the values into <paramref name="mWInterface"/>
         /// </summary>
         /// <param name="mWInterface">the object to write the data into</param>
         /// <param name="attributes">the list of attributes</param>
-        private void fillInterfaceWithData(MWInterface mWInterface, AttributeSequence attributes)
-        {
-            List<MWPin> pinlist = new List<MWPin>();
-            // iterate over all attributes
-            foreach (AttributeType attribute in attributes)
-            {
-                // apply the value of the attribute to the correct interface parameter
-                switch (attribute.Name)
-                {
-                    case "InterfaceNumber":
-                        mWInterface.numberOfInterface = Int32.Parse(attribute.Value);
-                        break;
-                    case "Description":
-                        mWInterface.interfaceDescription = attribute.Value;
-                        break;
-                    case "ConnectorType":
-                        mWInterface.connectorType = attribute.Value;
-                        break;
-                    case "PinCount":
-                        mWInterface.amountPins = Int32.Parse(attribute.Value);
-                        break;
-                    case "PinAttributes":
-                        // Read the pinlist attribute
-
-                        for (int i = 0; i < mWInterface.amountPins; i++)
-                        {
-                            MWPin pin = new MWPin(Int32.Parse(attribute.Attribute[i].Name), attribute.Attribute[i].Value);
-                            pinlist.Add(pin);
-                        }
-                        // sort the pinlist after ascending pin Number
-                        pinlist = pinlist.OrderBy(o => o.pinNumber).ToList();
-                        break;
-                }
-            }
-            mWInterface.pinList = pinlist;
-        }
+       
 
         /// <summary>
         /// Read the all attributes in <paramref name="attributes"/> and write the values into <paramref name="device"/>
@@ -224,79 +50,7 @@ namespace Aml.Editor.Plugin
                 // apply the value of the attribute to the correct interface parameter
                 switch (attribute.Name)
                 {
-                    case "CommunicationTechonolgy":
-                        device.deviceType = attribute.Value;
-                        break;
-                    case "VendorId":
-                        try
-                        {
-                            device.vendorID = Int32.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            // let the value be null
-                        }
-                        break;
-                    case "VendorName":
-                        device.vendorName = attribute.Value;
-                        break;
-                    case "DeviceId":
-                        try
-                        {
-                            device.deviceID = Int32.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            // let the value be null
-                        }
-                        break;
-                    case "DeviceName":
-                        device.deviceName = attribute.Value;
-                        break;
-                    case "DeviceFamily":
-                        device.deviceFamily = attribute.Value;
-                        break;
-                    case "ProductName":
-                        device.productName = attribute.Value;
-                        break;
-                    case "OrderNumber":
-                        device.orderNumber = attribute.Value;
-                        break;
-                    case "ProductText":
-                        device.productText = attribute.Value;
-                        break;
-                    case "IPProtection":
-                        device.ipProtection = attribute.Value;
-                        break;
-                    case "OperatingTemperatureMin":
-                        try
-                        {
-                            device.minTemperature = Double.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            device.minTemperature = Double.NaN;
-                        }
-                        break;
-                    case "OperatingTemperatureMax":
-                        try
-                        {
-                            device.maxTemperature = Double.Parse(attribute.Value);
-                        }
-                        catch (Exception)
-                        {
-                            device.maxTemperature = Double.NaN;
-                        }
-                        break;
-                    case "VendorUrl":
-                        device.vendorHomepage = attribute.Value;
-                        break;
-                    case "HardwareRelease":
-                        device.harwareRelease = attribute.Value;
-                        break;
-                    case "SoftwareRelease":
-                        device.softwareRelease = attribute.Value;
-                        break;
+                   
                 }
             }
         }
@@ -309,19 +63,29 @@ namespace Aml.Editor.Plugin
         /// <returns></returns>
         public string CreateDevice(MWDevice device, bool isEdit)
         {
-            Uri manuPart = null;
-            Uri deviceIconPart = null;
-            Uri devicePicPart = null;
+           
             CAEXDocument document = null;
             AutomationMLContainer amlx = null;
 
             // Init final .amlx Filepath
-            string fileName = device.vendorName + "-" + device.deviceName + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + fileName + ".amlx";
+            //first of all create a folder on "Vendor Name"
+            string vendorCompanyName = device.vendorName;
+            string vendorCompanyNameFilePath = "";
+          
+          
+
+            string fileName = device.fileName;
+
+            string amlFilePath = System.IO.Path.Combine(device.filepath, fileName + ".amlx");
+
+
             FileInfo file = new FileInfo(amlFilePath);
+           
+           
 
             // Create directory if it's not existing
             file.Directory.Create();
+           
 
             // Init CAEX Document
             if (isEdit)
@@ -349,20 +113,220 @@ namespace Aml.Editor.Plugin
             {
                 // create a new CAEX document
                 document = CAEXDocument.New_CAEXDocument();
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
+                try
+                {amlx = new AutomationMLContainer(amlFilePath, FileMode.Create); } catch (Exception){}
+                 
 
             }
 
+           
 
             // Init the default Libs
-            AutomationMLBaseRoleClassLibType.RoleClassLib(document);
-            AutomationMLInterfaceClassLibType.InterfaceClassLib(document);
+            AutomationMLBaseRoleClassLibType.RoleClassLib(document) ;
+            AutomationMLInterfaceClassLibType.InterfaceClassLib(document) ;
+
+            var structureRoleFamilyType = AutomationMLBaseRoleClassLibType.RoleClassLib(document).Structure;
+            
 
             SystemUnitFamilyType systemUnitClass = null;
             // Create the SystemUnitClass for our device
-            if (!isEdit)
+           if (!isEdit)
             {
                 systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
+
+
+                device.listWithURIConvertedToString = new List<AttachablesDataGridViewParameters>();
+                foreach (AttachablesDataGridViewParameters eachparameter in device.dataGridAttachablesParametrsList)
+                {
+                    if (eachparameter.FilePath.Contains("https://") || eachparameter.FilePath.Contains("http://") || eachparameter.FilePath.Contains("www") || eachparameter.FilePath.Contains("WWW"))
+                    {
+                        interneturl(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
+                    }
+                    else
+                    {
+                       
+                        Boolean myBool;
+                        Boolean.TryParse(eachparameter.AddToFile, out myBool);
+                        
+                        if (myBool == true)
+                        {
+                          
+                        }
+
+                        Uri eachUri = null;
+                        AttachablesDataGridViewParameters par = new AttachablesDataGridViewParameters();
+                        eachUri = createPictureRef(eachparameter.FilePath, eachparameter.ElementName.ToString(), "ExternalDataConnector", systemUnitClass);
+                        par.ElementName = eachUri.ToString();
+                        par.FilePath = eachparameter.FilePath;
+
+                        device.listWithURIConvertedToString.Add(par);
+
+                    }
+                   
+                }
+                 foreach (var pair in device.DictionaryForRoleClassofComponent)
+                 {
+
+                    SupportedRoleClassType supportedRoleClass = null;
+
+
+                    Match numberfromElectricalConnectorType = Regex.Match(pair.Key.ToString(), @"\((\d+)\)");
+                     string initialnumberbetweenparanthesisofElectricalConnectorType = numberfromElectricalConnectorType.Groups[1].Value;
+                   // string stringinparanthesis = Regex.Match(pair.Key.ToString(), @"\{(\d+)\}").Groups[1].Value;
+
+                    string supportedRoleClassFromDictionary = Regex.Replace(pair.Key.ToString(), @"\(.+?\)", "");
+                     supportedRoleClassFromDictionary = Regex.Replace(supportedRoleClassFromDictionary, @"\{.+?\}", "");
+
+
+                   
+                    var SRC = systemUnitClass.SupportedRoleClass.Append();
+
+                    
+
+                    var attributesOfSystemUnitClass = systemUnitClass.Attribute;
+
+                     foreach (var valueList in pair.Value)
+                     {
+                         foreach (var item in valueList)
+                         {
+                           
+                            
+                            if ( item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
+                            {
+                                int count = 2;
+                                int counter = 0;
+                                Stack<char> stack = new Stack<char>();
+                                string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
+
+                                foreach (var character in searchAttributeName.Reverse())
+                                {
+                                   
+                                    if (!char.IsLetterOrDigit(character))
+                                    {
+                                        counter++;
+                                        if (counter == count)
+                                        {
+                                            break;
+                                        }
+                                       
+                                    }
+                                    if (char.IsLetterOrDigit(character))
+                                    {
+                                        stack.Push(character);
+                                    }
+                                    
+                                }
+
+                                string finalAttributeName = new string(stack.ToArray());
+
+                                foreach (var attribute in systemUnitClass.Attribute)
+                                {
+                                    if (attribute.Name == finalAttributeName)
+                                    {
+                                        var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        eachattribute.AttributeDataType = item.DataType;
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
+
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                                            
+                                        }
+
+
+
+                                        SRC.RefRoleClassPath = item.SupportesRoleClassType;
+
+                                    }
+                                    if (attribute.Attribute.Exists)
+                                    {
+
+                                        SearchForAttributesInsideAttributesofAutomationComponent(finalAttributeName, attribute, item,SRC);
+                                    }
+                                }
+                               
+                            }
+                            else
+                            {
+                                var eachattribute = attributesOfSystemUnitClass.Append(item.Name.ToString());
+                                eachattribute.Value = item.Value;
+                                eachattribute.DefaultValue = item.Default;
+                                eachattribute.Unit = item.Unit;
+                                eachattribute.AttributeDataType = item.DataType;
+                                eachattribute.Description = item.Description;
+                                eachattribute.Copyright = item.CopyRight;
+                                
+                                eachattribute.ID = item.ID;
+
+                               
+                                foreach (var val in item.RefSemanticList.Elements)
+                                {
+                                    var refsem = eachattribute.RefSemantic.Append();
+                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                                }
+
+
+                                SRC.RefRoleClassPath = item.SupportesRoleClassType;
+                            }
+                            
+
+                        }
+                     }
+                   
+
+                    foreach (var pairofList in device.DictionaryForExternalInterfacesUnderRoleClassofComponent)
+                     {
+                         Match numberfromElectricalConnectorPins = Regex.Match(pairofList.Key.ToString(), @"\((\d+)\)");
+                         string initialnumberbetweenparanthesisElectricalConnectorPins = numberfromElectricalConnectorPins.Groups[1].Value;
+
+                         string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"\(.*?\)", "");
+                         electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.*?\}", "");
+                         electricalConnectorPinName = electricalConnectorPinName.Replace(supportedRoleClassFromDictionary, "");
+
+
+
+
+                         /*if (initialnumberbetweenparanthesisofElectricalConnectorType == initialnumberbetweenparanthesisElectricalConnectorPins)
+                         {
+                             supportedRoleClass.RoleReference = pairofList.Key.ToString();
+
+                             systemUnitClass.SupportedRoleClass.Append(supportedRoleClass);
+                             systemUnitClass.BaseClass.Name = supportedRoleClassFromDictionary;
+
+                             var attributesOfSystemUnitClassattributes = systemUnitClass.Attribute;
+
+                             foreach (var valueList in pairofList.Value)
+                             {
+                                 foreach (var item in valueList)
+                                 {
+                                     var eachattribute = attributesOfSystemUnitClassattributes.Append(item.Name.ToString());
+                                     eachattribute.Value = item.Value;
+                                     eachattribute.DefaultValue = item.Default;
+                                     eachattribute.Unit = item.Unit;
+                                     //eachattribute.AttributeDataType = 
+                                     eachattribute.Description = item.Description;
+                                     eachattribute.Copyright = item.CopyRight;
+
+                                     eachattribute.ID = item.ID;
+
+
+
+                                    // systemUnitClass.BaseClass.Name   = item.RefBaseClassPath;
+                                 }
+                             }
+                         }*/
+                     }
+ 
+
+                 }
+
             }
             else
             {
@@ -391,68 +355,264 @@ namespace Aml.Editor.Plugin
                     systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(device.deviceName);
             }
 
-            // Convert picture paths to relativ package paths (if they are given)
-            // Convert vendorLogo path
-            if (device.vendorLogo != null && !device.vendorLogo.Equals(""))
+
+           
+
+          
+
+            // Create the internalElement Electrical Interfaces
+
+            if (device.vendorName != null)
             {
-                try
+                InternalElementType electricalInterface = null;
+                RoleRequirementsType roleRequirements = null ;
+                foreach (var internalElement in systemUnitClass.InternalElement)
                 {
-                    // Create File Paths
-                    manuPart = createPictureRef(device.vendorLogo, "ManufacturerIcon", "ExternalDataConnector", systemUnitClass);
+                    if (internalElement.Name.Equals("ElectricalInterfaces"))
+                    {
+                        electricalInterface = internalElement;
+                        roleRequirements = electricalInterface.RoleRequirements.Append();
+                        roleRequirements.RefBaseRoleClassPath = structureRoleFamilyType.CAEXPath();
+                        break;
+                    }
+                }
+                if (electricalInterface == null)
+                    electricalInterface = systemUnitClass.InternalElement.Append("ElectricalInterfaces");
+                   roleRequirements = electricalInterface.RoleRequirements.Append();
+
+                    roleRequirements.RefBaseRoleClassPath = structureRoleFamilyType.CAEXPath();
+
+                foreach (var pair in device.DictionaryForInterfaceClassesInElectricalInterfaces)
+                {
+
+                    InternalElementType internalElementofElectricalConnectorType = null;
+                    ExternalInterfaceType electricalConnectorType = null;
+
+                    ExternalInterfaceType electricalConnectorPins = null;
+
+                    Match numberfromElectricalConnectorType = Regex.Match(pair.Key.ToString(), @"\((\d+)\)");
+                    string initialnumberbetweenparanthesisofElectricalConnectorType = numberfromElectricalConnectorType.Groups[1].Value;
+
+
+                    string electricalConnectorTypeName = Regex.Replace(pair.Key.ToString(), @"\(.+?\)", "");
+                    electricalConnectorTypeName = Regex.Replace(electricalConnectorTypeName, @"\{.+?\}", "");
+
+                    internalElementofElectricalConnectorType = electricalInterface.InternalElement.Append(electricalConnectorTypeName);
+
+                    electricalConnectorType = internalElementofElectricalConnectorType.ExternalInterface.Append(electricalConnectorTypeName);
+
+                    var attributesOfConnectorType = electricalConnectorType.Attribute;
+
+                    foreach (var valueList in pair.Value)
+                    {
+                        foreach (var item in valueList)
+                        {
+                            if (item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
+                            {
+                                int count = 2;
+                                int counter = 0;
+                                Stack<char> stack = new Stack<char>();
+                                string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
+
+                                foreach (var character in searchAttributeName.Reverse())
+                                {
+
+                                    if (!char.IsLetterOrDigit(character))
+                                    {
+                                        counter++;
+                                        if (counter == count)
+                                        {
+                                            break;
+                                        }
+
+                                    }
+                                    if (char.IsLetterOrDigit(character))
+                                    {
+                                        stack.Push(character);
+                                    }
+
+                                }
+
+                                string finalAttributeName = new string(stack.ToArray());
+
+                                foreach (var attribute in electricalConnectorType.Attribute)
+                                {
+                                    if (attribute.Name == finalAttributeName)
+                                    {
+                                        var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        eachattribute.AttributeDataType = item.DataType;
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
+
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+
+                                        }
+
+                                        electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+
+                                    }
+                                    if (attribute.Attribute.Exists)
+                                    {
+
+                                        SearchAttributesInsideAttributesOFElectricConnectorType(finalAttributeName, attribute, item, electricalConnectorType);
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                var eachattribute = attributesOfConnectorType.Append(item.Name.ToString());
+                                eachattribute.Value = item.Value;
+                                eachattribute.DefaultValue = item.Default;
+                                eachattribute.Unit = item.Unit;
+                                eachattribute.AttributeDataType = item.DataType;
+                                eachattribute.Description = item.Description;
+                                eachattribute.Copyright = item.CopyRight;
+
+                                eachattribute.ID = item.ID;
+
+                                foreach (var val in item.RefSemanticList.Elements)
+                                {
+                                    var refsem = eachattribute.RefSemantic.Append();
+                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+
+                                }
+
+                                electricalConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+                            }
+
+
+                           
+                        }
+                    }
+
+
+                    foreach (var pairofList in device.DictionaryForExternalInterfacesUnderInterfaceClassInElectricalInterfaces)
+                    {
+                        Match numberfromElectricalConnectorPins = Regex.Match(pairofList.Key.ToString(), @"\((\d+)\)");
+                        string initialnumberbetweenparanthesisElectricalConnectorPins = numberfromElectricalConnectorPins.Groups[1].Value;
+
+                        string electricalConnectorPinName = Regex.Replace(pairofList.Key.ToString(), @"\(.*?\)", "");
+                        electricalConnectorPinName = Regex.Replace(electricalConnectorPinName, @"\{.*?\}", "");
+                        electricalConnectorPinName = electricalConnectorPinName.Replace(electricalConnectorTypeName,"");
+
+                        
+
+
+                        if (initialnumberbetweenparanthesisofElectricalConnectorType == initialnumberbetweenparanthesisElectricalConnectorPins)
+                        {
+                            electricalConnectorPins = electricalConnectorType.ExternalInterface.Append(electricalConnectorPinName);
+
+                            var attributesOfConnectorPins = electricalConnectorPins.Attribute;
+
+                            foreach (var valueList in pairofList.Value)
+                            {
+                                foreach (var item in valueList)
+                                {
+                                    if (item.AttributePath.Contains("/") || item.AttributePath.Contains("."))
+                                    {
+                                        int count = 2;
+                                        int counter = 0;
+                                        Stack<char> stack = new Stack<char>();
+                                        string searchAttributeName = item.AttributePath.Substring(0, item.AttributePath.Length - item.Name.Length);
+
+                                        foreach (var character in searchAttributeName.Reverse())
+                                        {
+
+                                            if (!char.IsLetterOrDigit(character))
+                                            {
+                                                counter++;
+                                                if (counter == count)
+                                                {
+                                                    break;
+                                                }
+
+                                            }
+                                            if (char.IsLetterOrDigit(character))
+                                            {
+                                                stack.Push(character);
+                                            }
+
+                                        }
+
+                                        string finalAttributeName = new string(stack.ToArray());
+
+                                        foreach (var attribute in electricalConnectorPins.Attribute)
+                                        {
+                                            if (attribute.Name == finalAttributeName)
+                                            {
+                                                var eachattribute = attribute.Attribute.Append(item.Name.ToString());
+                                                eachattribute.Value = item.Value;
+                                                eachattribute.DefaultValue = item.Default;
+                                                eachattribute.Unit = item.Unit;
+                                                eachattribute.AttributeDataType = item.DataType;
+                                                eachattribute.Description = item.Description;
+                                                eachattribute.Copyright = item.CopyRight;
+
+                                                eachattribute.ID = item.ID;
+
+                                                foreach (var val in item.RefSemanticList.Elements)
+                                                {
+                                                    var refsem = eachattribute.RefSemantic.Append();
+                                                    refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+
+                                                }
+
+                                                electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+
+                                            }
+                                            if (attribute.Attribute.Exists)
+                                            {
+
+                                                SearchAttributesInsideAttributesOFElectricConnectorType(finalAttributeName, attribute, item, electricalConnectorPins);
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        var eachattribute = attributesOfConnectorPins.Append(item.Name.ToString());
+                                        eachattribute.Value = item.Value;
+                                        eachattribute.DefaultValue = item.Default;
+                                        eachattribute.Unit = item.Unit;
+                                        eachattribute.AttributeDataType = item.DataType;
+                                        eachattribute.Description = item.Description;
+                                        eachattribute.Copyright = item.CopyRight;
+
+                                        eachattribute.ID = item.ID;
+
+                                        foreach (var val in item.RefSemanticList.Elements)
+                                        {
+                                            var refsem = eachattribute.RefSemantic.Append();
+                                            refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+
+                                        }
+
+                                        electricalConnectorPins.RefBaseClassPath = item.RefBaseClassPath;
+                                    }
+
+                                   
+                                }
+                            }
+                        }
+                    }
+
 
                 }
-                catch (Exception)
-                {
-                    // No vendor Logo
-                }
+
+                
+ 
             }
 
-            // Convert deviceIcon
-            if (device.deviceIcon != null && !device.deviceIcon.Equals(""))
-            {
-                try
-                {
-                    deviceIconPart = createPictureRef(device.deviceIcon, "ComponentIcon", "ExternalDataReference", systemUnitClass);
-                }
-                catch (Exception)
-                {
-                    // No Device Icon
-                }
-            }
-
-            // Convert devicePicture
-            if (device.devicePicture != null && !device.devicePicture.Equals(""))
-            {
-                try
-                {
-                    devicePicPart = createPictureRef(device.devicePicture, "ComponentPicture", "ExternalDataReference", systemUnitClass);
-                }
-                catch (Exception)
-                {
-                    // No device Picture
-                }
-            }
-
-
-
-            // Create the internalElement DeviceIdentification
-            InternalElementType ie = null;
-            foreach (var internalelement in systemUnitClass.InternalElement)
-            {
-                if (internalelement.Name.Equals("DeviceIdentification"))
-                {
-                    ie = internalelement;
-                    break;
-                }
-            }
-            if (ie == null)
-                ie = systemUnitClass.InternalElement.Append("DeviceIdentification");
-
-            // Init the Attributes for our format and set the correct DataTypes
-            initCAEXattributes(ie);
-
-            // Set the correct values for the Attributes
-            setCAEXattribute(ie, device);
+           
 
             // create the PackageUri for the root aml file
             Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
@@ -466,30 +626,44 @@ namespace Aml.Editor.Plugin
             {
                 // delete the old aml file
                 amlx.Package.DeletePart(partUri);
+                
+                // delete all files in the amlx package.
+               // Directory.Delete(Path.GetFullPath(amlx.ContainerFilename), true);
 
             }
-
+           
             // write the new aml file into the package
             PackagePart root = amlx.AddRoot(path, partUri);
-
-            if (!isEdit)
+            
+            
+           if (!isEdit)
             {
-                // copy the images from disk into the package
-                if (manuPart != null)
-                {
-                    amlx.AddAnyContent(root, device.vendorLogo, manuPart);
-                }
 
-                if (deviceIconPart != null)
+                foreach (AttachablesDataGridViewParameters listWithUri in device.listWithURIConvertedToString)
                 {
-                    amlx.AddAnyContent(root, device.deviceIcon, deviceIconPart);
-                }
+                    
+                    if (listWithUri.ElementName != null)
+                    {
+                        Uri newuri = null;
+                        newuri = new Uri(listWithUri.ElementName, UriKind.Relative);
+                        amlx.AddAnyContent(root, listWithUri.FilePath.ToString(), newuri);
+                       
+                    }
+                   
 
-                if (devicePicPart != null)
-                {
-                    amlx.AddAnyContent(root, device.devicePicture, devicePicPart);
                 }
             }
+             DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(amlFilePath));
+             foreach (FileInfo fileInfos in directory.GetFiles())
+             {
+                 if (fileInfos.Extension != ".amlx")
+                 {
+                     fileInfos.Delete();
+                 }
+                 
+
+             }
+           
 
             amlx.Save();
             amlx.Close();
@@ -499,8 +673,130 @@ namespace Aml.Editor.Plugin
             }
             else
             {
-                return "Sucessfully created device!\nFilepath " + amlFilePath;
+                return "Device description file created!\nFilepath " + amlFilePath;
             }
+            
+        }
+
+        public void SearchForAttributesInsideAttributesofAutomationComponent(string searchName, AttributeType attribute, ClassOfListsFromReferencefile item
+            ,SupportedRoleClassType SRC)
+        {
+            foreach (var nestedAttribute in attribute.Attribute)
+            {
+                if (nestedAttribute.Name == searchName)
+                {
+                    var eachattribute = nestedAttribute.Attribute.Append(item.Name.ToString());
+                    eachattribute.Value = item.Value;
+                    eachattribute.DefaultValue = item.Default;
+                    eachattribute.Unit = item.Unit;
+                    eachattribute.AttributeDataType = item.DataType;
+                    eachattribute.Description = item.Description;
+                    eachattribute.Copyright = item.CopyRight;
+
+                    eachattribute.ID = item.ID;
+
+                    foreach (var val in item.RefSemanticList.Elements)
+                    {
+                        var refsem = eachattribute.RefSemantic.Append();
+                        refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+                    }
+
+
+                    SRC.RefRoleClassPath = item.SupportesRoleClassType;
+                }
+                if (nestedAttribute.Attribute.Exists)
+                {
+                    SearchForAttributesInsideAttributesofAutomationComponent(searchName, nestedAttribute, item, SRC);
+                }
+            }
+           
+        }
+
+        public void SearchAttributesInsideAttributesOFElectricConnectorType(string searchName, AttributeType attribute, ClassOfListsFromReferencefile item
+            ,ExternalInterfaceType electricConnectorType)
+        {
+            foreach (var nestedAttribute in attribute.Attribute)
+            {
+                
+                if (nestedAttribute.Name == searchName)
+                {
+                    var eachattribute = nestedAttribute.Attribute.Append(item.Name.ToString());
+                    eachattribute.Value = item.Value;
+                    eachattribute.DefaultValue = item.Default;
+                    eachattribute.Unit = item.Unit;
+                    eachattribute.AttributeDataType = item.DataType;
+                    eachattribute.Description = item.Description;
+                    eachattribute.Copyright = item.CopyRight;
+
+                    eachattribute.ID = item.ID;
+                    foreach (var val in item.RefSemanticList.Elements)
+                    {
+                        var refsem = eachattribute.RefSemantic.Append();
+                        refsem.CorrespondingAttributePath = val.FirstAttribute.Value;
+
+                    }
+
+
+                    electricConnectorType.RefBaseClassPath = item.RefBaseClassPath;
+
+                }
+               
+                if (nestedAttribute.Attribute.Exists)
+                {
+                    SearchAttributesInsideAttributesOFElectricConnectorType(searchName, nestedAttribute, item, electricConnectorType);
+                }
+            }
+        }
+      
+        /// <summary>
+        /// Takes the url of the picture and setup in the value attribute of the corresponding internal element <paramref name="pic"/>.
+        /// </summary>
+        /// <param name="url">the absolut path to the picture or document in the internet</param>
+        /// <param name="urltype">Picturetyp like 'DevicePicture' or 'DeviceIcon' and document type like "Short guide" or "Bill of materials" etc</param>
+        /// <param name="externalname">The name of the externalElement</param>
+        /// <param name="systemUnitClass">the systemUnitClass to insert the structure into</param>
+        /// <returns></returns>
+        public void interneturl(string url, string urltype, string externalname, SystemUnitClassType systemUnitClass)
+        {
+
+            // Create the InternalElement which refers to the picture
+            InternalElementType urlIE = null;
+            foreach (var internalElement in systemUnitClass.InternalElement)
+            {
+                if (internalElement.Name.Equals(urltype))
+                {
+                    urlIE = internalElement;
+                    break;
+                }
+            }
+            if (urlIE == null)
+                urlIE = systemUnitClass.InternalElement.Append(urltype);
+
+            // create the externalelement
+            ExternalInterfaceType urlEI = null;
+            foreach (var externalinterface in urlIE.ExternalInterface)
+            {
+                if (externalinterface.Name.Equals(externalname))
+                {
+                    urlEI = externalinterface;
+                    break;
+                }
+            }
+            if (urlEI == null)
+                urlEI = urlIE.ExternalInterface.Append(externalname);
+
+            urlEI.RefBaseClassPath = AutomationMLInterfaceClassLib.ExternalDataConnector;
+
+            // create the refURI Attribute with the value of the path
+
+            AttributeType urlAtt = null;
+            if (urlEI.Attribute.GetCAEXAttribute("refURI") == null)
+            {
+                urlAtt = urlEI.Attribute.Append("refURI");
+            }
+            urlAtt.AttributeDataType = "xs:anyURI";
+            urlAtt.Value = url.ToString();
+            
         }
 
         /// <summary>
@@ -556,266 +852,70 @@ namespace Aml.Editor.Plugin
             }
             pictureAtt.AttributeDataType = "xs:anyURI";
             pictureAtt.Value = picturePart.ToString();
+            
 
             return picturePart;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ie"></param>
-        private void initCAEXattributes(InternalElementType ie)
-        {
-            initCAEXAttribute("CommunicationTechnology", "xs:string", ie);
-            initCAEXAttribute("VendorName", "xs:string", ie);
-            initCAEXAttribute("DeviceName", "xs:string", ie);
-            initCAEXAttribute("DeviceFamiliy", "xs:string", ie);
-            initCAEXAttribute("ProductName", "xs:string", ie);
-            initCAEXAttribute("OrderNumber", "xs:string", ie);
-            initCAEXAttribute("ProductText", "xs:string", ie);
-            initCAEXAttribute("IPProtection", "xs:string", ie);
-            initCAEXAttribute("VendorHompage", "xs:string", ie);
-            initCAEXAttribute("HardwareRelease", "xs:string", ie);
-            initCAEXAttribute("SoftwareRelease", "xs:string", ie);
-            initCAEXAttribute("OperatingTemperatureMin", "xs:double", ie);
-            initCAEXAttribute("OperatingTemperatureMax", "xs:double", ie);
-            initCAEXAttribute("VendorId", "xs:integer", ie);
-            initCAEXAttribute("DeviceId", "xs:integer", ie);
-        }
 
         /// <summary>
-        /// Create a attribute <paramref name="attribute"/> with the given datatype <paramref name="datatype"/> in the <paramref name="ie"/>
+        /// Creates the Structur to reference a document and set the correct value <paramref name="doc"/>.
+        /// If the structur is already there, it will only update the value.
         /// </summary>
-        /// <param name="attribute">the name of the attribute</param>
-        /// <param name="datatype">the xs datatype</param>
-        /// <param name="ie">the internalelement for these attributes</param>
+        /// <param name="doc">the absolut path to the document</param>
+        /// <param name="doctype">Documenttype like 'Short Guide' or 'Bill of Materials'</param>
+        /// <param name="externalname">The name of the externalElement</param>
+        /// <param name="systemUnitClass">the systemUnitClass to insert the structure into</param>
         /// <returns></returns>
-        private AttributeType initCAEXAttribute(string attribute, string datatype, InternalElementType ie)
+        public Uri createDocumentRef(string doc, string doctype, string externalname, SystemUnitClassType systemUnitClass)
         {
-            AttributeType attributeType = null;
-            // check if the attribute exists, if not create it
-            if (ie.Attribute.GetCAEXAttribute(attribute) == null)
-            {
-                attributeType = ie.Attribute.Append(attribute);
-                attributeType.AttributeDataType = datatype;
-            }
-            else
-            {
-                ie.Attribute.GetCAEXAttribute(attribute).AttributeDataType = datatype;
-            }
-            return attributeType;
-        }
+            // create the package paths
+            FileInfo documentInfo = new FileInfo(doc);
+            Uri documentPath = new Uri(documentInfo.Name, UriKind.Relative);
+            Uri documentPart = PackUriHelper.CreatePartUri(documentPath);
 
-        /// <summary>
-        /// assign the values of the <paramref name="device"/> to the corresponding attributes
-        /// </summary>
-        /// <param name="ie">the DeviceIdentification InternalElement</param>
-        /// <param name="device">the device for this aml</param>
-        private void setCAEXattribute(InternalElementType ie, MWDevice device)
-        {
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("CommunicationTechnology"), device.deviceType);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorId"), device.vendorID);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorName"), device.vendorName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceId"), device.deviceID);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceName"), device.deviceName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("DeviceFamiliy"), device.deviceFamily);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OrderNumber"), device.orderNumber);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductName"), device.productName);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ProductText"), device.productText);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("IPProtection"), device.ipProtection);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMin"), device.minTemperature);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("OperatingTemperatureMax"), device.maxTemperature);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("VendorHompage"), device.vendorHomepage);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("HardwareRelease"), device.harwareRelease);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("SoftwareRelease"), device.softwareRelease);
-        }
-
-        /// <summary>
-        /// Write the Value if it's not null / empty / NaN
-        /// </summary>
-        /// <param name="attribute">the attribute</param>
-        /// <param name="value">the value. Expected types: string, int, double</param>
-        private void writeIfNotNull(AttributeType attribute, object value)
-        {
-            if (value is string)
+            // Create the InternalElement which refers to the document
+            InternalElementType documentIE = null;
+            foreach (var internalElement in systemUnitClass.InternalElement)
             {
-                if (!String.IsNullOrEmpty((string)value))
-                    attribute.Value = (string)value;
-            }
-            else if (value is double)
-            {
-                if (!Double.IsNaN((double)value) && value != null)
+                if (internalElement.Name.Equals(doctype))
                 {
-                    attribute.Value = ((double)value).ToString();
-                }
-            }
-            else if (value is int)
-            {
-                if (value != null)
-                {
-                    attribute.Value = value.ToString();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Create a new amlx file using <paramref name="newInterface"/>
-        /// </summary>
-        /// <param name="newInterface">the object to create</param>
-        /// <param name="isEdit">true if an amlx file get update, false if a new file will be created</param>
-        /// <returns></returns>
-        public string CreateInterface(MWInterface newInterface, bool isEdit)
-        {
-            // Anlegen des AML / XML's
-            // Siehe TINF17C/software-engineering-1/modelling-wizard/modellingwizardplugin#25
-
-            AutomationMLContainer amlx = null;
-            CAEXDocument document = null;
-
-            // init the filepath
-            string fileName = newInterface.numberOfInterface + "-V.1.0-" + DateTime.Now.Date.ToShortDateString();
-            string amlFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\modellingwizard\\" + newInterface.numberOfInterface + ".amlx";
-
-            FileInfo file = new FileInfo(amlFilePath);
-            file.Directory.Create();
-
-            // Init new CAEX Document
-            if (isEdit)
-            {
-                // Load the amlx file
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Open);
-
-                IEnumerable<PackagePart> rootParts = amlx.GetPartsByRelationShipType(AutomationMLContainer.RelationshipType.Root);
-
-                // We expect the aml to only have one root part
-                if (rootParts.First() != null)
-                {
-                    PackagePart part = rootParts.First();
-
-                    // load the aml file as an CAEX document
-                    document = CAEXDocument.LoadFromStream(part.GetStream());
-                }
-                else
-                {
-                    // the amlx contains no aml file
-                    document = CAEXDocument.New_CAEXDocument();
-                }
-            }
-            else
-            {
-                // create a new CAEX document
-                document = CAEXDocument.New_CAEXDocument();
-                amlx = new AutomationMLContainer(amlFilePath, FileMode.Create);
-            }
-
-            // Init the default Libs
-            AutomationMLBaseRoleClassLibType.RoleClassLib(document);
-            AutomationMLInterfaceClassLibType.InterfaceClassLib(document);
-
-
-            SystemUnitFamilyType systemUnitClass = null;
-            // Create the SystemUnitClass for our device
-            if (!isEdit)
-            {
-                systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-            }
-            else
-            {
-                bool foundSysClassLib = false;
-                foreach (var sysclasslib in document.CAEXFile.SystemUnitClassLib)
-                {
-                    if (sysclasslib.Name.Equals("ComponentSystemUnitClassLib"))
-                    {
-                        bool foundSysClass = false;
-                        foreach (var sysclass in sysclasslib.SystemUnitClass)
-                        {
-                            if (sysclass.Name.Equals(newInterface.numberOfInterface.ToString()))
-                            {
-                                foundSysClass = true;
-                                systemUnitClass = sysclass;
-                                break;
-                            }
-                        }
-                        if (!foundSysClass)
-                            sysclasslib.SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-                        foundSysClassLib = true;
-                    }
-                }
-                if (!foundSysClassLib)
-                    systemUnitClass = document.CAEXFile.SystemUnitClassLib.Append("ComponentSystemUnitClassLib").SystemUnitClass.Append(newInterface.numberOfInterface.ToString());
-            }
-
-            // create the DeviceIdentification InternalElement
-            InternalElementType ie = null;
-            foreach (var internalelement in systemUnitClass.InternalElement)
-            {
-                if (internalelement.Name.Equals("DeviceIdentification"))
-                {
-                    ie = internalelement;
+                    documentIE = internalElement;
                     break;
                 }
             }
-            if (ie == null)
-                ie = systemUnitClass.InternalElement.Append("DeviceIdentification");
+            if (documentIE == null)
+                documentIE = systemUnitClass.InternalElement.Append(doctype);
 
-            // make sure that the attributes are initialized
-            initCAEXAttribute("InterfaceNumber", "xs:integer", ie);
-            initCAEXAttribute("Description", "xs:string", ie);
-            initCAEXAttribute("ConnectorType", "xs:string", ie);
-            initCAEXAttribute("PinCount", "xs:integer", ie);
-
-            // special handling for the pinlist
-            AttributeType pinlistAtt = null;
-            if (ie.Attribute.GetCAEXAttribute("PinAttributes") == null)
+            // create the externalelement
+            ExternalInterfaceType documentEI = null;
+            foreach (var externalinterface in documentIE.ExternalInterface)
             {
-                pinlistAtt = ie.Attribute.Append("PinAttributes");
+                if (externalinterface.Name.Equals(externalname))
+                {
+                    documentEI = externalinterface;
+                    break;
+                }
             }
-            else
+            if (documentEI == null)
+                documentEI = documentIE.ExternalInterface.Append(externalname);
+
+            documentEI.RefBaseClassPath = AutomationMLInterfaceClassLib.ExternalDataConnector;
+
+            // create the refURI Attribute with the value of the path
+
+            AttributeType pictureAtt = null;
+            if (documentEI.Attribute.GetCAEXAttribute("refURI") == null)
             {
-                pinlistAtt = ie.Attribute.GetCAEXAttribute("PinAttributes");
-                pinlistAtt.Attribute.Remove();
+                pictureAtt = documentEI.Attribute.Append("refURI");
             }
+            pictureAtt.AttributeDataType = "xs:anyURI";
+            pictureAtt.Value = documentPart.ToString();
 
-            // assign the values for the pinlist
-            foreach (MWPin pin in newInterface.pinList)
-            {
-                pinlistAtt.Attribute.Append(pin.pinNumber.ToString()).Value = pin.attribute;
-            }
-
-            // assign the values for the 'normal' attributes
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("InterfaceNumber"), newInterface.numberOfInterface);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("Description"), newInterface.interfaceDescription);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("ConnectorType"), newInterface.connectorType);
-            writeIfNotNull(ie.Attribute.GetCAEXAttribute("PinCount"), newInterface.amountPins);
-
-            // create the aml package part
-            Uri partUri = PackUriHelper.CreatePartUri(new Uri("/" + fileName + "-root.aml", UriKind.Relative));
-
-            // create a temp file with the new aml
-            string path = Path.GetTempFileName();
-            document.SaveToFile(path, true);
-
-            if (isEdit)
-            {
-                // delete the old aml file
-                amlx.Package.DeletePart(partUri);
-            }
-
-            // copy the new aml file into the package
-            PackagePart root = amlx.AddRoot(path, partUri);
-
-            amlx.Save();
-            amlx.Close();
-            if (isEdit)
-            {
-                return "Sucessfully updated interface!\nFilepath " + amlFilePath;
-
-            }
-            else
-            {
-                return "Sucessfully created interface!\nFilepath " + amlFilePath;
-
-            }
+            return documentPart;
         }
+      
+      
+
 
         /// <summary>
         /// Calls the iodd2aml Converter using <see cref="System.Reflection"/>
@@ -979,6 +1079,12 @@ namespace Aml.Editor.Plugin
         public class MWObject
         {
             // Just as an interface
+        }
+        public void copyFiles(string sourceFilePath, string destinationFilePath )
+        {
+            string sourFile = Path.GetFileName(sourceFilePath);
+            string destFile = Path.Combine(destinationFilePath, sourFile);
+            File.Copy(sourceFilePath, destFile, true);
         }
     }
 }

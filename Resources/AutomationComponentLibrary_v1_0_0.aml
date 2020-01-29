@@ -1,0 +1,465 @@
+﻿<!-- Mit XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) von inpro (inpro) bearbeitet -->
+<CAEXFile SchemaVersion="2.15" FileName="AutomationComponentLibrary_v1_0_0.aml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd">
+  <AdditionalInformation AutomationMLVersion="2.0" />
+  <AdditionalInformation DocumentVersions="Recommendations">
+    <Document DocumentIdentifier=" WP Geo" Version="2.0.0" />
+  </AdditionalInformation>
+  <AdditionalInformation DocumentVersions="Recommendations">
+    <Document DocumentIdentifier="WP Logic" Version="2.0.0" />
+  </AdditionalInformation>
+  <AdditionalInformation DocumentVersions="Recommendations">
+    <Document DocumentIdentifier="WP Arch" Version="2.1.0" />
+  </AdditionalInformation>
+  <AdditionalInformation DocumentVersions="Recommendations">
+    <Document DocumentIdentifier="BPR EDRef" Version="1.0.0" />
+  </AdditionalInformation>
+  <AdditionalInformation>
+    <WriterHeader>
+      <WriterName>AutomationML Editor</WriterName>
+      <WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+      <WriterVendor>AutomationML e.V.</WriterVendor>
+      <WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+      <WriterVersion>5.3.0.0</WriterVersion>
+      <WriterRelease>5.3.0.0</WriterRelease>
+      <LastWritingDateTime>2019-11-21T15:52:45.1337374</LastWritingDateTime>
+      <WriterProjectTitle>unspecified</WriterProjectTitle>
+      <WriterProjectID>unspecified</WriterProjectID>
+    </WriterHeader>
+  </AdditionalInformation>
+  <InterfaceClassLib Name="AutomationMLComponentBaseICL">
+    <Description>The InterfaceClassLib AutomationMLComponentBaseICL is defined in the Whitepaper "Description of AutomationML Components". The document can be downloaded at https://www.automationml.org/o.red.c/publications.html . The Version of the related WP is 1.0  State November 2019 and has the Document Identifier WP Compo.</Description>
+    <Version>1.0.0</Version>
+    <InterfaceClass Name="2DReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference">
+      <Description>A 2DReference shall be used to reference a 2D representation of the AutomationML Component.</Description>
+    </InterfaceClass>
+    <InterfaceClass Name="GraphicRepresentationReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" />
+    <InterfaceClass Name="JTReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" />
+    <InterfaceClass Name="DeviceDescriptionReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference">
+      <Attribute Name="Version" AttributeDataType="xs:string" />
+    </InterfaceClass>
+    <InterfaceClass Name="SkillLogicReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" />
+    <InterfaceClass Name="SkillSignalInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/Communication/SignalInterface" />
+    <InterfaceClass Name="SkillParameterInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/Communication/SignalInterface">
+      <Attribute Name="Attribute" AttributeDataType="xs:string" />
+    </InterfaceClass>
+    <InterfaceClass Name="SkillResourceToProcessInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/PPRConnector" />
+    <InterfaceClass Name="SkillResourceToProductInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/PPRConnector" />
+    <InterfaceClass Name="MaintenanceDescriptionLink" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+      <Description>The MaintenanceDescriptionLink shall be used to interlink MaintenanceDescriptionGroup and MaintenanceDescriptionItem</Description>
+    </InterfaceClass>
+    <InterfaceClass Name="MechanicInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+      <Description>A MechanicInterface represents a hardware provision to mechanically fasten or join two or more objects together.</Description>
+    </InterfaceClass>
+    <InterfaceClass Name="ElectricInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+      <Description>An ElectricInterface describes an electro-mechanical provision used to join electrical terminations and to create electrical circuits.</Description>
+    </InterfaceClass>
+    <InterfaceClass Name="LiquidicInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface" />
+    <InterfaceClass Name="PneumaticInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+      <Description>???</Description>
+    </InterfaceClass>
+    <InterfaceClass Name="PneumaticConnector" RefBaseClassPath="AutomationMLComponentBaseICL/PneumaticInterface">
+      <Attribute Name="pneumaticPort" AttributeDataType="xs:string" />
+      <Attribute Name="connectorType" AttributeDataType="xs:string" />
+    </InterfaceClass>
+    <InterfaceClass Name="CondensateDrainConnector" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface" />
+    <InterfaceClass Name="HydraulicInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface" />
+    <InterfaceClass Name="SensorInterface" RefBaseClassPath="AutomationMLComponentBaseICL/MechanicInterface" />
+  </InterfaceClassLib>
+  <InterfaceClassLib Name="AutomationMLFMIInterfaceClassLib">
+    <Description>The InterfaceClassLib AutomationMLFMIInterfaceClassLib is defined in the Whitepaper "Description of AutomationML Components". The document can be downloaded at https://www.automationml.org/o.red.c/publications.html . The Version of the related WP is 1.0  State November 2019 and has the Document Identifier WP Compo.</Description>
+    <Version>1.0.0</Version>
+    <InterfaceClass Name="FMIReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" />
+    <InterfaceClass Name="FMIVariableInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector">
+      <Attribute Name="Name" AttributeDataType="xs:string" />
+      <Attribute Name="Causality" AttributeDataType="xs:string" />
+    </InterfaceClass>
+  </InterfaceClassLib>
+  <RoleClassLib Name="AutomationMLComponentBaseRCL">
+    <Description>The RoleClassLib AutomationMLComponentBaseRCL is defined in the Whitepaper "Description of AutomationML Components". The document can be downloaded at https://www.automationml.org/o.red.c/publications.html . The Version of the related WP is 1.0  State November 2019 and has the Document Identifier WP Compo.</Description>
+    <Version>1.0.0</Version>
+    <RoleClass Name="AdditionalDeviceDescription" RefBaseClassPath="AutomationMLBPRRoleClassLib/ExternalData">
+      <Description>This is the base class for standard or user defined role classes referencing technology based device descriptions.</Description>
+      <Attribute Name="SpecVersion" AttributeDataType="xs:string" />
+      <Attribute Name="DocLang" AttributeDataType="xs:string" />
+      <ExternalInterface Name="DeviceDescriptionReference" ID="77a3d04b-702e-4852-8094-cd37cd155fcd" RefBaseClassPath="AutomationMLComponentBaseICL/DeviceDescriptionReference">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+        <Attribute Name="Version" AttributeDataType="xs:string" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="Connector" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+      <Description>???</Description>
+    </RoleClass>
+    <RoleClass Name="Documentation" RefBaseClassPath="AutomationMLBPRRoleClassLib/ExternalData">
+      <ExternalInterface Name="ExternalDataReference" ID="7b24341d-fd33-4fc3-9ae9-3fb9673d11ea" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="GeometryModel" RefBaseClassPath="AutomationMLComponentBaseRCL/Model" />
+    <RoleClass Name="GraphicRepresentation" RefBaseClassPath="AutomationMLBPRRoleClassLib/ExternalData">
+      <ExternalInterface Name="GraphicRepresentationReference" ID="fdfc49bd-0266-4f31-a0b2-cf365f16fbeb" RefBaseClassPath="AutomationMLComponentBaseICL/GraphicRepresentationReference">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="Icon" RefBaseClassPath="AutomationMLComponentBaseRCL/GraphicRepresentation" />
+    <RoleClass Name="LogicModel" RefBaseClassPath="AutomationMLComponentBaseRCL/Model">
+      <RoleClass Name="PLCopenXMLLogic" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/LogicObject">
+        <ExternalInterface Name="VariableInterface" ID="7306f95b-7e2e-4f3a-af1d-12f4e1d1e941" RefBaseClassPath="AutomationMLPLCopenXMLInterfaceClassLib/VariableInterface" />
+        <ExternalInterface Name="LogicInterface" ID="ca8c37da-96d9-44a8-9c8c-68c5f6b8b420" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/PLCopenXMLInterface/LogicInterface">
+          <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        </ExternalInterface>
+      </RoleClass>
+      <RoleClass Name="AMLLogic" RefBaseClassPath="AutomationMLLogicRoleClassLib/LogicModelObject" />
+      <RoleClass Name="FMILogic" RefBaseClassPath="AutomationMLFMILogicRoleClassLib/FMILogicObject">
+        <ExternalInterface Name="FMIReference" ID="fb47e6a7-2e9f-4e2e-bfa3-0288da9973c7" RefBaseClassPath="AutomationMLFMIInterfaceClassLib/FMIReference">
+          <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+          <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+        </ExternalInterface>
+        <ExternalInterface Name="FMIVariableInterface" ID="41d8e7a0-4cfc-4b4f-baab-ef32e2d4072b" RefBaseClassPath="AutomationMLFMIInterfaceClassLib/FMIVariableInterface">
+          <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+          <Attribute Name="Name" AttributeDataType="xs:string" />
+          <Attribute Name="Causality" AttributeDataType="xs:string" />
+        </ExternalInterface>
+      </RoleClass>
+    </RoleClass>
+    <RoleClass Name="KinematicModel" RefBaseClassPath="AutomationMLComponentBaseRCL/Model" />
+    <RoleClass Name="MaintenanceDescription" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+      <ExternalInterface Name="MaitenanceDescriptionLink" ID="cb4c7e2a-dd8a-4e39-b4ff-6b1ae447358d" RefBaseClassPath="AutomationMLComponentBaseICL/MaintenanceDescriptionLink" />
+    </RoleClass>
+    <RoleClass Name="Model" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+    <RoleClass Name="Symbol" RefBaseClassPath="AutomationMLComponentBaseRCL/GraphicRepresentation" />
+  </RoleClassLib>
+  <RoleClassLib Name="AutomationMLComponentStandardRCL">
+    <Description>The RoleClassLib AutomationMLComponentStandardRCL is defined in the Whitepaper "Description of AutomationML Components". The document can be downloaded at https://www.automationml.org/o.red.c/publications.html . The Version of the related WP is 1.0  State November 2019 and has the Document Identifier WP Compo.</Description>
+    <Version>1.0.0</Version>
+    <RoleClass Name="AutomationComponent" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+      <Description>This role class defines a set of attributes to identify, classify and describe an automation component as an industrial product which serves specific functions, i.e. for industrial process or factory automation.</Description>
+      <Attribute Name="IdentificationData">
+        <Description>Identification data of the automation component type or instance model.</Description>
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACC011#001" />
+        <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABC269#005" />
+        <Attribute Name="Manufacturer" AttributeDataType="xs:string">
+          <Description>Name of the Manufacturer (person, company or organisation)</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE102#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA565#006" />
+        </Attribute>
+        <Attribute Name="ManufacturerURI" AttributeDataType="xs:string">
+          <Description>Address of the product manufacturer on the world wide web (URL) </Description>
+        </Attribute>
+        <Attribute Name="DeviceClass" AttributeDataType="xs:string">
+          <Description>Product family name of the manufacturer, characterization may be based on its usage, operation principle, and its fabricated form</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE104#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA566#005" />
+        </Attribute>
+        <Attribute Name="Model" AttributeDataType="xs:string">
+          <Description>Product name or model code of the manufacturer</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE105#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA567#006" />
+        </Attribute>
+        <Attribute Name="ProductCode" AttributeDataType="xs:string">
+          <Description>Unique product identifier given by the manufacturer</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE103#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA300#005" />
+        </Attribute>
+        <Attribute Name="OrderCode" AttributeDataType="xs:string">
+          <Description>Unique combination of numbers and letters used to order the device</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAH549#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA950#006" />
+        </Attribute>
+        <Attribute Name="HardwareRevision" AttributeDataType="xs:string">
+          <Description>Version of the hardware supplied with the component</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA926#005" />
+        </Attribute>
+        <Attribute Name="SoftwareRevision" AttributeDataType="xs:string">
+          <Description>Version of the firmware supplied with the component</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA302#004" />
+        </Attribute>
+        <Attribute Name="SerialNumber" AttributeDataType="xs:string">
+          <Description>Unique combination of numbers and letters to identify a manufactured component sample</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA951#006" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#ADA029#001" />
+        </Attribute>
+        <Attribute Name="FabricationNumber" AttributeDataType="xs:string">
+          <Description>Alphanumeric character sequence to trace the date, time and circumstances of fabrication</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABB062#005" />
+        </Attribute>
+        <Attribute Name="ProductInstanceURI" AttributeDataType="xs:string">
+          <Description>Unique global identification of the product type or sample (assetID) using an universal resource identifier, such as an online URL to the product data.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABN591#001" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="GeneralTechnicalData">
+        <Description>Classification data of the component.</Description>
+        <Attribute Name="AmbientTemperature" AttributeDataType="xs:string">
+          <Description>Operating temperature limits of the air surrounding the complete component.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE440#001" />
+          <Attribute Name="TemperatureMin" AttributeDataType="xs:int">
+            <Description>Lowest ambient temperature for which the component operates within its specified limits.</Description>
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAH008#002" />
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA621#007" />
+          </Attribute>
+          <Attribute Name="TemperatureMax" AttributeDataType="xs:int">
+            <Description>Highest ambient temperature for which the component operates within its specified limits.</Description>
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAH007#002" />
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA623#007" />
+            <RefSemantic CorrespondingAttributePath="IRDI:" />
+          </Attribute>
+        </Attribute>
+        <Attribute Name="IPCode" AttributeDataType="xs:string">
+          <Description>Degree of protection (IP code) of the component provided by enclosure, numerical classification in accordance with IEC 60529 preceded by the symbol IP.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAH011#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE248#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA558#006" />
+        </Attribute>
+        <Attribute Name="Material" AttributeDataType="xs:string">
+          <Description>Basic material of the housing of the component.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAE351#006" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE260#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA158#004" />
+        </Attribute>
+        <Attribute Name="Weight" AttributeDataType="xs:float">
+          <Description>Net weight: Value of the mass of the component with all fixed parts without packaging and accessories.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#ACB032#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE808#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA553#006" />
+        </Attribute>
+        <Attribute Name="Height" AttributeDataType="xs:integer" Unit="mm">
+          <Description>Height of the body, vertical distance between the top and bottom of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAE020#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE801#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA574#006" />
+        </Attribute>
+        <Attribute Name="Width" AttributeDataType="xs:integer">
+          <Description>Width or breadth of the body, horizontal distance between the left-hand and right-hand extremes of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAE021#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE802#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA573#006" />
+        </Attribute>
+        <Attribute Name="Length" AttributeDataType="xs:integer">
+          <Description>Length of the body, horizontal distance between the front and back of the component when standing in its normal position of use, including connectors and terminals, without accessory and cable.</Description>
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#AAE019#002" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE803#001" />
+          <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA640#006" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="CommercialData" AttributeDataType="">
+        <Description>Commercial data related to the component.</Description>
+        <Attribute Name="PackagingAndTransportation">
+          <Description>Properties characterizing the packing and transportation (shipping) of a product.</Description>
+          <Attribute Name="GTIN" AttributeDataType="xs:string">
+            <Description>Global Trade Item Number (GTIN). International unique and universal item number for products and services used by trade and industry (formerly EAN)</Description>
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE101#001" />
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABA587#005" />
+          </Attribute>
+          <Attribute Name="CustomsTariffNumber" AttributeDataType="xs:integer">
+            <Description>Classification of a product according to trade regulations. Number assigned to each type of product sold internationally.</Description>
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///62683#ACE109#001" />
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABI442#001" />
+          </Attribute>
+          <Attribute Name="CountryOfOrigin" AttributeDataType="xs:string" Unit="code">
+            <Description>Alphabetic 2-character code for the identification of the country in which the good has been produced or manufactured according to criteria laid down for the application of custom tariff or quantitative restrictions, or any measure related to trade. The provided value list for the alphabetic 2-character code is based on ISO 3166-1, which is updated under https://www.iso.org/iso-3166-country-codes.html</Description>
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61360_4#ADA034#001" />
+            <RefSemantic CorrespondingAttributePath="IRDI:0112/2///61987#ABJ603#001" />
+          </Attribute>
+        </Attribute>
+        <Attribute Name="ProductDetails" AttributeDataType="xs:string">
+          <Attribute Name="DescriptionShort" AttributeDataType="xs:string" />
+          <Attribute Name="DescriptionLong" AttributeDataType="xs:string" />
+          <Attribute Name="InternationalPID" AttributeDataType="xs:string" />
+          <Attribute Name="ManufacturerPID" AttributeDataType="xs:string" />
+          <Attribute Name="SpecialTreatmentClass" AttributeDataType="xs:string">
+            <RefSemantic CorrespondingAttributePath="ListType" />
+          </Attribute>
+          <Attribute Name="Keyword" AttributeDataType="xs:string">
+            <RefSemantic CorrespondingAttributePath="ListType" />
+          </Attribute>
+          <Attribute Name="Remarks" AttributeDataType="xs:string" />
+        </Attribute>
+        <Attribute Name="ProductOrderDetails">
+          <Attribute Name="OrderUnit" AttributeDataType="xs:string" />
+          <Attribute Name="ContentUnit" AttributeDataType="xs:string" />
+          <Attribute Name="PriceQuantity" AttributeDataType="xs:string" />
+          <Attribute Name="QuantityMin" AttributeDataType="xs:float" />
+          <Attribute Name="QuantityInterval" AttributeDataType="xs:float" />
+          <Attribute Name="QuantityMax" AttributeDataType="xs:string" />
+          <Attribute Name="PackingUnits" AttributeDataType="xs:string" />
+          <Attribute Name="PackingSize" AttributeDataType="xs:string" />
+        </Attribute>
+        <Attribute Name="ProductPriceDetails">
+          <RefSemantic CorrespondingAttributePath="ListType" />
+          <Attribute Name="ValidStartDate" AttributeDataType="xs:date" />
+          <Attribute Name="VaildEndDate" AttributeDataType="xs:date" />
+          <Attribute Name="ProductPrice" AttributeDataType="xs:string">
+            <Attribute Name="PriceAmount" AttributeDataType="xs:string" />
+            <Attribute Name="PriceCurrency" AttributeDataType="xs:string" />
+            <Attribute Name="Tax" AttributeDataType="xs:string" />
+            <Attribute Name="PriceFactor" AttributeDataType="xs:string" />
+            <Attribute Name="LowerBound" AttributeDataType="xs:string" />
+            <Attribute Name="Territory" AttributeDataType="xs:string">
+              <RefSemantic CorrespondingAttributePath="ListType" />
+            </Attribute>
+          </Attribute>
+        </Attribute>
+        <Attribute Name="ManufacturerDetails">
+          <Attribute Name="Name" AttributeDataType="xs:string" />
+          <Attribute Name="Address1" AttributeDataType="xs:string" />
+          <Attribute Name="Address2" AttributeDataType="xs:string" />
+          <Attribute Name="ZipCode" AttributeDataType="xs:string" />
+          <Attribute Name="City" AttributeDataType="xs:string" />
+          <Attribute Name="Country" AttributeDataType="xs:string" />
+          <Attribute Name="ContactMail" AttributeDataType="xs:string" />
+          <Attribute Name="ContactPhone" AttributeDataType="xs:string" />
+          <Attribute Name="Website" AttributeDataType="xs:string" />
+        </Attribute>
+      </Attribute>
+      <Attribute Name="ParameterData" AttributeDataType="xs:string">
+        <Description>Parameter data (configurable and read-only) of the component.</Description>
+      </Attribute>
+    </RoleClass>
+    <RoleClass Name="AutomationComponentSemanticSystem" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+      <Attribute Name="ClassificationSystem" AttributeDataType="xs:string">
+        <Attribute Name="Version" AttributeDataType="xs:string" />
+        <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string" />
+        <Attribute Name="URL" AttributeDataType="xs:string" />
+      </Attribute>
+      <Attribute Name="IEC 61987 - SC 65E/WG 2" AttributeDataType="xs:string">
+        <Attribute Name="Version" AttributeDataType="xs:string">
+          <Value>CDD - V2.0014.0016</Value>
+        </Attribute>
+        <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+          <Value>IRDI:0112/2///62683#</Value>
+        </Attribute>
+        <Attribute Name="URL" AttributeDataType="xs:string">
+          <Value>https://cdd.iec.ch/cdd/iec61987/iec61987.nsf/TreeFrameset?OpenFrameSet&amp;ongletactif=1</Value>
+        </Attribute>
+      </Attribute>
+      <Attribute Name="IEC 61360-4" AttributeDataType="xs:string">
+        <Attribute Name="Version" AttributeDataType="xs:string">
+          <Value>CDD - V2.0014.0016</Value>
+        </Attribute>
+        <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+          <Value>IRDI:0112/2///61360_4#</Value>
+        </Attribute>
+        <Attribute Name="URL" AttributeDataType="xs:string">
+          <Value>https://cdd.iec.ch/cdd/iec61360/iec61360.nsf/TreeFrameset?OpenFrameSet&amp;ongletactif=1</Value>
+        </Attribute>
+      </Attribute>
+      <Attribute Name="IEC 62683 - SC 3D / SC 17B" AttributeDataType="xs:string">
+        <Attribute Name="Version" AttributeDataType="xs:string">
+          <Value>CDD - V2.0014.0016</Value>
+        </Attribute>
+        <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+          <Value>IRDI:0112/2///62683#</Value>
+        </Attribute>
+        <Attribute Name="URL" AttributeDataType="xs:string">
+          <Value>https://cdd.iec.ch/cdd/iec62683/iec62683.nsf/TreeFrameset?OpenFrameSet&amp;ongletactif=1</Value>
+        </Attribute>
+      </Attribute>
+      <Attribute Name="eClass" AttributeDataType="xs:string">
+        <Attribute Name="Version" AttributeDataType="xs:string">
+          <Value>Version 11.0</Value>
+        </Attribute>
+        <Attribute Name="RefSemanticPrefix" AttributeDataType="xs:string">
+          <Value>IRDI:0173</Value>
+        </Attribute>
+        <Attribute Name="URL" AttributeDataType="xs:string">
+          <Value>https://www.eclasscontent.com</Value>
+        </Attribute>
+      </Attribute>
+    </RoleClass>
+    <RoleClass Name="BehaviourModel" RefBaseClassPath="AutomationMLComponentBaseRCL/LogicModel" />
+    <RoleClass Name="Function" RefBaseClassPath="AutomationMLComponentBaseRCL/LogicModel" />
+    <RoleClass Name="SimulationModel" RefBaseClassPath="AutomationMLComponentBaseRCL/LogicModel" />
+    <RoleClass Name="SequencingModel" RefBaseClassPath="AutomationMLComponentBaseRCL/LogicModel" />
+    <RoleClass Name="Sequence" RefBaseClassPath="AutomationMLComponentStandardRCL/SequencingModel" />
+    <RoleClass Name="SequenceElement" RefBaseClassPath="AutomationMLComponentStandardRCL/SequencingModel" />
+    <RoleClass Name="Skill" RefBaseClassPath="AutomationMLComponentBaseRCL/LogicModel" />
+    <RoleClass Name="COLLADAKinematicModel" RefBaseClassPath="AutomationMLComponentBaseRCL/KinematicModel">
+      <ExternalInterface Name="COLLADAInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/COLLADAInterface" ID="4515b789-fc7b-410d-8756-2ffe16255139">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="refType" AttributeDataType="xs:string" />
+        <Attribute Name="target" AttributeDataType="xs:token" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="COLLADAKinematicAttachment" RefBaseClassPath="AutomationMLComponentStandardRCL/COLLADAKinematicModel">
+      <ExternalInterface Name="AttachmentInterface" ID="5a7555a1-1b49-4abe-9f64-23f33c81d41f" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/AttachmentInterface" />
+    </RoleClass>
+    <RoleClass Name="COLLADAGeometryModel" RefBaseClassPath="AutomationMLComponentBaseRCL/GeometryModel">
+      <ExternalInterface Name="COLLADAInterface" ID="d7d00603-9b83-4e1c-821f-ee2fb28a4aa1" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/COLLADAInterface">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="refType" AttributeDataType="xs:string" />
+        <Attribute Name="target" AttributeDataType="xs:token" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="COLLADAGeometryAttachment" RefBaseClassPath="AutomationMLComponentStandardRCL/COLLADAGeometryModel">
+      <ExternalInterface Name="AttachmentInterface" ID="1913fd44-cb01-4c0d-9f8f-6fbfdea2755f" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/AttachmentInterface" />
+    </RoleClass>
+    <RoleClass Name="JTGeometryModel" RefBaseClassPath="AutomationMLComponentBaseRCL/GeometryModel">
+      <ExternalInterface Name="JTReference" ID="aedac47c-741d-4e2e-b8d7-4443ef055535" RefBaseClassPath="AutomationMLComponentBaseICL/JTReference">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="2DGeometryModel" RefBaseClassPath="AutomationMLComponentBaseRCL/GeometryModel">
+      <ExternalInterface Name="2DReference" ID="8b7f8789-f132-4692-9871-1a10cf1df20f" RefBaseClassPath="AutomationMLComponentBaseICL/2DReference">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="ComponentPicture" RefBaseClassPath="AutomationMLComponentBaseRCL/GraphicRepresentation" />
+    <RoleClass Name="ElectricSymbol" RefBaseClassPath="AutomationMLComponentBaseRCL/Symbol" />
+    <RoleClass Name="HydraulicSymbol" RefBaseClassPath="AutomationMLComponentBaseRCL/Symbol" />
+    <RoleClass Name="PneumaticSymbol" RefBaseClassPath="AutomationMLComponentBaseRCL/Symbol" />
+    <RoleClass Name="ComponentIcon" RefBaseClassPath="AutomationMLComponentBaseRCL/Icon" />
+    <RoleClass Name="ManufacturerIcon" RefBaseClassPath="AutomationMLComponentBaseRCL/Icon" />
+    <RoleClass Name="Certificate" RefBaseClassPath="AutomationMLComponentBaseRCL/Documentation" />
+    <RoleClass Name="MechanicConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector">
+      <ExternalInterface Name="MechanicInterface" ID="f161edf3-c422-4cf7-9bf6-e4cba061b15c" RefBaseClassPath="AutomationMLComponentBaseICL/MechanicInterface" />
+    </RoleClass>
+    <RoleClass Name="MultiConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector" />
+    <RoleClass Name="LogicConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector">
+      <ExternalInterface Name="SignalInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/Communication/SignalInterface" ID="17bd2a73-0f1a-4d4b-9451-c9621f1047bf" />
+    </RoleClass>
+    <RoleClass Name="ElectricConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector">
+      <ExternalInterface Name="ElectricInterface" ID="6d752fce-f141-4d8a-a8b5-0064ad19f707" RefBaseClassPath="AutomationMLComponentBaseICL/ElectricInterface" />
+    </RoleClass>
+    <RoleClass Name="FluidicConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector" />
+    <RoleClass Name="LiquidicConnector" RefBaseClassPath="AutomationMLComponentStandardRCL/FluidicConnector">
+      <ExternalInterface Name="LiquidicInterface" ID="5f170a3d-7d61-47e6-8a45-63e8b7448609" RefBaseClassPath="AutomationMLComponentBaseICL/LiquidicInterface" />
+    </RoleClass>
+    <RoleClass Name="PneumaticConnector" RefBaseClassPath="AutomationMLComponentStandardRCL/FluidicConnector">
+      <ExternalInterface Name="PneumaticInterface" ID="0f7d6ec8-7078-49bc-918b-33773609c977" RefBaseClassPath="AutomationMLComponentBaseICL/PneumaticInterface" />
+    </RoleClass>
+    <RoleClass Name="HydraulicConnector" RefBaseClassPath="AutomationMLComponentStandardRCL/FluidicConnector">
+      <ExternalInterface Name="HydraulicInterface" ID="56f6607e-fa42-4d34-89e9-82c196a4adba" RefBaseClassPath="AutomationMLComponentBaseICL/HydraulicInterface" />
+    </RoleClass>
+    <RoleClass Name="SensorConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector">
+      <ExternalInterface Name="SensorInterface" ID="46fae3e7-fa14-4d27-a650-d135811affac" RefBaseClassPath="AutomationMLComponentBaseICL/SensorInterface" />
+    </RoleClass>
+    <RoleClass Name="SkillConnector" RefBaseClassPath="AutomationMLComponentBaseRCL/Connector" />
+    <RoleClass Name="MaintenanceDescriptionGroup" RefBaseClassPath="AutomationMLComponentBaseRCL/MaintenanceDescription">
+      <Description>???</Description>
+      <Attribute Name="TopicName" AttributeDataType="xs:string" />
+    </RoleClass>
+    <RoleClass Name="MaintenanceDescriptionItem" RefBaseClassPath="AutomationMLComponentBaseRCL/MaintenanceDescription">
+      <Description>???</Description>
+      <Attribute Name="Index" AttributeDataType="xs:PositiveInteger" />
+      <Attribute Name="SubTopic" AttributeDataType="xs:string" />
+      <Attribute Name="WorkDescription" AttributeDataType="xs:string" />
+      <Attribute Name="Cycle" AttributeDataType="xs:duration" />
+      <Attribute Name="PlannedTimePerWorker" AttributeDataType="xs:duration" />
+      <Attribute Name="ActivityKey" AttributeDataType="xs:string" />
+      <Attribute Name="ExecutionKey" AttributeDataType="xs:string" />
+      <Attribute Name="FunctionKey" AttributeDataType="xs:string" />
+      <Attribute Name="PersonnelKey" AttributeDataType="xs:string" />
+      <Attribute Name="LastExecution" AttributeDataType="xs:string" />
+    </RoleClass>
+  </RoleClassLib>
+  <RoleClassLib Name="AutomationMLFMILogicRoleClassLib">
+    <Description>The RoleClassLib AutomationMLFMILogicRoleClassLib is defined in the Whitepaper "Description of AutomationML Components". The document can be downloaded at https://www.automationml.org/o.red.c/publications.html . The Version of the related WP is 1.0  State November 2019 and has the Document Identifier WP Compo.</Description>
+    <Version>1.0.0</Version>
+    <RoleClass Name="FMILogicObject" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+  </RoleClassLib>
+</CAEXFile>

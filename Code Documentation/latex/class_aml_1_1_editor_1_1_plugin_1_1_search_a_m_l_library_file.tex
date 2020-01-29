@@ -1,0 +1,850 @@
+\hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file}{}\doxysection{Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File Class Reference}
+\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file}\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+
+
+This class reads the library file loaded in to the plugin \char`\"{}\+Role Class Library Tree\+View\char`\"{} and \char`\"{}\+Interface Class Library Tree\+View\char`\"{}  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aec38502ce275c149500a135b82f3d4e9}{Search\+A\+M\+L\+Library\+File}} ()
+\begin{DoxyCompactList}\small\item\em This is the constructor of this class where all properties are intitialised to there early state \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10fd9a1fcbf4033415354765a7b5223e}{Search\+For\+Referenced\+Class\+Name}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Interface\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method is responsible to iterate over \char`\"{}\+Interafce Class Libraries \& Interafce Classes in it\char`\"{}, and strore attributes of \char`\"{}\+Referenced Class Name\char`\"{} in the dictionary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a59edcf46c97b643baec157aa2904bb62}{Search\+For\+Interface\+Classes\+Inside\+Interface\+Class}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Interface\+Family\+Type class\+Type, Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name)
+\begin{DoxyCompactList}\small\item\em This class is responsible to search for interface classes ´nested inside Interface classes and recursion of this interface classes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a018cf327c2e354cb04ead38c34307852}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Name}} (Interface\+Family\+Type class\+Type)
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a82cf799b61e58be9c68e92949fc7842e}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name}} (Attribute\+Type attribute\+Type, Interface\+Family\+Type class\+Type)
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a146489175fd769883842ca2c148f1a8c}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Name}} (Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Interface\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method search for \char`\"{}\+Attributes\char`\"{} of \char`\"{}referenced Class name\char`\"{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0ee3cf6b377de457bec9874531dedc83}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name}} (Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Attribute\+Type attribute\+Type, Interface\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method is responsible to check nested attributes of \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a11a5f85235f45a9dd490ed80f116583c}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Interface\+Family\+Type class\+Type, Attribute\+Type attribute\+Type)
+\begin{DoxyCompactList}\small\item\em This the method that stores Attribute values of \char`\"{}\+Referened Class name\char`\"{} of \char`\"{}\+Interface Class\char`\"{} in the dictionary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae8c186a47b1131b50fb6555f6ab169d0}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Attribute\+Type Attribute\+In\+Attribute, Interface\+Family\+Type class\+Type, Attribute\+Type attribute\+Type)
+\begin{DoxyCompactList}\small\item\em This method store nested attributes of each attribute of \char`\"{}\+Referenced C\+L\+A\+S\+S name\char`\"{} in the dictionary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5c19581d6a736a2a158b2645ca4630d7}{Search\+For\+Referenced\+Class\+Nameof\+External\+Iterface}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Interface\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em //\+This method search for \char`\"{}\+Referenced Class\char`\"{} of \char`\"{}\+External Interface\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a74c126142b223c61a0315c31c1f0abe4}{Search\+For\+Interface\+Classes\+Inside\+Interface\+Classof\+External\+Iterface}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Interface\+Family\+Type class\+Type, Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method search for \char`\"{}\+Interface Classes\char`\"{} inside \char`\"{}\+Interface Classes\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0acb853cf4f5cdb3c8c4a35c6a551756}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Interface\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to Check \char`\"{}attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ab83a891496cd97f72f4756335513b360}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Attribute\+Type attribute\+Type, Interface\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to check \char`\"{}\+Nested A\+Ttributes\char`\"{} of \char`\"{}\+External Interface\textquotesingle{}s Attribute \char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a9dff615a305d66eb984477ba92b043b9}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Interface\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to check \char`\"{}attributes\char`\"{} OF \char`\"{}\+Refrenced Class Name\char`\"{} of \char`\"{}\+External\+Interface\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a21e849724bea0e2528bc13522809aa04}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Interface\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Attribute\+Type attribute\+Type, Interface\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to check the \char`\"{}\+Nested Attributes\char`\"{} of \char`\"{}\+Attributes\char`\"{} of\char`\"{}\+Interface Class\textquotesingle{}s External interafce\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a8bf5d8868fda86a13eaa8efe5f8c6f7b}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Interface\+Family\+Type class\+Type, Attribute\+Type attribute\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method store each \char`\"{}\+Attribute value\char`\"{} into respective dictionary \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0048a13cd6298b8b942e52b04aedc624}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Attribute\+Type Attribute\+In\+Attribute, Interface\+Family\+Type class\+Type, Attribute\+Type attribute\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method stores \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class\textquotesingle{}s External Interface\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5aa1ede5fe9adae926187baa8a33900e}{Search\+For\+Referenced\+Class\+Name}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Role\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This function is responsible for checking whole document for the \char`\"{}\+Referenced Class Name\char`\"{}\+: Note\+:-\/ This function is a recursion function, which conduct many iterations in the document. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_af14e0365f069689e2a345384a1d88561}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Name}} (Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Role\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method is responsible for checking \char`\"{}\+Attributes\char`\"{} under \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad712edf69757e816d68ecb2b500584e0}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name}} (Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Attribute\+Type attribute\+Type, Role\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method check for nested attributes under attributes of \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2c4569929beec8af516a2fe28da3bbdc}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Role\+Family\+Type class\+Type, Attribute\+Type attribute\+Type)
+\begin{DoxyCompactList}\small\item\em This fuunction stores \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} in the dictionary \char`\"{}\+Dictionary\+For\+Role\+Class\+Instance\+Attributes\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a56dea9bce7b957ddbb7506f5b84ad236}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Attribute\+Type Attribute\+In\+Attribute, Role\+Family\+Type class\+Type, Attribute\+Type attribute\+Type)
+\begin{DoxyCompactList}\small\item\em This method is responsible to store \char`\"{}\+Nested Attributes\char`\"{} under \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_abe0ec2875b120645b6b2810eea32e603}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Role\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This Function is responsible to search attributes under the \char`\"{}\+Referenced Classs Name\char`\"{} i.\+e. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a93e56dee9780b0eb614ae9f63c654845}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Attribute\+Type attribute\+Type, Role\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This function is responsible for checking \char`\"{}nested attributes\char`\"{} under \char`\"{}attributes\char`\"{} of the \char`\"{}\+External Interface\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aa03bb4f0eca822618c6e590acd091d30}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Role\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This function is responsible to check and store \char`\"{}\+Attributes\char`\"{} under \char`\"{}\+External Interface\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+Role Class\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a929b87c2d6ac8ff5bac7ef6438c7fba0}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, Attribute\+Type attribute\+Type, Role\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This function is responsible to check \char`\"{}attribute\char`\"{} under \char`\"{}attributes\char`\"{} i.\+e. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a4d5da760852f65985eae02da24f5df06}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Role\+Family\+Type class\+Type, Attribute\+Type attribute\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to store each attribute value of \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+External Interface\char`\"{} of Role Class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a66963e3c258c2bcc8f51353861a2bae6}{Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface}} (List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$ list, Attribute\+Type Attribute\+In\+Attribute, Role\+Family\+Type class\+Type, Attribute\+Type attribute\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method stores the nested attributes in \char`\"{}\+Dictionary\+For\+External\+Interfaces\+Instances\+Attributes\+Of\+Role\+Class\+Lib\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a7c6096f38f03c5e7e2e3b06a7e139017}{Search\+For\+Referenced\+Class\+Nameof\+External\+Iterface}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Role\+Family\+Type class\+Type, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is responsible to check for \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+External Interfaces\char`\"{} under the \char`\"{}\+Role Class\char`\"{} This method is a recursive method, that looks for the \char`\"{}\+Referenced Class Name\char`\"{} of the \char`\"{}\+Extenal Interface\char`\"{} under \char`\"{}\+Role Class\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a09a785a7ce03cbcea1e305d2144b2963}{Search\+For\+Interface\+Classes\+Inside\+Interface\+Class}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Role\+Family\+Type class\+Type, Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name)
+\begin{DoxyCompactList}\small\item\em This method searches \char`\"{}\+Role Classes\char`\"{} under \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a171c7b416129418d0b3c27514e98410c}{Search\+For\+Interface\+Classes\+Inside\+Interface\+Classof\+External\+Iterface}} (C\+A\+E\+X\+Document doc, string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}, Role\+Family\+Type class\+Type, Role\+Family\+Type class\+Type\+Search\+For\+Referenced\+Class\+Name, External\+Interface\+Type external\+Interface)
+\begin{DoxyCompactList}\small\item\em This method is a recursive method, which checks for \char`\"{}\+Refernced Class Name\char`\"{} under role class under role class \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_adc56320b0d72660f2f45cadc498edffd}{Check\+For\+Attributes\+Of\+Referenced\+Class\+Name}} (Role\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method is responsible for checking attributes under \char`\"{}\+Referenced Class Name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10b21544dd605907ae1b5de5f1523070}{Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name}} (Attribute\+Type attribute\+Type, Role\+Family\+Type class\+Type)
+\begin{DoxyCompactList}\small\item\em This method check for \char`\"{}nested attributes\char`\"{} of \char`\"{}referenced class name\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a885dc0dac3ebebe9a4e264860d6c1bcf}{Print\+Nodes\+Recursive\+In\+Role\+Class\+Lib}} (C\+A\+E\+X\+Document document, Tree\+Node o\+Parent\+Node, Role\+Family\+Type class\+Type, string referencedclass\+Name)
+\begin{DoxyCompactList}\small\item\em This method takes arguments \char`\"{}\+Tree\+Node\char`\"{} and \char`\"{}\+Role\+Family\+Type\char`\"{} to print tree nodes in \char`\"{}\+Role Class Library Tree\+View \char`\"{} in \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2d048625f052a65bd1a69c2622b013c3}{Print\+Nodes\+Recursive\+In\+Interface\+Class\+Lib}} (C\+A\+E\+X\+Document document, Tree\+Node o\+Parent\+Node, Interface\+Family\+Type class\+Type, string referencedclass\+Name)
+\begin{DoxyCompactList}\small\item\em This method Takes parameters \char`\"{}\+Tree\+Node\char`\"{} and \char`\"{}\+Interface\+Family\+Type\char`\"{} to print tree nodes in \char`\"{}\+Interface Class Library Tree\+View \char`\"{} in \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a84270fba66af2b2c4b1e550e9c232076}{Print\+External\+Interface\+Nodes}} (C\+A\+E\+X\+Document document, Tree\+Node o\+Parent\+Node, External\+Interface\+Type class\+Type, Interface\+Family\+Type Interafceclass\+Type)
+\begin{DoxyCompactList}\small\item\em This method is called to print \char`\"{}\+External Interfaces\char`\"{} in both \char`\"{}\+Role class Library and Interface Class Library\char`\"{} in the plugin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a1b60137e70854d4b6988bb53feefbc02}{Print\+External\+Interface\+Nodes}} (C\+A\+E\+X\+Document document, Tree\+Node o\+Parent\+Node, External\+Interface\+Type class\+Type, Role\+Family\+Type Roleclass\+Type)
+\begin{DoxyCompactList}\small\item\em This method is called to print \char`\"{}\+External Interfaces\char`\"{} in both \char`\"{}\+Role class Library and Interface Class Library\char`\"{} in the plugin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Dictionary$<$ string, string $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae2a9f746ba71aac0e1af3a3e6576b842}{Dictioanry\+Of\+I\+Dof\+Interface\+Class\+Library\+Nodes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em These are the properties of this class i.\+e. \end{DoxyCompactList}\item 
+Dictionary$<$ string, List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$ $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad15f0a5bc1513eb4379ff6d5ec7d8c32}{dictionaryof\+Role\+Classattributes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Dictionary$<$ string, List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$ $>$ $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a05463d55d6ccbd8379a158a72bb3f595}{Dictionary\+For\+Interface\+Class\+Instances\+Attributes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Dictionary$<$ string, List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$ $>$ $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ac19b278b2e5411e59f04885d24418de9}{Dictionary\+For\+External\+Interfaces\+Instance\+Attributesof\+Interface\+Class\+Lib}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Dictionary$<$ string, List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$ $>$ $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aefaaeac579bf73534e5101b4f4f52dcd}{Dictionary\+For\+Role\+Class\+Instance\+Attributes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Dictionary$<$ string, List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$ $>$ $>$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a574ca9332b8d007675793598ad421fb8}{Dictionary\+For\+External\+Interfaces\+Instances\+Attributes\+Of\+Role\+Class\+Lib}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}{referenced\+Class\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class reads the library file loaded in to the plugin \char`\"{}\+Role Class Library Tree\+View\char`\"{} and \char`\"{}\+Interface Class Library Tree\+View\char`\"{} 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aec38502ce275c149500a135b82f3d4e9}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aec38502ce275c149500a135b82f3d4e9}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchAMLLibraryFile@{SearchAMLLibraryFile}}
+\index{SearchAMLLibraryFile@{SearchAMLLibraryFile}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchAMLLibraryFile()}{SearchAMLLibraryFile()}}
+{\footnotesize\ttfamily Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+A\+M\+L\+Library\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This is the constructor of this class where all properties are intitialised to there early state 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a018cf327c2e354cb04ead38c34307852}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a018cf327c2e354cb04ead38c34307852}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}}
+\index{CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassName()}{CheckForAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a146489175fd769883842ca2c148f1a8c}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a146489175fd769883842ca2c148f1a8c}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}}
+\index{CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassName()}{CheckForAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method search for \char`\"{}\+Attributes\char`\"{} of \char`\"{}referenced Class name\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, for which attributes has to be stored in dictionary.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, to which this \char`\"{}referenced Class name\char`\"{} belongs to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_adc56320b0d72660f2f45cadc498edffd}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_adc56320b0d72660f2f45cadc498edffd}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}}
+\index{CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassName()}{CheckForAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible for checking attributes under \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type} & This is \char`\"{}\+Role\+Family\+Type\char`\"{}, which is \char`\"{}\+Groud\+Class\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_af14e0365f069689e2a345384a1d88561}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_af14e0365f069689e2a345384a1d88561}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}}
+\index{CheckForAttributesOfReferencedClassName@{CheckForAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassName()}{CheckForAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible for checking \char`\"{}\+Attributes\char`\"{} under \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & this is \char`\"{}\+Role\+Family\+Type\char`\"{}, which we are checking attributes for.\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0acb853cf4f5cdb3c8c4a35c6a551756}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0acb853cf4f5cdb3c8c4a35c6a551756}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}}
+\index{CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassNameofExternalIterface()}{CheckForAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to Check \char`\"{}attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{}.\\
+\hline
+{\em external\+Interface} & This is \char`\"{}\+External\+Interface\+Type\char`\"{}, which attributes has to be stored in a dictionary\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a9dff615a305d66eb984477ba92b043b9}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a9dff615a305d66eb984477ba92b043b9}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}}
+\index{CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassNameofExternalIterface()}{CheckForAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to check \char`\"{}attributes\char`\"{} OF \char`\"{}\+Refrenced Class Name\char`\"{} of \char`\"{}\+External\+Interface\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, for which attributes are checked.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface Family Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{} used for creating Key to the dictionary.\\
+\hline
+{\em external\+Interface} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_abe0ec2875b120645b6b2810eea32e603}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_abe0ec2875b120645b6b2810eea32e603}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}}
+\index{CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassNameofExternalIterface()}{CheckForAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This Function is responsible to search attributes under the \char`\"{}\+Referenced Classs Name\char`\"{} i.\+e. 
+
+in this part \char`\"{}\+Role\+Family\+Type\char`\"{}
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type} & This is \char`\"{}\+Ground Class we are checking attributes for.\char`\"{} \\
+\hline
+{\em external\+Interface} & This is \char`\"{}\+External\+Interface\+Type\char`\"{}, for which the attributes has to be checked and stored\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aa03bb4f0eca822618c6e590acd091d30}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aa03bb4f0eca822618c6e590acd091d30}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}}
+\index{CheckForAttributesOfReferencedClassNameofExternalIterface@{CheckForAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CheckForAttributesOfReferencedClassNameofExternalIterface()}{CheckForAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Check\+For\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This function is responsible to check and store \char`\"{}\+Attributes\char`\"{} under \char`\"{}\+External Interface\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+Role Class\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is the \char`\"{}\+Referenced Class Name\char`\"{} of Role Classe\textquotesingle{}s \char`\"{}\+External Interface\char`\"{}.\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Role Class\char`\"{}\\
+\hline
+{\em external\+Interface} & Thi is the \char`\"{}\+External Interface\char`\"{} we are looking for.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a82cf799b61e58be9c68e92949fc7842e}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a82cf799b61e58be9c68e92949fc7842e}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}}
+\index{CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassName()}{CkeckForNestedAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10b21544dd605907ae1b5de5f1523070}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10b21544dd605907ae1b5de5f1523070}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}}
+\index{CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassName()}{CkeckForNestedAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Role\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method check for \char`\"{}nested attributes\char`\"{} of \char`\"{}referenced class name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, for which nest attributes has to be checked.\\
+\hline
+{\em class\+Type} & This \char`\"{}\+Role\+Family\+Type\char`\"{}, which is \char`\"{}\+Ground class\char`\"{}\\
+\hline
+\end{DoxyParams}
+Foreach attribute.....\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0ee3cf6b377de457bec9874531dedc83}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0ee3cf6b377de457bec9874531dedc83}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}}
+\index{CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassName()}{CkeckForNestedAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to check nested attributes of \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, for which attributes has to be stored in dictionary.\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, where the attributes values has to be stored\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, to which this \char`\"{}referenced Class name\char`\"{} belongs to\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad712edf69757e816d68ecb2b500584e0}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad712edf69757e816d68ecb2b500584e0}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}}
+\index{CkeckForNestedAttributesOfReferencedClassName@{CkeckForNestedAttributesOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassName()}{CkeckForNestedAttributesOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Role\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method check for nested attributes under attributes of \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Role\+Family\+Type\char`\"{}, which we are checking attributes \\
+\hline
+{\em attribute\+Type} & This is the \char`\"{}\+Attribute\+Type\char`\"{}, which is having \char`\"{}\+Nested Attributes\char`\"{}\\
+\hline
+{\em class\+Type} & This id the \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ab83a891496cd97f72f4756335513b360}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ab83a891496cd97f72f4756335513b360}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}}
+\index{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to check \char`\"{}\+Nested A\+Ttributes\char`\"{} of \char`\"{}\+External Interface\textquotesingle{}s Attribute \char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{} , for which nested attributes has to be checked.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type, which is \char`\"{}Ground Class\char`\"{} used while creating \char`\"{}keyname\char`\"{} in dictionary$<$/param$>$
+$<$param name=\char`\"{}external\+Interface\char`\"{}$>$\+This \char`\"{}External\+Interface\+Type for which attributes are checked."\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a93e56dee9780b0eb614ae9f63c654845}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a93e56dee9780b0eb614ae9f63c654845}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}}
+\index{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This function is responsible for checking \char`\"{}nested attributes\char`\"{} under \char`\"{}attributes\char`\"{} of the \char`\"{}\+External Interface\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attribute\+Type} & This is the \char`\"{}\+Attribute\+Type\char`\"{}, which is having nested attributes.\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{} we are Searching in.\\
+\hline
+{\em external\+Interface} & This is the \char`\"{}\+External\+Interface\+Type\char`\"{}, which is having attributes.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a21e849724bea0e2528bc13522809aa04}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a21e849724bea0e2528bc13522809aa04}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}}
+\index{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to check the \char`\"{}\+Nested Attributes\char`\"{} of \char`\"{}\+Attributes\char`\"{} of\char`\"{}\+Interface Class\textquotesingle{}s External interafce\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, for which attributes are checked.\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, which attribtes has to be stored.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interfce\+Class\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{} used for creating a key in dictionary. \\
+\hline
+{\em external\+Interface} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a929b87c2d6ac8ff5bac7ef6438c7fba0}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a929b87c2d6ac8ff5bac7ef6438c7fba0}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}}
+\index{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface@{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}{CkeckForNestedAttributesOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Ckeck\+For\+Nested\+Attributes\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This function is responsible to check \char`\"{}attribute\char`\"{} under \char`\"{}attributes\char`\"{} i.\+e. 
+
+nested attributes This function is a recursive function, which check nested attributes untill they were ended.
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This if \char`\"{}\+Role\+Family\+Type\char`\"{}, which we are storing attributes for \\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type \char`\"{}, which retrives attribute values \\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{}, which we are looking in\\
+\hline
+{\em external\+Interface} & This is the \char`\"{}external interface\char`\"{}, under which the attributes has to be stored. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a84270fba66af2b2c4b1e550e9c232076}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a84270fba66af2b2c4b1e550e9c232076}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!PrintExternalInterfaceNodes@{PrintExternalInterfaceNodes}}
+\index{PrintExternalInterfaceNodes@{PrintExternalInterfaceNodes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{PrintExternalInterfaceNodes()}{PrintExternalInterfaceNodes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Print\+External\+Interface\+Nodes (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{document,  }\item[{Tree\+Node}]{o\+Parent\+Node,  }\item[{External\+Interface\+Type}]{class\+Type,  }\item[{Interface\+Family\+Type}]{Interafceclass\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is called to print \char`\"{}\+External Interfaces\char`\"{} in both \char`\"{}\+Role class Library and Interface Class Library\char`\"{} in the plugin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em o\+Parent\+Node} & \\
+\hline
+{\em class\+Type} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a1b60137e70854d4b6988bb53feefbc02}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a1b60137e70854d4b6988bb53feefbc02}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!PrintExternalInterfaceNodes@{PrintExternalInterfaceNodes}}
+\index{PrintExternalInterfaceNodes@{PrintExternalInterfaceNodes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{PrintExternalInterfaceNodes()}{PrintExternalInterfaceNodes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Print\+External\+Interface\+Nodes (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{document,  }\item[{Tree\+Node}]{o\+Parent\+Node,  }\item[{External\+Interface\+Type}]{class\+Type,  }\item[{Role\+Family\+Type}]{Roleclass\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is called to print \char`\"{}\+External Interfaces\char`\"{} in both \char`\"{}\+Role class Library and Interface Class Library\char`\"{} in the plugin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em o\+Parent\+Node} & This is \char`\"{}\+Tree\+Node\char`\"{}, which is parent node for the new node that is going to be created using this method. \\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Role\+Family\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2d048625f052a65bd1a69c2622b013c3}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2d048625f052a65bd1a69c2622b013c3}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!PrintNodesRecursiveInInterfaceClassLib@{PrintNodesRecursiveInInterfaceClassLib}}
+\index{PrintNodesRecursiveInInterfaceClassLib@{PrintNodesRecursiveInInterfaceClassLib}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{PrintNodesRecursiveInInterfaceClassLib()}{PrintNodesRecursiveInInterfaceClassLib()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Print\+Nodes\+Recursive\+In\+Interface\+Class\+Lib (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{document,  }\item[{Tree\+Node}]{o\+Parent\+Node,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{string}]{referencedclass\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method Takes parameters \char`\"{}\+Tree\+Node\char`\"{} and \char`\"{}\+Interface\+Family\+Type\char`\"{} to print tree nodes in \char`\"{}\+Interface Class Library Tree\+View \char`\"{} in \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em o\+Parent\+Node} & \\
+\hline
+{\em class\+Type} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a885dc0dac3ebebe9a4e264860d6c1bcf}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a885dc0dac3ebebe9a4e264860d6c1bcf}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!PrintNodesRecursiveInRoleClassLib@{PrintNodesRecursiveInRoleClassLib}}
+\index{PrintNodesRecursiveInRoleClassLib@{PrintNodesRecursiveInRoleClassLib}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{PrintNodesRecursiveInRoleClassLib()}{PrintNodesRecursiveInRoleClassLib()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Print\+Nodes\+Recursive\+In\+Role\+Class\+Lib (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{document,  }\item[{Tree\+Node}]{o\+Parent\+Node,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{string}]{referencedclass\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method takes arguments \char`\"{}\+Tree\+Node\char`\"{} and \char`\"{}\+Role\+Family\+Type\char`\"{} to print tree nodes in \char`\"{}\+Role Class Library Tree\+View \char`\"{} in \mbox{\hyperlink{namespace_aml_1_1_editor_1_1_plugin}{Plugin}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em o\+Parent\+Node} & This is a \char`\"{}\+Tree\+Node\char`\"{}, which is parent node for the new node that is going to be created using this method. \\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Role\+Family\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a59edcf46c97b643baec157aa2904bb62}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a59edcf46c97b643baec157aa2904bb62}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForInterfaceClassesInsideInterfaceClass@{SearchForInterfaceClassesInsideInterfaceClass}}
+\index{SearchForInterfaceClassesInsideInterfaceClass@{SearchForInterfaceClassesInsideInterfaceClass}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForInterfaceClassesInsideInterfaceClass()}{SearchForInterfaceClassesInsideInterfaceClass()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Interface\+Classes\+Inside\+Interface\+Class (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This class is responsible to search for interface classes ´nested inside Interface classes and recursion of this interface classes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the \char`\"{}\+C\+A\+E\+X\+Document, where the search has to be done \char`\"{}\\
+\hline
+{\em referenced\+Class\+Name} & This is \char`\"{}\+String\char`\"{} variable, that stores the name of the \char`\"{}\+Referenced Class Name\char`\"{}\\
+\hline
+{\em class\+Type} & This \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is a\char`\"{}\+Ground Class\char`\"{}\\
+\hline
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, where the \char`\"{}referenced Class Name\char`\"{} is presented\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a09a785a7ce03cbcea1e305d2144b2963}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a09a785a7ce03cbcea1e305d2144b2963}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForInterfaceClassesInsideInterfaceClass@{SearchForInterfaceClassesInsideInterfaceClass}}
+\index{SearchForInterfaceClassesInsideInterfaceClass@{SearchForInterfaceClassesInsideInterfaceClass}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForInterfaceClassesInsideInterfaceClass()}{SearchForInterfaceClassesInsideInterfaceClass()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Interface\+Classes\+Inside\+Interface\+Class (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method searches \char`\"{}\+Role Classes\char`\"{} under \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the document, where we are searching for \char`\"{}\+Referenced Class Name\char`\"{} \\
+\hline
+{\em referenced\+Class\+Name} & This is the \char`\"{}\+Referenced Class Name\char`\"{} i.\+e. \char`\"{}\+String\char`\"{} used to search for the name of thE \char`\"{}\+Referenced Class Name\char`\"{}\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Role\+Family\+Type\char`\"{} i.\+e. \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Role\+Family\+Type\char`\"{}, under which the role clasees are searched.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a74c126142b223c61a0315c31c1f0abe4}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a74c126142b223c61a0315c31c1f0abe4}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForInterfaceClassesInsideInterfaceClassofExternalIterface@{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface}}
+\index{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface@{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface()}{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Interface\+Classes\+Inside\+Interface\+Classof\+External\+Iterface (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Interface\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method search for \char`\"{}\+Interface Classes\char`\"{} inside \char`\"{}\+Interface Classes\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is \char`\"{}\+C\+A\+E\+X\+Docuemt\char`\"{} in which the search has to be done\+:\\
+\hline
+{\em referenced\+Class\+Name} & This is \char`\"{}\+String variable\char`\"{} in which \char`\"{}\+Refrenced Class name\char`\"{} is stored\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{}´used to generate key name in dictionary.\\
+\hline
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Interface Class T\+Y\+P\+E\char`\"{}; where \char`\"{}\+Interfac Classes\char`\"{} inside has to be searched.\\
+\hline
+{\em external\+Interface} & This is the \char`\"{}\+External\+Interface\+Type\char`\"{}, for which refernced name attributes has to be stored.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a171c7b416129418d0b3c27514e98410c}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a171c7b416129418d0b3c27514e98410c}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForInterfaceClassesInsideInterfaceClassofExternalIterface@{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface}}
+\index{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface@{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface()}{SearchForInterfaceClassesInsideInterfaceClassofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Interface\+Classes\+Inside\+Interface\+Classof\+External\+Iterface (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Role\+Family\+Type}]{class\+Type\+Search\+For\+Referenced\+Class\+Name,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is a recursive method, which checks for \char`\"{}\+Refernced Class Name\char`\"{} under role class under role class 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the document or file, where the search has to be done\\
+\hline
+{\em referenced\+Class\+Name} & This is the \char`\"{}\+Referenced Class\+Name\char`\"{}, that we are looking i the document.\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{} we stared search at.\\
+\hline
+{\em class\+Type\+Search\+For\+Referenced\+Class\+Name} & This is \char`\"{}\+Role\+Famil\+Type\char`\"{} to search, if \char`\"{}\+Role Classes\char`\"{} are present. \\
+\hline
+{\em external\+Interface} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10fd9a1fcbf4033415354765a7b5223e}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a10fd9a1fcbf4033415354765a7b5223e}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForReferencedClassName@{SearchForReferencedClassName}}
+\index{SearchForReferencedClassName@{SearchForReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForReferencedClassName()}{SearchForReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to iterate over \char`\"{}\+Interafce Class Libraries \& Interafce Classes in it\char`\"{}, and strore attributes of \char`\"{}\+Referenced Class Name\char`\"{} in the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the \char`\"{}\+C\+A\+E\+X\+Document, where the search has to be done \char`\"{}\\
+\hline
+{\em referenced\+Class\+Name} & This is \char`\"{}\+String\char`\"{} variable, that stores the name of the \char`\"{}\+Referenced Class Name\char`\"{}\\
+\hline
+{\em class\+Type} & This \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is a\char`\"{}\+Ground Class\char`\"{}.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5aa1ede5fe9adae926187baa8a33900e}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5aa1ede5fe9adae926187baa8a33900e}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForReferencedClassName@{SearchForReferencedClassName}}
+\index{SearchForReferencedClassName@{SearchForReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForReferencedClassName()}{SearchForReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This function is responsible for checking whole document for the \char`\"{}\+Referenced Class Name\char`\"{}\+: Note\+:-\/ This function is a recursion function, which conduct many iterations in the document. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the loaded document. This might be loaded by user or can be from the plugin as well.\\
+\hline
+{\em referenced\+Class\+Name} & This is the \char`\"{}\+Role Class Name\char`\"{} in the documentm, which the function is checking for \\
+\hline
+{\em class\+Type} & This is just the Class Type that we are asking this function to check in the document. i.\+e. (Role\+Family\+Type)\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5c19581d6a736a2a158b2645ca4630d7}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a5c19581d6a736a2a158b2645ca4630d7}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForReferencedClassNameofExternalIterface@{SearchForReferencedClassNameofExternalIterface}}
+\index{SearchForReferencedClassNameofExternalIterface@{SearchForReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForReferencedClassNameofExternalIterface()}{SearchForReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+//\+This method search for \char`\"{}\+Referenced Class\char`\"{} of \char`\"{}\+External Interface\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is \char`\"{}\+C\+A\+E\+X\+Docuemt\char`\"{} in which the search has to be done.\\
+\hline
+{\em referenced\+Class\+Name} & This is \char`\"{}\+String variable\char`\"{} in which \char`\"{}\+Refrenced Class name\char`\"{} is stored.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is a \char`\"{}\+Ground Class\char`\"{}´used to generate key name in dictionary.\\
+\hline
+{\em external\+Interface} & This is the \char`\"{}\+External\+Interface\+Type\char`\"{}, for which refernced name attributes has to be stored.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a7c6096f38f03c5e7e2e3b06a7e139017}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a7c6096f38f03c5e7e2e3b06a7e139017}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!SearchForReferencedClassNameofExternalIterface@{SearchForReferencedClassNameofExternalIterface}}
+\index{SearchForReferencedClassNameofExternalIterface@{SearchForReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{SearchForReferencedClassNameofExternalIterface()}{SearchForReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Search\+For\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{C\+A\+E\+X\+Document}]{doc,  }\item[{string}]{referenced\+Class\+Name,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to check for \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+External Interfaces\char`\"{} under the \char`\"{}\+Role Class\char`\"{} This method is a recursive method, that looks for the \char`\"{}\+Referenced Class Name\char`\"{} of the \char`\"{}\+Extenal Interface\char`\"{} under \char`\"{}\+Role Class\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em doc} & This is the document loaded from the plugin or loaded by user from his local machine.\\
+\hline
+{\em referenced\+Class\+Name} & This is the string that we are looking for inside the document.\\
+\hline
+{\em class\+Type} & This is the Class Type i.\+e. \char`\"{}\+Role\+Famliy\+Type\char`\"{} i.\+e. under \char`\"{}\+Role Classes\char`\"{} we are looking for.\\
+\hline
+{\em external\+Interface} & Don\textquotesingle{}t forget we are looking for thev\char`\"{}\+Extenal\+Interface\char`\"{} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae8c186a47b1131b50fb6555f6ab169d0}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae8c186a47b1131b50fb6555f6ab169d0}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}}
+\index{StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassName()}{StoreEachAttributeValueInListOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Attribute\+Type}]{Attribute\+In\+Attribute,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method store nested attributes of each attribute of \char`\"{}\+Referenced C\+L\+A\+S\+S name\char`\"{} in the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is list of attribute values .\\
+\hline
+{\em Attribute\+In\+Attribute} & This is \char`\"{}\+Attribute\+Type \char`\"{}, where the values has to be stored.\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interafce Class\char`\"{}, which is having \char`\"{}\+Referenced Class Name \char`\"{}\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a56dea9bce7b957ddbb7506f5b84ad236}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a56dea9bce7b957ddbb7506f5b84ad236}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}}
+\index{StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassName()}{StoreEachAttributeValueInListOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Attribute\+Type}]{Attribute\+In\+Attribute,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to store \char`\"{}\+Nested Attributes\char`\"{} under \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is the list of attributes which has to be intantiaed as an empty list .\\
+\hline
+{\em Attribute\+In\+Attribute} & This is \char`\"{}\+Attribute\+Type\char`\"{}, which represents \char`\"{}nested attributes\char`\"{} of an \char`\"{}attribute\char`\"{}\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, which is the main attribute.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a11a5f85235f45a9dd490ed80f116583c}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a11a5f85235f45a9dd490ed80f116583c}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}}
+\index{StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassName()}{StoreEachAttributeValueInListOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This the method that stores Attribute values of \char`\"{}\+Referened Class name\char`\"{} of \char`\"{}\+Interface Class\char`\"{} in the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is list of attribute values .\\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interafce Class\char`\"{}, which is having \char`\"{}\+Referenced Class Name \char`\"{}\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, where the values has to be stored.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2c4569929beec8af516a2fe28da3bbdc}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a2c4569929beec8af516a2fe28da3bbdc}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}}
+\index{StoreEachAttributeValueInListOfReferencedClassName@{StoreEachAttributeValueInListOfReferencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassName()}{StoreEachAttributeValueInListOfReferencedClassName()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Name (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This fuunction stores \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class Name\char`\"{} in the dictionary \char`\"{}\+Dictionary\+For\+Role\+Class\+Instance\+Attributes\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is the list of attributes, which has to be initiated and stores values\\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Ground Class\char`\"{}\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, Which can give access to every value in the \char`\"{}\+Attribute\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0048a13cd6298b8b942e52b04aedc624}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a0048a13cd6298b8b942e52b04aedc624}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}}
+\index{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Attribute\+Type}]{Attribute\+In\+Attribute,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method stores \char`\"{}\+Attributes\char`\"{} of \char`\"{}\+Referenced Class\textquotesingle{}s External Interface\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is list of \char`\"{}attribute values\char`\"{}, that a\char`\"{}ttribute values\char`\"{} of \char`\"{}\+External Interfacs\char`\"{} has to be stored in.\\
+\hline
+{\em Attribute\+In\+Attribute} & This is \char`\"{}\+Attribute\+Type, for which \char`\"{}Nested Attributes\char`\"{} has to be stored.$<$/param$>$
+$<$param name=\char`\"{}class\+Type\char`\"{}$>$\+This is \char`\"{}Interface\+Family\+Type\char`\"{}, which is \char`\"{}Ground Class\char`\"{} used while naming a key in dictioonary.$<$/param$>$
+$<$param name=\char`\"{}attribute\+Type\char`\"{}$>$\+This \char`\"{}Attribute\+Type\char`\"{} is  nested attribute of parent attribute. $<$/param$>$
+$<$param name=\char`\"{}external\+Interface"$>$\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a66963e3c258c2bcc8f51353861a2bae6}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a66963e3c258c2bcc8f51353861a2bae6}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}}
+\index{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Attribute\+Type}]{Attribute\+In\+Attribute,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method stores the nested attributes in \char`\"{}\+Dictionary\+For\+External\+Interfaces\+Instances\+Attributes\+Of\+Role\+Class\+Lib\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This the list of attributes \\
+\hline
+{\em Attribute\+In\+Attribute} & This is \char`\"{}\+Attribute\+Type\char`\"{} i.\+e. nested attribute \\
+\hline
+{\em class\+Type} & This is the \char`\"{}\+Role\+Family\+Type\char`\"{} used to define the \char`\"{}keyname\char`\"{} of the dictionary \\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{} under which \char`\"{}\+Nested Attributes\char`\"{} are present\\
+\hline
+{\em external\+Interface} & This is the \char`\"{}\+External\+Interface\+Type\char`\"{} used to define the \char`\"{}keyname\char`\"{} of the dictionary and also the attribute holder \char`\"{}\+External Interface\char`\"{}\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a8bf5d8868fda86a13eaa8efe5f8c6f7b}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a8bf5d8868fda86a13eaa8efe5f8c6f7b}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}}
+\index{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Interface\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method store each \char`\"{}\+Attribute value\char`\"{} into respective dictionary 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is the list of attribute values \\
+\hline
+{\em class\+Type} & This is \char`\"{}\+Interface\+Family\+Type\char`\"{}, which is \char`\"{}ground class\char`\"{} used while creating \char`\"{}key name\char`\"{} .\\
+\hline
+{\em attribute\+Type} & This is \char`\"{}\+Attribute\+Type\char`\"{}, whose values are going to be stored.\\
+\hline
+{\em external\+Interface} & This \char`\"{}\+External\+Interface\+Type\char`\"{}, to which these attributes belong to.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a4d5da760852f65985eae02da24f5df06}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a4d5da760852f65985eae02da24f5df06}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}}
+\index{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface@{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}{StoreEachAttributeValueInListOfReferencedClassNameofExternalIterface()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Store\+Each\+Attribute\+Value\+In\+List\+Of\+Referenced\+Class\+Nameof\+External\+Iterface (\begin{DoxyParamCaption}\item[{List$<$ List$<$ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}} $>$$>$}]{list,  }\item[{Role\+Family\+Type}]{class\+Type,  }\item[{Attribute\+Type}]{attribute\+Type,  }\item[{External\+Interface\+Type}]{external\+Interface }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is responsible to store each attribute value of \char`\"{}\+Referenced Class Name\char`\"{} of \char`\"{}\+External Interface\char`\"{} of Role Class. 
+
+This method stores each value in attribute into a dictionary (Dictionary\+For\+External\+Interfaces\+Instances\+Attributes\+Of\+Role\+Class\+Lib)
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & This is list of lists that can hold attribute values\\
+\hline
+{\em class\+Type} & Role\+Family\+Type is the \char`\"{}ground Class\char`\"{} We are storing this \char`\"{}\+Attributes\char`\"{} for\\
+\hline
+{\em attribute\+Type} & This is each attribute\\
+\hline
+{\em external\+Interface} & This is \char`\"{}external interface\char`\"{} we are storing \char`\"{}\+Attributes\char`\"{} for\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae2a9f746ba71aac0e1af3a3e6576b842}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ae2a9f746ba71aac0e1af3a3e6576b842}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!DictioanryOfIDofInterfaceClassLibraryNodes@{DictioanryOfIDofInterfaceClassLibraryNodes}}
+\index{DictioanryOfIDofInterfaceClassLibraryNodes@{DictioanryOfIDofInterfaceClassLibraryNodes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{DictioanryOfIDofInterfaceClassLibraryNodes}{DictioanryOfIDofInterfaceClassLibraryNodes}}
+{\footnotesize\ttfamily Dictionary$<$string, string$>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Dictioanry\+Of\+I\+Dof\+Interface\+Class\+Library\+Nodes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+These are the properties of this class i.\+e. 
+
+dictionaries where all attribute values from A\+ML file are strored and\# further retrived in \char`\"{}\+Device Description Class\char`\"{} to edit values by user.\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ac19b278b2e5411e59f04885d24418de9}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ac19b278b2e5411e59f04885d24418de9}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib@{DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib}}
+\index{DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib@{DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib}{DictionaryForExternalInterfacesInstanceAttributesofInterfaceClassLib}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$List$<$\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}$>$ $>$ $>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Dictionary\+For\+External\+Interfaces\+Instance\+Attributesof\+Interface\+Class\+Lib\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a574ca9332b8d007675793598ad421fb8}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a574ca9332b8d007675793598ad421fb8}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib@{DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib}}
+\index{DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib@{DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib}{DictionaryForExternalInterfacesInstancesAttributesOfRoleClassLib}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$List$<$\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}$>$ $>$ $>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Dictionary\+For\+External\+Interfaces\+Instances\+Attributes\+Of\+Role\+Class\+Lib\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a05463d55d6ccbd8379a158a72bb3f595}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a05463d55d6ccbd8379a158a72bb3f595}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!DictionaryForInterfaceClassInstancesAttributes@{DictionaryForInterfaceClassInstancesAttributes}}
+\index{DictionaryForInterfaceClassInstancesAttributes@{DictionaryForInterfaceClassInstancesAttributes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{DictionaryForInterfaceClassInstancesAttributes}{DictionaryForInterfaceClassInstancesAttributes}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$List$<$\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}$>$ $>$ $>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Dictionary\+For\+Interface\+Class\+Instances\+Attributes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aefaaeac579bf73534e5101b4f4f52dcd}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_aefaaeac579bf73534e5101b4f4f52dcd}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!DictionaryForRoleClassInstanceAttributes@{DictionaryForRoleClassInstanceAttributes}}
+\index{DictionaryForRoleClassInstanceAttributes@{DictionaryForRoleClassInstanceAttributes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{DictionaryForRoleClassInstanceAttributes}{DictionaryForRoleClassInstanceAttributes}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$List$<$\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}$>$ $>$ $>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+Dictionary\+For\+Role\+Class\+Instance\+Attributes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad15f0a5bc1513eb4379ff6d5ec7d8c32}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_ad15f0a5bc1513eb4379ff6d5ec7d8c32}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!dictionaryofRoleClassattributes@{dictionaryofRoleClassattributes}}
+\index{dictionaryofRoleClassattributes@{dictionaryofRoleClassattributes}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{dictionaryofRoleClassattributes}{dictionaryofRoleClassattributes}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_class_of_lists_from_referencefile}{Class\+Of\+Lists\+From\+Referencefile}}$>$ $>$ Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+dictionaryof\+Role\+Classattributes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}\label{class_aml_1_1_editor_1_1_plugin_1_1_search_a_m_l_library_file_a614e280498e0017b87a23031a745b879}} 
+\index{Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}!referencedClassName@{referencedClassName}}
+\index{referencedClassName@{referencedClassName}!Aml.Editor.Plugin.SearchAMLLibraryFile@{Aml.Editor.Plugin.SearchAMLLibraryFile}}
+\doxysubsubsection{\texorpdfstring{referencedClassName}{referencedClassName}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+Search\+A\+M\+L\+Library\+File.\+referenced\+Class\+Name\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_search_a_m_l_library_file_8cs}{Search\+A\+M\+L\+Library\+File.\+cs}}\end{DoxyCompactItemize}

@@ -1,0 +1,47 @@
+This is a Plugin for the Automation\+ML Editor. It is able to create new A\+ML Devices and Interfaces and save them as A\+M\+LX Package. It can also import I\+O\+DD and G\+S\+D\+ML Files using Converters
+
+This project was developed as a student project at the \href{https://dhbw-stuttgart.de}{\texttt{ Cooperative State University (D\+H\+BW)}} in Stuttgart under supervision of \href{http://wwwlehre.dhbw-stuttgart.de/~rentschler/}{\texttt{ Markus Rentschler}} by the following student team in 2018/2019\+:
+\begin{DoxyItemize}
+\item Burkowitz, Steffen
+\item Löffler, Tobias
+\item Mayer, Simon
+\item Joukhadar, Abdulkarim
+\item Wandel, Simon
+\end{DoxyItemize}
+
+This project was further developed as a Mater Thesis work at \mbox{[}Innovative Software Services GmbH Stuttgart\mbox{]} by student from \mbox{[}Otto-\/\+Von-\/\+Guericke University Magdeburg\mbox{]} under supervision of Markus Rentschler.
+\begin{DoxyItemize}
+\item Raj Kumar Pulaparthi
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Missing Labels and Text}\label{md__r_e_a_d_m_e_autotoc_md1}
+Due to a bug in the window manager of the A\+M\+L\+Editor if you are using the theme \char`\"{}\+Metro Light\char`\"{} the text and icon will not be visible on startup. To fix this, simply select another theme using \char`\"{}\+View\char`\"{} $>$ \char`\"{}\+Change Theme\char`\"{}. (See also this \href{https://github.com/TINF17C/ModellingWizard/issues/9}{\texttt{ issue}})\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{A\+M\+L Devices Format}\label{md__r_e_a_d_m_e_autotoc_md2}
+The Plugin creates Devices with the following Device\+Identification Internal\+Element\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<\textcolor{keywordtype}{InternalElement} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"DeviceIdentification"} \textcolor{keyword}{ID}=\textcolor{stringliteral}{"\%DEVICEID\%"}>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"CommunicationTechnology"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"VendorName"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"}>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"DeviceName"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"DeviceFamiliy"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"ProductName"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"OrderNumber"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"ProductText"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"IPProtection"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"VendorHompage"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"HardwareRelease"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"SoftwareRelease"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:string"} />}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"OperatingTemperatureMin"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:double"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"OperatingTemperatureMax"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:double"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"VendorId"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:integer"}/>}
+\DoxyCodeLine{    <\textcolor{keywordtype}{Attribute} \textcolor{keyword}{Name}=\textcolor{stringliteral}{"DeviceId"} \textcolor{keyword}{AttributeDataType}=\textcolor{stringliteral}{"xs:integer"}/>}
+\DoxyCodeLine{</\textcolor{keywordtype}{InternalElement}>}
+\end{DoxyCode}
+
+
+If a Device has this Internel\+Element Attributes, our Plugin will be able to display and modifiy the device.\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{Setup Projekt for development}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyEnumerate}
+\item Open the .sln in Visual Studio
+\item Make sure that the Nu\+Get Packages are installed (Check using\+: \textquotesingle{}Extras\textquotesingle{} -\/$>$ \textquotesingle{}Nu\+Get-\/\+Packet-\/\+Manager\textquotesingle{} -\/$>$ \textquotesingle{}Nu\+Get-\/\+Packete für diese Projektmappe verwalten\textquotesingle{})
+\item Install the A\+M\+L\+Editor Version 5.\+1.\+3 or newer
+\item To test the plugin, copy the build output (Modelling\+Wizard.\+dll) to the Plug\+In folder of the A\+M\+L\+Editor
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysection{Honorable mention}\label{md__r_e_a_d_m_e_autotoc_md4}
+Christian K. und Philipp A. 

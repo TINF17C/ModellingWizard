@@ -9,9 +9,11 @@ namespace Aml.Editor.Plugin
     public class MWController
     {
         // the (initialised) GUIs
-        private CreateDevice createDeviceForm;
-        private CreateInterface createInterfaceForm;
-        private StartGUI startGUI;
+        
+      
+      
+        private DeviceDescription deviceDescriptionForm;
+        
 
         // the interface class to the AML Editor
         private ModellingWizard modellingWizard;
@@ -31,83 +33,32 @@ namespace Aml.Editor.Plugin
         {
             this.modellingWizard = modellingWizard;
             mWData = new MWData(this);
-            ReloadObjects();
+           
         }
 
         /// <summary>
         /// Create the new CreateDevice GUI or return the previously created GUI
         /// </summary>
         /// <returns>the CreateDevice GUI for this session</returns>
-        public CreateDevice GetCreateDeviceForm()
-        {
-            if (createDeviceForm == null)
-            {
-                createDeviceForm = new CreateDevice(this);
-            }
-
-            return createDeviceForm;
-        }
-
+       
         /// <summary>
-        /// Create the new CreateInterface GUI or return the previously created GUI
+        /// creáte the new DeviceDescription GUI or return the previously created GUI
         /// </summary>
-        /// <returns>the CreateDevice GUI for this session</returns>
-        public CreateInterface GetCreateInterfaceForm()
+        public DeviceDescription GetDeviceDescriptionForm()
         {
-            if (createInterfaceForm == null)
+            if (deviceDescriptionForm == null)
             {
-                createInterfaceForm = new CreateInterface(this);
+                deviceDescriptionForm = new DeviceDescription(this);
             }
-
-            return createInterfaceForm;
+            return deviceDescriptionForm;
         }
-
-        /// <summary>
-        /// Create the new Start GUI or return the previously created GUI
-        /// </summary>
-        /// <returns>the CreateDevice GUI for this session</returns>
-        public StartGUI GetStartGUI()
-        {
-            if (startGUI == null)
-            {
-                startGUI = new StartGUI(this);
-            }
-
-            return startGUI;
-        }
+        
+      
+        
 
 
-        // OnClickFunktion für CreateDevice
-        // OnClickFunktion für CreateInterfac
-        //      Daten aus allen GUI Input Feldern auslesen
-        //      CreateDevice(/Interface) in MWModell mit diesen Daten als Parameter aufrufen#
-
-        /// <summary>
-        /// Pass the data of the newInterface to the MWData
-        /// </summary>
-        /// <param name="newInterface">the object holding the data</param>
-        /// <param name="isEdit">true if the device was edited, false if the device is created</param>
-        /// <returns>the result as a string</returns>
-        public string CreateInterfaceOnClick(MWInterface newInterface, bool isEdit)
-        {
-            // create the interface
-            string result = mWData.CreateInterface(newInterface, isEdit);
-
-            // update the device list
-            if (isEdit)
-            {
-                ReloadObjects();
-            }
-            else
-            {
-                devices.Add(newInterface);
-                GetStartGUI().updateDeviceDropdown(devices);
-            }
-
-            // go to Start GUI
-            ChangeGui(MWController.MWGUIType.Start);
-            return result;
-        }
+       
+      
 
         /// <summary>
         /// 
@@ -117,6 +68,7 @@ namespace Aml.Editor.Plugin
         /// <returns></returns>
         public String CreateDeviceOnClick(MWDevice newDevice, bool isEdit)
         {
+            string result = "";
             // Check if device Name is set
             if (newDevice.deviceName.Equals(""))
             {
@@ -128,23 +80,24 @@ namespace Aml.Editor.Plugin
             {
                 return "Error no vendor name set!";
             }
-
-            // create the device
-            string result = mWData.CreateDevice(newDevice, isEdit);
-
+            if (newDevice.deviceName != null && newDevice.vendorName != null)
+            {
+                // create the device
+                 result = mWData.CreateDevice(newDevice, isEdit);
+            }
 
             // update the device list
             if (isEdit)
             {
-                ReloadObjects();
+               
             }
             else
             {
                 devices.Add(newDevice);
-                GetStartGUI().updateDeviceDropdown(devices);
+               
             }
 
-            ChangeGui(MWController.MWGUIType.Start);
+          
             return result;
 
         }
@@ -153,52 +106,11 @@ namespace Aml.Editor.Plugin
         /// Show the correct GUI for the selected device
         /// </summary>
         /// <param name="selectedIndex">The index of the selected item in the dropdown</param>
-        internal void showDevice(int selectedIndex)
-        {
-            if (devices.Count >= 1)
-            {
-                MWData.MWObject mWObject = devices[selectedIndex];
-                // Display the corect GUI for the object type
-                if (mWObject is MWDevice)
-                {
-                    GetCreateDeviceForm().prefill((MWDevice)mWObject);
-                    ChangeGui(MWGUIType.CreateDevice);
-                }
-                else if (mWObject is MWInterface)
-                {
-                    GetCreateInterfaceForm().prefill((MWInterface)mWObject);
-                    ChangeGui(MWGUIType.CreateInterface);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Load the AMLX file and display the loaded device
-        /// </summary>
-        /// <param name="fileName">the full path to an .amlx file</param>
-        internal void showDevice(string fileName)
-        {
-            MWData.MWObject mWObject = mWData.loadObject(fileName);
-            if (mWObject == null)
-            {
-                System.Windows.Forms.MessageBox.Show("The loaded device does not match the required format.\nThe ModellingWizard can not display this object");
-                return;
-            }
-            devices.Add(mWObject);
-            GetStartGUI().updateDeviceDropdown(devices);
-
-            // show the most recently added device
-            showDevice(devices.Count - 1);
-        }
-
+        
         /// <summary>
         /// Reload all .amlx files in ./modellingwizard/ and update the dropdown.
         /// </summary>
-        internal void ReloadObjects()
-        {
-            devices = mWData.LoadMWObjects();
-            GetStartGUI().updateDeviceDropdown(devices);
-        }
+        
 
         /// <summary>
         /// Switch the displayed 
@@ -208,22 +120,18 @@ namespace Aml.Editor.Plugin
         {
             switch (targetGUI)
             {
-                case MWGUIType.CreateDevice:
-                    modellingWizard.changeGUI(GetCreateDeviceForm());
+               
+                case MWGUIType.DeviceDescription:
+                    modellingWizard.changeGUI(GetDeviceDescriptionForm());
                     break;
-                case MWGUIType.CreateInterface:
-                    modellingWizard.changeGUI(GetCreateInterfaceForm());
-                    break;
-                case MWGUIType.Start:
-                    modellingWizard.changeGUI(GetStartGUI());
-                    break;
+
             }
         }
 
         /// <summary>
         /// Enum to represent the GUI
         /// </summary>
-        public enum MWGUIType { CreateDevice, CreateInterface, Start }
+        public enum MWGUIType { CreateDevice, CreateInterface, Start, DeviceDescription }
 
         /// <summary>
         /// Call the Converter with the given file
@@ -248,7 +156,7 @@ namespace Aml.Editor.Plugin
                     result = "Invalid Filetype";
                     break;
             }
-            ReloadObjects();
+           
             return result;
         }
     }

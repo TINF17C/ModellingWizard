@@ -1,0 +1,172 @@
+\hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller}{}\doxysection{Aml.\+Editor.\+Plugin.\+M\+W\+Controller Class Reference}
+\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller}\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+
+
+This class passes the inputs of the G\+U\+Is to \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}{M\+W\+Data}} where needed and it is in controll of what is displayed at the screen  
+
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}{M\+W\+G\+U\+I\+Type}} \{ \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a08139fc253db7964964002703bda052e}{M\+W\+G\+U\+I\+Type.\+Create\+Device}}, 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0afd44e4ee14bded07d2f3dff42dea0f6e}{M\+W\+G\+U\+I\+Type.\+Create\+Interface}}, 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0aa6122a65eaa676f700ae68d393054a37}{M\+W\+G\+U\+I\+Type.\+Start}}, 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a5d2adcfd71637096d3d16648971c33c5}{M\+W\+G\+U\+I\+Type.\+Device\+Description}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum to represent the G\+UI \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_a9c87165813d6f480fb4d1141de016565}{M\+W\+Controller}} (\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}{Modelling\+Wizard}} modelling\+Wizard)
+\begin{DoxyCompactList}\small\item\em Init the controller and reload all amlx devices \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_device_description}{Device\+Description}} \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_adba55c4a5135c58c69a0d92d495a0ad1}{Get\+Device\+Description\+Form}} ()
+\begin{DoxyCompactList}\small\item\em Create the new Create\+Device G\+UI or return the previously created G\+UI \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad0432669e3a6e29aadfb7892746b5068}{Create\+Device\+On\+Click}} (\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_device}{M\+W\+Device}} new\+Device, bool is\+Edit)
+\item 
+void \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_aa613a0bc4392c195c617dcd7aba257f5}{Change\+Gui}} (\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}{M\+W\+G\+U\+I\+Type}} target\+G\+UI)
+\begin{DoxyCompactList}\small\item\em Show the correct G\+UI for the selected device \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad2f99785d2a3b068dd3ce6c1d7f7fceb}{import\+File}} (string filename, \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}{M\+W\+Data.\+M\+W\+File\+Type}} filetype)
+\begin{DoxyCompactList}\small\item\em Call the Converter with the given file \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class passes the inputs of the G\+U\+Is to \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data}{M\+W\+Data}} where needed and it is in controll of what is displayed at the screen 
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!MWGUIType@{MWGUIType}}
+\index{MWGUIType@{MWGUIType}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{MWGUIType}{MWGUIType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}{Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+M\+W\+G\+U\+I\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum to represent the G\+UI 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CreateDevice@{CreateDevice}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!CreateDevice@{CreateDevice}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a08139fc253db7964964002703bda052e}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a08139fc253db7964964002703bda052e}} 
+Create\+Device&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CreateInterface@{CreateInterface}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!CreateInterface@{CreateInterface}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0afd44e4ee14bded07d2f3dff42dea0f6e}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0afd44e4ee14bded07d2f3dff42dea0f6e}} 
+Create\+Interface&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Start@{Start}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!Start@{Start}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0aa6122a65eaa676f700ae68d393054a37}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0aa6122a65eaa676f700ae68d393054a37}} 
+Start&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DeviceDescription@{DeviceDescription}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!DeviceDescription@{DeviceDescription}}}\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a5d2adcfd71637096d3d16648971c33c5}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0a5d2adcfd71637096d3d16648971c33c5}} 
+Device\+Description&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_a9c87165813d6f480fb4d1141de016565}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_a9c87165813d6f480fb4d1141de016565}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!MWController@{MWController}}
+\index{MWController@{MWController}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{MWController()}{MWController()}}
+{\footnotesize\ttfamily Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+M\+W\+Controller (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_modelling_wizard}{Modelling\+Wizard}}}]{modelling\+Wizard }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Init the controller and reload all amlx devices 
+
+
+\begin{DoxyParams}{Parameters}
+{\em modelling\+Wizard} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_aa613a0bc4392c195c617dcd7aba257f5}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_aa613a0bc4392c195c617dcd7aba257f5}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!ChangeGui@{ChangeGui}}
+\index{ChangeGui@{ChangeGui}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{ChangeGui()}{ChangeGui()}}
+{\footnotesize\ttfamily void Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+Change\+Gui (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_add13bd390b8d39fee5fb2b73d85ec6b0}{M\+W\+G\+U\+I\+Type}}}]{target\+G\+UI }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Show the correct G\+UI for the selected device 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selected\+Index} & The index of the selected item in the dropdown\\
+\hline
+\end{DoxyParams}
+
+
+Reload all .amlx files in ./modellingwizard/ and update the dropdown.
+
+Switch the displayed
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+G\+UI} & the G\+UI Type to display\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad0432669e3a6e29aadfb7892746b5068}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad0432669e3a6e29aadfb7892746b5068}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!CreateDeviceOnClick@{CreateDeviceOnClick}}
+\index{CreateDeviceOnClick@{CreateDeviceOnClick}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{CreateDeviceOnClick()}{CreateDeviceOnClick()}}
+{\footnotesize\ttfamily String Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+Create\+Device\+On\+Click (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_device}{M\+W\+Device}}}]{new\+Device,  }\item[{bool}]{is\+Edit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Device} & \\
+\hline
+{\em is\+Edit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_adba55c4a5135c58c69a0d92d495a0ad1}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_adba55c4a5135c58c69a0d92d495a0ad1}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!GetDeviceDescriptionForm@{GetDeviceDescriptionForm}}
+\index{GetDeviceDescriptionForm@{GetDeviceDescriptionForm}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{GetDeviceDescriptionForm()}{GetDeviceDescriptionForm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_device_description}{Device\+Description}} Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+Get\+Device\+Description\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create the new Create\+Device G\+UI or return the previously created G\+UI 
+
+\begin{DoxyReturn}{Returns}
+the Create\+Device G\+UI for this session
+\end{DoxyReturn}
+
+
+creáte the new \mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_device_description}{Device\+Description}} G\+UI or return the previously created G\+UI\mbox{\Hypertarget{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad2f99785d2a3b068dd3ce6c1d7f7fceb}\label{class_aml_1_1_editor_1_1_plugin_1_1_m_w_controller_ad2f99785d2a3b068dd3ce6c1d7f7fceb}} 
+\index{Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}!importFile@{importFile}}
+\index{importFile@{importFile}!Aml.Editor.Plugin.MWController@{Aml.Editor.Plugin.MWController}}
+\doxysubsubsection{\texorpdfstring{importFile()}{importFile()}}
+{\footnotesize\ttfamily string Aml.\+Editor.\+Plugin.\+M\+W\+Controller.\+import\+File (\begin{DoxyParamCaption}\item[{string}]{filename,  }\item[{\mbox{\hyperlink{class_aml_1_1_editor_1_1_plugin_1_1_m_w_data_a932def9f5f257f8c1cbc4949e549d233}{M\+W\+Data.\+M\+W\+File\+Type}}}]{filetype }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Call the Converter with the given file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the full path to the file\\
+\hline
+{\em filetype} & whether the file is an I\+O\+DD or an G\+SD file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_m_w_controller_8cs}{M\+W\+Controller.\+cs}}\end{DoxyCompactItemize}
